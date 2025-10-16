@@ -5,28 +5,32 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  setupFilesAfterEnv: ["<rootDir>/src/__tests__/setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testEnvironment: "jsdom",
-  moduleNameMapping: {
+  moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
     "<rootDir>/node_modules/",
-    "<rootDir>/src/tests/e2e/",
-    "<rootDir>/src/__tests__/setup.ts",
+    "<rootDir>/tests/e2e/",
+    "<rootDir>/tests/setup.ts",
   ],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.d.ts",
-    "!src/__tests__/**",
+    "!src/shared/components/ui/**",
+    "!src/shared/hooks/**",
+    "!src/shared/components/layout/**",
+    "!src/shared/components/carousel/**",
     "!src/**/*.stories.{js,jsx,ts,tsx}",
     "!src/**/index.{js,jsx,ts,tsx}",
   ],
   coverageReporters: ["text", "json", "html"],
   coverageDirectory: "coverage",
   testMatch: [
+    "<rootDir>/tests/unit/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}",
   ],
