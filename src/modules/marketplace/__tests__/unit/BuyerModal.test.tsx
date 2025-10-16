@@ -23,8 +23,13 @@ const nft = {
 describe("BuyerModal", () => {
   it("computes fee and total and enables Buy Now", () => {
     const onOpenChange = jest.fn();
-    // @ts-expect-error test-only: pass minimal nft shape
-    render(<BuyerModal nft={nft} open onOpenChange={onOpenChange} />);
+    render(
+      <BuyerModal
+        nft={nft as unknown as Parameters<typeof BuyerModal>[0]["nft"]}
+        open
+        onOpenChange={onOpenChange}
+      />
+    );
     expect(screen.getByText(/Purchase Summary/i)).toBeInTheDocument();
     // Price text may appear in multiple places; assert the summary row instead
     const priceRow = screen.getAllByText(/0\.04/i)[0];
