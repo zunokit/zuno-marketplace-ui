@@ -1,5 +1,5 @@
-import ExistingCollections from "@/modules/mint/collection-manager/ExistingCollections";
-import NewCollection from "@/modules/mint/collection-manager/NewCollection";
+import ExistingCollections from "@/modules/mint/collection-manager/components/ExistingCollections";
+import NewCollection from "@/modules/mint/collection-manager/components/NewCollection";
 
 export default function CreateManageContent() {
   return (

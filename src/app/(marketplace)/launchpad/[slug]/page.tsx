@@ -1,4 +1,4 @@
-import MintNFT from "@/modules/mint/mint-nft/MintNFT";
+import MintNFT from "@/modules/mint/mint-nft/components/MintNFT";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

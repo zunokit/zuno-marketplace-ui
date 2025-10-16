@@ -3,18 +3,17 @@
 
 import type React from "react";
 import { useState } from "react";
+import { Button } from "@/shared/components/ui/button";
 import { Checkbox } from "@/shared/components/ui/checkbox";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { CheckCircle2, Info } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
-import EditionSelector from "@/modules/mint/mint-nft/EditionSelector";
-import MintProgress from "@/modules/mint/mint-nft/MintProgress";
-import MintAmount from "@/modules/mint/mint-nft/MintAmount";
+import EditionSelector from "@/modules/mint/mint-nft/components/EditionSelector";
 
-export default function MintForm() {
+export default function MintInfo() {
   const {
     collection,
     isSameArtType,
@@ -24,8 +23,12 @@ export default function MintForm() {
 
     // Token standard flags
     isERC1155,
-    mintCostData,
+    isERC721,
+    tokenStandard,
+
     SUPPORTS_BATCH,
+    HAS_REVEAL,
+    RANDOM_ASSIGNMENT,
     selectedEdition,
     mockEditions,
   } = useMintState();
@@ -55,8 +58,27 @@ export default function MintForm() {
         : 1;
 
   return (
-    <div className="space-y-5 bg-gray-100 dark:bg-gray-900 rounded-xs p-5 ">
+    <div className="space-y-4">
+      {/* Token Standard Info */}
+      <div className="p-3 bg-gray-50 dark:bg-[#0f0a19] rounded-lg border border-gray-200 dark:border-gray-800/50">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-gray-900 dark:text-white">
+            Token Standard: {tokenStandard}
+          </span>
+          <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+            {tokenStandard === "ERC721" ? "ERC721" : "ERC1155"}
+          </span>
+        </div>
+        {isERC721 && SUPPORTS_BATCH && (
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            ERC-721A batch minting supported
+          </p>
+        )}
+      </div>
+
       {isERC1155 && <EditionSelector />}
+
+      {/* Allowlist Mint Inputs */}
       {isAllowlistMint && (
         <div className="space-y-3">
           <div className="flex justify-between items-center">
@@ -123,19 +145,88 @@ export default function MintForm() {
           </div>
         </div>
       )}
-      <MintProgress />
 
-      <div className="flex items-center justify-between gap-20">
-        <div className="space-y-1.5 mt-3">
-          <div className="text-xl text-gray-500 dark:text-gray-400">Price</div>
-          <p className="text-4xl font-bold ">{mintCostData?.getMintCost?.mintPrice} ETH</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Gas Fee: {mintCostData?.getMintCost?.estimatedGas} ETH
-          </p>
-        </div>
-        <MintAmount amount={amount} setAmount={setAmount} maxQuantity={maxQuantity} />
+      <div className="space-y-2">
+        {/* ERC-721 without batch support - quantity fixed at 1 */}
+        {isERC721 && !SUPPORTS_BATCH ? (
+          <div className="p-3 bg-gray-100 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              Quantity is fixed at 1 for this ERC-721 collection
+            </span>
+          </div>
+        ) : (
+          /* Quantity stepper for ERC-1155 (mandatory) or ERC-721A (optional) */
+          <div className="flex items-center gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setAmount(Math.max(1, amount - 1))}
+              disabled={amount <= 1}
+              className="w-10 h-10 p-0"
+            >
+              -
+            </Button>
+            <Input
+              id="amount"
+              type="number"
+              value={amount}
+              onChange={e => setAmount(Math.max(1, Math.min(maxQuantity, Number(e.target.value))))}
+              min={1}
+              max={maxQuantity}
+              className="h-10 text-sm bg-[#0f0a19] border-gray-800/50 text-white text-center w-20"
+              aria-label="Number of NFTs to mint"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setAmount(Math.min(maxQuantity, amount + 1))}
+              disabled={amount >= maxQuantity}
+              className="w-10 h-10 p-0"
+            >
+              +
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setAmount(maxQuantity)}
+              disabled={amount >= maxQuantity}
+              className="text-xs px-2"
+            >
+              Max
+            </Button>
+          </div>
+        )}
+
+        <p className="text-sm text-gray-400">
+          {isERC1155 && selectedEditionData ? (
+            <>
+              Minting {amount} of &quot;{selectedEditionData.name}&quot; edition.
+              {selectedEditionData.remaining < selectedEditionData.perWalletLimit && (
+                <span className="text-orange-400"> Limited supply remaining!</span>
+              )}
+            </>
+          ) : isERC721 && SUPPORTS_BATCH ? (
+            <>
+              Batch mint {amount} NFT{amount > 1 ? "s" : ""} in one transaction.{" "}
+              {isSameArtType
+                ? "All NFTs share the same metadata."
+                : "Each NFT requires unique metadata (use Batch Upload for multiple NFTs)."}
+            </>
+          ) : (
+            "Single NFT mint."
+          )}
+        </p>
+
+        {/* ERC-1155 Edition not selected warning */}
+        {isERC1155 && !selectedEdition && (
+          <p className="text-sm text-red-400">Please select an edition above to continue.</p>
+        )}
       </div>
 
+      {/* Terms Agreement */}
       <div className="flex items-start space-x-3 pt-2">
         <Checkbox
           id="terms"

@@ -1,5 +1,5 @@
-import CreateManageContent from "@/modules/mint/collection-manager/CreateManageContent";
-import CreateManageHeader from "@/modules/mint/collection-manager/CreateManageHeader";
+import CreateManageContent from "@/modules/mint/collection-manager/components/CreateManageContent";
+import CreateManageHeader from "@/modules/mint/collection-manager/components/CreateManageHeader";
 import React from "react";
 
 export default function CreateManageLayout() {

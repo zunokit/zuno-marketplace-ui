@@ -3,9 +3,9 @@
 import type React from "react";
 import Image from "next/image";
 
-import MintStages from "@/modules/mint/mint-nft/MintStages";
-import MintForm from "@/modules/mint/mint-nft/MintForm";
-import MintButton from "@/modules/mint/mint-nft/MintButton";
+import MintStages from "@/modules/mint/mint-nft/components/MintStages";
+import MintForm from "@/modules/mint/mint-nft/components/MintForm";
+import MintButton from "@/modules/mint/mint-nft/components/MintButton";
 
 import {
   Dialog,
