@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileHeader } from "@/modules/profile/ProfileHeader";
-import { ProfileTabs } from "@/modules/profile/ProfileTabs";
+import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
+import { ProfileTabs } from "@/modules/profile/components/ProfileTabs";
+export { ProfileSettings } from "@/modules/profile/components/ProfileSettings";
+export { ActivityList } from "@/modules/profile/components/ActivityList";
+export { UserActivity } from "@/modules/profile/components/UserActivity";
+export { UserCollections } from "@/modules/profile/components/UserCollections";
+export { UserFavorites } from "@/modules/profile/components/UserFavorites";
+export { UserNFTs } from "@/modules/profile/components/UserNFTs";
 import { type UserProfile, type ProfileTab } from "@/shared/types/profile";
 import { mockCurrentUser } from "@/shared/utils/mock/profile";
 

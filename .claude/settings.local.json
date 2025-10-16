@@ -12,7 +12,11 @@
       "Bash(cat:*)",
       "Bash(mkdir:*)",
       "Bash(git mv:*)",
-      "Bash(rmdir:*)"
+      "Bash(rmdir:*)",
+      "Bash(gh api:*)",
+      "Bash(for repo in zunokit-builder zuno-marketplace-ui zuno-marketplace-api zuno-marketplace-contracts zuno-marketplace-mini zuno-marketplace-abis zuno-marketplace-scripts)",
+      "Bash(do echo \"=== $repo ===\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

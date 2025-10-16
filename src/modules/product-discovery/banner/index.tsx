@@ -5,8 +5,8 @@ import { CarouselContent, CarouselPrevious } from "@/shared/components/ui/carous
 import { CarouselItem } from "@/shared/components/ui/carousel";
 import { mockBanner } from "@/shared/utils/mock/mockBanner";
 import { useEffect, useState } from "react";
-import BannerItem from "@/modules/product-discovery/banner/BannerItem";
-import BannerPagination from "@/modules/product-discovery/banner/BannerPagination";
+import BannerItem from "@/modules/product-discovery/banner/components/BannerItem";
+import BannerPagination from "@/modules/product-discovery/banner/components/BannerPagination";
 import { Banner } from "@/shared/types/banner";
 
 export function HomeBanner() {

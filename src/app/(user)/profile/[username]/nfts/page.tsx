@@ -1,4 +1,4 @@
-import { UserNFTs } from "@/modules/profile/UserNFTs";
+import { UserNFTs } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserNFTsPageProps {

@@ -1,4 +1,4 @@
-import { ProfileSettings } from "@/modules/profile/ProfileSettings";
+import { ProfileSettings } from "@/modules/profile";
 
 export const metadata = {
   title: "Profile Settings | NFT Marketplace",

@@ -1,4 +1,4 @@
-import CreateManageLayout from "@/modules/mint/collection-manager/CreateManageLayout";
+import CreateManageLayout from "@/modules/mint/collection-manager/components/CreateManageLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

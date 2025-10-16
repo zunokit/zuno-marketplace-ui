@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+export { CreateCollectionForm } from "@/modules/create/components/CreateCollectionForm";
 import {
   Card,
   CardContent,
