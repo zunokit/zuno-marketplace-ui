@@ -1,5 +1,5 @@
 "use client";
-import { CollectionCarousel } from "@/modules/product-discovery/collection-carousel/CollectionCarousel";
+import { CollectionCarousel } from "@/modules/product-discovery/collection-carousel/components/CollectionCarousel";
 import { CarouselHeader } from "@/shared/components/carousel/CarouselHeader";
 
 export default function CarouselCollection() {

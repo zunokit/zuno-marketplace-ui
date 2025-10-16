@@ -1,8 +1,8 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
-import NFTGrid from "@/modules/marketplace/NFTGrid";
-import { ActivityList } from "@/modules/profile/ActivityList";
+import NFTGrid from "@/modules/marketplace/components/NFTGrid";
+import { ActivityList } from "@/modules/profile/components/ActivityList";
 import { type UserProfile, type ProfileTab } from "@/shared/types/profile";
 import { type Nft, NftStatus } from "@/modules/marketplace/types";
 import { mockUserActivities } from "@/shared/utils/mock/profile";

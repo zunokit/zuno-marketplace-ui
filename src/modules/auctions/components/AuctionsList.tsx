@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { AuctionCard } from "@/modules/auctions/AuctionCard";
-import { AuctionsFilter } from "@/modules/auctions/AuctionsFilter";
+import { AuctionCard } from "@/modules/auctions/components/AuctionCard";
+import { AuctionsFilter } from "@/modules/auctions/components/AuctionsFilter";
 import { type Auction, type AuctionFilter } from "@/shared/types/auction";
 import { mockAuctions } from "@/shared/utils/mock/auction";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";

@@ -1,4 +1,4 @@
-import { UserCollections } from "@/modules/profile/UserCollections";
+import { UserCollections } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserCollectionsPageProps {

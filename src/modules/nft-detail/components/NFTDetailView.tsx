@@ -16,9 +16,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import { type NFTDetail } from "@/shared/types/nft-detail";
-import { NFTHistory } from "@/modules/nft-detail/NFTHistory";
-import { NFTOffers } from "@/modules/nft-detail/NFTOffers";
-import { NFTAttributes } from "@/modules/nft-detail/NFTAttributes";
+import { NFTHistory } from "@/modules/nft-detail/components/NFTHistory";
+import { NFTOffers } from "@/modules/nft-detail/components/NFTOffers";
+import { NFTAttributes } from "@/modules/nft-detail/components/NFTAttributes";
 
 interface NFTDetailViewProps {
   nft: NFTDetail;

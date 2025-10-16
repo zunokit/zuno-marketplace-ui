@@ -1,4 +1,4 @@
-import { CreateCollectionForm } from "@/modules/create/CreateCollectionForm";
+import { CreateCollectionForm } from "@/modules/create/components/CreateCollectionForm";
 
 export const metadata = {
   title: "Create Collection | NFT Marketplace",
