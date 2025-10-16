@@ -11,7 +11,7 @@ const makeItem = (id: string, price: string) => ({
   chainId: "1",
   owner: "0xowner",
   creator: "0xcreator",
-  status: 0,
+  status: 0 as unknown as import("@/modules/marketplace/types").NftStatus,
   mintPrice: price,
   listPrice: price,
   attributes: [],
