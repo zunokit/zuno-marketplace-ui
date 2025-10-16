@@ -39,3 +39,26 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: () => {},
   }),
 });
+
+// Polyfill PointerEvents methods that Radix UI expects but JSDOM lacks
+// See failures like: TypeError: target.hasPointerCapture is not a function
+if (typeof Element !== "undefined") {
+  const elementProto = Element.prototype as unknown as {
+    setPointerCapture?: (pointerId: number) => void;
+    releasePointerCapture?: (pointerId: number) => void;
+    hasPointerCapture?: (pointerId: number) => boolean;
+    scrollIntoView?: (arg?: boolean | ScrollIntoViewOptions) => void;
+  };
+  if (!elementProto.setPointerCapture) {
+    elementProto.setPointerCapture = () => {};
+  }
+  if (!elementProto.releasePointerCapture) {
+    elementProto.releasePointerCapture = () => {};
+  }
+  if (!elementProto.hasPointerCapture) {
+    elementProto.hasPointerCapture = () => false;
+  }
+  if (!elementProto.scrollIntoView) {
+    elementProto.scrollIntoView = () => {};
+  }
+}
