@@ -16,6 +16,7 @@ const customJestConfig = {
     "<rootDir>/node_modules/",
     "<rootDir>/tests/e2e/",
     "<rootDir>/tests/setup.ts",
+    "/__tests__/fixtures/",
   ],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",

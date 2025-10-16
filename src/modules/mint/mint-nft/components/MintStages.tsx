@@ -2,7 +2,7 @@
 
 import { Lock } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import CountdownTimer from "@/modules/mint/mint-nft/CountdownTimer";
+import CountdownTimer from "@/modules/mint/mint-nft/components/CountdownTimer";
 import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
 
 const MintStages = () => {
