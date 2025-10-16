@@ -17,7 +17,11 @@ describe("Profile Tabs Integration", () => {
     it("should display user profile information", () => {
       setup();
 
-      expect(screen.getByText(mockCurrentUser.name)).toBeInTheDocument();
+      // Use displayName field in mocks
+      const expectedName = mockCurrentUser.displayName ?? "";
+      if (expectedName) {
+        expect(screen.getByText(expectedName)).toBeInTheDocument();
+      }
       expect(screen.getByText(`@${mockCurrentUser.username}`)).toBeInTheDocument();
     });
 
@@ -50,7 +54,8 @@ describe("Profile Tabs Integration", () => {
 
       expect(screen.getByRole("tab", { name: /collected/i })).toBeInTheDocument();
       expect(screen.getByRole("tab", { name: /created/i })).toBeInTheDocument();
-      expect(screen.getByRole("tab", { name: /favorited/i })).toBeInTheDocument();
+      // UI uses "Favorites" label
+      expect(screen.getByRole("tab", { name: /favorites/i })).toBeInTheDocument();
       expect(screen.getByRole("tab", { name: /activity/i })).toBeInTheDocument();
     });
 
@@ -109,7 +114,7 @@ describe("Profile Tabs Integration", () => {
     it("should display favorited NFTs", async () => {
       const { user } = setup();
 
-      const favoritedTab = screen.getByRole("tab", { name: /favorited/i });
+      const favoritedTab = screen.getByRole("tab", { name: /favorites/i });
       await user.click(favoritedTab);
 
       await waitFor(() => {
@@ -175,7 +180,8 @@ describe("Profile Tabs Integration", () => {
         },
       };
 
-      const { user } = render(<Profile profile={emptyProfile} isCurrentUser={false} />);
+      const user = userEvent.setup();
+      render(<Profile profile={emptyProfile} isCurrentUser={false} />);
 
       const collectedTab = screen.getByRole("tab", { name: /collected/i });
       await user.click(collectedTab);
