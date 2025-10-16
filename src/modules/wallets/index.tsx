@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { WalletCard } from "@/modules/wallets/WalletCard";
+import { WalletCard } from "@/modules/wallets/components/WalletCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { Input } from "@/shared/components/ui/input";
 import { Search, Wallet2, Smartphone, Monitor, HardDrive } from "lucide-react";

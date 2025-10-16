@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileHeader } from "@/modules/profile/ProfileHeader";
-import NFTGrid from "@/modules/marketplace/NFTGrid";
+import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
+import NFTGrid from "@/modules/marketplace/components/NFTGrid";
 import {
   Select,
   SelectContent,

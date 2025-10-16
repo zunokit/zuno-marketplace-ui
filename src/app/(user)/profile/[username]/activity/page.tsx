@@ -1,4 +1,4 @@
-import { UserActivity } from "@/modules/profile/UserActivity";
+import { UserActivity } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserActivityPageProps {

@@ -156,6 +156,7 @@ Each module follows a consistent structure:
 
 ```
 module-name/
+├── __tests__
 ├── index.ts              # Public API exports
 ├── components/           # Module-specific components
 ├── hooks/               # Module-specific hooks

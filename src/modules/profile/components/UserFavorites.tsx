@@ -1,7 +1,7 @@
 "use client";
 
-import { ProfileHeader } from "@/modules/profile/ProfileHeader";
-import NFTGrid from "@/modules/marketplace/NFTGrid";
+import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
+import NFTGrid from "@/modules/marketplace/components/NFTGrid";
 import { type UserProfile } from "@/shared/types/profile";
 import { type Nft, NftStatus } from "@/modules/marketplace/types";
 

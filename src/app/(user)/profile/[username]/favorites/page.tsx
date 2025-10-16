@@ -1,4 +1,4 @@
-import { UserFavorites } from "@/modules/profile/UserFavorites";
+import { UserFavorites } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserFavoritesPageProps {

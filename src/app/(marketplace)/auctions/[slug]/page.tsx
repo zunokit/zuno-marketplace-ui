@@ -1,4 +1,4 @@
-import { AuctionDetail } from "@/modules/auctions/AuctionDetail";
+import { AuctionDetail } from "@/modules/auctions/components/AuctionDetail";
 import { mockAuctions } from "@/shared/utils/mock/auction";
 
 interface AuctionDetailPageProps {
