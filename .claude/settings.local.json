@@ -9,7 +9,10 @@
       "Bash(tree:*)",
       "Bash(pnpm remove:*)",
       "Bash(pnpm test:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(git mv:*)",
+      "Bash(rmdir:*)"
     ],
     "deny": [],
     "ask": []
