@@ -8,26 +8,16 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "prepare": "husky",
     "check-types": "tsc --noEmit",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
     "check-lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{js,jsx,json,css,md}": [
-      "prettier --write"
-    ]
+    "test": "jest --config tests/setup/jest.config.js",
+    "test:watch": "jest --config tests/setup/jest.config.js --watch",
+    "test:coverage": "jest --config tests/setup/jest.config.js --coverage",
+    "test:e2e": "playwright test -c tests/setup/playwright.config.ts",
+    "test:e2e:ui": "playwright test -c tests/setup/playwright.config.ts --ui",
+    "test:e2e:headed": "playwright test -c tests/setup/playwright.config.ts --headed"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -83,8 +73,6 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.56.0",
     "@swc/core": "^1.13.5",
@@ -99,11 +87,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
-    "husky": "^9.1.7",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^27.0.0",
-    "lint-staged": "^16.2.3",
     "playwright": "^1.56.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",

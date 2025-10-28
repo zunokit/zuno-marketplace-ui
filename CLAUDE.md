@@ -92,7 +92,7 @@ Located in `src/`:
 - **Jest** - Unit testing framework with jsdom environment
 - **React Testing Library** - Component testing utilities
 - **Playwright** - End-to-end testing across browsers
-- Test configuration in `jest.config.js` and `playwright.config.ts`
+- Test configuration in `tests/setup/jest.config.js` and `tests/setup/playwright.config.ts`
 
 ## Path Aliases
 

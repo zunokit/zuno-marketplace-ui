@@ -2,9 +2,7 @@ import MintNFT from "@/modules/mint/mint-nft/components/MintNFT";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import StructuredData from "@/shared/components/seo/StructuredData";
 import { fetchCollectionBySlug } from "@/shared/utils/collection";
-import { Collection } from "@/shared/types";
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -131,7 +129,6 @@ export default async function MintPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
-      {collection && <StructuredData collection={collection as Collection} slug={slug} />}
       <MintNFT slug={slug} />
     </>
   );

@@ -1,10 +1,12 @@
 const nextJest = require("next/jest");
+const path = require("path");
 
 const createJestConfig = nextJest({
   dir: "./",
 });
 
 const customJestConfig = {
+  rootDir: path.resolve(__dirname, "../../"),
   setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testEnvironment: "jsdom",
   moduleNameMapper: {
@@ -35,6 +37,10 @@ const customJestConfig = {
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}",
   ],
+  transform: {
+    "^.+\\.(js|jsx|ts|tsx)$": ["@swc/jest"],
+  },
+  transformIgnorePatterns: ["node_modules/(?!(.*\\.mjs$|@radix-ui|framer-motion|embla-carousel))"],
 };
 
 module.exports = createJestConfig(customJestConfig);

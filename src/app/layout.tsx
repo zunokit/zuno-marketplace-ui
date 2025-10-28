@@ -3,13 +3,11 @@ import "./globals.css";
 import ClientWrapper from "./_WrapperUI";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { OrganizationJsonLd, WebSiteJsonLd } from "@/shared/components/seo/JsonLd";
+import { Inter } from "next/font/google";
 
-import { Space_Grotesk } from "next/font/google";
-
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-space",
+  variable: "--font-inter",
 });
 
 export const viewport: Viewport = {
@@ -111,15 +109,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={`${spaceGrotesk.className} antialiased`}>
-        <OrganizationJsonLd />
-        <WebSiteJsonLd />
+      <body className={`${inter.className} antialiased`}>
         <ClientWrapper>{children}</ClientWrapper>
         <Toaster />
         <SpeedInsights />

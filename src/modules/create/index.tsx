@@ -168,9 +168,6 @@ export function CreateHub() {
             <Button size="lg" asChild>
               <Link href="/create/collection">Create Collection</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/docs/getting-started">View Guide</Link>
-            </Button>
           </div>
         </CardContent>
       </Card>
