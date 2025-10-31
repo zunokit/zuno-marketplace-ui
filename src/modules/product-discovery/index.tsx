@@ -16,7 +16,7 @@ export default function ProductDiscovery() {
       <TrendingNFTs />
       <CarouselCollection />
       <MarketplaceStats />
-      <TopCreators />
+      {/* <TopCreators /> */}
       <NFTCategories />
     </div>
   );
