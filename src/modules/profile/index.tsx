@@ -41,7 +41,7 @@ export function Profile({ profile = mockCurrentUser, isCurrentUser = false }: Pr
         isFollowing={isFollowing}
       />
 
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-4">
         <ProfileTabs profile={profile} activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
     </div>

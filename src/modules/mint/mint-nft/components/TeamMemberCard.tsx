@@ -24,7 +24,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
     >
       <div className="bg-[#13101c] rounded-lg overflow-hidden border border-gray-800/20 hover:border-gray-700/40 transition-colors">
         <div className="flex flex-col items-center">
-          {/* Image container - full width */}
+          {/* Image - full width */}
           <div className="w-full aspect-square overflow-hidden">
             <Image src={image} alt={name} className="w-full h-full object-cover" />
           </div>

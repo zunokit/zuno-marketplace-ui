@@ -96,7 +96,7 @@ const chainStats: ChainStat[] = [
 export default function MarketplaceStats() {
   return (
     <section className="w-full py-12">
-      <div className="container mx-auto px-4">
+      <div className=" mx-auto px-4">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">📊 Marketplace Overview</h2>
           <p className="text-muted-foreground">Real-time statistics across all supported chains</p>

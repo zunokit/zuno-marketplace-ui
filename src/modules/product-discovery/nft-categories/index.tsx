@@ -146,7 +146,7 @@ const categories: Category[] = [
 export default function NFTCategories() {
   return (
     <section className="w-full py-12 bg-muted/30">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-4">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">🎨 Browse by Category</h2>
           <p className="text-muted-foreground">Explore NFTs across different categories</p>

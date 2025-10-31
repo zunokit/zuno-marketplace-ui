@@ -140,7 +140,7 @@ const mockTopCreators: Creator[] = [
 export default function TopCreators() {
   return (
     <section className="w-full py-12 bg-muted/30">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl font-bold mb-2">👑 Top Creators</h2>

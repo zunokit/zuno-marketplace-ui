@@ -34,7 +34,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const collectionNFTs = mockNFTs.filter(nft => nft.collection.address === collection.address);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto py-8">
       {/* Collection Header */}
       <div className="mb-8">
         <div className="relative h-48 md:h-64 rounded-xl overflow-hidden mb-6">

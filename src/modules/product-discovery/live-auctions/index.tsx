@@ -179,7 +179,7 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
 export default function LiveAuctions() {
   return (
     <section className="w-full py-12">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl font-bold mb-2 flex items-center gap-2">
