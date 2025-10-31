@@ -268,11 +268,13 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
 
   return (
     <div className="min-h-screen text-foreground transition-colors duration-300">
-      <main className="w-full px-0 sm:px-4 md:px-6 lg:px-8 mx-auto relative">
-        <InformationNFT collection={collection} />
-
-        <Tabs defaultValue="items">
-          <div className="flex items-center justify-between border-b px-0 sm:px-4">
+      <main className="w-full mx-auto relative">
+        <div className="w-full">
+          <InformationNFT collection={collection} />
+        </div>
+        <div className="px-0 sm:px-4 md:px-6 lg:px-8">
+          <Tabs defaultValue="items">
+          <div className="flex items-center justify-between border-b">
             <TabsList className="bg-transparent p-0 ml-2 sm:ml-0">
               <TabsTrigger
                 value="items"
@@ -444,6 +446,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </main>
 
       {/* {showBuyerModal && selectedNFT && (

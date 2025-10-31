@@ -1,119 +1,239 @@
 "use client";
 
-import { Star, ChevronDown, Share2, Globe, ChevronUp, Twitter, MessageCircle } from "lucide-react";
-import Image from "next/image";
-import { Button } from "@/shared/components/ui/button";
-import { Badge } from "@/shared/components/ui/badge";
 import { useState } from "react";
+import { Button } from "@/shared/components/ui/button";
+import { ChevronDown, Star, Flag, Share2, X, Globe } from "lucide-react";
+import Image from "next/image";
 import { toast } from "sonner";
 import { Collection } from "@/shared/utils/mock/collection";
-import { cn } from "@/shared/utils/tailwind-utils";
 import { randomImage } from "@/shared/utils/mock/randomImage";
 
 interface InformationNFTProps {
   collection?: Collection;
 }
+
 export default function InformationNFT({ collection }: InformationNFTProps) {
-  const [showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
+
   return (
-    <header className="border-b bg-background/50 backdrop-blur-sm">
-      <div className="flex items-center justify-between p-4 md:p-6">
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="relative h-12 w-12 md:h-14 md:w-14 rounded-lg overflow-hidden border-2 border-primary/20">
+    <div className="border-b  text-white">
+      {/* Mobile Header */}
+      <div className="md:hidden p-4 border-b border-zinc-800">
+        <div className="grid grid-cols-[auto_1fr] gap-3">
+          {/* Left Column: Avatar */}
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-zinc-800">
             <Image
               src={collection?.image || randomImage()}
               alt={collection?.name || "Collection"}
-              fill
+              width={48}
+              height={48}
               className="object-cover"
             />
           </div>
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold flex items-center gap-2">
-              {collection?.name}
-              <Badge variant="secondary" className="gap-1">
-                <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                Verified
-              </Badge>
-            </h1>
-            <div className="flex items-center gap-2 text-sm">
+
+          {/* Right Column: Title and Buttons */}
+          <div className="flex flex-col gap-2">
+            {/* Top Row: Title and Badges */}
+            <div className="flex items-center gap-2">
+              <h1 className="text-base font-semibold">{collection?.name || "Collection"}</h1>
+              <div className="w-4 h-4 rounded-full bg-pink-500 flex items-center justify-center shrink-0">
+                <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <Star className="w-4 h-4 text-zinc-400 shrink-0" />
+              <div className="w-4 h-4 bg-yellow-500 rounded flex items-center justify-center text-xs shrink-0">
+                👑
+              </div>
+            </div>
+
+            {/* Bottom Row: Buttons */}
+            <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
-                className="h-7 gap-1"
                 onClick={() => setShowInfo(!showInfo)}
+                className="bg-zinc-800 hover:bg-zinc-700 text-white h-7 px-2 text-xs"
               >
                 Info
-                {showInfo ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
               </Button>
               <Button
-                variant="outline"
+                variant="secondary"
                 size="sm"
-                className="h-7 gap-1"
+                className="bg-zinc-800 hover:bg-zinc-700 text-white h-7 px-2 text-xs"
                 onClick={() => {
                   const url = window.location.href;
                   navigator.clipboard.writeText(url);
                   toast.success("Link copied to clipboard!");
                 }}
               >
-                Share Stats <Share2 className="h-3 w-3" />
+                Share Stats
+                <Share2 className="w-3 h-3 ml-1" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                <Globe className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="h-7 w-7 text-zinc-400 hover:text-white">
+                <X className="w-3 h-3" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                <MessageCircle className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
-                <Twitter className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="h-7 w-7 text-zinc-400 hover:text-white">
+                <Globe className="w-3 h-3" />
               </Button>
             </div>
           </div>
         </div>
       </div>
-      {showInfo && (
-        <div
-          className={cn(
-            "transition-all duration-300 ease-in-out overflow-hidden",
-            "bg-muted/30 backdrop-blur-sm border-t"
-          )}
-        >
-          <div className="p-4 md:p-6 max-w-4xl">
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              {collection?.description || "No description available for this collection."}
-            </p>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        <div className="px-6 py-6 grid grid-cols-[auto_1fr] gap-6 items-start">
+          {/* Left Section: Avatar, Title, and Buttons */}
+          <div className="flex flex-col gap-3">
+            {/* Avatar and Title Row */}
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-zinc-800 shrink-0">
+                <Image
+                  src={collection?.image || randomImage()}
+                  alt={collection?.name || "Collection"}
+                  width={48}
+                  height={48}
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-semibold whitespace-nowrap">{collection?.name || "Collection"}</h1>
+                <div className="w-5 h-5 rounded-full bg-pink-500 flex items-center justify-center shrink-0">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <Star className="w-5 h-5 text-zinc-400 shrink-0" />
+                <div className="w-5 h-5 bg-yellow-500 rounded flex items-center justify-center text-sm shrink-0">
+                  👑
+                </div>
+              </div>
+            </div>
+
+            {/* Buttons Row */}
+            <div className="flex gap-2 pl-[60px]">
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setShowInfo(!showInfo)}
+                className="bg-zinc-800 hover:bg-zinc-700 text-white h-8 px-3"
+              >
+                Info
+                <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="bg-zinc-800 hover:bg-zinc-700 text-white h-8 px-3"
+                onClick={() => {
+                  const url = window.location.href;
+                  navigator.clipboard.writeText(url);
+                  toast.success("Link copied to clipboard!");
+                }}
+              >
+                Share Stats
+                <Share2 className="w-3 h-3 ml-1" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-400 hover:text-white">
+                <Globe className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Middle Section: Stats displayed horizontally */}
+          <div className="flex items-center gap-6 text-sm overflow-x-auto">
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">Floor Price</div>
+              <div className="font-semibold whitespace-nowrap">
+                4.708 <span className="text-zinc-400">SOL</span>{" "}
+                <span className="text-red-500">-4.56%</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">Top Offer</div>
+              <div className="font-semibold whitespace-nowrap">
+                3.807 <span className="text-zinc-400">SOL</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">24h Vol</div>
+              <div className="font-semibold whitespace-nowrap">
+                137.635 <span className="text-zinc-400">SOL</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">24h Sales</div>
+              <div className="font-semibold">37</div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">All Vol</div>
+              <div className="font-semibold whitespace-nowrap">
+                557.763 <span className="text-zinc-400">SOL</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">Market Cap</div>
+              <div className="font-semibold whitespace-nowrap">$867.1K</div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">Listed / Supply</div>
+              <div className="font-semibold whitespace-nowrap">
+                38 / 1,000 <span className="text-zinc-400">3.8%</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-zinc-500 text-xs mb-0.5">Owners</div>
+              <div className="font-semibold whitespace-nowrap">
+                327 <span className="text-zinc-400">32.7%</span>
+              </div>
+            </div>
           </div>
         </div>
-      )}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 px-4 md:px-6 py-3 bg-muted/10">
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Floor Price</span>
-          <div className="font-semibold text-sm md:text-base">0.0276 BTC</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Total Volume</span>
-          <div className="font-semibold text-sm md:text-base">98.42 BTC</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Owners</span>
-          <div className="font-semibold text-sm md:text-base">2.7K</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Listed</span>
-          <div className="font-semibold text-sm md:text-base">425</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Total Supply</span>
-          <div className="font-semibold text-sm md:text-base">10K</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Range</span>
-          <div className="font-semibold text-xs md:text-sm">-265K to -234K</div>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Pending</span>
-          <div className="font-semibold text-sm md:text-base">0 TXs</div>
-        </div>
+
+        {showInfo && (
+          <div className="mt-6 border-t border-zinc-800 pt-6 relative">
+            {/* Flag Collection Button */}
+            <div className="absolute top-6 right-0">
+              <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white h-8 px-2">
+                <Flag className="w-3 h-3 mr-1" />
+                <span className="text-xs">Flag Collection</span>
+              </Button>
+            </div>
+
+            {/* Royalties Section */}
+            <div className="flex items-center gap-2 text-sm">
+              <div className="w-5 h-5 bg-yellow-500 rounded flex items-center justify-center text-xs">👑</div>
+              <span className="font-semibold">Royalties: 5%</span>
+            </div>
+
+            {/* Description */}
+            <p className="mt-4 text-zinc-400">
+              {collection?.description || "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
+            </p>
+
+            {/* Actions */}
+            <div className="mt-6">
+              <Button variant="outline" className="border-zinc-700 hover:bg-zinc-800 bg-transparent">
+                <Star className="w-4 h-4 mr-2" />
+                Add to Watchlist
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
-    </header>
+    </div>
   );
 }
