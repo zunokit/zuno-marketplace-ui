@@ -5,7 +5,6 @@ import { Button } from "@/shared/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { cn } from "@/shared/utils/tailwind-utils";
 import ControlBar from "@/modules/marketplace/components/ControlBar";
-import FooterBar from "@/modules/marketplace/components/FooterBar";
 import NFTListView from "@/modules/marketplace/components/NFTListView";
 import NFTGrid from "@/modules/marketplace/components/NFTGrid";
 // import CartModal from "@/modules/marketplace/components/CartModal";
@@ -166,6 +165,13 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     const filtered = filterAndSortNFTs(safeNFTs);
     setFilteredAndSortedNFTs(filtered);
   }, [safeNFTs, statusFilter, sortBy, priceRange, searchValue, filterAndSortNFTs]);
+
+  // Dispatch cart updates to global footer
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('cartUpdate', {
+      detail: { itemCount: selectedNFTs.length }
+    }));
+  }, [selectedNFTs]);
 
   // Memoize onSelectedNFTsChange để ổn định tham chiếu
   const onSelectedNFTsChange = useCallback(
@@ -411,18 +417,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 </div>
               </div>
 
-              {/* Footer Bar - Shows on all screen sizes */}
-              <FooterBar
-                itemCount={selectedNFTs.length.toString()}
-                sliderValue={sliderValue}
-                maxItems={safeNFTs.length}
-                handleItemCountChange={handleItemCountChange}
-                handleSliderChange={handleSliderChange}
-                handleSliderDragStart={handleSliderDragStart}
-                handleSliderDragEnd={handleSliderDragEnd}
-                openCart={() => setMyItemsCartOpen(true)}
-              />
-
+  
               {/* <CartModal
                 open={myItemsCartOpen}
                 onOpenChange={setMyItemsCartOpen}
