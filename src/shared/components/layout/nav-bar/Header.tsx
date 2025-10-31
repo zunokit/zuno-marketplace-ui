@@ -1,6 +1,5 @@
 "use client";
 import MobileMenu from "@/shared/components/layout/nav-bar/MobileMenu";
-import { ModeToggle } from "@/shared/components/layout/dark-mode/ModeToggle";
 import NavDropdown from "@/shared/components/layout/nav-bar/NavDropdown";
 import SearchBar from "@/shared/components/layout/nav-bar/SearchBar";
 import { useIsMobile } from "@/shared/hooks/use-mobile";
@@ -59,7 +58,6 @@ export default function Header() {
 
         <div className="flex items-center space-x-2 ml-auto pl-2 border-l border-transparent md:border-gray-200 dark:md:border-white/5">
           {/* <WalletSection></WalletSection> */}
-          <ModeToggle />
           {/* Mobile Menu */}
           {isMobile && <MobileMenu navItems={navItems} />}
         </div>
