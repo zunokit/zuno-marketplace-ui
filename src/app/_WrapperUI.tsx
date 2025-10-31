@@ -42,7 +42,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
     isMarketplace || isMint
       ? "pt-16 md:pt-20" // Smaller padding when no ChainTab
       : hasChainTab
-        ? "pt-35 md:pt-30" // Full padding for routes with ChainTab
+        ? "pt-[110px] md:pt-30" // Full padding for routes with ChainTab - increased for mobile
         : "pt-20 md:pt-24"; // Default padding for other routes
 
   return (
