@@ -16,28 +16,28 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
   const [showInfo, setShowInfo] = useState(true);
 
   return (
-    <div className="border-b bg-[#0a0a0a] text-white">
+    <div className="border-b text-white">
       {/* Mobile Header */}
-      <div className="md:hidden p-3 border-b border-zinc-800">
-        <div className="grid grid-cols-[auto_1fr] gap-2">
+      <div className="md:hidden p-2 border-b border-zinc-800">
+        <div className="flex gap-2">
           {/* Left Column: Avatar */}
-          <div className="w-10 h-10 rounded-full overflow-hidden bg-zinc-800">
+          <div className="w-8 h-8 rounded-full overflow-hidden bg-zinc-800 shrink-0">
             <Image
               src={collection?.image || randomImage()}
               alt={collection?.name || "Collection"}
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               className="object-cover"
             />
           </div>
 
           {/* Right Column: Title and Buttons */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
             {/* Top Row: Title and Badges */}
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-semibold">{collection?.name || "Collection"}</h1>
-              <div className="w-3.5 h-3.5 rounded-full bg-pink-500 flex items-center justify-center shrink-0">
-                <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <h1 className="text-sm font-semibold truncate">{collection?.name || "Collection"}</h1>
+              <div className="w-3 h-3 rounded-full bg-pink-500 flex items-center justify-center shrink-0">
+                <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -45,42 +45,47 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                   />
                 </svg>
               </div>
-              <Star className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-              <div className="w-3.5 h-3.5 bg-yellow-500 rounded flex items-center justify-center text-xs shrink-0">
+              <Star className="w-3 h-3 text-zinc-400 shrink-0" />
+              <div className="w-3 h-3 bg-yellow-500 rounded flex items-center justify-center text-xs shrink-0">
                 👑
               </div>
             </div>
 
             {/* Bottom Row: Buttons */}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => setShowInfo(!showInfo)}
-                className="bg-zinc-800 hover:bg-zinc-700 text-white h-6 px-2 text-xs"
-              >
-                Info
-                <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                className="bg-zinc-800 hover:bg-zinc-700 text-white h-6 px-2 text-xs"
-                onClick={() => {
-                  const url = window.location.href;
-                  navigator.clipboard.writeText(url);
-                  toast.success("Link copied to clipboard!");
-                }}
-              >
-                Share Stats
-                <Share2 className="w-3 h-3 ml-1" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-6 w-6 text-zinc-400 hover:text-white">
-                <X className="w-3 h-3" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-6 w-6 text-zinc-400 hover:text-white">
-                <Globe className="w-3 h-3" />
-              </Button>
+            <div className="flex items-center gap-1 justify-between w-full flex-wrap md:flex-nowrap">
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setShowInfo(!showInfo)}
+                  className="bg-zinc-800 hover:bg-zinc-700 text-white h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
+                >
+                  <span className="hidden md:inline">Info</span>
+                  <span className="md:hidden">i</span>
+                  <ChevronDown className={`w-2.5 h-2.5 ml-0.5 md:ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="bg-zinc-800 hover:bg-zinc-700 text-white h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
+                  onClick={() => {
+                    const url = window.location.href;
+                    navigator.clipboard.writeText(url);
+                    toast.success("Link copied to clipboard!");
+                  }}
+                >
+                  <span className="hidden md:inline">Share</span>
+                  <Share2 className="w-2.5 h-2.5 md:ml-1" />
+                </Button>
+              </div>
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-zinc-400 hover:text-white flex-shrink-0">
+                  <X className="w-2.5 h-2.5" />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-zinc-400 hover:text-white flex-shrink-0">
+                  <Globe className="w-2.5 h-2.5" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -90,53 +95,53 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
       {showInfo && (
         <div className="md:hidden p-3 border-t border-zinc-800">
           {/* Stats */}
-          <div className="grid grid-cols-2 gap-2.5 mb-3">
+          <div className="grid grid-cols-2 gap-2 mb-3">
             <div>
               <div className="text-zinc-500 text-xs mb-0.5">Floor Price</div>
-              <div className="font-semibold text-sm">
+              <div className="font-semibold text-xs sm:text-sm">
                 4.708 <span className="text-zinc-400">SOL</span>
               </div>
             </div>
             <div>
               <div className="text-zinc-500 text-xs mb-0.5">24h Vol</div>
-              <div className="font-semibold text-sm">
+              <div className="font-semibold text-xs sm:text-sm">
                 137.635 <span className="text-zinc-400">SOL</span>
               </div>
             </div>
             <div>
               <div className="text-zinc-500 text-xs mb-0.5">Owners</div>
-              <div className="font-semibold text-sm">
+              <div className="font-semibold text-xs sm:text-sm">
                 327 <span className="text-zinc-400">32.7%</span>
               </div>
             </div>
             <div>
               <div className="text-zinc-500 text-xs mb-0.5">Market Cap</div>
-              <div className="font-semibold text-sm">$867.1K</div>
+              <div className="font-semibold text-xs sm:text-sm">$867.1K</div>
             </div>
           </div>
 
           {/* Royalties */}
-          <div className="flex items-center gap-2 text-sm mb-3">
-            <div className="w-5 h-5 bg-yellow-500 rounded flex items-center justify-center text-xs">👑</div>
+          <div className="flex items-center gap-1.5 text-xs sm:text-sm mb-3">
+            <div className="w-4 h-4 bg-yellow-500 rounded flex items-center justify-center text-xs">👑</div>
             <span className="font-semibold">Royalties: 5%</span>
           </div>
 
           {/* Description */}
-          <p className="text-zinc-400 text-sm mb-3">
+          <p className="text-zinc-400 text-xs sm:text-sm mb-3">
             {collection?.description || "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
           </p>
 
           {/* Actions */}
-          <Button variant="outline" className="border-zinc-700 hover:bg-zinc-800 bg-transparent w-full">
-            <Star className="w-4 h-4 mr-2" />
+          <Button variant="outline" className="border-zinc-700 hover:bg-zinc-800 bg-transparent w-full h-7 text-xs">
+            <Star className="w-3 h-3 mr-1.5" />
             Add to Watchlist
           </Button>
         </div>
       )}
 
       {/* Desktop Layout */}
-      <div className="hidden md:block">
-        <div className="px-6 py-4 grid grid-cols-[auto_1fr] gap-4 items-start">
+      <div className="hidden md:block mb-2">
+        <div className="px-6 lg:px-8 xl:px-12 py-4 grid grid-cols-[auto_1fr] gap-4 items-start">
           {/* Left Section: Avatar, Title, and Buttons */}
           <div className="flex flex-col gap-3">
             {/* Avatar and Title Row */}
@@ -202,49 +207,49 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
           </div>
 
           {/* Middle Section: Stats displayed horizontally */}
-          <div className="flex items-center gap-3 text-sm overflow-x-auto">
-            <div className="shrink-0">
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">Floor Price</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 4.708 <span className="text-zinc-400">SOL</span>{" "}
                 <span className="text-red-500">-4.56%</span>
               </div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">Top Offer</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 3.807 <span className="text-zinc-400">SOL</span>
               </div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">24h Vol</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 137.635 <span className="text-zinc-400">SOL</span>
               </div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">24h Sales</div>
               <div className="font-semibold">37</div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">All Vol</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 557.763 <span className="text-zinc-400">SOL</span>
               </div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">Market Cap</div>
-              <div className="font-semibold whitespace-nowrap">$867.1K</div>
+              <div className="font-semibold">$867.1K</div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">Listed / Supply</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 38 / 1,000 <span className="text-zinc-400">3.8%</span>
               </div>
             </div>
-            <div className="shrink-0">
+            <div className="flex-shrink-0">
               <div className="text-zinc-500 text-xs mb-0.5">Owners</div>
-              <div className="font-semibold whitespace-nowrap">
+              <div className="font-semibold">
                 327 <span className="text-zinc-400">32.7%</span>
               </div>
             </div>
@@ -252,9 +257,9 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
         </div>
 
         {showInfo && (
-          <div className="mt-4 border-t border-zinc-800 pt-4 relative">
+          <div className="mt-4 border-t border-zinc-800 pt-4 relative mx-6 lg:mx-8 xl:mx-12">
             {/* Flag Collection Button */}
-            <div className="absolute top-4 right-0">
+            <div className="absolute top-4 right-6 lg:right-8 xl:right-12">
               <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white h-8 px-2">
                 <Flag className="w-3 h-3 mr-1" />
                 <span className="text-xs">Flag Collection</span>
