@@ -101,7 +101,7 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
                       : "transparent",
                 }}
               >
-                <Image src={chain.icon} alt={`${chain.name} icon`} width={20} height={20} className="md:w-6 md:h-6" />
+                <Image src={chain.icon} alt={`${chain.name} icon`} width={16} height={16} className="w-4 h-4 md:w-5 md:h-5" />
               </div>
               <span
                 className={cn(
