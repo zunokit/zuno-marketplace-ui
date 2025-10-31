@@ -3,13 +3,18 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Globe } from "lucide-react";
+import { Globe, PanelRightClose, PanelRightOpen } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import Image from "next/image";
 import { mockChains } from "@/shared/utils/mock/mockChain";
 import { useScroll } from "@/shared/hooks/use-scroll";
 
-export default function ChainMenu() {
+interface ChainMenuProps {
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
+}
+
+export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false }: ChainMenuProps = {}) {
   const pathname = usePathname();
   const [selectedChain, setSelectedChain] = useState<string>("all");
   const isScrolled = useScroll(10);
@@ -45,7 +50,8 @@ export default function ChainMenu() {
       )}
     >
       <div className="w-full mx-auto py-3 px-4 md:px-6 lg:px-8">
-        <div className="flex space-x-1 overflow-x-auto">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex space-x-1 overflow-x-auto flex-1">
           <Link
             href="/"
             className={cn(
@@ -104,6 +110,27 @@ export default function ChainMenu() {
               </span>
             </Link>
           ))}
+          </div>
+
+          {/* Sidebar Toggle Button */}
+          {onToggleSidebar && (
+            <button
+              onClick={onToggleSidebar}
+              className={cn(
+                "hidden lg:flex items-center justify-center h-10 w-10 rounded-lg transition-all duration-200 flex-shrink-0",
+                isScrolled
+                  ? "bg-gray-50/70 text-gray-600 hover:bg-gray-100/70 dark:bg-[#1A1F2C]/70 dark:text-white/70 dark:hover:bg-[#232836]/70"
+                  : "bg-gray-50 text-gray-600 hover:bg-gray-100 dark:bg-[#1A1F2C] dark:text-white/70 dark:hover:bg-[#232836]"
+              )}
+              aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
+            >
+              {isSidebarCollapsed ? (
+                <PanelRightOpen size={18} />
+              ) : (
+                <PanelRightClose size={18} />
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

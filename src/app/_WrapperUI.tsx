@@ -45,10 +45,6 @@ export default function Wrapper({ children }: { children: ReactNode }) {
         ? "pt-35 md:pt-30" // Full padding for routes with ChainTab
         : "pt-20 md:pt-24"; // Default padding for other routes
 
-  const horizontalPaddingClass = isMarketplace
-    ? "px-0 sm:px-4 md:px-6 lg:px-8" // No padding on mobile, normal padding on larger screens for marketplace
-    : "px-4 md:px-6 lg:px-8"; // Normal padding for other pages
-
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
       <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-[#121620] dark:text-white transition-colors">
@@ -59,7 +55,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
 
         {/* Main content with padding to account for fixed header and footer */}
         <main
-          className={`max-w-screen w-full mx-auto pb-24 flex-grow ${mainPaddingClass} ${horizontalPaddingClass}`}
+          className={`max-w-screen w-full mx-auto pb-24 flex-grow ${mainPaddingClass}`}
         >
           {children}
         </main>

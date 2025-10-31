@@ -141,13 +141,67 @@ Configured in `next.config.ts`:
    - Improve readability and maintainability
    - Run tests after each refactoring step to ensure nothing breaks
 
+**EXCEPTIONS - RDD NOT REQUIRED FOR:**
+
+- ✅ **Pure UI/Presentation Components**: Components that only render JSX without business logic, state management, or side effects
+  - Simple display components (e.g., `<Card>`, `<Badge>`, `<Avatar>`)
+  - Layout components (e.g., `<Header>`, `<Footer>`, `<Container>`)
+  - Wrapper components that only pass props through
+  - Components that only handle styling/visual presentation
+
+- ✅ **Components Without Logic**: Components that don't contain:
+  - Complex state management
+  - API calls or data fetching
+  - Form validation or business rules
+  - Event handlers beyond simple callbacks
+  - Side effects or hooks beyond basic React hooks (useState for simple UI state)
+
+**Examples of components that DON'T need RDD:**
+
+```typescript
+// ✅ No RDD needed - pure presentation
+export const Button = ({ children, onClick }) => (
+  <button onClick={onClick}>{children}</button>
+);
+
+// ✅ No RDD needed - simple UI wrapper
+export const Card = ({ title, children }) => (
+  <div className="card">
+    <h3>{title}</h3>
+    {children}
+  </div>
+);
+```
+
+**Examples of components that DO need RDD:**
+
+```typescript
+// ❌ RDD required - has business logic
+export const UserProfile = () => {
+  const { data, isLoading } = useUserData();
+  const handleSubmit = async formData => {
+    /* validation & API call */
+  };
+  // ... complex logic
+};
+
+// ❌ RDD required - has state management
+export const FormComponent = () => {
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    /* validation logic */
+  };
+  // ... complex state handling
+};
+```
+
 **FORBIDDEN:**
 
-- ❌ Writing implementation before tests
+- ❌ Writing implementation before tests (for components with logic)
 - ❌ Skipping/removing tests to make code "work"
 - ❌ Leaving any tests failing
 - ❌ Committing code without running all tests
-- ❌ Making changes without corresponding test coverage
+- ❌ Making changes without corresponding test coverage (for logic-containing code)
 
 #### **2. Test Coverage Requirements**
 
@@ -164,7 +218,112 @@ Configured in `next.config.ts`:
 - Keep components small and focused (< 200 lines)
 - Use proper TypeScript types (avoid `any`)
 
-#### **4. Testing Best Practices**
+#### **4. Senior-Level Code Practices (MAINTAINABILITY & SCALABILITY)**
+
+**Code must be written for maintainability, easy modification, and future upgrades:**
+
+##### **4.1. Code Organization & Structure**
+
+- ✅ **Single Responsibility Principle**: Each function/component should do ONE thing well
+- ✅ **Clear Separation of Concerns**: Business logic ≠ UI logic ≠ Data fetching
+- ✅ **Modular Architecture**: Break large features into smaller, reusable modules
+- ✅ **Consistent File Structure**: Follow existing module patterns (`components/`, `hooks/`, `services/`, `types/`, `utils/`)
+
+##### **4.2. Naming Conventions**
+
+- ✅ **Descriptive Names**: Names should clearly express intent (e.g., `getUserProfile` not `getData`)
+- ✅ **Consistent Patterns**: Follow project naming conventions (camelCase for functions, PascalCase for components)
+- ✅ **Avoid Abbreviations**: Use full words unless abbreviation is widely understood (e.g., `handleClick` not `hdlClick`)
+- ✅ **Type-Safe Names**: Use TypeScript to enforce naming through types (e.g., `UserProfile` type for user profile data)
+
+##### **4.3. Code Readability**
+
+- ✅ **Self-Documenting Code**: Code should read like documentation, minimal comments needed
+- ✅ **Extract Magic Numbers/Strings**: Move constants to configuration files or constants
+- ✅ **Avoid Deep Nesting**: Extract logic to separate functions, use early returns
+- ✅ **Meaningful Variable Names**: `isLoading` not `flag`, `userCount` not `count`
+
+```typescript
+// ❌ BAD - Unclear, hard to maintain
+const d = u.filter(x => x.a > 18).map(x => x.n);
+
+// ✅ GOOD - Clear, maintainable
+const activeUsers = users.filter(user => user.age > MIN_AGE).map(user => user.name);
+```
+
+##### **4.4. Maintainability Patterns**
+
+- ✅ **DRY (Don't Repeat Yourself)**: Extract common logic to shared utilities/hooks
+- ✅ **Composition over Inheritance**: Prefer composing small components over large inheritance hierarchies
+- ✅ **Configuration-Driven**: Make components configurable through props, not hardcoded values
+- ✅ **Dependency Injection**: Pass dependencies as props/parameters, avoid global state when possible
+
+##### **4.5. Scalability Considerations**
+
+- ✅ **Performance-Conscious**: Use React.memo, useMemo, useCallback when appropriate
+- ✅ **Lazy Loading**: Code-split routes and heavy components with dynamic imports
+- ✅ **Future-Proof Types**: Design types/interfaces that can be extended without breaking changes
+- ✅ **Version-Aware Design**: Structure code to handle API versioning and breaking changes gracefully
+
+##### **4.6. Error Handling & Edge Cases**
+
+- ✅ **Graceful Degradation**: Handle errors without crashing, show user-friendly messages
+- ✅ **Edge Case Handling**: Consider empty states, loading states, error states, network failures
+- ✅ **Type Safety**: Use TypeScript strict mode, validate external data (API responses, user input)
+- ✅ **Defensive Programming**: Validate inputs, handle null/undefined gracefully
+
+```typescript
+// ❌ BAD - No error handling, will crash
+const user = await fetchUser(id);
+return <Profile data={user} />;
+
+// ✅ GOOD - Handles edge cases
+const { data: user, isLoading, error } = useUser(id);
+
+if (isLoading) return <LoadingSpinner />;
+if (error) return <ErrorMessage message="Failed to load user" />;
+if (!user) return <EmptyState message="User not found" />;
+
+return <Profile data={user} />;
+```
+
+##### **4.7. Testing & Documentation**
+
+- ✅ **Testable Code**: Write code that's easy to test (pure functions, dependency injection)
+- ✅ **In-code Documentation**: Use JSDoc for complex functions, explain "why" not "what"
+- ✅ **Type as Documentation**: Use TypeScript types to document expected data structures
+- ✅ **Clear Commit Messages**: Follow conventional commits for better code history
+
+##### **4.8. Refactoring Guidelines**
+
+- ✅ **Incremental Refactoring**: Refactor small pieces at a time, keep tests passing
+- ✅ **No Big Bang Rewrites**: Avoid rewriting entire features unless absolutely necessary
+- ✅ **Backward Compatibility**: Maintain existing APIs when possible, deprecate gradually
+- ✅ **Performance Monitoring**: Profile before optimizing, measure actual impact
+
+##### **4.9. Anti-Patterns to Avoid**
+
+- ❌ **God Objects/Components**: Components that do everything (500+ lines)
+- ❌ **Deep Prop Drilling**: Passing props through many layers (use Context or state management)
+- ❌ **Tight Coupling**: Components/services directly dependent on specific implementations
+- ❌ **Premature Optimization**: Optimizing without measuring actual performance issues
+- ❌ **Copy-Paste Programming**: Duplicating code instead of extracting reusable functions
+
+##### **4.10. Code Review Checklist**
+
+Before submitting code, ensure:
+
+- [ ] Code follows existing patterns and architecture
+- [ ] Functions/components are focused and single-purpose
+- [ ] Types are properly defined and used
+- [ ] Error cases are handled gracefully
+- [ ] Performance considerations (memoization, lazy loading) are applied where needed
+- [ ] Code is testable and has appropriate test coverage
+- [ ] No hardcoded values (use constants/config)
+- [ ] No unnecessary complexity (simpler is better)
+- [ ] Code is self-documenting (minimal comments needed)
+
+#### **5. Testing Best Practices**
 
 - Place unit tests alongside components or in `src/__tests__/`
 - Place E2E tests in `src/tests/e2e/`
@@ -173,9 +332,32 @@ Configured in `next.config.ts`:
 - Test error states and edge cases, not just happy paths
 - Keep tests independent and isolated
 
-### Creating documentation markdown files (\*.md)
+#### **6. Documentation Files Policy (STRICTLY ENFORCED)**
 
-**Do not create any documentation files unless I explicitly approve it. If you believe a documentation file is needed, please ask for my confirmation first.**
+**🚫 DO NOT CREATE ANY MARKDOWN FILES (\*.md) WITHOUT EXPLICIT PERMISSION**
+
+**Rules:**
+
+- ❌ **NEVER** create any `.md` files (README, CHANGELOG, docs, etc.) without explicit user approval
+- ❌ **NEVER** assume documentation is needed and create it proactively
+- ❌ **NEVER** create documentation files "just in case" or "for completeness"
+- ✅ **ALWAYS** ask for permission first if you believe a documentation file is needed
+- ✅ **ONLY** create documentation files when explicitly requested by the user
+
+**If you think a documentation file might be helpful:**
+
+1. **ASK FIRST**: "Would you like me to create a README for this feature?"
+2. **WAIT FOR APPROVAL**: Do not proceed until you receive explicit confirmation
+3. **CREATE ONLY IF APPROVED**: Only then create the file with the specified content
+
+**This rule applies to ALL markdown files:**
+
+- `README.md`
+- `CHANGELOG.md`
+- `CONTRIBUTING.md`
+- `API.md`
+- `docs/*.md`
+- Any other `.md` files
 
 ### **Adding New Features**
 

@@ -195,6 +195,16 @@
   scrollbar-color: oklch(1 0 0 / 20%) transparent;
 }
 
+/* Hide scrollbar completely */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Sticky table fixes */
 .sticky-table-wrapper {
   position: relative;

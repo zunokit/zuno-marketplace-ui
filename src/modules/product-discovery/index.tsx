@@ -1,3 +1,5 @@
+"use client";
+
 import { HomeBanner } from "@/modules/product-discovery/banner";
 import CarouselCollection from "@/modules/product-discovery/collection-carousel";
 import TrendingNFTs from "@/modules/product-discovery/trending-nfts";
