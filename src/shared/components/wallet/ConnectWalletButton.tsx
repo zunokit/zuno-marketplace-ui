@@ -2,8 +2,9 @@
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Button } from "@/shared/components/ui/button";
-import { Wallet, ChevronDown } from "lucide-react";
+import { Wallet, ChevronDown, LogIn } from "lucide-react";
 import Image from "next/image";
+import { SignInButton } from "@/shared/components/auth/SignInButton";
 
 export function ConnectWalletButton() {
   return (
@@ -57,6 +58,9 @@ export function ConnectWalletButton() {
 
               return (
                 <div className="flex items-center gap-2">
+                  {/* SIWE Sign In Button */}
+                  <SignInButton />
+
                   {/* Chain Selector Button */}
                   <Button
                     onClick={openChainModal}
