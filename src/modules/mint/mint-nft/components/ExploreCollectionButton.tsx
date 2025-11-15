@@ -10,10 +10,10 @@ export default function ExploreCollectionButton() {
     setCollection(makeMockCollection());
   }, []);
   return (
-    <div className="w-full bg-gray-50 dark:bg-[#0c0916] p-3 rounded-xs">
+    <div className="w-full bg-secondary dark:bg-card p-3 rounded-xs">
       <Link
         href={`/marketplace/${collection?.slug}`}
-        className="flex items-center justify-center gap-2 p-2 w-full rounded-xs bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 text-sm"
+        className="flex items-center justify-center gap-2 p-2 w-full rounded-xs bg-muted hover:bg-muted/80 text-foreground dark:bg-muted dark:hover:bg-muted/80 dark:text-foreground text-sm"
       >
         <p>Explore Collection</p>
         <ExternalLink className="w-3 h-3" />

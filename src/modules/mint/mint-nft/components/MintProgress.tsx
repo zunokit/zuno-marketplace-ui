@@ -30,12 +30,12 @@ export default function MintProgress() {
     return (
       <div className="w-full" aria-live="polite">
         <div className="flex justify-between mb-2">
-          <span className="text-sm font-semibold text-gray-900 dark:text-white">Minted</span>
-          <span className="text-sm font-semibold text-gray-900 dark:text-white">
+          <span className="text-sm font-semibold text-foreground dark:text-foreground">Minted</span>
+          <span className="text-sm font-semibold text-foreground dark:text-foreground">
             <Loader2 className="inline h-4 w-4 animate-spin" />
           </span>
         </div>
-        <div className="w-full bg-gray-200 dark:bg-gray-800/50 rounded-full h-2.5 animate-pulse" />
+        <div className="w-full bg-secondary dark:bg-muted rounded-full h-2.5 animate-pulse" />
       </div>
     );
   }
@@ -43,7 +43,7 @@ export default function MintProgress() {
   // Error or invalid data state
   if (!maxSupply) {
     return (
-      <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+      <div className="text-center text-sm text-muted-foreground dark:text-muted-foreground">
         Unable to load mint progress.
       </div>
     );
@@ -53,25 +53,25 @@ export default function MintProgress() {
   return (
     <div className="w-full" aria-live="polite">
       <div className="flex justify-between mb-2">
-        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+        <span className="text-sm font-semibold text-foreground dark:text-foreground">
           {isERC1155 && selectedEditionData
             ? `${selectedEditionData.name} Minted`
             : "Collection Minted"}
         </span>
-        <span className="text-sm font-semibold text-gray-900 dark:text-white">
+        <span className="text-sm font-semibold text-foreground dark:text-foreground">
           {totalMinted}/{maxSupply}
           {isERC1155 && selectedEditionData && (
-            <span className="text-xs text-gray-500 ml-1">
+            <span className="text-xs text-muted-foreground ml-1">
               ({selectedEditionData.remaining} left)
             </span>
           )}
         </span>
       </div>
-      <div className="w-full bg-gray-200 dark:bg-gray-800/50 rounded-full h-2.5">
+      <div className="w-full bg-secondary dark:bg-muted rounded-full h-2.5">
         <div
           className={cn(
-            "bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-600 dark:to-purple-600 h-2.5 rounded-full transition-all duration-300",
-            percentage === 100 && "bg-green-500 dark:bg-green-600"
+            "bg-gradient-to-r from-primary to-accent dark:from-primary dark:to-accent h-2.5 rounded-full transition-all duration-300",
+            percentage === 100 && "bg-success dark:bg-success"
           )}
           style={{ width: `${percentage}%` }}
           role="progressbar"

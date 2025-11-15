@@ -214,11 +214,11 @@ export default function MintButton() {
           className={cn(
             "h-10 text-sm font-medium",
             config.variant === "default" &&
-              "bg-pink-500 hover:bg-pink-600 text-white dark:bg-pink-600 dark:hover:bg-pink-700",
+              "bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90",
             config.variant === "destructive" &&
-              "bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700",
+              "bg-destructive hover:bg-destructive/90 text-white dark:bg-destructive dark:hover:bg-destructive/90",
             config.variant === "secondary" &&
-              "bg-gray-200 hover:bg-gray-300 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300",
+              "bg-secondary hover:bg-muted text-foreground dark:bg-muted dark:hover:bg-hover dark:text-foreground",
             config.disabled && "opacity-50 cursor-not-allowed"
           )}
         >

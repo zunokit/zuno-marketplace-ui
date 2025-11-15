@@ -44,7 +44,7 @@ export default function CollectionGallery({
   return (
     <div
       className={cn(
-        "bg-gradient-to-b from-gray-50 to-white dark:from-[#0c0916] dark:to-[#0f0a19] rounded-lg relative w-full max-w-full overflow-hidden xl:max-w-2xl border border-gray-200 dark:border-gray-800/50",
+        "bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-lg relative w-full max-w-full overflow-hidden xl:max-w-2xl border border-border",
         hasThumbnails && "p-5"
       )}
     >
@@ -52,7 +52,7 @@ export default function CollectionGallery({
         <Button
           variant="ghost"
           size="icon"
-          className="bg-gray-300 dark:bg-[#3b393b] dark:border-gray-800/50 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800/30 rounded-md h-10 w-10 cursor-pointer"
+          className="bg-muted dark:bg-card border border-border text-foreground dark:text-white hover:bg-secondary dark:hover:bg-card/80 rounded-md h-10 w-10 cursor-pointer"
           onClick={() => onOpenCarousel(currentIndex)}
           aria-label={`Open carousel at image ${currentIndex + 1} of ${collection.name}`}
         >

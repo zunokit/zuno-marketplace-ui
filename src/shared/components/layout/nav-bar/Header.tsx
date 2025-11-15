@@ -26,14 +26,14 @@ export default function Header() {
       className={cn(
         "border-b py-3 transition-all duration-300",
         isScrolled
-          ? "bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:bg-[#1A1F2C]/80 dark:supports-[backdrop-filter]:bg-[#1A1F2C]/70 border-gray-200/70 dark:border-white/5"
-          : "bg-white dark:bg-[#1A1F2C] border-gray-200 dark:border-white/5"
+          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:dark:bg-card/70 border-border/70 dark:border-border"
+          : "bg-background dark:bg-card border-border dark:border-border"
       )}
     >
       <div className="flex items-center justify-between px-2 sm:px-4 mx-auto">
         <Link href="/" className="flex items-center mr-2 xl:mr-5 gap-2 md:gap-4">
           <Image src="/images/logo.png" alt="Zuno" width={32} height={32} />
-          <div className="hidden md:block text-xl font-semibold tracking-wide text-gray-900 dark:text-white">
+          <div className="hidden md:block text-xl font-semibold tracking-wide text-foreground dark:text-white">
             ZUNO
           </div>
         </Link>
@@ -56,7 +56,7 @@ export default function Header() {
 
         <SearchBar isMobile={isMobile} />
 
-        <div className="flex items-center space-x-2 ml-auto pl-2 border-l border-transparent md:border-gray-200 dark:md:border-white/5">
+        <div className="flex items-center space-x-2 ml-auto pl-2 border-l border-transparent md:border-border dark:md:border-border">
           {/* <WalletSection></WalletSection> */}
           {/* Mobile Menu */}
           {isMobile && <MobileMenu navItems={navItems} />}

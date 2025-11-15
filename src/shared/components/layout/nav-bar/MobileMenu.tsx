@@ -22,14 +22,14 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-white/5"
+          className="md:hidden text-foreground hover:bg-secondary dark:text-white dark:hover:bg-white/5"
         >
           <MenuIcon className="h-5 w-5" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-l border-gray-200 pt-12 px-5 dark:bg-[#1A1F2C]/95 dark:supports-[backdrop-filter]:bg-[#1A1F2C]/80 dark:border-white/10"
+        className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-l border-border pt-12 px-5 dark:bg-card/95 dark:supports-[backdrop-filter]:bg-card/80 dark:border-border"
       >
         <SheetTitle className="visually-hidden">Menu</SheetTitle>
         <nav className="flex flex-col space-y-4">
@@ -43,7 +43,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                 {/* Parent link */}
                 <Link
                   href={item.href}
-                  className="px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors dark:text-white/80 dark:hover:text-white dark:hover:bg-white/5"
+                  className="px-4 py-2 text-foreground hover:text-foreground hover:bg-secondary rounded-md transition-colors dark:text-white/80 dark:hover:text-white dark:hover:bg-white/5"
                 >
                   {item.label}
                 </Link>
@@ -54,7 +54,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                       <Link
                         key={dropItem.href}
                         href={dropItem.href}
-                        className="block px-2 py-1 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5"
+                        className="block px-2 py-1 text-sm text-foreground hover:text-foreground hover:bg-secondary rounded-md transition-colors dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5"
                       >
                         {dropItem.label}
                       </Link>

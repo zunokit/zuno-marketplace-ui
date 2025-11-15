@@ -34,7 +34,7 @@ export function HomeBanner() {
   // Show loading state while slides are being generated
   if (slides.length === 0) {
     return (
-      <div className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 bg-gray-50 dark:bg-[#1A1F2C] border border-gray-200 dark:border-white/10 animate-pulse" />
+      <div className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 bg-secondary dark:bg-card border border-border animate-pulse" />
     );
   }
 
@@ -42,7 +42,7 @@ export function HomeBanner() {
     <div className="w-full px-2 md:px-0">
       <Carousel
         setApi={setApi}
-        className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 group bg-gray-50 dark:bg-[#1A1F2C] border border-gray-200 dark:border-white/10"
+        className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 group bg-secondary dark:bg-card border border-border"
         plugins={
           [
             // Autoplay({

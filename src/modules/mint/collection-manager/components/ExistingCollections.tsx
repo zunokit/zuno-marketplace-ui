@@ -26,13 +26,13 @@ export default function ExistingCollections() {
   }, []);
 
   return (
-    <Card className="bg-white dark:bg-[#111119] border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white">
+    <Card className="bg-background dark:bg-card border-border text-foreground dark:text-white">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium">Existing Collections</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground">
             View your deployed collections on {"unknown chain"}
           </p>
         </div>
@@ -41,14 +41,14 @@ export default function ExistingCollections() {
           <DropdownMenuTrigger asChild className="w-full">
             <Button
               variant="outline"
-              className="w-full justify-between bg-gray-50 dark:bg-[#1e1e2d] border-gray-200 dark:border-zinc-700 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-700 hover:text-gray-900 dark:hover:text-white"
+              className="w-full justify-between bg-secondary dark:bg-card border-border text-foreground dark:text-white hover:bg-muted dark:hover:bg-card/80"
             >
               View Collection
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-white dark:bg-[#1e1e2d] border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white"
+            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-background dark:bg-card border-border text-foreground dark:text-white"
             align="start"
             sideOffset={5}
           >
@@ -57,7 +57,7 @@ export default function ExistingCollections() {
                 collections.map(collection => (
                   <DropdownMenuItem
                     key={collection.id}
-                    className="hover:bg-gray-100 dark:hover:bg-zinc-700 py-3 px-4 cursor-pointer"
+                    className="hover:bg-secondary dark:hover:bg-card/80 py-3 px-4 cursor-pointer"
                   >
                     <Link
                       href={`/mint/${collection.slug}`}
@@ -79,8 +79,8 @@ export default function ExistingCollections() {
                 ))
               ) : (
                 <div className="flex flex-col items-center py-6">
-                  <Sprout className="h-8 w-8 text-gray-400 mb-2" />
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <Sprout className="h-8 w-8 text-muted-foreground mb-2" />
+                  <p className="text-sm text-muted-foreground">
                     No collections found for this wallet
                   </p>
                 </div>

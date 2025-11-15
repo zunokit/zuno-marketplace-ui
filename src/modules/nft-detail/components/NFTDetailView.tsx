@@ -70,7 +70,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
                     className="bg-background/80 backdrop-blur-sm"
                     onClick={handleLike}
                   >
-                    <Heart className={`h-4 w-4 ${isLiked ? "fill-red-500 text-red-500" : ""}`} />
+                    <Heart className={`h-4 w-4 ${isLiked ? "fill-destructive text-destructive" : ""}`} />
                   </Button>
                   <Button
                     size="icon"

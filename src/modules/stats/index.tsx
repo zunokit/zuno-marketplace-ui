@@ -66,7 +66,7 @@ export function StatsPage() {
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.totalVolume} ETH</div>
             <p className="text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 inline mr-1 text-green-500" />
+              <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +12.5% from last month
             </p>
           </CardContent>
@@ -80,7 +80,7 @@ export function StatsPage() {
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.totalSales}</div>
             <p className="text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 inline mr-1 text-green-500" />
+              <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +8.2% from last month
             </p>
           </CardContent>
@@ -94,7 +94,7 @@ export function StatsPage() {
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.avgPrice} ETH</div>
             <p className="text-xs text-muted-foreground">
-              <TrendingDown className="h-3 w-3 inline mr-1 text-red-500" />
+              <TrendingDown className="h-3 w-3 inline mr-1 text-destructive" />
               -3.4% from last month
             </p>
           </CardContent>
@@ -108,7 +108,7 @@ export function StatsPage() {
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.activeUsers}</div>
             <p className="text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 inline mr-1 text-green-500" />
+              <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +18.7% from last month
             </p>
           </CardContent>
@@ -172,7 +172,7 @@ export function StatsPage() {
                       <TableCell>
                         <span
                           className={
-                            parseFloat(collection.change24h) > 0 ? "text-green-500" : "text-red-500"
+                            parseFloat(collection.change24h) > 0 ? "text-success" : "text-destructive"
                           }
                         >
                           {parseFloat(collection.change24h) > 0 ? "+" : ""}
@@ -183,7 +183,7 @@ export function StatsPage() {
                       <TableCell>
                         <span
                           className={
-                            parseFloat(collection.change7d) > 0 ? "text-green-500" : "text-red-500"
+                            parseFloat(collection.change7d) > 0 ? "text-success" : "text-destructive"
                           }
                         >
                           {parseFloat(collection.change7d) > 0 ? "+" : ""}
@@ -236,7 +236,7 @@ export function StatsPage() {
                       <TableCell>{nft.lastSale} ETH</TableCell>
                       <TableCell>
                         <span
-                          className={parseFloat(nft.change) > 0 ? "text-green-500" : "text-red-500"}
+                          className={parseFloat(nft.change) > 0 ? "text-success" : "text-destructive"}
                         >
                           {parseFloat(nft.change) > 0 ? "+" : ""}
                           {nft.change}%

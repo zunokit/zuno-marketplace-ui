@@ -118,7 +118,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                 {auction.status}
               </Badge>
               {!isReserveMet && (
-                <Badge variant="outline" className="text-yellow-600 border-yellow-600">
+                <Badge variant="outline" className="text-warning border-warning">
                   <AlertCircle className="h-3 w-3 mr-1" />
                   Reserve not met
                 </Badge>
@@ -169,7 +169,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                 </p>
                 {leadingBidder && (
                   <div className="flex items-center gap-2 mt-2">
-                    <Trophy className="h-4 w-4 text-yellow-500" />
+                    <Trophy className="h-4 w-4 text-warning" />
                     <span className="text-sm">
                       Leading: {leadingBidder.name || leadingBidder.address.slice(0, 8)}
                     </span>

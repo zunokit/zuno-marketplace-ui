@@ -124,15 +124,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <DialogTitle className="sr-only">Search NFTs and Collections</DialogTitle>
 
         {/* Search Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-800 p-5 bg-white dark:bg-gray-900">
+        <div className="border-b border-border dark:border-border p-5 bg-background dark:bg-card">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
               autoFocus
               value={searchTerm}
               onChange={e => handleSearch(e.target.value)}
               placeholder="Search NFTs, collections, creators and wallets..."
-              className="pl-12 pr-12 h-12 text-base border border-gray-200 dark:border-gray-700 focus:border-purple-500 dark:focus:border-purple-400 focus-visible:ring-0 bg-gray-50 dark:bg-gray-800/50 rounded-lg"
+              className="pl-12 pr-12 h-12 text-base border border-border dark:border-border focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-lg"
             />
             <button
               onClick={onClose}
@@ -146,7 +146,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         {/* Main Content with Sidebar */}
         <div className="flex flex-1 overflow-hidden">
           {/* Left Sidebar - Categories */}
-          <div className="w-48 border-r border-gray-200/50 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 p-3">
+          <div className="w-48 border-r border-border dark:border-border bg-secondary/50 dark:bg-card p-3">
             <div className="space-y-1">
               {categories.map(category => {
                 const Icon = category.icon;
@@ -157,8 +157,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     className={cn(
                       "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all",
                       selectedCategory === category.id
-                        ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                        : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-white dark:hover:bg-gray-800"
+                        ? "bg-accent/10 text-accent"
+                        : "text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground hover:bg-background dark:hover:bg-card"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -184,7 +184,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <button
                         key={item.id}
                         onClick={() => handleSearch(item.term)}
-                        className="flex items-center justify-between p-3 rounded-lg bg-white border border-gray-200 hover:border-purple-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-purple-600 transition-all group"
+                        className="flex items-center justify-between p-3 rounded-lg bg-background border border-border hover:border-accent transition-all group"
                       >
                         <div className="flex items-center gap-2">
                           <span className="text-lg">{item.icon}</span>
@@ -194,8 +194,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           className={cn(
                             "text-xs font-semibold",
                             item.change.startsWith("+")
-                              ? "text-green-600 dark:text-green-400"
-                              : "text-red-600 dark:text-red-400"
+                              ? "text-success dark:text-success"
+                              : "text-destructive dark:text-destructive"
                           )}
                         >
                           {item.change}
@@ -221,7 +221,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <button
                         key={item.id}
                         onClick={() => handleSearch(item.term)}
-                        className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                        className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-secondary transition-colors group"
                       >
                         <div className="flex items-center gap-3">
                           {item.type === "wallet" ? (
@@ -249,7 +249,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={collection.id}
                         href={`/collections/${collection.id}`}
                         onClick={onClose}
-                        className="p-4 rounded-lg bg-white border border-gray-200 hover:border-purple-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:border-purple-600 transition-all group"
+                        className="p-4 rounded-lg bg-background border border-border hover:border-accent transition-all group"
                       >
                         <div className="flex items-start gap-3">
                           <div className="relative">
@@ -261,35 +261,35 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               className="rounded-lg"
                             />
                             {collection.verified && (
-                              <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-0.5">
+                              <div className="absolute -bottom-1 -right-1 bg-info rounded-full p-0.5">
                                 <Star className="h-3 w-3 text-white fill-white" />
                               </div>
                             )}
-                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
                               {index + 1}
                             </div>
                           </div>
                           <div className="flex-1">
-                            <p className="font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                            <p className="font-semibold group-hover:text-accent">
                               {collection.name}
                             </p>
                             <div className="mt-2 space-y-1">
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-500">Floor</span>
+                                <span className="text-muted-foreground">Floor</span>
                                 <span className="font-medium">{collection.floor}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-500">Vol</span>
+                                <span className="text-muted-foreground">Vol</span>
                                 <span className="font-medium">{collection.volume}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="text-gray-500">24h</span>
+                                <span className="text-muted-foreground">24h</span>
                                 <span
                                   className={cn(
                                     "font-semibold",
                                     collection.change.startsWith("+")
-                                      ? "text-green-600 dark:text-green-400"
-                                      : "text-red-600 dark:text-red-400"
+                                      ? "text-success dark:text-success"
+                                      : "text-destructive dark:text-destructive"
                                   )}
                                 >
                                   {collection.change}
@@ -323,13 +323,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       {[1, 2, 3].map(i => (
                         <div
                           key={i}
-                          className="p-4 rounded-lg border dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer"
+                          className="p-4 rounded-lg border border-border hover:bg-secondary cursor-pointer"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-lg bg-gray-200 dark:bg-white/10 animate-pulse" />
+                            <div className="w-12 h-12 rounded-lg bg-muted animate-pulse" />
                             <div className="flex-1">
-                              <div className="h-4 w-32 bg-gray-200 dark:bg-white/10 rounded animate-pulse mb-2" />
-                              <div className="h-3 w-24 bg-gray-200 dark:bg-white/10 rounded animate-pulse" />
+                              <div className="h-4 w-32 bg-muted rounded animate-pulse mb-2" />
+                              <div className="h-3 w-24 bg-muted rounded animate-pulse" />
                             </div>
                           </div>
                         </div>
@@ -343,22 +343,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200/50 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 px-5 py-3 flex items-center justify-between text-xs text-muted-foreground">
+        <div className="border-t border-border bg-secondary dark:bg-card px-5 py-3 flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-white/10 rounded text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
                 ↑↓
               </kbd>
               Navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-white/10 rounded text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
                 Enter
               </kbd>
               Select
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-white/10 rounded text-[10px] font-mono">
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
                 Esc
               </kbd>
               Close

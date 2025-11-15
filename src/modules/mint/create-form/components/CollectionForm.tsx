@@ -62,7 +62,7 @@ export default function CollectionForm() {
           variant="ghost"
           size="sm"
           onClick={handleClearForm}
-          className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="text-muted-foreground hover:text-foreground dark:hover:text-white"
         >
           <RotateCcw className="h-4 w-4 mr-1" /> Clear Form
         </Button>
@@ -79,19 +79,19 @@ export default function CollectionForm() {
               type="checkbox"
               id="agreeTos"
               {...form.register("agreeTos")}
-              className="rounded border-gray-300 dark:border-gray-600"
+              className="rounded border-border"
             />
-            <label htmlFor="agreeTos" className="text-sm text-gray-900 dark:text-white">
+            <label htmlFor="agreeTos" className="text-sm text-foreground dark:text-white">
               I agree to the Terms of Service
             </label>
           </div>
           {form.formState.errors.agreeTos && (
-            <p className="text-red-500 text-sm">{form.formState.errors.agreeTos.message}</p>
+            <p className="text-destructive text-sm">{form.formState.errors.agreeTos.message}</p>
           )}
 
           <Button
             type="submit"
-            className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             disabled={form.formState.isSubmitting || !form.formState.isValid}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Submit"}

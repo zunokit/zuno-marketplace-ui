@@ -294,7 +294,7 @@ export default function ExploreMarketplace() {
             className="object-cover group-hover:scale-110 transition-transform duration-300"
           />
           {nft.isAuction && nft.endTime && (
-            <Badge className="absolute top-2 left-2 bg-red-500 text-white">
+            <Badge className="absolute top-2 left-2 bg-destructive text-destructive-foreground">
               <Clock className="w-3 h-3 mr-1" />
               Auction
             </Badge>
@@ -303,11 +303,11 @@ export default function ExploreMarketplace() {
             <Badge
               className={cn(
                 "absolute top-2 right-2",
-                nft.rarity === "Legendary" && "bg-yellow-500",
-                nft.rarity === "Epic" && "bg-purple-500",
-                nft.rarity === "Rare" && "bg-blue-500",
-                nft.rarity === "Uncommon" && "bg-green-500",
-                nft.rarity === "Common" && "bg-gray-500"
+                nft.rarity === "Legendary" && "bg-warning",
+                nft.rarity === "Epic" && "bg-accent",
+                nft.rarity === "Rare" && "bg-info",
+                nft.rarity === "Uncommon" && "bg-success",
+                nft.rarity === "Common" && "bg-secondary"
               )}
             >
               {nft.rarity}
@@ -374,7 +374,7 @@ export default function ExploreMarketplace() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-green-500" />
+            <TrendingUp className="h-5 w-5 text-success" />
             <div>
               <p className="text-sm text-muted-foreground">Total Volume</p>
               <p className="text-xl font-bold">892.5K ETH</p>
@@ -383,7 +383,7 @@ export default function ExploreMarketplace() {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <Grid3X3 className="h-5 w-5 text-blue-500" />
+            <Grid3X3 className="h-5 w-5 text-info" />
             <div>
               <p className="text-sm text-muted-foreground">Total NFTs</p>
               <p className="text-xl font-bold">{allNFTs.length}</p>
@@ -392,7 +392,7 @@ export default function ExploreMarketplace() {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-yellow-500" />
+            <DollarSign className="h-5 w-5 text-warning" />
             <div>
               <p className="text-sm text-muted-foreground">Floor Price</p>
               <p className="text-xl font-bold">0.08 ETH</p>
@@ -401,7 +401,7 @@ export default function ExploreMarketplace() {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-purple-500" />
+            <Clock className="h-5 w-5 text-accent" />
             <div>
               <p className="text-sm text-muted-foreground">Active Auctions</p>
               <p className="text-xl font-bold">{allNFTs.filter(n => n.isAuction).length}</p>
@@ -590,7 +590,7 @@ export default function ExploreMarketplace() {
                           <Badge variant="outline">{nft.category}</Badge>
                           {nft.rarity && <Badge variant="outline">{nft.rarity}</Badge>}
                           {nft.isAuction && (
-                            <Badge className="bg-red-500 text-white">Auction</Badge>
+                            <Badge className="bg-destructive text-destructive-foreground">Auction</Badge>
                           )}
                         </div>
                       </div>

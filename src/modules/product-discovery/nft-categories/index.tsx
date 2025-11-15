@@ -167,7 +167,7 @@ export default function NFTCategories() {
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold text-sm">{category.name}</h3>
-                      {category.trending && <Sparkles className="h-3 w-3 text-yellow-500" />}
+                      {category.trending && <Sparkles className="h-3 w-3 text-warning" />}
                     </div>
 
                     <p className="text-xs text-muted-foreground line-clamp-1">
