@@ -8,6 +8,7 @@ import { getNavItems } from "@/shared/utils/menu";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/shared/utils/tailwind-utils";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function Header() {
   const isMobile = useIsMobile();
@@ -57,7 +58,8 @@ export default function Header() {
         <SearchBar isMobile={isMobile} />
 
         <div className="flex items-center space-x-2 ml-auto pl-2 border-l border-transparent md:border-border dark:md:border-border">
-          {/* <WalletSection></WalletSection> */}
+          {/* Wallet Connect Button */}
+          <ConnectButton />
           {/* Mobile Menu */}
           {isMobile && <MobileMenu navItems={navItems} />}
         </div>

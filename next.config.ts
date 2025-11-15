@@ -53,6 +53,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    // Exclude test and benchmark files from being processed
+    config.externals.push("pino-pretty", "lokijs", "encoding");
+
+    // Ignore specific test/dev files
+    config.module = config.module || {};
+    config.module.rules = config.module.rules || [];
+    config.module.rules.push({
+      test: /\/(test|bench)\//,
+      use: "null-loader",
+    });
+
+    return config;
+  },
 };
 
 export default nextConfig;
