@@ -1,12 +1,7 @@
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-  sepolia,
-} from 'wagmi/chains';
+import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
+import { createConfig, http } from 'wagmi';
+import { sepolia, localhost } from 'wagmi/chains';
 
 // Get WalletConnect project ID from environment
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '';
@@ -17,9 +12,26 @@ if (!projectId) {
   );
 }
 
-export const wagmiConfig = getDefaultConfig({
-  appName: 'Zuno Marketplace',
-  projectId,
-  chains: [mainnet, polygon, optimism, arbitrum, base, sepolia],
-  ssr: true, // Enable SSR for Next.js
+// Configure only MetaMask wallet
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [metaMaskWallet],
+    },
+  ],
+  {
+    appName: 'Zuno Marketplace',
+    projectId,
+  }
+);
+
+export const wagmiConfig = createConfig({
+  connectors,
+  chains: [localhost, sepolia],
+  ssr: true,
+  transports: {
+    [localhost.id]: http(),
+    [sepolia.id]: http(),
+  },
 });
