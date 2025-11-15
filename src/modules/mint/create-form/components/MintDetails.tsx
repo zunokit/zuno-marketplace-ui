@@ -204,7 +204,7 @@ export function MintDetails() {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-foreground dark:text-white">Allowlist Stage</h3>
-                    <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs px-2 py-0.5 rounded">
+                    <span className="bg-info/10 text-info text-xs px-2 py-0.5 rounded">
                       {stages?.[0]?.presale?.price || getValues("mintPrice") || "0"} ETH
                     </span>
                   </div>
@@ -269,7 +269,7 @@ export function MintDetails() {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <h3 className="font-medium text-foreground dark:text-white">Public Stage</h3>
-                  <span className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs px-2 py-0.5 rounded">
+                  <span className="bg-success/10 text-success text-xs px-2 py-0.5 rounded">
                     {stages?.[0]?.public?.price || getValues("mintPrice") || "0"} ETH
                   </span>
                 </div>

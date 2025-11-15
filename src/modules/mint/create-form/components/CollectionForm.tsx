@@ -86,12 +86,12 @@ export default function CollectionForm() {
             </label>
           </div>
           {form.formState.errors.agreeTos && (
-            <p className="text-red-500 text-sm">{form.formState.errors.agreeTos.message}</p>
+            <p className="text-destructive text-sm">{form.formState.errors.agreeTos.message}</p>
           )}
 
           <Button
             type="submit"
-            className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             disabled={form.formState.isSubmitting || !form.formState.isValid}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Submit"}

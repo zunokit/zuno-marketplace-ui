@@ -394,8 +394,8 @@ export function CreateCollectionForm() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-4 bg-yellow-500/10 rounded-lg">
-                <AlertCircle className="h-5 w-5 text-yellow-600" />
+              <div className="flex items-center gap-2 p-4 bg-warning/10 rounded-lg">
+                <AlertCircle className="h-5 w-5 text-warning" />
                 <p className="text-sm">
                   Deploying a smart contract requires gas fees. Make sure you have enough ETH in
                   your wallet.

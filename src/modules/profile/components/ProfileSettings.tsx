@@ -290,10 +290,10 @@ export function ProfileSettings() {
             </CardContent>
           </Card>
 
-          <Card className="border-yellow-500/20 bg-yellow-500/5">
+          <Card className="border-warning/20 bg-warning/5">
             <CardContent className="pt-6">
               <div className="flex gap-3">
-                <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="h-5 w-5 text-warning flex-shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <p className="font-medium">Wallet Address</p>
                   <p className="text-sm text-muted-foreground">

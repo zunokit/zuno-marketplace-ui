@@ -144,15 +144,15 @@ export default function TrendingNFTs() {
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 {nft.isAuction && (
-                  <Badge className="absolute top-2 left-2 bg-red-500 text-white">
+                  <Badge className="absolute top-2 left-2 bg-destructive text-destructive-foreground">
                     <Clock className="w-3 h-3 mr-1" />
                     {nft.timeLeft}
                   </Badge>
                 )}
                 <Badge
                   className={`absolute top-2 right-2 ${
-                    nft.change24h > 0 ? "bg-green-500" : "bg-red-500"
-                  } text-white`}
+                    nft.change24h > 0 ? "bg-success text-success-foreground" : "bg-destructive text-destructive-foreground"
+                  }`}
                 >
                   <TrendingUp className="w-3 h-3 mr-1" />
                   {nft.change24h > 0 ? "+" : ""}

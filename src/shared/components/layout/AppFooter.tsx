@@ -32,7 +32,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
         {/* Left Section */}
         <div className="flex items-center gap-2 md:gap-6">
           <button className="flex items-center gap-1 md:gap-2 text-foreground hover:text-muted-foreground transition-colors">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span className="w-2 h-2 bg-success rounded-full"></span>
             <span className="font-medium hidden sm:inline">Live</span>
           </button>
           <button className="hidden md:flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">

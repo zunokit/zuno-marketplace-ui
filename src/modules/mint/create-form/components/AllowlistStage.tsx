@@ -201,7 +201,7 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
                 // TODO: Save allowlist stage data to form
                 onOpenChange(false);
               }}
-              className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               Done
             </Button>

@@ -52,9 +52,9 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
   const getStatusColor = () => {
     switch (auction.status) {
       case "active":
-        return "bg-green-500";
+        return "bg-success";
       case "upcoming":
-        return "bg-blue-500";
+        return "bg-info";
       case "ended":
         return "bg-muted";
       default:

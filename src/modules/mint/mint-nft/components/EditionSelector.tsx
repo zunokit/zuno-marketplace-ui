@@ -48,7 +48,7 @@ export default function EditionSelector() {
     <div className="my-5 space-y-3">
       <div className="flex justify-between items-center gap-5">
         <h3 className="text-lg font-semibold text-foreground dark:text-white">
-          Select Edition <span className="text-pink-500">*</span>
+          Select Edition <span className="text-primary">*</span>
         </h3>
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -93,7 +93,7 @@ export default function EditionSelector() {
       </div>
 
       {selectedEditionData && (
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 rounded-xs">
+        <div className="p-4 bg-info/10 border border-info/20 rounded-xs">
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-xs overflow-hidden">
               <Image
@@ -133,7 +133,7 @@ export default function EditionSelector() {
               border rounded-md cursor-pointer transition-all duration-200 hover:shadow-md border-border
               ${
                 selectedEdition === edition.id
-                  ? "border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                  ? "border-info bg-info/10"
                   : "border-border hover:border-border/60"
               }
               ${editionViewMode === "list" ? "p-3" : "p-4"}

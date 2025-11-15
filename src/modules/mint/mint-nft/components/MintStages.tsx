@@ -22,7 +22,7 @@ const MintStages = () => {
         className={cn(
           "rounded-lg py-4 px-5 transition-all duration-200 border-2 border-border",
           status === "live" &&
-            "border border-pink-400 dark:border-pink-500 bg-pink-50/50 dark:bg-pink-600/10"
+            "border border-primary bg-primary/10"
         )}
       >
         <div className="flex justify-between items-center mb-2">
@@ -34,7 +34,7 @@ const MintStages = () => {
           </div>
           {status === "live" && endDate && (
             <div className="flex items-center gap-2">
-              <span className="px-2 py-1 text-sm rounded-full bg-pink-500 dark:bg-pink-600 text-white">
+              <span className="px-2 py-1 text-sm rounded-full bg-primary text-primary-foreground">
                 LIVE
               </span>
               <CountdownTimer endTime={endDate} onEnd={() => {}} isLive={true} />

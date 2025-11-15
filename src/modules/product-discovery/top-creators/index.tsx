@@ -172,10 +172,10 @@ export default function TopCreators() {
                   <Badge
                     className={`absolute top-2 left-2 ${
                       creator.rank === 1
-                        ? "bg-yellow-500"
+                        ? "bg-warning"
                         : creator.rank === 2
                           ? "bg-muted"
-                          : "bg-amber-600"
+                          : "bg-warning/80"
                     } text-white`}
                   >
                     <Award className="w-3 h-3 mr-1" />#{creator.rank}
@@ -190,7 +190,7 @@ export default function TopCreators() {
                     <AvatarFallback>{creator.name[0]}</AvatarFallback>
                   </Avatar>
                   {creator.isVerified && (
-                    <VerifiedIcon className="w-5 h-5 text-blue-500 ml-2 mt-10" />
+                    <VerifiedIcon className="w-5 h-5 text-info ml-2 mt-10" />
                   )}
                 </div>
 
@@ -215,7 +215,7 @@ export default function TopCreators() {
                   <div>
                     <p className="text-muted-foreground text-xs">7d Change</p>
                     <p
-                      className={`font-bold ${creator.change7d > 0 ? "text-green-500" : "text-red-500"}`}
+                      className={`font-bold ${creator.change7d > 0 ? "text-success" : "text-destructive"}`}
                     >
                       {creator.change7d > 0 ? "+" : ""}
                       {creator.change7d}%

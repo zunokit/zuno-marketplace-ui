@@ -32,7 +32,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
           {/* Text content with padding */}
           <div className="w-full p-3 text-center">
             <h3 className="text-sm font-medium text-white">{name}</h3>
-            <p className="text-[10px] text-pink-500 mt-0.5 leading-tight">{title}</p>
+            <p className="text-[10px] text-primary mt-0.5 leading-tight">{title}</p>
 
             {linkedinUrl && (
               <a

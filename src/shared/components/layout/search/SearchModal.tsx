@@ -132,7 +132,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               value={searchTerm}
               onChange={e => handleSearch(e.target.value)}
               placeholder="Search NFTs, collections, creators and wallets..."
-              className="pl-12 pr-12 h-12 text-base border border-border dark:border-border focus:border-purple-500 dark:focus:border-purple-400 focus-visible:ring-0 bg-secondary dark:bg-card rounded-lg"
+              className="pl-12 pr-12 h-12 text-base border border-border dark:border-border focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-lg"
             />
             <button
               onClick={onClose}
@@ -157,7 +157,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     className={cn(
                       "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all",
                       selectedCategory === category.id
-                        ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+                        ? "bg-accent/10 text-accent"
                         : "text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground hover:bg-background dark:hover:bg-card"
                     )}
                   >
@@ -184,7 +184,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <button
                         key={item.id}
                         onClick={() => handleSearch(item.term)}
-                        className="flex items-center justify-between p-3 rounded-lg bg-background border border-border hover:border-purple-300 dark:hover:border-purple-600 transition-all group"
+                        className="flex items-center justify-between p-3 rounded-lg bg-background border border-border hover:border-accent transition-all group"
                       >
                         <div className="flex items-center gap-2">
                           <span className="text-lg">{item.icon}</span>
@@ -249,7 +249,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={collection.id}
                         href={`/collections/${collection.id}`}
                         onClick={onClose}
-                        className="p-4 rounded-lg bg-background border border-border hover:border-purple-300 dark:hover:border-purple-600 transition-all group"
+                        className="p-4 rounded-lg bg-background border border-border hover:border-accent transition-all group"
                       >
                         <div className="flex items-start gap-3">
                           <div className="relative">
@@ -265,12 +265,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                 <Star className="h-3 w-3 text-white fill-white" />
                               </div>
                             )}
-                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
                               {index + 1}
                             </div>
                           </div>
                           <div className="flex-1">
-                            <p className="font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                            <p className="font-semibold group-hover:text-accent">
                               {collection.name}
                             </p>
                             <div className="mt-2 space-y-1">

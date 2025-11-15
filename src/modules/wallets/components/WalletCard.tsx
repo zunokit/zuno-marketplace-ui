@@ -76,7 +76,7 @@ export function WalletCard({ wallet, onConnect }: WalletCardProps) {
                 </Badge>
               )}
               {wallet.isInstalled && (
-                <Badge className="text-xs bg-green-500/10 text-green-500">Installed</Badge>
+                <Badge className="text-xs bg-success/10 text-success">Installed</Badge>
               )}
             </div>
 

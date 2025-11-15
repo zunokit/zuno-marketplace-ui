@@ -72,7 +72,7 @@ const CountdownTimer = ({ endTime, onEnd, isLive = false }: CountdownTimerProps)
           key={unit}
           className={`w-10 h-6 flex items-center justify-center rounded text-sm ${
             isLive
-              ? "bg-pink-600/20 text-pink-400 border border-pink-600/50 dark:bg-pink-700/20 dark:text-pink-300 dark:border-pink-700/50"
+              ? "bg-primary/20 text-primary border border-primary/50"
               : "bg-muted text-muted-foreground border border-border"
           }`}
         >

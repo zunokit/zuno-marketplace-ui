@@ -232,7 +232,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         </div>
                         <div className="flex items-center gap-1.5 min-w-0">
                           <span className="text-sm font-medium truncate">{collection.name}</span>
-                          {collection.isVerified && <CheckCircle2 className="h-3.5 w-3.5 text-blue-500 flex-shrink-0" />}
+                          {collection.isVerified && <CheckCircle2 className="h-3.5 w-3.5 text-info flex-shrink-0" />}
                         </div>
                       </div>
 
@@ -249,7 +249,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         <span
                           className={cn(
                             "w-14 text-right text-xs font-medium",
-                            priceChange >= 0 ? "text-green-500" : "text-red-500"
+                            priceChange >= 0 ? "text-success" : "text-destructive"
                           )}
                         >
                           {priceChange >= 0 ? "+" : ""}
@@ -274,7 +274,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         </div>
                         <div className="flex items-center gap-1.5 min-w-0">
                           <span className="text-sm font-medium truncate">{collection.name}</span>
-                          {collection.isVerified && <CheckCircle2 className="h-3.5 w-3.5 text-blue-500 flex-shrink-0" />}
+                          {collection.isVerified && <CheckCircle2 className="h-3.5 w-3.5 text-info flex-shrink-0" />}
                         </div>
                       </div>
 
@@ -290,7 +290,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                           <span
                             className={cn(
                               "text-xs font-medium",
-                              priceChange >= 0 ? "text-green-500" : "text-red-500"
+                              priceChange >= 0 ? "text-success" : "text-destructive"
                             )}
                           >
                             {priceChange >= 0 ? "+" : ""}
@@ -340,7 +340,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         <span
                           className={cn(
                             "w-16 text-right text-xs font-medium",
-                            token.priceChange >= 0 ? "text-green-500" : "text-red-500"
+                            token.priceChange >= 0 ? "text-success" : "text-destructive"
                           )}
                         >
                           {token.priceChange >= 0 ? "+" : ""}
@@ -393,7 +393,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         <span
                           className={cn(
                             "text-xs font-medium",
-                            token.priceChange >= 0 ? "text-green-500" : "text-red-500"
+                            token.priceChange >= 0 ? "text-success" : "text-destructive"
                           )}
                         >
                           {token.priceChange >= 0 ? "+" : ""}

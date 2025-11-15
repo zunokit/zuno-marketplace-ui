@@ -15,7 +15,7 @@ export default function NewCollection() {
         </p>
 
         <Button
-          className="w-full bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-600 text-white cursor-pointer transition-colors"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer transition-colors"
           onClick={() => {
             redirect("/mint/create");
           }}
