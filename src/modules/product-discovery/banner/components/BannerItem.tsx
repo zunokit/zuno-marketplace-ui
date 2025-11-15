@@ -34,22 +34,22 @@ export default function BannerItem(banner: Banner) {
 
             <span className="text-sm md:text-xl lg:text-2xl text-white/80 dark:text-white/80">By {banner.author}</span>
 
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl p-2 md:p-4 border border-white/10 dark:border-white/10 w-fit">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl p-2 md:p-4 border border-white/10 w-fit">
               <div className="flex items-center gap-3 md:gap-8">
                 <div className="text-center">
-                  <p className="text-[10px] md:text-xs text-white/70 dark:text-gray-300 uppercase tracking-wider mb-1 md:mb-2 font-medium">
+                  <p className="text-[10px] md:text-xs text-white/70 uppercase tracking-wider mb-1 md:mb-2 font-medium">
                     Floor Price
                   </p>
-                  <p className="text-sm md:text-xl font-bold text-white dark:text-white">3.8%</p>
+                  <p className="text-sm md:text-xl font-bold text-white">3.8%</p>
                 </div>
 
-                <div className="w-px h-8 md:h-12 bg-white/20 dark:bg-white/20"></div>
+                <div className="w-px h-8 md:h-12 bg-white/20"></div>
 
                 <div className="text-center">
-                  <p className="text-[10px] md:text-xs text-white/70 dark:text-gray-300 uppercase tracking-wider mb-1 md:mb-2 font-medium">
+                  <p className="text-[10px] md:text-xs text-white/70 uppercase tracking-wider mb-1 md:mb-2 font-medium">
                     Listed
                   </p>
-                  <p className="text-sm md:text-xl font-bold text-white dark:text-white">
+                  <p className="text-sm md:text-xl font-bold text-white">
                     {banner.totalItems}
                   </p>
                 </div>

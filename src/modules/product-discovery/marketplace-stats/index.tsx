@@ -114,11 +114,11 @@ export default function MarketplaceStats() {
                 <div className="text-2xl font-bold mb-2">{stat.value}</div>
                 <div className="flex items-center text-xs">
                   {stat.change > 0 ? (
-                    <ArrowUp className="h-3 w-3 text-green-500 mr-1" />
+                    <ArrowUp className="h-3 w-3 text-success mr-1" />
                   ) : (
-                    <ArrowDown className="h-3 w-3 text-red-500 mr-1" />
+                    <ArrowDown className="h-3 w-3 text-destructive mr-1" />
                   )}
-                  <span className={stat.change > 0 ? "text-green-500" : "text-red-500"}>
+                  <span className={stat.change > 0 ? "text-success" : "text-destructive"}>
                     {Math.abs(stat.change)}%
                   </span>
                   <span className="text-muted-foreground ml-1">{stat.changeLabel}</span>
@@ -163,11 +163,11 @@ export default function MarketplaceStats() {
                     <p className="font-bold text-lg">{chain.volume}</p>
                     <div className="flex items-center justify-end text-xs">
                       {chain.change > 0 ? (
-                        <ArrowUp className="h-3 w-3 text-green-500 mr-1" />
+                        <ArrowUp className="h-3 w-3 text-success mr-1" />
                       ) : (
-                        <ArrowDown className="h-3 w-3 text-red-500 mr-1" />
+                        <ArrowDown className="h-3 w-3 text-destructive mr-1" />
                       )}
-                      <span className={chain.change > 0 ? "text-green-500" : "text-red-500"}>
+                      <span className={chain.change > 0 ? "text-success" : "text-destructive"}>
                         {Math.abs(chain.change)}%
                       </span>
                     </div>

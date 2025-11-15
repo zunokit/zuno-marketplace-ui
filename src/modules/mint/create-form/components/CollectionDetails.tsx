@@ -21,11 +21,11 @@ export function CollectionDetails() {
   const { formState, setValue } = useFormContext();
 
   return (
-    <div className="space-y-6 bg-white dark:bg-[#0e0a1a] p-6 rounded-lg border border-gray-200 dark:border-[#3a3450]">
+    <div className="space-y-6 bg-background dark:bg-dialog p-6 rounded-lg border border-border dark:border-border">
       <div className="space-y-6">
         {/* Chain Selection */}
         <div>
-          <Label className="text-gray-900 dark:text-white">Chain</Label>
+          <Label className="text-foreground">Chain</Label>
           {formState.isSubmitting ? (
             <Skeleton className="h-10 w-full mt-1" />
           ) : (
@@ -41,7 +41,7 @@ export function CollectionDetails() {
                     value={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-full bg-gray-50 dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white mt-2 focus-visible:ring-0 focus-visible:ring-offset-0">
+                      <SelectTrigger className="w-full bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0">
                         <SelectValue>
                           {(() => {
                             const selectedChain = mockChains().find(c => c.name === field.value);
@@ -71,12 +71,12 @@ export function CollectionDetails() {
                         </SelectValue>
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-white dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white">
+                    <SelectContent className="bg-background dark:bg-muted border-border dark:border-border text-foreground">
                       {mockChains().map(chain => (
                         <SelectItem
                           key={chain.id}
                           value={chain.name}
-                          className="text-gray-900 dark:text-white focus:bg-gray-100 dark:focus:bg-[#2a2535] focus:text-gray-900 dark:focus:text-white"
+                          className="text-foreground focus:bg-muted dark:focus:bg-hover focus:text-foreground"
                         >
                           <div className="flex items-center gap-2">
                             <Image src={chain.icon} alt={chain.name} width={24} height={24} />
@@ -86,7 +86,7 @@ export function CollectionDetails() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage className="text-red-500" />
+                  <FormMessage className="text-destructive" />
                 </FormItem>
               )}
             />
@@ -96,7 +96,7 @@ export function CollectionDetails() {
         {/* Name and Symbol */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <Label className="text-gray-900 dark:text-white">Name</Label>
+            <Label className="text-foreground">Name</Label>
             {formState.isSubmitting ? (
               <Skeleton className="h-10 w-full mt-1" />
             ) : (
@@ -107,18 +107,18 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="The Pond"
-                        className="bg-gray-50 dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-destructive" />
                   </FormItem>
                 )}
               />
             )}
           </div>
           <div>
-            <Label className="text-gray-900 dark:text-white">Symbol</Label>
+            <Label className="text-foreground">Symbol</Label>
             {formState.isSubmitting ? (
               <Skeleton className="h-10 w-full mt-1" />
             ) : (
@@ -129,11 +129,11 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="POND"
-                        className="bg-gray-50 dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-destructive" />
                   </FormItem>
                 )}
               />
@@ -143,8 +143,8 @@ export function CollectionDetails() {
 
         {/* Collection Image */}
         <div>
-          <Label className="text-gray-900 dark:text-white">Collection Image</Label>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <Label className="text-foreground">Collection Image</Label>
+          <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
             Image that will be shown as the main image for the collection. Recommended: 800x800px
             jpg
           </p>
@@ -156,7 +156,7 @@ export function CollectionDetails() {
               render={({ field: { onChange, value, ...field } }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="border border-dashed border-gray-300 dark:border-[#3a3450] rounded-md p-6 flex flex-col items-center justify-center bg-gray-50 dark:bg-transparent mt-2">
+                    <div className="border border-dashed border-border dark:border-border rounded-md p-6 flex flex-col items-center justify-center bg-secondary dark:bg-transparent mt-2">
                       <input
                         type="file"
                         id="collection-image"
@@ -185,7 +185,7 @@ export function CollectionDetails() {
                             />
                             <button
                               type="button"
-                              className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1"
+                              className="absolute -top-2 -right-2 bg-destructive rounded-full p-1"
                               onClick={e => {
                                 e.preventDefault();
                                 onChange(null);
@@ -198,17 +198,17 @@ export function CollectionDetails() {
                               <X className="h-4 w-4 text-white" />
                             </button>
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                          <p className="text-sm text-foreground dark:text-muted-foreground mt-2">
                             {value?.name}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-500">
+                          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                             {value && (value.size / 1024 / 1024).toFixed(2)} MB
                           </p>
                         </div>
                       ) : (
                         <>
-                          <Upload className="h-6 w-6 mb-2 text-gray-400" />
-                          <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+                          <Upload className="h-6 w-6 mb-2 text-muted-foreground" />
+                          <p className="text-sm text-center text-foreground dark:text-muted-foreground">
                             Drop your artwork here
                             <br />
                             to upload
@@ -217,7 +217,7 @@ export function CollectionDetails() {
                             type="button"
                             variant="outline"
                             size="sm"
-                            className="mt-4 bg-white dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2535]"
+                            className="mt-4 bg-background dark:bg-muted border-border dark:border-border text-foreground hover:bg-muted dark:hover:bg-hover"
                             onClick={e => {
                               e.preventDefault();
                               document.getElementById("collection-image")?.click();
@@ -229,7 +229,7 @@ export function CollectionDetails() {
                       )}
                     </div>
                   </FormControl>
-                  <FormMessage className="text-red-500" />
+                  <FormMessage className="text-destructive" />
                 </FormItem>
               )}
             />
@@ -238,7 +238,7 @@ export function CollectionDetails() {
 
         {/* Description */}
         <div>
-          <Label className="text-gray-900 dark:text-white">Description</Label>
+          <Label className="text-foreground">Description</Label>
           {formState.isSubmitting ? (
             <Skeleton className="h-24 w-full mt-1" />
           ) : (
@@ -249,12 +249,12 @@ export function CollectionDetails() {
                   <FormControl>
                     <Textarea
                       placeholder="e.g. The Pond is the greatest collection ever made"
-                      className="bg-gray-50 dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white min-h-24 mt-2 focus-visible:ring-0 focus-visible:ring-offset-0 resize-y"
+                      className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground min-h-24 mt-2 focus-visible:ring-0 focus-visible:ring-offset-0 resize-y"
                       style={{ whiteSpace: "pre-wrap" }}
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-500" />
+                  <FormMessage className="text-destructive" />
                 </FormItem>
               )}
             />

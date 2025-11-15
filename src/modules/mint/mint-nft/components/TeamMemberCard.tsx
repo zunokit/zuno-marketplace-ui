@@ -22,7 +22,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <div className="bg-[#13101c] rounded-lg overflow-hidden border border-gray-800/20 hover:border-gray-700/40 transition-colors">
+      <div className="bg-card rounded-lg overflow-hidden border border-border hover:border-border/60 transition-colors">
         <div className="flex flex-col items-center">
           {/* Image - full width */}
           <div className="w-full aspect-square overflow-hidden">
@@ -39,7 +39,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-gray-400 hover:text-gray-300 transition-colors"
+                className="mt-2 inline-block text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
@@ -52,8 +52,8 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
       {showTooltip && bio && (
         <div
           className={cn(
-            "absolute z-10 w-64 bg-[#1a1625] border border-gray-700/50 rounded-md p-3 shadow-lg",
-            "text-xs text-gray-300 leading-relaxed",
+            "absolute z-10 w-64 bg-card border border-border rounded-md p-3 shadow-lg",
+            "text-xs text-foreground leading-relaxed",
             "top-0 left-full ml-2"
           )}
         >

@@ -98,8 +98,8 @@ export function BaseCarousel<T extends CarouselItemData>({
 
         {showNavigation && (
           <div className="absolute inset-0 flex items-center justify-between pointer-events-none">
-            <CarouselPrevious className="hidden group-hover:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white w-14 h-14 rounded-full items-center justify-center shadow-2xl hover:shadow-3xl scale-110 backdrop-blur-sm pointer-events-auto" />
-            <CarouselNext className="hidden group-hover:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:text-gray-900 dark:hover:text-white w-14 h-14 rounded-full items-center justify-center shadow-2xl hover:shadow-3xl scale-110 backdrop-blur-sm pointer-events-auto" />
+            <CarouselPrevious className="hidden group-hover:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-background/90 hover:bg-background border-2 border-border text-foreground hover:text-foreground dark:text-white dark:hover:text-white w-14 h-14 rounded-full items-center justify-center shadow-2xl hover:shadow-3xl scale-110 backdrop-blur-sm pointer-events-auto" />
+            <CarouselNext className="hidden group-hover:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-background/90 hover:bg-background border-2 border-border text-foreground hover:text-foreground dark:text-white dark:hover:text-white w-14 h-14 rounded-full items-center justify-center shadow-2xl hover:shadow-3xl scale-110 backdrop-blur-sm pointer-events-auto" />
           </div>
         )}
       </CarouselComponent>

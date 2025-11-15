@@ -47,24 +47,24 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
   const shouldShowHistoryTab = isConnected && (hasHistoryData || activeTab === "history");
 
   return (
-    <div className="bg-gray-50 dark:bg-[#0c0916] h-full py-5">
+    <div className="bg-secondary dark:bg-dialog h-full py-5">
       <div className="max-w-4xl mx-auto p-4">
         <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
           <TabsList
-            className={`grid w-full max-w-md mx-auto bg-white border border-gray-200 dark:bg-[#1a1625] dark:border-gray-800/50 ${
+            className={`grid w-full max-w-md mx-auto bg-background border border-border dark:bg-muted dark:border-border ${
               shouldShowHistoryTab ? "grid-cols-2" : "grid-cols-1"
             }`}
           >
             <TabsTrigger
               value="mint"
-              className="data-[state=active]:bg-pink-500 dark:data-[state=active]:bg-pink-600 data-[state=active]:text-white text-sm"
+              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-white text-sm"
             >
               Mint Your NFT
             </TabsTrigger>
             {shouldShowHistoryTab && (
               <TabsTrigger
                 value="history"
-                className="data-[state=active]:bg-pink-500 dark:data-[state=active]:bg-pink-600 data-[state=active]:text-white text-sm"
+                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-white text-sm"
               >
                 History
               </TabsTrigger>
@@ -85,8 +85,8 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
 
           {shouldShowHistoryTab && (
             <TabsContent value="history" className="space-y-4">
-              <div className="bg-white border-gray-200 dark:bg-[#1a1625] rounded-lg p-6 border dark:border-gray-800/50 shadow-sm">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="bg-background border-border dark:bg-muted rounded-lg p-6 border dark:border-border shadow-sm">
+                <h2 className="text-xl font-semibold text-foreground dark:text-foreground mb-4">
                   Mint History
                 </h2>
 
@@ -94,12 +94,12 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                   <div className="text-center py-12">
                     {!hasHistoryData ? (
                       <>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                        <p className="text-muted-foreground dark:text-muted-foreground text-sm">
                           No minted NFTs found
                         </p>
                         <Button
                           variant="outline"
-                          className="mt-4 h-10 text-sm border-gray-300 dark:border-gray-800/50"
+                          className="mt-4 h-10 text-sm border-border dark:border-border"
                           onClick={() => setActiveTab("mint")}
                         >
                           Mint Your First NFT
@@ -118,9 +118,9 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                           }) => (
                             <div
                               key={nft.id}
-                              className="bg-gray-50 dark:bg-[#0f0a19] rounded-lg border border-gray-200 dark:border-gray-800/50 overflow-hidden flex flex-col"
+                              className="bg-secondary dark:bg-dialog rounded-lg border border-border dark:border-border overflow-hidden flex flex-col"
                             >
-                              <div className="relative aspect-square w-full bg-gray-100 dark:bg-gray-900/50">
+                              <div className="relative aspect-square w-full bg-muted dark:bg-muted">
                                 {nft.image && (
                                   <Image
                                     src={nft.image || "/placeholder.svg"}
@@ -133,8 +133,8 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                                   <span
                                     className={`px-2 py-1 text-xs rounded-full font-medium ${
                                       nft.status === "COMPLETED"
-                                        ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400"
-                                        : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-400"
+                                        ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
+                                        : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
                                     }`}
                                   >
                                     {nft.status}
@@ -143,15 +143,15 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                               </div>
                               <div className="p-3 flex-1">
                                 <div className="flex justify-between items-start mb-1">
-                                  <h3 className="font-medium text-gray-900 dark:text-white text-sm truncate">
+                                  <h3 className="font-medium text-foreground dark:text-foreground text-sm truncate">
                                     {nft.name || `NFT #${nft.tokenId}`}
                                   </h3>
-                                  <span className="text-xs text-gray-500 dark:text-gray-400 ml-1 whitespace-nowrap">
+                                  <span className="text-xs text-muted-foreground dark:text-muted-foreground ml-1 whitespace-nowrap">
                                     #{nft.tokenId}
                                   </span>
                                 </div>
                                 {nft.description && (
-                                  <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
+                                  <p className="text-xs text-muted-foreground dark:text-muted-foreground line-clamp-2 mb-2">
                                     {nft.description}
                                   </p>
                                 )}
@@ -171,16 +171,16 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
 
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
         <DialogContent
-          className="bg-white border-gray-200 dark:bg-[#1a1625] dark:border-gray-800/50"
+          className="bg-background border-border dark:bg-muted dark:border-border"
           onInteractOutside={e => {
             e.preventDefault();
           }}
         >
           <DialogHeader>
-            <DialogTitle className="text-gray-900 dark:text-white">Confirm Mint</DialogTitle>
+            <DialogTitle className="text-foreground dark:text-foreground">Confirm Mint</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-gray-700 dark:text-gray-300">
+            <p className="text-sm text-foreground dark:text-foreground">
               You are about to mint{" "}
               <span className="font-medium">
                 {amount} NFT{amount > 1 ? "s" : ""}
@@ -188,27 +188,27 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
               from
               <span className="font-medium"> {collection?.name}</span>.
             </p>
-            <div className="bg-gray-50 dark:bg-[#0f0a19] p-4 rounded-md border border-gray-200 dark:border-gray-800/50">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="bg-secondary dark:bg-dialog p-4 rounded-md border border-border dark:border-border">
+              <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                 <span className="font-medium">Total Cost:</span>{" "}
                 {mintCostData?.getMintCost?.success
                   ? `${mintCostData.getMintCost.totalPrice} ETH`
                   : `${lastMintCost.totalPrice} ETH`}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                 <span className="font-medium">Estimated Gas:</span>{" "}
                 {mintCostData?.getMintCost?.success
                   ? `${mintCostData.getMintCost.estimatedGas} ETH`
                   : `${lastMintCost.estimatedGas} ETH`}
               </p>
               {!isSameArtType && (
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                   <span className="font-medium">Batch Mint:</span> Potentially multiple NFTs if
                   batch provided
                 </p>
               )}
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               Please ensure your wallet has sufficient funds. This action cannot be undone.
             </p>
           </div>
@@ -216,14 +216,14 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
             <Button
               variant="outline"
               onClick={() => setShowConfirmModal(false)}
-              className="border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-800/50 dark:text-gray-300 dark:hover:bg-gray-800/50"
+              className="border-border text-foreground hover:bg-muted dark:border-border dark:text-foreground dark:hover:bg-hover"
             >
               Cancel
             </Button>
             <Button
               onClick={submitMint}
               disabled={isMintingNft || isLoading}
-              className="bg-pink-500 hover:bg-pink-600 text-white dark:bg-pink-600 dark:hover:bg-pink-700"
+              className="bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90"
             >
               {isMintingNft || isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

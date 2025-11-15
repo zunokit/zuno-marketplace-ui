@@ -174,7 +174,7 @@ export default function TopCreators() {
                       creator.rank === 1
                         ? "bg-yellow-500"
                         : creator.rank === 2
-                          ? "bg-gray-400"
+                          ? "bg-muted"
                           : "bg-amber-600"
                     } text-white`}
                   >

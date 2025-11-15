@@ -21,8 +21,8 @@ export function CollectionCarouselSkeleton() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute -left-4 bg-white/80 dark:bg-[#1A1F2C]/80 text-gray-900 dark:text-white backdrop-blur-sm hover:bg-white/90 dark:hover:bg-[#1A1F2C]/90" />
-        <CarouselNext className="absolute -right-4 bg-white/80 dark:bg-[#1A1F2C]/80 text-gray-900 dark:text-white backdrop-blur-sm hover:bg-white/90 dark:hover:bg-[#1A1F2C]/90" />
+        <CarouselPrevious className="absolute -left-4 bg-background/80 dark:bg-card/80 text-foreground dark:text-foreground backdrop-blur-sm hover:bg-background/90 dark:hover:bg-card/90" />
+        <CarouselNext className="absolute -right-4 bg-background/80 dark:bg-card/80 text-foreground dark:text-foreground backdrop-blur-sm hover:bg-background/90 dark:hover:bg-card/90" />
       </Carousel>
     </div>
   );

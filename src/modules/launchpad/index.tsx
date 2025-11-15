@@ -120,7 +120,7 @@ export function LaunchpadPage() {
             {project.status.toUpperCase()}
           </Badge>
           {project.verified && (
-            <Badge className="backdrop-blur bg-green-500/90">
+            <Badge className="backdrop-blur bg-success/90">
               <CheckCircle className="h-3 w-3 mr-1" />
               Verified
             </Badge>
@@ -233,8 +233,8 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-500/10 rounded-lg">
-                <Rocket className="h-5 w-5 text-green-500" />
+              <div className="p-2 bg-success/10 rounded-lg">
+                <Rocket className="h-5 w-5 text-success" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Projects Launched</p>
@@ -247,8 +247,8 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-500/10 rounded-lg">
-                <Users className="h-5 w-5 text-blue-500" />
+              <div className="p-2 bg-info/10 rounded-lg">
+                <Users className="h-5 w-5 text-info" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Participants</p>
@@ -261,8 +261,8 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-500/10 rounded-lg">
-                <CheckCircle className="h-5 w-5 text-purple-500" />
+              <div className="p-2 bg-accent/10 rounded-lg">
+                <CheckCircle className="h-5 w-5 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Success Rate</p>

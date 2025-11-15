@@ -45,8 +45,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
       className={cn(
         "fixed left-0 right-0 top-[56px] md:top-[65px] xl:top-[60px] z-40 border-b transition-all duration-300",
         isScrolled
-          ? "bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:bg-[#121620]/80 dark:supports-[backdrop-filter]:bg-[#121620]/70 border-gray-200/70 dark:border-white/5"
-          : "bg-white dark:bg-[#121620] border-gray-200 dark:border-white/5"
+          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border/70 dark:border-border"
+          : "bg-background dark:bg-card border-border dark:border-border"
       )}
     >
       <div className="w-full mx-auto py-2 md:py-3 px-2 md:px-6 lg:px-8">
@@ -64,8 +64,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               selectedChain === "all"
                 ? "bg-primary text-primary-foreground"
                 : isScrolled
-                  ? "bg-gray-50/70 text-gray-600 hover:bg-gray-100/70 dark:bg-[#1A1F2C]/70 dark:text-white/70 dark:hover:bg-[#232836]/70"
-                  : "bg-gray-50 text-gray-600 hover:bg-gray-100 dark:bg-[#1A1F2C] dark:text-white/70 dark:hover:bg-[#232836]"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
             )}
           >
             <Globe className="w-4 h-4 md:w-[18px] md:h-[18px]" />
@@ -88,18 +88,17 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
                 String(selectedChain) === String(chain.slug)
                   ? "bg-primary text-primary-foreground"
                   : isScrolled
-                    ? "bg-gray-50/70 text-gray-600 hover:bg-gray-100/70 dark:bg-[#1A1F2C]/70 dark:text-white/70 dark:hover:bg-[#232836]/70"
-                    : "bg-gray-50 text-gray-600 hover:bg-gray-100 dark:bg-[#1A1F2C] dark:text-white/70 dark:hover:bg-[#232836]"
+                    ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
+                    : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
               )}
             >
               <div
-                className="w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center"
-                style={{
-                  backgroundColor:
-                    String(chain.slug) === String(selectedChain)
-                      ? "rgba(255, 255, 255, 0.2)"
-                      : "transparent",
-                }}
+                className={cn(
+                  "w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center",
+                  String(chain.slug) === String(selectedChain)
+                    ? "bg-primary-foreground/20"
+                    : "bg-transparent"
+                )}
               >
                 <Image src={chain.icon} alt={`${chain.name} icon`} width={20} height={20} className="md:w-6 md:h-6" />
               </div>
@@ -124,8 +123,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               className={cn(
                 "hidden lg:flex items-center justify-center h-8 md:h-10 w-8 md:w-10 rounded-md md:rounded-lg transition-all duration-200 flex-shrink-0",
                 isScrolled
-                  ? "bg-gray-50/70 text-gray-600 hover:bg-gray-100/70 dark:bg-[#1A1F2C]/70 dark:text-white/70 dark:hover:bg-[#232836]/70"
-                  : "bg-gray-50 text-gray-600 hover:bg-gray-100 dark:bg-[#1A1F2C] dark:text-white/70 dark:hover:bg-[#232836]"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
               )}
               aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
             >

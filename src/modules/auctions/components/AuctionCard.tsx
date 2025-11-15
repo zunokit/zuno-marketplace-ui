@@ -56,9 +56,9 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
       case "upcoming":
         return "bg-blue-500";
       case "ended":
-        return "bg-gray-500";
+        return "bg-muted";
       default:
-        return "bg-gray-400";
+        return "bg-muted";
     }
   };
 

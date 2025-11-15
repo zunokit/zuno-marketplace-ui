@@ -34,7 +34,7 @@ export default function NFTCardSeller({
         "group relative rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md",
         compact ? "p-0.5" : "p-1",
         (isSliding || disabled) && "pointer-events-none",
-        isSelected && "border-pink-800 dark:border-pink-600"
+        isSelected && "border-primary dark:border-primary"
       )}
     >
       <div className={cn("hidden group-hover:block absolute inset-0", isSelected && "block")}>
@@ -63,7 +63,7 @@ export default function NFTCardSeller({
             className={cn(
               "cursor-pointer h-10 w-10 rounded-full border flex items-center justify-center transition-colors",
               isSelected
-                ? "bg-pink-600 text-white"
+                ? "bg-primary text-white"
                 : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
             )}
           >
@@ -76,10 +76,10 @@ export default function NFTCardSeller({
             variant="ghost"
             size="icon"
             className={cn(
-              "w-full hover:bg-pink-500! dark:hover:bg-pink-500! text-black! dark:text-white! bg-slate-500!  dark:bg-slate-600!   rounded-none rounded-b-lg",
+              "w-full hover:bg-primary! dark:hover:bg-primary! text-black! dark:text-white! bg-muted!  dark:bg-muted!   rounded-none rounded-b-lg",
               compact ? "h-10" : "h-15",
               isSelected
-                ? "bg-pink-600 text-white"
+                ? "bg-primary text-white"
                 : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
             )}
           >

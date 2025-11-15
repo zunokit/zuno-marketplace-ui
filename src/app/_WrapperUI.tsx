@@ -47,7 +47,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-      <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-[#121620] dark:text-white transition-colors">
+      <div className="min-h-screen flex flex-col bg-secondary text-foreground dark:bg-card dark:text-white transition-colors">
         {/* Fixed header */}
         <div className="fixed top-0 left-0 right-0 z-50">
           <Header />

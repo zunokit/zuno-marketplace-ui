@@ -120,21 +120,21 @@ const getActivityIcon = (type: ActivityType) => {
 const getActivityColor = (type: ActivityType) => {
   switch (type) {
     case "sale":
-      return "bg-green-500";
+      return "bg-success";
     case "listing":
-      return "bg-blue-500";
+      return "bg-info";
     case "bid":
-      return "bg-purple-500";
+      return "bg-accent";
     case "transfer":
-      return "bg-orange-500";
+      return "bg-warning";
     case "mint":
-      return "bg-cyan-500";
+      return "bg-info";
     case "offer":
-      return "bg-pink-500";
+      return "bg-primary";
     case "cancel":
-      return "bg-gray-500";
+      return "bg-muted";
     default:
-      return "bg-gray-400";
+      return "bg-muted";
   }
 };
 
@@ -314,7 +314,7 @@ export default function MarketplaceActivity() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Volume</CardTitle>
-            <TrendingUp className="h-4 w-4 text-green-500" />
+            <TrendingUp className="h-4 w-4 text-success" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalVolume.toFixed(2)} ETH</div>
@@ -325,7 +325,7 @@ export default function MarketplaceActivity() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-blue-500" />
+            <ShoppingCart className="h-4 w-4 text-info" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalSales}</div>
@@ -336,7 +336,7 @@ export default function MarketplaceActivity() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Average Price</CardTitle>
-            <Activity className="h-4 w-4 text-purple-500" />
+            <Activity className="h-4 w-4 text-accent" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.avgPrice.toFixed(3)} ETH</div>
@@ -347,7 +347,7 @@ export default function MarketplaceActivity() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Transactions</CardTitle>
-            <Package className="h-4 w-4 text-orange-500" />
+            <Package className="h-4 w-4 text-warning" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalTransactions}</div>

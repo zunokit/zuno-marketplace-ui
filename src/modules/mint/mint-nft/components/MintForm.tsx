@@ -55,15 +55,15 @@ export default function MintForm() {
         : 1;
 
   return (
-    <div className="space-y-5 bg-gray-100 dark:bg-gray-900 rounded-xs p-5 ">
+    <div className="space-y-5 bg-muted dark:bg-muted rounded-xs p-5 ">
       {isERC1155 && <EditionSelector />}
       {isAllowlistMint && (
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <Label className="text-sm text-white flex items-center gap-1">
-              Allowlist Mint Credentials <span className="text-pink-500">*</span>
+              Allowlist Mint Credentials <span className="text-primary">*</span>
             </Label>
-            <span className="text-sm text-gray-400">Required</span>
+            <span className="text-sm text-muted-foreground">Required</span>
           </div>
           <div className="space-y-2">
             <div className="relative">
@@ -79,18 +79,18 @@ export default function MintForm() {
                 }}
                 placeholder="Signature (0x...)"
                 className={cn(
-                  "h-10 text-sm bg-[#0f0a19] border-gray-800/50 text-white placeholder:text-gray-600 dark:bg-[#0a0612] dark:border-gray-900/50",
+                  "h-10 text-sm bg-dialog border-border text-white placeholder:text-muted-foreground dark:bg-dialog dark:border-border",
                   signature &&
                     !/^0x[0-9a-fA-F]{130}$/.test(signature) &&
-                    "border-red-800 focus-visible:ring-red-800"
+                    "border-destructive focus-visible:ring-destructive"
                 )}
                 aria-invalid={signature && !validateSignature(signature) ? "true" : "false"}
               />
               {signature && validateSignature(signature) && (
-                <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500" />
+                <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-success" />
               )}
             </div>
-            <p className="text-sm text-gray-400">65-byte hex signature provided by the allowlist</p>
+            <p className="text-sm text-muted-foreground">65-byte hex signature provided by the allowlist</p>
           </div>
           <div className="space-y-2">
             <div className="relative">
@@ -108,18 +108,18 @@ export default function MintForm() {
                 type="number"
                 min={0}
                 className={cn(
-                  "h-10 text-sm bg-[#0f0a19] border-gray-800/50 text-white placeholder:text-gray-600 dark:bg-[#0a0612] dark:border-gray-900/50",
+                  "h-10 text-sm bg-dialog border-border text-white placeholder:text-muted-foreground dark:bg-dialog dark:border-border",
                   nonce &&
                     (!Number.isInteger(Number(nonce)) || Number(nonce) < 0) &&
-                    "border-red-800 focus-visible:ring-red-800"
+                    "border-destructive focus-visible:ring-destructive"
                 )}
                 aria-invalid={nonce && !validateNonce(nonce) ? "true" : "false"}
               />
               {nonce && validateNonce(nonce) && (
-                <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500" />
+                <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-success" />
               )}
             </div>
-            <p className="text-sm text-gray-400">Nonce value provided by the allowlist</p>
+            <p className="text-sm text-muted-foreground">Nonce value provided by the allowlist</p>
           </div>
         </div>
       )}
@@ -127,9 +127,9 @@ export default function MintForm() {
 
       <div className="flex items-center justify-between gap-20">
         <div className="space-y-1.5 mt-3">
-          <div className="text-xl text-gray-500 dark:text-gray-400">Price</div>
+          <div className="text-xl text-muted-foreground dark:text-muted-foreground">Price</div>
           <p className="text-4xl font-bold ">{mintCostData?.getMintCost?.mintPrice} ETH</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground">
             Gas Fee: {mintCostData?.getMintCost?.estimatedGas} ETH
           </p>
         </div>
@@ -141,14 +141,14 @@ export default function MintForm() {
           id="terms"
           checked={agreedToTerms}
           onCheckedChange={checked => setAgreedToTerms(checked as boolean)}
-          className="data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500 border-gray-300 dark:data-[state=checked]:bg-pink-600 dark:data-[state=checked]:border-pink-600 dark:border-gray-800/50"
+          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-border dark:data-[state=checked]:bg-primary dark:data-[state=checked]:border-primary dark:border-border"
           aria-label="Agree to terms of service"
         />
-        <Label htmlFor="terms" className="text-sm text-gray-400 leading-tight">
+        <Label htmlFor="terms" className="text-sm text-muted-foreground leading-tight">
           By clicking mint, you agree to the{" "}
           <a
             href="#"
-            className="text-pink-400 hover:underline"
+            className="text-primary hover:underline"
             target="_blank"
             rel="noopener noreferrer"
           >

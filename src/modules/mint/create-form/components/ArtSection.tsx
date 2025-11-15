@@ -32,8 +32,8 @@ export function ArtSection() {
   };
 
   return (
-    <div className="space-y-4 bg-white dark:bg-[#0e0a1a] p-6 rounded-lg border border-gray-200 dark:border-[#3a3450]">
-      <Label className="text-gray-900 dark:text-white">NFT Art Type</Label>
+    <div className="space-y-4 bg-background dark:bg-dialog p-6 rounded-lg border border-border dark:border-border">
+      <Label className="text-foreground dark:text-white">NFT Art Type</Label>
       {formState.isSubmitting ? (
         <Skeleton className="h-80 w-full mt-1" />
       ) : (
@@ -48,8 +48,8 @@ export function ArtSection() {
                     <div
                       className={`relative flex items-start gap-4 p-4 rounded-lg border cursor-pointer transition-all ${
                         field.value === "ERC1155"
-                          ? "border-gray-300 bg-gray-50 dark:border-[#3a3450] dark:bg-[#1a1525]"
-                          : "border-gray-200 bg-transparent dark:border-[#1e1a2a] hover:border-gray-300 dark:hover:border-[#3a3450]"
+                          ? "border-border bg-secondary dark:border-border dark:bg-muted"
+                          : "border-border bg-transparent dark:border-border hover:border-border dark:hover:border-border"
                       }`}
                       onClick={() => {
                         handleArtworkModeChange("ERC1155");
@@ -66,15 +66,15 @@ export function ArtSection() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 dark:text-white">
+                        <h3 className="font-medium text-foreground dark:text-white">
                           ERC-1155 Collection
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                           Everyone mints the same artwork
                         </p>
                       </div>
                       {field.value === "ERC1155" && (
-                        <div className="absolute top-3 right-3 bg-green-500 rounded-full p-1">
+                        <div className="absolute top-3 right-3 bg-success rounded-full p-1">
                           <Check className="h-4 w-4 text-white" />
                         </div>
                       )}
@@ -84,8 +84,8 @@ export function ArtSection() {
                     <div
                       className={`relative flex items-start gap-4 p-4 rounded-lg border cursor-pointer transition-all ${
                         field.value === "ERC721"
-                          ? "border-gray-300 bg-gray-50 dark:border-[#3a3450] dark:bg-[#1a1525]"
-                          : "border-gray-200 bg-transparent dark:border-[#1e1a2a] hover:border-gray-300 dark:hover:border-[#3a3450]"
+                          ? "border-border bg-secondary dark:border-border dark:bg-muted"
+                          : "border-border bg-transparent dark:border-border hover:border-border dark:hover:border-border"
                       }`}
                       onClick={() => {
                         handleArtworkModeChange("ERC721");
@@ -126,15 +126,15 @@ export function ArtSection() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 dark:text-white">
+                        <h3 className="font-medium text-foreground dark:text-white">
                           ERC-721 Collection
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                           Everyone mints a unique artwork from metadata
                         </p>
                       </div>
                       {field.value === "ERC721" && (
-                        <div className="absolute top-3 right-3 bg-green-500 rounded-full p-1">
+                        <div className="absolute top-3 right-3 bg-success rounded-full p-1">
                           <Check className="h-4 w-4 text-white" />
                         </div>
                       )}
@@ -144,14 +144,14 @@ export function ArtSection() {
                   {/* Right Panel - Upload or Metadata URL */}
                   <div className="flex flex-col">
                     {field.value === "ERC721" ? (
-                      <div className="border border-dashed border-gray-300 dark:border-[#3a3450] rounded-lg p-6 flex flex-col items-center justify-center h-full bg-gray-50 dark:bg-transparent">
-                        <Link className="h-10 w-10 mb-4 text-gray-400" />
-                        <h3 className="font-medium text-gray-900 dark:text-white mb-1">
+                      <div className="border border-dashed border-border dark:border-border rounded-lg p-6 flex flex-col items-center justify-center h-full bg-secondary dark:bg-transparent">
+                        <Link className="h-10 w-10 mb-4 text-muted-foreground" />
+                        <h3 className="font-medium text-foreground dark:text-white mb-1">
                           Metadata URL
                         </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
+                        <p className="text-sm text-muted-foreground text-center mb-4">
                           Check our{" "}
-                          <span className="text-blue-600 dark:text-blue-400 underline cursor-pointer">
+                          <span className="text-info dark:text-info underline cursor-pointer">
                             step-by-step guide
                           </span>{" "}
                           on how to generate and upload your collection assets and metadata.
@@ -163,17 +163,17 @@ export function ArtSection() {
                               <FormControl>
                                 <Input
                                   placeholder="https://ipfs.io/ipfs/<CID>"
-                                  className="bg-white dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                  className="bg-background dark:bg-muted border-border dark:border-border text-foreground dark:text-white placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage className="text-red-500" />
+                              <FormMessage className="text-destructive" />
                             </FormItem>
                           )}
                         />
                       </div>
                     ) : (
-                      <div className="border border-dashed border-gray-300 dark:border-[#3a3450] rounded-lg p-6 flex flex-col items-center justify-center h-full bg-gray-50 dark:bg-transparent">
+                      <div className="border border-dashed border-border dark:border-border rounded-lg p-6 flex flex-col items-center justify-center h-full bg-secondary dark:bg-transparent">
                         <FormField
                           name="sameArtworkImage"
                           render={({ field }) => (
@@ -192,7 +192,7 @@ export function ArtSection() {
                                   }}
                                 />
                               </FormControl>
-                              <FormMessage className="text-red-500" />
+                              <FormMessage className="text-destructive" />
                             </FormItem>
                           )}
                         />
@@ -217,7 +217,7 @@ export function ArtSection() {
                                     />
                                     <button
                                       type="button"
-                                      className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1"
+                                      className="absolute -top-2 -right-2 bg-destructive rounded-full p-1"
                                       onClick={() => {
                                         field.onChange(null);
                                         const input = document.getElementById(
@@ -229,27 +229,27 @@ export function ArtSection() {
                                       <X className="h-4 w-4 text-white" />
                                     </button>
                                   </div>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                  <p className="text-sm text-muted-foreground mt-2">
                                     {field.value?.name}
                                   </p>
-                                  <p className="text-xs text-gray-500 dark:text-gray-500">
+                                  <p className="text-xs text-muted-foreground">
                                     {field.value && (field.value.size / 1024 / 1024).toFixed(2)} MB
                                   </p>
                                 </div>
                               ) : (
                                 <>
-                                  <Upload className="h-10 w-10 mb-4 text-gray-400" />
-                                  <h3 className="font-medium text-gray-900 dark:text-white mb-1">
+                                  <Upload className="h-10 w-10 mb-4 text-muted-foreground" />
+                                  <h3 className="font-medium text-foreground dark:text-white mb-1">
                                     Drop your artwork here to upload
                                   </h3>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
+                                  <p className="text-sm text-muted-foreground text-center mb-4">
                                     File types allowed: jpg, png. Max file size: 10MB
                                   </p>
                                   <Button
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="bg-white dark:bg-[#1a1525] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#2a2535]"
+                                    className="bg-background dark:bg-muted border-border dark:border-border text-foreground dark:text-white hover:bg-muted dark:hover:bg-hover"
                                     onClick={e => {
                                       e.preventDefault();
                                       document.getElementById("nft-artwork")?.click();
