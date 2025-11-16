@@ -2,10 +2,11 @@
 
 import { useAccount, useSignMessage } from 'wagmi';
 import { SiweMessage } from 'siwe';
-import { authService } from '@/shared/services/auth.service';
+import { authService } from '@/shared/services/auth.service-v2';
 import { Button } from '@/shared/components/ui/button';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { useState } from 'react';
+import { walletLogger } from '@/shared/lib/logger';
 
 export function SignInButton() {
   const { address, chainId } = useAccount();
@@ -15,17 +16,27 @@ export function SignInButton() {
 
   const handleSignIn = async () => {
     if (!address || !chainId) {
-      console.error('No wallet connected');
+      walletLogger.error('No wallet connected');
       return;
     }
+
+    walletLogger.group('SIWE Sign In');
+    walletLogger.info('Starting SIWE authentication', {
+      address,
+      chainId,
+      domain: window.location.host,
+    });
 
     try {
       setIsLoading(true);
 
       // 1. Get nonce from backend
+      walletLogger.info('Step 1: Getting nonce from backend');
       const { nonce } = await authService.getNonce(address);
+      walletLogger.debug('Nonce received', { nonceLength: nonce.length });
 
       // 2. Create SIWE message
+      walletLogger.info('Step 2: Creating SIWE message');
       const message = new SiweMessage({
         domain: window.location.host,
         address,
@@ -37,29 +48,47 @@ export function SignInButton() {
       });
 
       const preparedMessage = message.prepareMessage();
+      walletLogger.debug('SIWE message prepared', {
+        messageLength: preparedMessage.length,
+        messagePreview: preparedMessage.substring(0, 100) + '...',
+      });
 
       // 3. Request signature from wallet
+      walletLogger.info('Step 3: Requesting signature from wallet');
       const signature = await signMessageAsync({
         message: preparedMessage,
       });
+      walletLogger.debug('Signature received', {
+        signatureLength: signature.length,
+        signaturePreview: signature.substring(0, 20) + '...',
+      });
 
       // 4. Verify signature with backend
+      walletLogger.info('Step 4: Verifying signature with backend');
       const result = await authService.verifySiwe(signature, preparedMessage);
 
       if (result.success) {
-        // Trigger auth state update
-        window.dispatchEvent(new CustomEvent('auth:login'));
+        walletLogger.info('✅ Sign in successful!', {
+          userId: result.user.id,
+          username: result.user.username,
+        });
+        walletLogger.groupEnd();
       } else {
-        console.error('Authentication failed');
+        walletLogger.error('❌ Authentication failed', undefined, {
+          result,
+        });
+        walletLogger.groupEnd();
       }
     } catch (error) {
-      console.error('Sign in error:', error);
+      walletLogger.error('❌ Sign in error', error);
+      walletLogger.groupEnd();
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleSignOut = () => {
+    walletLogger.info('User initiated sign out');
     logout();
   };
 
