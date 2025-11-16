@@ -49,15 +49,13 @@ const connectors = connectorsForWallets(
   }
 );
 
-// Use Sepolia for now - easier for testing
-// To use local Anvil: change to [anvil, sepolia]
+// Using Anvil local chain as primary, Sepolia as fallback
 export const wagmiConfig = createConfig({
   connectors,
-  chains: [sepolia], // Start with testnet only
+  chains: [anvil, sepolia],
   ssr: true,
   transports: {
+    [anvil.id]: http(),
     [sepolia.id]: http(),
-    // Uncomment below to enable Anvil local chain
-    // [anvil.id]: http(),
   },
 });
