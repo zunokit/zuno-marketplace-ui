@@ -29,30 +29,23 @@ export class GraphQLClientWrapper {
       headers: {},
     });
 
-    // Load token from localStorage on client side
-    if (typeof window !== 'undefined') {
-      this.accessToken = localStorage.getItem('accessToken');
-      if (this.accessToken) {
-        graphqlLogger.debug('Loaded access token from localStorage');
-      }
-    }
+    // ❌ REMOVED: Don't load token from localStorage (XSS risk)
+    // Access token is now stored only in memory for better security
+    // Session restoration happens via refresh token cookie automatically
   }
 
   /**
    * Set the access token for authenticated requests
+   * ✅ SECURITY: Token stored ONLY in memory, not localStorage (prevents XSS attacks)
    */
   setAccessToken(token: string | null) {
     graphqlLogger.debug('Setting access token', { hasToken: !!token });
 
     this.accessToken = token;
 
-    if (typeof window !== 'undefined') {
-      if (token) {
-        localStorage.setItem('accessToken', token);
-      } else {
-        localStorage.removeItem('accessToken');
-      }
-    }
+    // ❌ REMOVED: Don't persist to localStorage (XSS vulnerability)
+    // Token is kept in memory only and will be lost on page refresh
+    // Session restoration happens automatically via refresh token cookie
 
     // Update client headers
     this.updateHeaders();
@@ -99,16 +92,17 @@ export class GraphQLClientWrapper {
         const mutation = `
           mutation RefreshSession {
             refreshSession {
-              success
               accessToken
+              expiresAt
+              userId
             }
           }
         `;
 
-        const result: { refreshSession: { success: boolean; accessToken: string } } =
+        const result: { refreshSession: { accessToken: string; expiresAt: string; userId: string } } =
           await this.client.request(mutation);
 
-        if (!result.refreshSession.success) {
+        if (!result.refreshSession.accessToken) {
           throw new Error('Token refresh failed');
         }
 
@@ -174,7 +168,11 @@ export class GraphQLClientWrapper {
         const isAuthError =
           error.response.status === 401 ||
           error.response.errors?.some(
-            (e) => e.extensions?.code === 'UNAUTHENTICATED' || e.message.includes('401')
+            (e) =>
+              e.extensions?.code === 'UNAUTHENTICATED' ||
+              e.message.includes('401') ||
+              e.message.includes('authentication required') ||
+              e.message.includes('unauthenticated')
           );
 
         if (isAuthError && retryOnUnauth && !skipAuth) {
@@ -280,7 +278,11 @@ export class GraphQLClientWrapper {
         const isAuthError =
           error.response.status === 401 ||
           error.response.errors?.some(
-            (e) => e.extensions?.code === 'UNAUTHENTICATED' || e.message.includes('401')
+            (e) =>
+              e.extensions?.code === 'UNAUTHENTICATED' ||
+              e.message.includes('401') ||
+              e.message.includes('authentication required') ||
+              e.message.includes('unauthenticated')
           );
 
         if (isAuthError && retryOnUnauth && !skipAuth) {

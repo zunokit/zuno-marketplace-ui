@@ -9,10 +9,10 @@ query GetNonce($accountId: String!, $chainId: String!, $domain: String!) {
 }
 
 # Verify SIWE signature and create session
+# Note: refreshToken is set as HttpOnly cookie, not returned in response
 mutation VerifySiwe($accountId: String!, $message: String!, $signature: String!) {
   verifySiwe(accountId: $accountId, message: $message, signature: $signature) {
     accessToken
-    refreshToken
     expiresAt
     userId
     address
@@ -20,17 +20,22 @@ mutation VerifySiwe($accountId: String!, $message: String!, $signature: String!)
   }
 }
 
-# Refresh session using refresh token
-mutation RefreshSession($refreshToken: String!, $userAgent: String, $ipAddress: String) {
+# Refresh session using refresh token (or cookie)
+# Note: refreshToken parameter is optional - will use HttpOnly cookie if not provided
+mutation RefreshSession($refreshToken: String, $userAgent: String, $ipAddress: String) {
   refreshSession(refreshToken: $refreshToken, userAgent: $userAgent, ipAddress: $ipAddress) {
     accessToken
-    refreshToken
     expiresAt
     userId
   }
 }
 
-# Revoke a session
+# Revoke a session by ID
 mutation RevokeSession($sessionId: ID!) {
   revokeSession(sessionId: $sessionId)
+}
+
+# Logout current user (uses refresh_token cookie)
+mutation Logout {
+  logout
 }

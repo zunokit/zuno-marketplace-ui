@@ -15,16 +15,13 @@ export function useAuth() {
     const checkAuth = async () => {
       setIsLoading(true);
       try {
-        const token = authService.getAccessToken();
-        if (token && isConnected) {
-          const userData = await authService.getMe();
-          if (userData) {
-            setUser(userData);
-            setIsAuthenticated(true);
-          } else {
-            setUser(null);
-            setIsAuthenticated(false);
-          }
+        // ✅ FIX: Check auth independently of wallet connection
+        // User can be authenticated even if wallet temporarily disconnected
+        // Silent session restore via refresh token cookie happens in getMe()
+        const userData = await authService.getMe();
+        if (userData) {
+          setUser(userData);
+          setIsAuthenticated(true);
         } else {
           setUser(null);
           setIsAuthenticated(false);
@@ -59,8 +56,8 @@ export function useAuth() {
     };
   }, [isConnected, address]);
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
     setIsAuthenticated(false);
   };

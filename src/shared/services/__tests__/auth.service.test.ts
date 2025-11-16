@@ -25,6 +25,7 @@ jest.mock('@/shared/lib/graphql-client', () => ({
   graphqlClient: {
     queryTyped: jest.fn(),
     mutateTyped: jest.fn(),
+    request: jest.fn(),
     setAccessToken: jest.fn(),
     getAccessToken: jest.fn(),
   },
@@ -292,13 +293,40 @@ describe('AuthService', () => {
   });
 
   describe('logout', () => {
-    it('should clear access token and dispatch logout event', () => {
+    it('should call backend logout mutation and clear token', async () => {
       // Arrange
       const mockDispatchEvent = jest.fn();
       global.window.dispatchEvent = mockDispatchEvent;
 
+      (graphqlClient.request as jest.Mock).mockResolvedValue({
+        logout: true,
+      });
+
       // Act
-      authService.logout();
+      const result = await authService.logout();
+
+      // Assert
+      expect(graphqlClient.request).toHaveBeenCalledWith(
+        expect.stringContaining('mutation Logout')
+      );
+      expect(graphqlClient.setAccessToken).toHaveBeenCalledWith(null);
+      expect(mockDispatchEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'auth:logout',
+        })
+      );
+      expect(result).toBe(true);
+    });
+
+    it('should clear token even if backend call fails', async () => {
+      // Arrange
+      const mockDispatchEvent = jest.fn();
+      global.window.dispatchEvent = mockDispatchEvent;
+
+      (graphqlClient.request as jest.Mock).mockRejectedValue(new Error('Network error'));
+
+      // Act
+      const result = await authService.logout();
 
       // Assert
       expect(graphqlClient.setAccessToken).toHaveBeenCalledWith(null);
@@ -307,16 +335,21 @@ describe('AuthService', () => {
           type: 'auth:logout',
         })
       );
+      expect(result).toBe(false);
     });
 
-    it('should not throw when window is undefined (SSR)', () => {
+    it('should not throw when window is undefined (SSR)', async () => {
       // Arrange
       const originalWindow = global.window;
       // @ts-expect-error - Testing SSR scenario
       delete global.window;
 
+      (graphqlClient.request as jest.Mock).mockResolvedValue({
+        logout: true,
+      });
+
       // Act & Assert
-      expect(() => authService.logout()).not.toThrow();
+      await expect(authService.logout()).resolves.toBe(true);
       expect(graphqlClient.setAccessToken).toHaveBeenCalledWith(null);
 
       // Cleanup
