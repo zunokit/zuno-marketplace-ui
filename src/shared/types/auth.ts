@@ -1,27 +1,19 @@
 export interface AuthUser {
   id: string;
-  walletAddress: string;
-  username?: string;
-  email?: string;
-  bio?: string;
-  avatarUrl?: string;
-  bannerUrl?: string;
-  isEmailVerified?: boolean;
+  status: string;
   createdAt: string;
-}
-
-export interface Session {
-  id: string;
-  userId: string;
-  deviceInfo: string;
-  ipAddress: string;
-  lastActive: string;
-  expiresAt: string;
-}
-
-export interface AuthTokens {
-  accessToken: string;
-  refreshToken?: string;
+  profile?: {
+    userId: string;
+    username?: string;
+    displayName?: string;
+    avatarUrl?: string;
+    bannerUrl?: string;
+    bio?: string;
+    locale?: string;
+    timezone?: string;
+    socialsJson?: string;
+    updatedAt?: string;
+  };
 }
 
 export interface NonceResponse {
@@ -29,16 +21,20 @@ export interface NonceResponse {
   expiresAt: string;
 }
 
-export interface VerifySiweResponse {
-  success: boolean;
-  user: AuthUser;
+export interface AuthResponse {
   accessToken: string;
-  // refreshToken is set as HTTP-only cookie
+  refreshToken: string;
+  expiresAt: string;
+  userId: string;
+  address: string;
+  chainId: string;
 }
 
-export interface RefreshSessionResponse {
-  success: boolean;
+export interface RefreshResponse {
   accessToken: string;
+  refreshToken: string;
+  expiresAt: string;
+  userId: string;
 }
 
 export interface SiweMessage {

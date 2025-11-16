@@ -8,8 +8,8 @@ import { graphqlClient } from '@/shared/lib/graphql-client-v2';
 import { authLogger } from '@/shared/lib/logger';
 import type {
   NonceResponse,
-  VerifySiweResponse,
-  RefreshSessionResponse,
+  AuthResponse,
+  RefreshResponse,
   AuthUser,
 } from '@/shared/types/auth';
 
@@ -17,14 +17,14 @@ class AuthServiceV2 {
   /**
    * Get a nonce for SIWE authentication
    */
-  async getNonce(walletAddress: string): Promise<NonceResponse> {
+  async getNonce(accountId: string, chainId: string, domain: string): Promise<NonceResponse> {
     authLogger.group('Get Nonce');
-    authLogger.info('Requesting nonce', { walletAddress });
+    authLogger.info('Requesting nonce', { accountId, chainId, domain });
 
     try {
       const query = `
-        query GetNonce($walletAddress: String!) {
-          getNonce(walletAddress: $walletAddress) {
+        query GetNonce($accountId: String!, $chainId: String!, $domain: String!) {
+          getNonce(accountId: $accountId, chainId: $chainId, domain: $domain) {
             nonce
             expiresAt
           }
@@ -33,7 +33,7 @@ class AuthServiceV2 {
 
       const data = await graphqlClient.query<{ getNonce: NonceResponse }>(
         query,
-        { walletAddress },
+        { accountId, chainId, domain },
         'GetNonce'
       );
 
@@ -44,7 +44,7 @@ class AuthServiceV2 {
 
       return data.getNonce;
     } catch (error) {
-      authLogger.error('Failed to get nonce', error, { walletAddress });
+      authLogger.error('Failed to get nonce', error, { accountId, chainId, domain });
       authLogger.groupEnd();
       throw error;
     }
@@ -53,55 +53,45 @@ class AuthServiceV2 {
   /**
    * Verify SIWE signature and create session
    */
-  async verifySiwe(signature: string, message: string): Promise<VerifySiweResponse> {
+  async verifySiwe(accountId: string, message: string, signature: string): Promise<AuthResponse> {
     authLogger.group('Verify SIWE');
     authLogger.info('Verifying SIWE signature', {
+      accountId,
       signatureLength: signature.length,
       messagePreview: message.substring(0, 50) + '...',
     });
 
     try {
       const mutation = `
-        mutation VerifySiwe($signature: String!, $message: String!) {
-          verifySiwe(signature: $signature, message: $message) {
-            success
-            user {
-              id
-              walletAddress
-              username
-              email
-              bio
-              avatarUrl
-              bannerUrl
-              isEmailVerified
-              createdAt
-            }
+        mutation VerifySiwe($accountId: String!, $message: String!, $signature: String!) {
+          verifySiwe(accountId: $accountId, message: $message, signature: $signature) {
             accessToken
+            refreshToken
+            expiresAt
+            userId
+            address
+            chainId
           }
         }
       `;
 
-      const data = await graphqlClient.mutate<{ verifySiwe: VerifySiweResponse }>(
+      const data = await graphqlClient.mutate<{ verifySiwe: AuthResponse }>(
         mutation,
-        { signature, message },
+        { accountId, message, signature },
         'VerifySiwe'
       );
 
-      if (data.verifySiwe.success) {
-        // Store access token
-        graphqlClient.setAccessToken(data.verifySiwe.accessToken);
+      // Store access token
+      graphqlClient.setAccessToken(data.verifySiwe.accessToken);
 
-        authLogger.info('SIWE verification successful', {
-          userId: data.verifySiwe.user.id,
-          walletAddress: data.verifySiwe.user.walletAddress,
-        });
+      authLogger.info('SIWE verification successful', {
+        userId: data.verifySiwe.userId,
+        address: data.verifySiwe.address,
+      });
 
-        // Dispatch login event
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('auth:login'));
-        }
-      } else {
-        authLogger.warn('SIWE verification failed');
+      // Dispatch login event
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('auth:login'));
       }
 
       authLogger.groupEnd();
@@ -114,33 +104,31 @@ class AuthServiceV2 {
   }
 
   /**
-   * Refresh the access token using refresh token cookie
+   * Refresh the access token using refresh token
    */
-  async refreshSession(): Promise<RefreshSessionResponse> {
+  async refreshSession(refreshToken: string): Promise<RefreshResponse> {
     authLogger.info('Refreshing session');
 
     try {
       const mutation = `
-        mutation RefreshSession {
-          refreshSession {
-            success
+        mutation RefreshSession($refreshToken: String!) {
+          refreshSession(refreshToken: $refreshToken) {
             accessToken
+            refreshToken
+            expiresAt
+            userId
           }
         }
       `;
 
-      const data = await graphqlClient.mutate<{ refreshSession: RefreshSessionResponse }>(
+      const data = await graphqlClient.mutate<{ refreshSession: RefreshResponse }>(
         mutation,
-        undefined,
+        { refreshToken },
         'RefreshSession'
       );
 
-      if (data.refreshSession.success) {
-        graphqlClient.setAccessToken(data.refreshSession.accessToken);
-        authLogger.info('Session refreshed successfully');
-      } else {
-        authLogger.warn('Session refresh failed');
-      }
+      graphqlClient.setAccessToken(data.refreshSession.accessToken);
+      authLogger.info('Session refreshed successfully');
 
       return data.refreshSession;
     } catch (error) {
@@ -157,29 +145,35 @@ class AuthServiceV2 {
 
     try {
       const query = `
-        query GetMe {
-          getUser {
+        query Me {
+          me {
             id
-            walletAddress
-            username
-            email
-            bio
-            avatarUrl
-            bannerUrl
-            isEmailVerified
+            status
             createdAt
+            profile {
+              userId
+              username
+              displayName
+              avatarUrl
+              bannerUrl
+              bio
+              locale
+              timezone
+              socialsJson
+              updatedAt
+            }
           }
         }
       `;
 
-      const data = await graphqlClient.query<{ getUser: AuthUser }>(query, undefined, 'GetMe');
+      const data = await graphqlClient.query<{ me: AuthUser }>(query, undefined, 'Me');
 
       authLogger.debug('Current user fetched', {
-        userId: data.getUser.id,
-        walletAddress: data.getUser.walletAddress,
+        userId: data.me.id,
+        username: data.me.profile?.username,
       });
 
-      return data.getUser;
+      return data.me;
     } catch (error) {
       authLogger.error('Failed to get current user', error);
       return null;

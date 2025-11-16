@@ -30,15 +30,18 @@ export function SignInButton() {
     try {
       setIsLoading(true);
 
+      const domain = window.location.host;
+      const accountId = `eip155:${chainId}:${address}`;
+
       // 1. Get nonce from backend
       walletLogger.info('Step 1: Getting nonce from backend');
-      const { nonce } = await authService.getNonce(address);
+      const { nonce } = await authService.getNonce(accountId, chainId.toString(), domain);
       walletLogger.debug('Nonce received', { nonceLength: nonce.length });
 
       // 2. Create SIWE message
       walletLogger.info('Step 2: Creating SIWE message');
       const message = new SiweMessage({
-        domain: window.location.host,
+        domain,
         address,
         statement: 'Sign in to Zuno Marketplace',
         uri: window.location.origin,
@@ -65,20 +68,13 @@ export function SignInButton() {
 
       // 4. Verify signature with backend
       walletLogger.info('Step 4: Verifying signature with backend');
-      const result = await authService.verifySiwe(signature, preparedMessage);
+      const result = await authService.verifySiwe(accountId, preparedMessage, signature);
 
-      if (result.success) {
-        walletLogger.info('✅ Sign in successful!', {
-          userId: result.user.id,
-          username: result.user.username,
-        });
-        walletLogger.groupEnd();
-      } else {
-        walletLogger.error('❌ Authentication failed', undefined, {
-          result,
-        });
-        walletLogger.groupEnd();
-      }
+      walletLogger.info('✅ Sign in successful!', {
+        userId: result.userId,
+        address: result.address,
+      });
+      walletLogger.groupEnd();
     } catch (error) {
       walletLogger.error('❌ Sign in error', error);
       walletLogger.groupEnd();
