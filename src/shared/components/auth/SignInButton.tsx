@@ -2,7 +2,7 @@
 
 import { useAccount, useSignMessage } from 'wagmi';
 import { SiweMessage } from 'siwe';
-import { authService } from '@/shared/services/auth.service-v2';
+import { authService } from '@/shared/services/auth.service';
 import { Button } from '@/shared/components/ui/button';
 import { useAuth } from '@/shared/hooks/useAuth';
 import { useState } from 'react';

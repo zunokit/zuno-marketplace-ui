@@ -1,128 +1,126 @@
 /**
  * Authentication Service
  *
- * Handles all authentication-related API calls:
- * - Getting nonce for SIWE
- * - Verifying SIWE signature
- * - Refreshing sessions
- * - Revoking sessions
+ * Type-safe authentication using auto-generated GraphQL types
  */
 
 import { graphqlClient } from '@/shared/lib/graphql-client';
-import type {
-  NonceResponse,
-  VerifySiweResponse,
-  RefreshSessionResponse,
-  AuthUser,
-} from '@/shared/types/auth';
+import { authLogger } from '@/shared/lib/logger';
+import {
+  GetNonceDocument,
+  VerifySiweDocument,
+  RefreshSessionDocument,
+  RevokeSessionDocument,
+  MeDocument,
+  type GetNonceQuery,
+  type VerifySiweMutation,
+  type RefreshSessionMutation,
+  type MeQuery,
+  type GetNonceQueryVariables,
+  type VerifySiweMutationVariables,
+  type RefreshSessionMutationVariables,
+  type RevokeSessionMutationVariables,
+} from '@/shared/graphql/generated';
 
 class AuthService {
   /**
    * Get a nonce for SIWE authentication
    */
-  async getNonce(walletAddress: string): Promise<NonceResponse> {
-    const data = await graphqlClient.request<{ getNonce: NonceResponse }>(
-      `
-        query GetNonce($walletAddress: String!) {
-          getNonce(walletAddress: $walletAddress) {
-            nonce
-            expiresAt
-          }
-        }
-      `,
-      { walletAddress },
-      { skipAuth: true }
-    );
+  async getNonce(accountId: string, chainId: string, domain: string): Promise<GetNonceQuery['getNonce']> {
+    authLogger.group('Get Nonce');
+    authLogger.info('Requesting nonce', { accountId, chainId, domain });
 
-    return data.getNonce;
+    try {
+      const variables: GetNonceQueryVariables = { accountId, chainId, domain };
+      const data = await graphqlClient.queryTyped(GetNonceDocument, variables, 'GetNonce');
+
+      authLogger.info('Nonce retrieved successfully', {
+        expiresAt: data.getNonce.expiresAt,
+      });
+      authLogger.groupEnd();
+
+      return data.getNonce;
+    } catch (error) {
+      authLogger.error('Failed to get nonce', error, { accountId, chainId, domain });
+      authLogger.groupEnd();
+      throw error;
+    }
   }
 
   /**
    * Verify SIWE signature and create session
    */
-  async verifySiwe(signature: string, message: string): Promise<VerifySiweResponse> {
-    const data = await graphqlClient.request<{ verifySiwe: VerifySiweResponse }>(
-      `
-        mutation VerifySiwe($signature: String!, $message: String!) {
-          verifySiwe(signature: $signature, message: $message) {
-            success
-            user {
-              id
-              walletAddress
-              username
-              email
-              bio
-              avatarUrl
-              bannerUrl
-              isEmailVerified
-              createdAt
-            }
-            accessToken
-          }
-        }
-      `,
-      { signature, message },
-      { skipAuth: true }
-    );
+  async verifySiwe(accountId: string, message: string, signature: string): Promise<VerifySiweMutation['verifySiwe']> {
+    authLogger.group('Verify SIWE');
+    authLogger.info('Verifying SIWE signature', {
+      accountId,
+      signatureLength: signature.length,
+      messagePreview: message.substring(0, 50) + '...',
+    });
 
-    if (data.verifySiwe.success) {
+    try {
+      const variables: VerifySiweMutationVariables = { accountId, message, signature };
+      const data = await graphqlClient.mutateTyped(VerifySiweDocument, variables, 'VerifySiwe');
+
       // Store access token
       graphqlClient.setAccessToken(data.verifySiwe.accessToken);
-    }
 
-    return data.verifySiwe;
+      authLogger.info('SIWE verification successful', {
+        userId: data.verifySiwe.userId,
+        address: data.verifySiwe.address,
+      });
+
+      // Dispatch login event
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('auth:login'));
+      }
+
+      authLogger.groupEnd();
+      return data.verifySiwe;
+    } catch (error) {
+      authLogger.error('SIWE verification error', error);
+      authLogger.groupEnd();
+      throw error;
+    }
   }
 
   /**
-   * Refresh the access token using refresh token cookie
+   * Refresh the access token using refresh token
    */
-  async refreshSession(): Promise<RefreshSessionResponse> {
-    const data = await graphqlClient.request<{ refreshSession: RefreshSessionResponse }>(
-      `
-        mutation RefreshSession {
-          refreshSession {
-            success
-            accessToken
-          }
-        }
-      `,
-      undefined,
-      { skipAuth: true, retryOnUnauth: false }
-    );
+  async refreshSession(refreshToken: string, userAgent?: string, ipAddress?: string): Promise<RefreshSessionMutation['refreshSession']> {
+    authLogger.info('Refreshing session');
 
-    if (data.refreshSession.success) {
+    try {
+      const variables: RefreshSessionMutationVariables = { refreshToken, userAgent, ipAddress };
+      const data = await graphqlClient.mutateTyped(RefreshSessionDocument, variables, 'RefreshSession');
+
       graphqlClient.setAccessToken(data.refreshSession.accessToken);
-    }
+      authLogger.info('Session refreshed successfully');
 
-    return data.refreshSession;
+      return data.refreshSession;
+    } catch (error) {
+      authLogger.error('Session refresh error', error);
+      throw error;
+    }
   }
 
   /**
    * Get current authenticated user
    */
-  async getMe(): Promise<AuthUser | null> {
-    try {
-      const data = await graphqlClient.request<{ getUser: AuthUser }>(
-        `
-          query GetMe {
-            getUser {
-              id
-              walletAddress
-              username
-              email
-              bio
-              avatarUrl
-              bannerUrl
-              isEmailVerified
-              createdAt
-            }
-          }
-        `
-      );
+  async getMe(): Promise<MeQuery['me']> {
+    authLogger.debug('Fetching current user');
 
-      return data.getUser;
+    try {
+      const data = await graphqlClient.queryTyped(MeDocument, {}, 'Me');
+
+      authLogger.debug('Current user fetched', {
+        userId: data.me?.id,
+        username: data.me?.profile?.username,
+      });
+
+      return data.me;
     } catch (error) {
-      console.error('Failed to get current user:', error);
+      authLogger.error('Failed to get current user', error);
       return null;
     }
   }
@@ -131,25 +129,31 @@ class AuthService {
    * Revoke a specific session
    */
   async revokeSession(sessionId: string): Promise<boolean> {
-    const data = await graphqlClient.request<{ revokeSession: { success: boolean } }>(
-      `
-        mutation RevokeSession($sessionId: String!) {
-          revokeSession(sessionId: $sessionId) {
-            success
-          }
-        }
-      `,
-      { sessionId }
-    );
+    authLogger.info('Revoking session', { sessionId });
 
-    return data.revokeSession.success;
+    try {
+      const variables: RevokeSessionMutationVariables = { sessionId };
+      const data = await graphqlClient.mutateTyped(RevokeSessionDocument, variables, 'RevokeSession');
+
+      authLogger.info('Session revoked', {
+        sessionId,
+        success: data.revokeSession,
+      });
+
+      return data.revokeSession;
+    } catch (error) {
+      authLogger.error('Failed to revoke session', error, { sessionId });
+      return false;
+    }
   }
 
   /**
    * Logout - clear tokens
    */
   logout() {
+    authLogger.info('Logging out');
     graphqlClient.setAccessToken(null);
+
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('auth:logout'));
     }

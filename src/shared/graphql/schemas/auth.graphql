@@ -1,0 +1,36 @@
+# Authentication Queries & Mutations
+
+# Get nonce for SIWE authentication
+query GetNonce($accountId: String!, $chainId: String!, $domain: String!) {
+  getNonce(accountId: $accountId, chainId: $chainId, domain: $domain) {
+    nonce
+    expiresAt
+  }
+}
+
+# Verify SIWE signature and create session
+mutation VerifySiwe($accountId: String!, $message: String!, $signature: String!) {
+  verifySiwe(accountId: $accountId, message: $message, signature: $signature) {
+    accessToken
+    refreshToken
+    expiresAt
+    userId
+    address
+    chainId
+  }
+}
+
+# Refresh session using refresh token
+mutation RefreshSession($refreshToken: String!, $userAgent: String, $ipAddress: String) {
+  refreshSession(refreshToken: $refreshToken, userAgent: $userAgent, ipAddress: $ipAddress) {
+    accessToken
+    refreshToken
+    expiresAt
+    userId
+  }
+}
+
+# Revoke a session
+mutation RevokeSession($sessionId: ID!) {
+  revokeSession(sessionId: $sessionId)
+}
