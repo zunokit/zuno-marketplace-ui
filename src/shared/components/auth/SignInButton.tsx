@@ -95,14 +95,25 @@ export function SignInButton() {
 
   if (isAuthenticated) {
     return (
-      <Button variant="outline" size="sm" onClick={handleSignOut}>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={handleSignOut}
+        className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 text-xs sm:text-sm whitespace-nowrap"
+      >
         Sign Out
       </Button>
     );
   }
 
   return (
-    <Button variant="default" size="sm" onClick={handleSignIn} disabled={isLoading}>
+    <Button
+      variant="default"
+      size="sm"
+      onClick={handleSignIn}
+      disabled={isLoading}
+      className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 text-xs sm:text-sm whitespace-nowrap"
+    >
       {isLoading ? 'Signing In...' : 'Sign In'}
     </Button>
   );

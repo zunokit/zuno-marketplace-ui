@@ -31,36 +31,58 @@ export default function Header() {
           : "bg-background dark:bg-card border-border dark:border-border"
       )}
     >
-      <div className="flex items-center justify-between px-2 sm:px-4 mx-auto">
-        <Link href="/" className="flex items-center mr-2 xl:mr-5 gap-2 md:gap-4">
-          <Image src="/images/logo.png" alt="Zuno" width={32} height={32} />
-          <div className="hidden md:block text-xl font-semibold tracking-wide text-foreground dark:text-white">
-            ZUNO
+      <div className="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 lg:gap-3 px-2 sm:px-3 md:px-4 lg:px-6 mx-auto max-w-[1920px] w-full">
+        {/* Left Section - Logo & Navigation */}
+        <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2 shrink-0">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Zuno"
+              width={32}
+              height={32}
+              className="w-7 h-7 sm:w-8 sm:h-8"
+            />
+            <div className="hidden sm:block text-base md:text-lg lg:text-xl font-semibold tracking-wide text-foreground dark:text-white whitespace-nowrap">
+              ZUNO
+            </div>
+          </Link>
+
+          {/* Desktop Navigation - Only show on desktop (lg+) */}
+          {!isMobile && (
+            <nav className="hidden lg:flex items-center space-x-0 xl:space-x-0.5 shrink-0 ml-1 xl:ml-2">
+              {navItems.map(item => (
+                <NavDropdown
+                  key={item.id}
+                  href={item.href}
+                  active={false}
+                  hasDropdown={item.hasDropdown}
+                  dropdownItems={item.dropdownItems}
+                >
+                  {item.label}
+                </NavDropdown>
+              ))}
+            </nav>
+          )}
+        </div>
+
+        {/* Center Section - Search Bar */}
+        <div className="flex-1 flex justify-center min-w-0 px-1 sm:px-2 md:px-4">
+          <div className={cn(
+            "w-full",
+            isMobile
+              ? "max-w-[160px] sm:max-w-[200px] md:max-w-[280px]"
+              : "max-w-[240px] lg:max-w-[280px] xl:max-w-md"
+          )}>
+            <SearchBar isMobile={isMobile} />
           </div>
-        </Link>
+        </div>
 
-        {!isMobile && (
-          <nav className="hidden md:flex items-center space-x-1">
-            {navItems.map(item => (
-              <NavDropdown
-                key={item.id}
-                href={item.href}
-                active={false}
-                hasDropdown={item.hasDropdown}
-                dropdownItems={item.dropdownItems}
-              >
-                {item.label}
-              </NavDropdown>
-            ))}
-          </nav>
-        )}
-
-        <SearchBar isMobile={isMobile} />
-
-        <div className="flex items-center space-x-2 ml-auto pl-2 border-l border-transparent md:border-border dark:md:border-border">
+        {/* Right Section - Wallet & Mobile Menu */}
+        <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2 pl-1 sm:pl-1.5 md:pl-2 border-l border-transparent sm:border-border dark:sm:border-border shrink-0">
           {/* Wallet Connect Button */}
           <ConnectWalletButton />
-          {/* Mobile Menu */}
+          {/* Mobile Menu - Show when desktop menu is hidden (< 1024px) */}
           {isMobile && <MobileMenu navItems={navItems} />}
         </div>
       </div>

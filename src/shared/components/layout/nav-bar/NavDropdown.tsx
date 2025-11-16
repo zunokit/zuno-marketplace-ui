@@ -74,32 +74,34 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
+            "block select-none space-y-1 rounded-md p-2.5 lg:p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group",
             className
           )}
           {...props}
         >
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-2 lg:gap-3">
             {Icon && (
-              <Icon className="h-4 w-4 mt-0.5 text-muted-foreground group-hover:text-accent-foreground transition-colors" />
+              <Icon className="h-3.5 w-3.5 lg:h-4 lg:w-4 mt-0.5 text-muted-foreground group-hover:text-accent-foreground transition-colors shrink-0" />
             )}
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <div className="text-sm font-medium leading-none">{item.label}</div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-xs lg:text-sm font-medium leading-none truncate">
+                  {item.label}
+                </div>
                 {item.badge && (
                   <Badge
                     variant={
                       (item.badgeVariant as "default" | "secondary" | "destructive" | "outline") ||
                       "default"
                     }
-                    className="ml-2 text-xs py-0 px-1.5 h-5"
+                    className="ml-1 text-[10px] lg:text-xs py-0 px-1 lg:px-1.5 h-4 lg:h-5 shrink-0"
                   >
                     {item.badge}
                   </Badge>
                 )}
               </div>
               {item.description && (
-                <p className="line-clamp-2 text-xs leading-snug text-muted-foreground mt-1">
+                <p className="line-clamp-1 lg:line-clamp-2 text-[10px] lg:text-xs leading-snug text-muted-foreground mt-0.5 lg:mt-1">
                   {item.description}
                 </p>
               )}
@@ -125,7 +127,7 @@ export default function NavDropdown({
         href={href}
         className={cn(
           navigationMenuTriggerStyle(),
-          "bg-transparent hover:bg-accent/50 dark:hover:bg-accent/30",
+          "bg-transparent hover:bg-accent/50 dark:hover:bg-accent/30 text-xs lg:text-sm xl:text-base px-1.5 lg:px-2 xl:px-3 h-8 lg:h-9",
           active && "bg-accent/70 text-accent-foreground dark:bg-accent/40"
         )}
       >
@@ -140,7 +142,7 @@ export default function NavDropdown({
         <NavigationMenuItem>
           <NavigationMenuTrigger
             className={cn(
-              "bg-transparent hover:bg-accent/50 dark:hover:bg-accent/30",
+              "bg-transparent hover:bg-accent/50 dark:hover:bg-accent/30 text-xs lg:text-sm xl:text-base px-1.5 lg:px-2 xl:px-3 h-8 lg:h-9",
               active && "bg-accent/70 text-accent-foreground dark:bg-accent/40"
             )}
           >
@@ -149,8 +151,10 @@ export default function NavDropdown({
           <NavigationMenuContent>
             <ul
               className={cn(
-                "grid gap-1 p-3",
-                dropdownItems.length <= 4 ? "w-[400px] grid-cols-1" : "w-[600px] md:grid-cols-2"
+                "grid gap-0.5 lg:gap-1 p-2 lg:p-3",
+                dropdownItems.length <= 4
+                  ? "w-[340px] lg:w-[400px] grid-cols-1"
+                  : "w-[520px] lg:w-[600px] grid-cols-2"
               )}
             >
               {dropdownItems.map(item => (

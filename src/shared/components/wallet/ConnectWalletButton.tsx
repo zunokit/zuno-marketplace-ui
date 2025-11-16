@@ -41,32 +41,42 @@ export function ConnectWalletButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <Button onClick={openConnectModal} size="default">
-                    <Wallet className="size-4" />
-                    Connect Wallet
+                  <Button
+                    onClick={openConnectModal}
+                    size="default"
+                    className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 md:px-4 text-xs sm:text-sm"
+                  >
+                    <Wallet className="size-3 sm:size-4" />
+                    <span className="hidden xs:inline sm:hidden md:inline">Connect Wallet</span>
+                    <span className="inline xs:hidden sm:inline md:hidden">Connect</span>
                   </Button>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <Button onClick={openChainModal} variant="destructive" size="default">
+                  <Button
+                    onClick={openChainModal}
+                    variant="destructive"
+                    size="default"
+                    className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 md:px-4 text-xs sm:text-sm whitespace-nowrap"
+                  >
                     Wrong network
                   </Button>
                 );
               }
 
               return (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-1.5 lg:gap-2">
                   {/* SIWE Sign In Button */}
                   <SignInButton />
 
-                  {/* Chain Selector Button */}
+                  {/* Chain Selector Button - Hidden on mobile and tablet */}
                   <Button
                     onClick={openChainModal}
                     variant="outline"
                     size="default"
-                    className="hidden sm:flex"
+                    className="hidden xl:flex"
                   >
                     {chain.hasIcon && (
                       <div className="size-4 rounded-full overflow-hidden">
@@ -84,13 +94,23 @@ export function ConnectWalletButton() {
                     <ChevronDown className="size-4" />
                   </Button>
 
-                  {/* Account Button */}
-                  <Button onClick={openAccountModal} variant="outline" size="default">
-                    {account.displayBalance
-                      ? ` ${account.displayBalance}`
-                      : ""}
-                    <span className="font-semibold">{account.displayName}</span>
-                    <ChevronDown className="size-4" />
+                  {/* Account Button - Responsive sizing */}
+                  <Button
+                    onClick={openAccountModal}
+                    variant="outline"
+                    size="default"
+                    className="text-xs sm:text-sm h-8 sm:h-9 md:h-10 px-2 sm:px-3 md:px-4"
+                  >
+                    {/* Hide balance on screens below lg */}
+                    {account.displayBalance && (
+                      <span className="hidden lg:inline text-xs">
+                        {account.displayBalance}
+                      </span>
+                    )}
+                    <span className="font-semibold truncate max-w-[60px] sm:max-w-[80px] md:max-w-[100px] lg:max-w-[120px] xl:max-w-none">
+                      {account.displayName}
+                    </span>
+                    <ChevronDown className="size-3 sm:size-4 shrink-0" />
                   </Button>
                 </div>
               );

@@ -31,28 +31,16 @@ export default function SearchBar({ isMobile }: SearchBarProps) {
 
   return (
     <>
-      <div
-        ref={searchRef}
-        className={cn(
-          "relative transition-all duration-300",
-          isMobile && isSearchFocused
-            ? "fixed top-0 left-0 right-0 p-4 z-50 bg-background dark:bg-card"
-            : "flex-grow max-w-md mx-4"
-        )}
-      >
+      <div ref={searchRef} className="relative w-full min-w-0">
         <div className="relative">
-          <Search
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground"
-            onClick={() => isMobile && setIsSearchFocused(true)}
-          />
+          <Search className="absolute left-2 sm:left-2.5 md:left-3 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-muted-foreground pointer-events-none" />
           <Input
             type="search"
-            placeholder="Search collections on Zuno"
+            placeholder={isMobile ? "Search..." : "Search collections"}
             className={cn(
-              "pl-10 h-9 rounded-md bg-secondary/80 border border-border focus:border-border text-foreground placeholder-muted-foreground cursor-pointer",
+              "w-full pl-7 sm:pl-9 md:pl-10 pr-2 md:pr-16 lg:pr-20 h-8 sm:h-9 rounded-md bg-secondary/80 border border-border focus:border-border text-foreground placeholder-muted-foreground cursor-pointer text-xs sm:text-sm",
               "dark:bg-card/80 dark:border-border dark:focus:border-border dark:text-white dark:placeholder-muted-foreground",
-              isMobile && !isSearchFocused && "w-8 pl-8 pr-0 opacity-0 pointer-events-none",
-              isMobile && isSearchFocused && "w-full opacity-100 shadow-sm"
+              "transition-all duration-200 truncate"
             )}
             onClick={() => setIsModalOpen(true)}
             onFocus={e => {
@@ -62,19 +50,9 @@ export default function SearchBar({ isMobile }: SearchBarProps) {
             readOnly
           />
           {!isMobile && (
-            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-muted-foreground">
-              Ctrl K
-            </span>
-          )}
-          {isMobile && isSearchFocused && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-foreground hover:bg-secondary dark:text-white dark:hover:bg-white/5"
-              onClick={() => setIsSearchFocused(false)}
-            >
-              Cancel
-            </Button>
+            <kbd className="absolute right-2 md:right-2.5 top-1/2 transform -translate-y-1/2 hidden md:inline-flex h-5 select-none items-center gap-0.5 md:gap-1 rounded border border-border bg-muted px-1 md:px-1.5 font-mono text-[9px] md:text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-[10px] md:text-xs">⌘</span>K
+            </kbd>
           )}
         </div>
       </div>
