@@ -4,15 +4,17 @@ import { createConfig, http } from 'wagmi';
 import { sepolia, localhost } from 'wagmi/chains';
 
 // Get WalletConnect project ID from environment
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '';
+// For MetaMask-only setup, we use a dummy ID since RainbowKit requires it
+// even though we're not using WalletConnect wallets
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'METAMASK_ONLY_NO_WC';
 
-if (!projectId) {
-  console.warn(
-    'NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not set. Some wallet features may not work. Get one at https://cloud.walletconnect.com/'
+if (projectId === 'METAMASK_ONLY_NO_WC') {
+  console.info(
+    '🦊 Using MetaMask only (no WalletConnect). This is fine for development.'
   );
 }
 
-// Configure only MetaMask wallet
+// Configure only MetaMask wallet (injected connector)
 const connectors = connectorsForWallets(
   [
     {
@@ -22,7 +24,7 @@ const connectors = connectorsForWallets(
   ],
   {
     appName: 'Zuno Marketplace',
-    projectId,
+    projectId, // Required by RainbowKit but not used for MetaMask
   }
 );
 
