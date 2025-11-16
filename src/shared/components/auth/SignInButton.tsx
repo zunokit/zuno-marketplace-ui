@@ -31,11 +31,12 @@ export function SignInButton() {
       setIsLoading(true);
 
       const domain = window.location.host;
-      const accountId = `eip155:${chainId}:${address}`;
+      const accountId = address; // Just the Ethereum address (0x...)
+      const chainIdCaip2 = `eip155:${chainId}`; // CAIP-2 format
 
       // 1. Get nonce from backend
       walletLogger.info('Step 1: Getting nonce from backend');
-      const { nonce } = await authService.getNonce(accountId, chainId.toString(), domain);
+      const { nonce } = await authService.getNonce(accountId, chainIdCaip2, domain);
       walletLogger.debug('Nonce received', { nonceLength: nonce.length });
 
       // 2. Create SIWE message
