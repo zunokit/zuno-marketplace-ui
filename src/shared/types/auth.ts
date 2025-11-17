@@ -4,16 +4,16 @@ export interface AuthUser {
   createdAt: string;
   profile?: {
     userId: string;
-    username?: string;
-    displayName?: string;
-    avatarUrl?: string;
-    bannerUrl?: string;
-    bio?: string;
-    locale?: string;
-    timezone?: string;
-    socialsJson?: string;
-    updatedAt?: string;
-  };
+    username?: string | null;
+    displayName?: string | null;
+    avatarUrl?: string | null;
+    bannerUrl?: string | null;
+    bio?: string | null;
+    locale?: string | null;
+    timezone?: string | null;
+    socialsJson?: string | null;
+    updatedAt?: string | null;
+  } | null;
 }
 
 export interface NonceResponse {
