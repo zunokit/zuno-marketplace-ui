@@ -53,25 +53,26 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Mark server-only packages to prevent bundling in client
-  serverExternalPackages: [
-    "pino",
-    "pino-pretty",
-    "thread-stream",
-    "lokijs",
-    "encoding",
-  ],
   webpack: (config) => {
-    // Exclude test and benchmark files from being processed
-    config.externals.push("pino-pretty", "lokijs", "encoding");
+    // Handle missing optional dependencies from web3 libraries
+    config.resolve = config.resolve || {};
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      "@react-native-async-storage/async-storage": false,
+      "pino-pretty": false,
+      lokijs: false,
+      encoding: false,
+    };
 
-    // Ignore specific test/dev files
-    config.module = config.module || {};
-    config.module.rules = config.module.rules || [];
-    config.module.rules.push({
-      test: /\/(test|bench)\//,
-      use: "null-loader",
-    });
+    // Ignore node-specific and optional dependencies
+    config.externals = config.externals || [];
+    if (Array.isArray(config.externals)) {
+      config.externals.push({
+        "pino-pretty": "commonjs pino-pretty",
+        lokijs: "commonjs lokijs",
+        encoding: "commonjs encoding",
+      });
+    }
 
     return config;
   },
