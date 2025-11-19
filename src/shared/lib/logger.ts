@@ -167,7 +167,6 @@ class Logger {
 export const logger = new Logger();
 export const authLogger = new Logger("Auth");
 export const graphqlLogger = new Logger("GraphQL");
-export const walletLogger = new Logger("Wallet");
 export const createLogger = (namespace: string) => new Logger(namespace);
 
 export default Logger;

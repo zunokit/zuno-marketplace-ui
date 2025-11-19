@@ -6,28 +6,32 @@ const config: CodegenConfig = {
   // Fetch schema from remote GraphQL endpoint (from env)
   schema: GRAPHQL_URL,
 
-  // Source .graphql files (only the ones we need)
-  documents: ['src/shared/graphql/schemas/**/*.graphql'],
+  // Source .graphql files and TypeScript files with inline graphql`` calls
+  // Exclude the graphql directory itself to avoid circular dependencies
+  documents: ['src/shared/graphql/schemas/**/*.graphql', 'src/**/*.{ts,tsx}', '!src/shared/graphql/gql.ts', '!src/shared/graphql/graphql.ts', '!src/shared/graphql/index.ts'],
+  ignoreNoDocuments: true,
 
-  // Generate typed document nodes
+  // Use client preset for Apollo Client 4
   generates: {
-    './src/shared/graphql/generated.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typed-document-node',
-      ],
+    './src/shared/graphql/': {
+      preset: 'client',
+      presetConfig: {
+        // Disable fragment masking for easier data access
+        fragmentMasking: false,
+      },
       config: {
-        // Emit types compatible with graphql-request
-        rawRequest: false,
-        // Skip typename for cleaner types
-        skipTypename: false,
-        // Use exact types
+        // Type safety
         strictScalars: true,
         scalars: {
           DateTime: 'string',
           JSON: 'Record<string, any>',
         },
+        // Avoid optional fields
+        avoidOptionals: {
+          field: true,
+        },
+        // Documentation
+        addDocBlocks: true,
       },
     },
   },

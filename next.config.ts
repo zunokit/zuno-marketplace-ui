@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: [
+    "pino",
+    "thread-stream",
+    "pino-pretty",
+    "lokijs",
+    "encoding",
+  ],
   images: {
     remotePatterns: [
       {
@@ -52,29 +59,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-  },
-  webpack: (config) => {
-    // Handle missing optional dependencies from web3 libraries
-    config.resolve = config.resolve || {};
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      "@react-native-async-storage/async-storage": false,
-      "pino-pretty": false,
-      lokijs: false,
-      encoding: false,
-    };
-
-    // Ignore node-specific and optional dependencies
-    config.externals = config.externals || [];
-    if (Array.isArray(config.externals)) {
-      config.externals.push({
-        "pino-pretty": "commonjs pino-pretty",
-        lokijs: "commonjs lokijs",
-        encoding: "commonjs encoding",
-      });
-    }
-
-    return config;
   },
 };
 

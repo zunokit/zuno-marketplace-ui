@@ -6,6 +6,8 @@ import { Web3Provider } from "@/shared/providers/Web3Provider";
 import { ReactNode, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { AppFooter } from "@/shared/components/layout/AppFooter";
+import { ApolloProvider } from "@apollo/client/react";
+import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
 
 export default function Wrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -47,30 +49,32 @@ export default function Wrapper({ children }: { children: ReactNode }) {
         : "pt-20 md:pt-24"; // Default padding for other routes
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-      <Web3Provider>
-        <div className="min-h-screen flex flex-col bg-secondary text-foreground dark:bg-card dark:text-white transition-colors">
-          {/* Fixed header */}
-          <div className="fixed top-0 left-0 right-0 z-50">
-            <Header />
+    <ApolloProvider client={apolloWrapper.getClient()}>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <Web3Provider>
+          <div className="min-h-screen flex flex-col bg-secondary text-foreground dark:bg-card dark:text-white transition-colors">
+            {/* Fixed header */}
+            <div className="fixed top-0 left-0 right-0 z-50">
+              <Header />
+            </div>
+
+            {/* Main content with padding to account for fixed header and footer */}
+            <main
+              className={`max-w-screen w-full mx-auto pb-24 flex-grow ${mainPaddingClass}`}
+            >
+              {children}
+            </main>
+
+            {/* Fixed footer */}
+            <AppFooter
+              itemCount={cartItemCount}
+              openCart={() => {
+                // Cart open functionality can be implemented later
+              }}
+            />
           </div>
-
-          {/* Main content with padding to account for fixed header and footer */}
-          <main
-            className={`max-w-screen w-full mx-auto pb-24 flex-grow ${mainPaddingClass}`}
-          >
-            {children}
-          </main>
-
-          {/* Fixed footer */}
-          <AppFooter
-            itemCount={cartItemCount}
-            openCart={() => {
-              // Cart open functionality can be implemented later
-            }}
-          />
-        </div>
-      </Web3Provider>
-    </ThemeProvider>
+        </Web3Provider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }

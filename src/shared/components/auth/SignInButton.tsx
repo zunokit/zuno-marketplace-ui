@@ -2,45 +2,51 @@
 
 import { useAccount, useSignMessage } from 'wagmi';
 import { SiweMessage } from 'siwe';
-import { authService } from '@/shared/services/auth.service';
 import { Button } from '@/shared/components/ui/button';
 import { useAuth } from '@/shared/hooks/useAuth';
-import { useState } from 'react';
-import { walletLogger } from '@/shared/lib/logger';
+import { authLogger } from '@/shared/lib/logger';
+import {
+  useGetNonceLazyQuery,
+  useVerifySiweMutation,
+  useLogoutMutation,
+} from '@/shared/graphql/hooks';
+import { graphqlClient } from '@/shared/lib/graphql-client';
 
 export function SignInButton() {
   const { address, chainId } = useAccount();
   const { signMessageAsync } = useSignMessage();
-  const { isAuthenticated, logout } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  // Use generated hooks instead of manual service calls
+  const [getNonce, { loading: nonceLoading }] = useGetNonceLazyQuery();
+  const [verifySiwe, { loading: verifyLoading }] = useVerifySiweMutation();
+  const [logout, { loading: logoutLoading }] = useLogoutMutation();
+
+  const isLoading = nonceLoading || verifyLoading;
 
   const handleSignIn = async () => {
     if (!address || !chainId) {
-      walletLogger.error('No wallet connected');
+      authLogger.error('No wallet connected');
       return;
     }
 
-    walletLogger.group('SIWE Sign In');
-    walletLogger.info('Starting SIWE authentication', {
-      address,
-      chainId,
-      domain: window.location.host,
-    });
-
     try {
-      setIsLoading(true);
+      authLogger.info('Starting SIWE authentication', { address });
 
       const domain = window.location.host;
-      const accountId = address; // Just the Ethereum address (0x...)
-      const chainIdCaip2 = `eip155:${chainId}`; // CAIP-2 format
+      const accountId = address;
+      const chainIdCaip2 = `eip155:${chainId}`;
 
-      // 1. Get nonce from backend
-      walletLogger.info('Step 1: Getting nonce from backend');
-      const { nonce } = await authService.getNonce(accountId, chainIdCaip2, domain);
-      walletLogger.debug('Nonce received', { nonceLength: nonce.length });
+      // Get nonce using generated hook
+      const { data: nonceData } = await getNonce({
+        variables: { accountId, chainId: chainIdCaip2, domain },
+      });
 
-      // 2. Create SIWE message
-      walletLogger.info('Step 2: Creating SIWE message');
+      if (!nonceData?.getNonce) {
+        throw new Error('Failed to get nonce');
+      }
+
+      // Create SIWE message
       const message = new SiweMessage({
         domain,
         address,
@@ -48,45 +54,60 @@ export function SignInButton() {
         uri: window.location.origin,
         version: '1',
         chainId,
-        nonce,
+        nonce: nonceData.getNonce.nonce,
       });
 
       const preparedMessage = message.prepareMessage();
-      walletLogger.debug('SIWE message prepared', {
-        messageLength: preparedMessage.length,
-        messagePreview: preparedMessage.substring(0, 100) + '...',
-      });
 
-      // 3. Request signature from wallet
-      walletLogger.info('Step 3: Requesting signature from wallet');
+      // Sign message with wallet
       const signature = await signMessageAsync({
         message: preparedMessage,
       });
-      walletLogger.debug('Signature received', {
-        signatureLength: signature.length,
-        signaturePreview: signature.substring(0, 20) + '...',
+
+      // Verify signature using generated hook
+      const { data: authData } = await verifySiwe({
+        variables: {
+          accountId,
+          message: preparedMessage,
+          signature,
+        },
       });
 
-      // 4. Verify signature with backend
-      walletLogger.info('Step 4: Verifying signature with backend');
-      const result = await authService.verifySiwe(accountId, preparedMessage, signature);
+      if (!authData?.verifySiwe) {
+        throw new Error('Failed to verify signature');
+      }
 
-      walletLogger.info('✅ Sign in successful!', {
-        userId: result.userId,
-        address: result.address,
-      });
-      walletLogger.groupEnd();
+      // Store access token
+      graphqlClient.setAccessToken(authData.verifySiwe.accessToken);
+
+      // Dispatch login event
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('auth:login'));
+      }
+
+      authLogger.info('Sign in successful');
     } catch (error) {
-      walletLogger.error('❌ Sign in error', error);
-      walletLogger.groupEnd();
-    } finally {
-      setIsLoading(false);
+      authLogger.error('Sign in failed', error);
     }
   };
 
-  const handleSignOut = () => {
-    walletLogger.info('User initiated sign out');
-    logout();
+  const handleSignOut = async () => {
+    try {
+      authLogger.info('User signing out');
+
+      // Call logout mutation
+      await logout();
+
+      // Clear access token
+      graphqlClient.setAccessToken(null);
+
+      // Dispatch logout event
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('auth:logout'));
+      }
+    } catch (error) {
+      authLogger.error('Logout failed', error);
+    }
   };
 
   if (!address) {

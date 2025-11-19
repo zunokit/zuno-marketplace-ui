@@ -1,14 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Clock, Gavel, Eye, AlertCircle } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/shared/components/ui/card";
-import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
-import { Progress } from "@/shared/components/ui/progress";
-import Image from "next/image";
 import Link from "next/link";
+import { BaseCarousel } from "@/shared/components/carousel/BaseCarousel";
+import { AuctionCard } from "@/modules/product-discovery/live-auctions/components/AuctionCard";
 
 interface Auction {
   id: string;
@@ -43,7 +39,7 @@ const mockAuctions: Auction[] = [
     currentBid: "12.5",
     startingPrice: "5.0",
     currency: "ETH",
-    endTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
+    endTime: new Date(Date.now() + 2 * 60 * 60 * 1000),
     totalBids: 45,
     viewers: 234,
     seller: {
@@ -66,7 +62,7 @@ const mockAuctions: Auction[] = [
     currentBid: "8.2",
     startingPrice: "2.0",
     currency: "ETH",
-    endTime: new Date(Date.now() + 45 * 60 * 1000), // 45 minutes
+    endTime: new Date(Date.now() + 45 * 60 * 1000),
     totalBids: 89,
     viewers: 567,
     seller: {
@@ -88,7 +84,7 @@ const mockAuctions: Auction[] = [
     currentBid: "25.7",
     startingPrice: "10.0",
     currency: "ETH",
-    endTime: new Date(Date.now() + 6 * 60 * 60 * 1000), // 6 hours
+    endTime: new Date(Date.now() + 6 * 60 * 60 * 1000),
     totalBids: 123,
     viewers: 892,
     seller: {
@@ -111,7 +107,7 @@ const mockAuctions: Auction[] = [
     currentBid: "4.3",
     startingPrice: "1.0",
     currency: "ETH",
-    endTime: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes
+    endTime: new Date(Date.now() + 30 * 60 * 1000),
     totalBids: 67,
     viewers: 445,
     seller: {
@@ -125,189 +121,147 @@ const mockAuctions: Auction[] = [
     },
     reserveMet: true,
   },
+  {
+    id: "5",
+    name: "Cosmic Voyage #999",
+    image: "https://picsum.photos/600/600?random=105",
+    collection: "Space Explorers",
+    currentBid: "18.9",
+    startingPrice: "8.0",
+    currency: "ETH",
+    endTime: new Date(Date.now() + 4 * 60 * 60 * 1000),
+    totalBids: 156,
+    viewers: 678,
+    seller: {
+      name: "CosmicArt",
+      avatar: "https://picsum.photos/100/100?random=119",
+      verified: true,
+    },
+    topBidder: {
+      name: "StarGazer",
+      avatar: "https://picsum.photos/100/100?random=120",
+    },
+    reservePrice: "20.0",
+    reserveMet: false,
+  },
+  {
+    id: "6",
+    name: "Digital Phoenix #88",
+    image: "https://picsum.photos/600/600?random=106",
+    collection: "Mythical Beasts",
+    currentBid: "32.1",
+    startingPrice: "15.0",
+    currency: "ETH",
+    endTime: new Date(Date.now() + 8 * 60 * 60 * 1000),
+    totalBids: 203,
+    viewers: 1024,
+    seller: {
+      name: "MythCreator",
+      avatar: "https://picsum.photos/100/100?random=121",
+      verified: true,
+    },
+    topBidder: {
+      name: "LegendHunter",
+      avatar: "https://picsum.photos/100/100?random=122",
+    },
+    reserveMet: true,
+  },
+  {
+    id: "7",
+    name: "Abstract Emotions #33",
+    image: "https://picsum.photos/600/600?random=107",
+    collection: "Modern Art",
+    currentBid: "6.7",
+    startingPrice: "3.0",
+    currency: "ETH",
+    endTime: new Date(Date.now() + 1 * 60 * 60 * 1000),
+    totalBids: 78,
+    viewers: 312,
+    seller: {
+      name: "AbstractMind",
+      avatar: "https://picsum.photos/100/100?random=123",
+      verified: false,
+    },
+    topBidder: {
+      name: "ArtCollector99",
+      avatar: "https://picsum.photos/100/100?random=124",
+    },
+    reservePrice: "10.0",
+    reserveMet: false,
+  },
+  {
+    id: "8",
+    name: "Futuristic Landscape #2077",
+    image: "https://picsum.photos/600/600?random=108",
+    collection: "Future Visions",
+    currentBid: "15.4",
+    startingPrice: "7.5",
+    currency: "ETH",
+    endTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
+    totalBids: 134,
+    viewers: 589,
+    seller: {
+      name: "FutureArtist",
+      avatar: "https://picsum.photos/100/100?random=125",
+      verified: true,
+    },
+    topBidder: {
+      name: "VisionSeeker",
+      avatar: "https://picsum.photos/100/100?random=126",
+    },
+    reserveMet: true,
+  },
 ];
 
-function TimeRemaining({ endTime }: { endTime: Date }) {
-  const [timeLeft, setTimeLeft] = useState("");
+export default function LiveAuctions() {
+  const [auctions, setAuctions] = useState<Auction[]>([]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const end = endTime.getTime();
-      const distance = end - now;
+    setAuctions(mockAuctions);
+  }, []);
 
-      if (distance < 0) {
-        setTimeLeft("Ended");
-        clearInterval(timer);
-      } else {
-        const hours = Math.floor(distance / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [endTime]);
-
-  const getUrgency = () => {
-    const now = new Date().getTime();
-    const end = endTime.getTime();
-    const distance = end - now;
-    const oneHour = 60 * 60 * 1000;
-
-    if (distance < oneHour) return "urgent";
-    if (distance < oneHour * 3) return "warning";
-    return "normal";
-  };
-
-  const urgency = getUrgency();
-
-  return (
-    <Badge
-      variant={
-        urgency === "urgent" ? "destructive" : urgency === "warning" ? "secondary" : "outline"
-      }
-      className="flex items-center gap-1"
-    >
-      <Clock className="h-3 w-3" />
-      {timeLeft}
-    </Badge>
+  const renderAuctionCard = (
+    item: Auction,
+    isHovered: boolean,
+    onMouseEnter: () => void,
+    onMouseLeave: () => void
+  ) => (
+    <AuctionCard
+      item={item}
+      isHovered={isHovered}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
   );
-}
 
-export default function LiveAuctions() {
   return (
-    <section className="w-full py-12">
-      <div className="mx-auto px-4">
+    <section className="w-full px-4 md:px-6">
+      <div className="mx-auto">
+        {/* Section Header - Matching CarouselHeader */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-bold mb-2 flex items-center gap-2">
-              <Gavel className="h-8 w-8" />
-              Live Auctions
-            </h2>
-            <p className="text-muted-foreground">Bid on exclusive NFTs in real-time auctions</p>
-          </div>
-          <Button variant="outline" asChild>
-            <Link href="/auctions">View All Auctions</Link>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground dark:text-white">
+            Live Auctions
+          </h2>
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="border-border text-foreground dark:text-white hover:bg-secondary dark:hover:bg-white/5"
+          >
+            <Link href="/auctions">See all</Link>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mockAuctions.map(auction => (
-            <Card
-              key={auction.id}
-              className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
-            >
-              <CardHeader className="p-0">
-                <div className="relative aspect-square">
-                  <Image src={auction.image} alt={auction.name} fill className="object-cover" />
-                  <div className="absolute top-2 left-2">
-                    <TimeRemaining endTime={auction.endTime} />
-                  </div>
-                  <div className="absolute top-2 right-2 flex gap-2">
-                    <Badge variant="secondary" className="bg-black/70 text-white">
-                      <Eye className="h-3 w-3 mr-1" />
-                      {auction.viewers}
-                    </Badge>
-                  </div>
-
-                  {/* Live indicator */}
-                  <div className="absolute bottom-2 left-2">
-                    <Badge className="bg-red-500 text-white animate-pulse">
-                      <span className="relative flex h-2 w-2 mr-1">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                      </span>
-                      LIVE
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="pt-4">
-                <div className="mb-3">
-                  <p className="text-xs text-muted-foreground">{auction.collection}</p>
-                  <h3 className="font-semibold truncate">{auction.name}</h3>
-                </div>
-
-                {/* Seller info */}
-                <div className="flex items-center gap-2 mb-4">
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src={auction.seller.avatar} />
-                    <AvatarFallback>{auction.seller.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <span className="text-xs text-muted-foreground">by @{auction.seller.name}</span>
-                  {auction.seller.verified && (
-                    <Badge variant="secondary" className="text-xs px-1">
-                      Verified
-                    </Badge>
-                  )}
-                </div>
-
-                {/* Bid info */}
-                <div className="space-y-3">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="text-xs text-muted-foreground">Current Bid</p>
-                      <p className="font-bold text-lg">
-                        {auction.currentBid} {auction.currency}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-muted-foreground">{auction.totalBids} bids</p>
-                      <div className="flex items-center gap-1">
-                        <Avatar className="h-5 w-5">
-                          <AvatarImage src={auction.topBidder.avatar} />
-                          <AvatarFallback>{auction.topBidder.name[0]}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-xs">@{auction.topBidder.name}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Reserve price indicator */}
-                  {auction.reservePrice && (
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">Reserve Price</span>
-                        <span className={auction.reserveMet ? "text-green-500" : "text-yellow-500"}>
-                          {auction.reserveMet
-                            ? "Met"
-                            : `${auction.reservePrice} ${auction.currency}`}
-                        </span>
-                      </div>
-                      <Progress
-                        value={
-                          (parseFloat(auction.currentBid) / parseFloat(auction.reservePrice)) * 100
-                        }
-                        className="h-1"
-                      />
-                    </div>
-                  )}
-
-                  {/* Bid increase from starting */}
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <AlertCircle className="h-3 w-3" />
-                    <span>
-                      {(
-                        (parseFloat(auction.currentBid) / parseFloat(auction.startingPrice) - 1) *
-                        100
-                      ).toFixed(0)}
-                      % above starting price
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-
-              <CardFooter className="pt-0 pb-4">
-                <Button className="w-full" size="sm">
-                  Place Bid
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+        {/* Auction Carousel */}
+        <BaseCarousel
+          items={auctions}
+          renderItem={renderAuctionCard}
+          autoplayDelay={3000}
+          showNavigation={true}
+          loop={true}
+          align="start"
+          itemClassName="pl-2 basis-full md:basis-1/2 lg:basis-1/4"
+        />
       </div>
     </section>
   );
