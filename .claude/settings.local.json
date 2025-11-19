@@ -16,7 +16,11 @@
       "Bash(gh api:*)",
       "Bash(for repo in zunokit-builder zuno-marketplace-ui zuno-marketplace-api zuno-marketplace-contracts zuno-marketplace-mini zuno-marketplace-abis zuno-marketplace-scripts)",
       "Bash(do echo \"=== $repo ===\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(pnpm build:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(pnpm install:*)",
+      "Skill(frontend-design:frontend-design)"
     ],
     "deny": [],
     "ask": []

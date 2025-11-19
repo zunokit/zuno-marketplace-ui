@@ -34,7 +34,7 @@ export function HomeBanner() {
   // Show loading state while slides are being generated
   if (slides.length === 0) {
     return (
-      <div className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 bg-secondary dark:bg-card border border-border animate-pulse" />
+      <div className="w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 bg-secondary dark:bg-card border border-border animate-pulse" />
     );
   }
 
@@ -42,7 +42,7 @@ export function HomeBanner() {
     <div className="w-full px-2 md:px-0">
       <Carousel
         setApi={setApi}
-        className="w-full h-[200px] md:h-[300px] lg:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 group bg-secondary dark:bg-card border border-border"
+        className="w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px] rounded-lg md:rounded-xl overflow-hidden mb-3 md:mb-5 group bg-secondary dark:bg-card border border-border"
         plugins={
           [
             // Autoplay({
@@ -55,9 +55,9 @@ export function HomeBanner() {
           loop: true,
         }}
       >
-        <CarouselContent className="h-[200px] md:h-[300px] lg:h-[400px]">
+        <CarouselContent className="h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px]">
           {slides.map((slide, index) => (
-            <CarouselItem key={index} className="h-[200px] md:h-[300px] lg:h-[400px]">
+            <CarouselItem key={index} className="h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px]">
               <BannerItem {...slide} />
             </CarouselItem>
           ))}

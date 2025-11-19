@@ -94,6 +94,144 @@ Located in `src/`:
 - **Playwright** - End-to-end testing across browsers
 - Test configuration in `tests/setup/jest.config.js` and `tests/setup/playwright.config.ts`
 
+## GraphQL & API Integration
+
+### GraphQL Code Generation
+
+This project uses **GraphQL Code Generator** to create type-safe hooks from GraphQL operations.
+
+**Important: ALWAYS use generated hooks, NOT manual service calls.**
+
+#### Code Generation Setup
+
+```bash
+# Generate TypeScript types and React hooks from GraphQL operations
+pnpm codegen
+
+# Watch mode (auto-regenerate on .graphql file changes)
+pnpm codegen:watch
+```
+
+**Configuration**: `src/shared/graphql/codegen.ts`
+
+Plugins used:
+- `typescript` - Generate TypeScript types
+- `typescript-operations` - Generate operation types
+- `typescript-react-apollo` - Generate React hooks
+
+#### GraphQL Schema Files
+
+Location: `src/shared/graphql/schemas/`
+
+- `auth.graphql` - Authentication queries & mutations
+- `user.graphql` - User profile operations
+- `wallet.graphql` - Wallet management operations
+
+**After adding/modifying any `.graphql` file, run `pnpm codegen` to regenerate hooks.**
+
+#### Generated Hooks
+
+Location: `src/shared/graphql/generated.ts` (auto-generated, DO NOT edit manually)
+
+**Available Hooks:**
+
+**Queries:**
+- `useGetNonceQuery` / `useGetNonceLazyQuery` - Get SIWE nonce
+- `useMeQuery` / `useMeLazyQuery` - Get current user
+- `useMyWalletsQuery` / `useMyWalletsLazyQuery` - Get user wallets
+
+**Mutations:**
+- `useVerifySiweMutation` - Verify SIWE signature & create session
+- `useRefreshSessionMutation` - Refresh access token
+- `useLogoutMutation` - Logout user
+- `useUpdateProfileMutation` - Update user profile
+- `useLinkWalletMutation` - Link wallet to user
+
+#### Usage Examples
+
+**❌ BAD - Don't use manual service calls:**
+```typescript
+import { authService } from '@/shared/services/auth.service';
+
+// Manual API call (old pattern)
+const { nonce } = await authService.getNonce(accountId, chainId, domain);
+```
+
+**✅ GOOD - Use generated hooks:**
+```typescript
+import { useGetNonceLazyQuery } from '@/shared/graphql/generated';
+
+// Type-safe hook with loading states
+const [getNonce, { loading, error, data }] = useGetNonceLazyQuery();
+
+const handleFetch = async () => {
+  const result = await getNonce({
+    variables: { accountId, chainId, domain }
+  });
+  console.log(result.data?.getNonce);
+};
+```
+
+**Benefits of Generated Hooks:**
+- ✅ **Type Safety**: Automatic TypeScript types for variables and responses
+- ✅ **Loading States**: Built-in `loading`, `error`, `data` states
+- ✅ **Auto-completion**: Full IDE support for query/mutation variables
+- ✅ **Automatic Refetch**: Apollo Client cache management
+- ✅ **Error Handling**: Integrated error handling via Apollo error link
+
+#### Apollo Client Configuration
+
+**Location**: `src/shared/lib/apollo/`
+
+**Features:**
+- Automatic token refresh on authentication errors
+- Dynamic token injection via `authLink`
+- Error link for handling auth failures
+- Cookie credentials for refresh tokens
+
+**Automatic Token Refresh Flow:**
+1. Request fails with "authentication required"
+2. Apollo error link detects auth error
+3. Calls `refreshSession` mutation automatically
+4. Retries original request with new token
+5. User stays logged in across page reloads
+
+#### Best Practices
+
+1. **Always use hooks for GraphQL operations** - Never call `graphqlClient.queryTyped()` directly
+2. **Use LazyQuery for user-triggered actions** - Regular queries run on mount, lazy queries wait for manual trigger
+3. **Handle loading/error states** - Always show loading spinners and error messages
+4. **Leverage Apollo cache** - Don't refetch data unnecessarily
+5. **Run codegen after schema changes** - Keep generated code in sync with backend
+
+#### Adding New GraphQL Operations
+
+1. **Create `.graphql` file** in `src/shared/graphql/schemas/`
+   ```graphql
+   # user.graphql
+   query GetUserProfile($userId: ID!) {
+     user(id: $userId) {
+       id
+       username
+       email
+     }
+   }
+   ```
+
+2. **Run code generation**
+   ```bash
+   pnpm codegen
+   ```
+
+3. **Use generated hook**
+   ```typescript
+   import { useGetUserProfileQuery } from '@/shared/graphql/generated';
+
+   const { data, loading, error } = useGetUserProfileQuery({
+     variables: { userId: '123' }
+   });
+   ```
+
 ## Path Aliases
 
 ```typescript

@@ -1,0 +1,38 @@
+# User Queries & Mutations
+
+# Get current authenticated user
+query Me {
+  me {
+    id
+    status
+    createdAt
+    profile {
+      userId
+      username
+      displayName
+      avatarUrl
+      bannerUrl
+      bio
+      locale
+      timezone
+      socialsJson
+      updatedAt
+    }
+  }
+}
+
+# Update user profile
+mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
+    userId
+    username
+    displayName
+    avatarUrl
+    bannerUrl
+    bio
+    locale
+    timezone
+    socialsJson
+    updatedAt
+  }
+}
