@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { useMeLazyQuery, useLogoutMutation } from '@/shared/graphql/hooks';
+import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from '@/shared/graphql/hooks';
 import { graphqlClient } from '@/shared/lib/graphql-client';
 import type { AuthUser } from '@/shared/types/auth';
 
@@ -10,7 +10,7 @@ import type { AuthUser } from '@/shared/types/auth';
  * Client-side authentication hook
  *
  * Uses generated GraphQL hooks for type-safe authentication.
- * Apollo handles automatic token refresh via error link.
+ * Automatically refreshes session on mount using HttpOnly refresh token cookie.
  *
  * @returns Authentication state and methods
  */
@@ -25,16 +25,28 @@ export function useAuth() {
     fetchPolicy: 'network-only',
   });
   const [logoutMutation] = useLogoutMutation();
+  const [refreshSession] = useRefreshSessionMutation();
 
   useEffect(() => {
     const checkAuth = async () => {
       setIsLoading(true);
       try {
-        // Try to get user data using generated hook
-        // If no access token exists, Apollo will automatically:
-        // 1. Detect "authentication required" error
-        // 2. Attempt to refresh using HTTP-only cookie
-        // 3. Retry the request with the new token
+        // First, try to refresh session using HttpOnly cookie
+        // This will restore the accessToken if user has a valid refresh token
+        try {
+          const { data: refreshData } = await refreshSession();
+          if (refreshData?.refreshSession?.accessToken) {
+            // Store the new access token
+            graphqlClient.setAccessToken(refreshData.refreshSession.accessToken);
+            console.log('[Auth] Session refreshed successfully');
+          }
+        } catch (refreshError) {
+          // Refresh failed - this is okay, user might not have a valid session
+          // Continue to check with getMe() anyway
+          console.log('[Auth] No valid refresh token, user needs to sign in');
+        }
+
+        // Now try to get user data
         const { data } = await getMe();
 
         if (data?.me) {
