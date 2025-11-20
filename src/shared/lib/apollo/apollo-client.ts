@@ -9,9 +9,10 @@
  * - TypeScript type safety
  */
 
-import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, from, Observable } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
+import { CombinedGraphQLErrors } from '@apollo/client/errors';
 
 const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:8081/graphql';
 
@@ -59,9 +60,10 @@ export function createApolloClient(accessToken?: string | null) {
   });
 
   // Error handling: Automatic token refresh on authentication errors
-  const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-    if (graphQLErrors) {
-      for (const err of graphQLErrors) {
+  const errorLink = onError(({ error, operation, forward }) => {
+    // Check if it's a GraphQL error with errors array
+    if (CombinedGraphQLErrors.is(error)) {
+      for (const err of error.errors) {
         // Check if error is authentication-related
         if (
           err.message === 'authentication required' ||
@@ -71,23 +73,29 @@ export function createApolloClient(accessToken?: string | null) {
           if (onTokenRefreshCallback) {
             console.log('[Apollo] Auth error detected, attempting token refresh...');
 
-            return new Promise((resolve, reject) => {
+            // Create an Observable from the Promise and retry the operation
+            return new Observable((observer) => {
               onTokenRefreshCallback!()
                 .then((newToken) => {
                   if (newToken) {
                     console.log('[Apollo] Token refreshed, retrying request');
                     // Token refreshed successfully, retry the operation
-                    // Note: The new token will be used automatically because
+                    // The new token will be used automatically because
                     // the wrapper recreates the client with the new token
-                    resolve(forward(operation));
+                    const subscriber = forward(operation).subscribe({
+                      next: observer.next.bind(observer),
+                      error: observer.error.bind(observer),
+                      complete: observer.complete.bind(observer),
+                    });
+                    return () => subscriber.unsubscribe();
                   } else {
-                    console.log('[Apollo] Token refresh failed, redirecting to login');
-                    reject(new Error('Token refresh failed'));
+                    console.log('[Apollo] Token refresh failed');
+                    observer.error(new Error('Token refresh failed'));
                   }
                 })
                 .catch((error) => {
                   console.error('[Apollo] Token refresh error:', error);
-                  reject(error);
+                  observer.error(error);
                 });
             });
           }

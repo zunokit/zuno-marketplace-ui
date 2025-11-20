@@ -29,25 +29,29 @@ const anvil = defineChain({
 // even though we're not using WalletConnect wallets
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'METAMASK_ONLY_NO_WC';
 
-if (projectId === 'METAMASK_ONLY_NO_WC') {
+if (typeof window !== 'undefined' && projectId === 'METAMASK_ONLY_NO_WC') {
   console.info(
     '🦊 Using MetaMask only (no WalletConnect). This is fine for development.'
   );
 }
 
 // Configure only MetaMask wallet (injected connector)
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Recommended',
-      wallets: [metaMaskWallet],
-    },
-  ],
-  {
-    appName: 'Zuno Marketplace',
-    projectId, // Required by RainbowKit but not used for MetaMask
-  }
-);
+// Only create connectors in browser environment to avoid SSR issues with indexedDB
+const connectors =
+  typeof window !== 'undefined'
+    ? connectorsForWallets(
+        [
+          {
+            groupName: 'Recommended',
+            wallets: [metaMaskWallet],
+          },
+        ],
+        {
+          appName: 'Zuno Marketplace',
+          projectId, // Required by RainbowKit but not used for MetaMask
+        }
+      )
+    : [];
 
 // Using Anvil local chain as primary, Sepolia as fallback
 export const wagmiConfig = createConfig({

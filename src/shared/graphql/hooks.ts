@@ -53,7 +53,28 @@ const ME_DOCUMENT = gql(`
       }
     }
   }
-`);
+`) as TypedDocumentNode<
+  {
+    me: {
+      id: string;
+      status: string;
+      createdAt: string;
+      profile: {
+        userId: string;
+        username: string;
+        displayName: string;
+        avatarUrl: string;
+        bannerUrl: string;
+        bio: string;
+        locale: string;
+        timezone: string;
+        socialsJson: string;
+        updatedAt: string;
+      };
+    };
+  },
+  {}
+>;
 
 const MY_WALLETS_DOCUMENT = gql(`
   query MyWallets {
@@ -69,7 +90,22 @@ const MY_WALLETS_DOCUMENT = gql(`
       updatedAt
     }
   }
-`);
+`) as TypedDocumentNode<
+  {
+    myWallets: Array<{
+      id: string;
+      userId: string;
+      accountId: string;
+      address: string;
+      chainId: string;
+      isPrimary: boolean;
+      verifiedAt: string;
+      createdAt: string;
+      updatedAt: string;
+    }>;
+  },
+  {}
+>;
 
 // ============================================================================
 // Mutation Documents
@@ -85,7 +121,22 @@ const VERIFY_SIWE_DOCUMENT = gql(`
       chainId
     }
   }
-`);
+`) as TypedDocumentNode<
+  {
+    verifySiwe: {
+      userId: string;
+      accessToken: string;
+      expiresAt: string;
+      address: string;
+      chainId: string;
+    };
+  },
+  {
+    accountId: string;
+    signature: string;
+    message: string;
+  }
+>;
 
 // Export as RefreshSessionDocument to match old generated name
 export const RefreshSessionDocument = gql(`
@@ -96,7 +147,16 @@ export const RefreshSessionDocument = gql(`
       expiresAt
     }
   }
-`);
+`) as TypedDocumentNode<
+  {
+    refreshSession: {
+      userId: string;
+      accessToken: string;
+      expiresAt: string;
+    };
+  },
+  {}
+>;
 
 const REFRESH_SESSION_DOCUMENT = RefreshSessionDocument;
 
@@ -176,7 +236,7 @@ export function useMyWalletsQuery(options?: { skip?: boolean }) {
   return useQuery(MY_WALLETS_DOCUMENT, options);
 }
 
-export function useMyWalletsLazyQuery(options?: Parameters<typeof useLazyQuery>[1]) {
+export function useMyWalletsLazyQuery(options?: any) {
   return useLazyQuery(MY_WALLETS_DOCUMENT, options);
 }
 
