@@ -212,3 +212,119 @@ export interface TokenSearchParams {
   limit?: number;
   cursor?: string;
 }
+
+// ============================================================================
+// API Types for Create Collection Flow
+// ============================================================================
+
+export type ApiTokenStandard = 'ERC721' | 'ERC1155';
+export type ApiCollectionStatus = 'PENDING' | 'DEPLOYED' | 'FAILED' | 'ARCHIVED';
+export type ApiIndexStatus = 'NOT_INDEXED' | 'INDEXING' | 'INDEXED' | 'FAILED';
+
+export interface ApiCollection {
+  id: string;
+  userId: string;
+  name: string;
+  symbol: string;
+  slug?: string;
+  description?: string;
+  contractAddress?: string;
+  chainId: string;
+  tokenStandard: ApiTokenStandard;
+  status: ApiCollectionStatus;
+  indexStatus: ApiIndexStatus;
+  creatorAddress: string;
+  deployerAddress: string;
+  imageUrl: string;
+  bannerImageUrl?: string;
+  featuredImageUrl?: string;
+  baseUri?: string;
+  maxSupply?: number;
+  mintPrice?: string;
+  mintPriceAllowlist?: string;
+  mintPricePublic?: string;
+  mintStartTime?: string;
+  allowlistStageEnd?: string;
+  royaltyFeeBps?: number;
+  royaltyRecipient?: string;
+  metadata?: ApiCollectionMetadata;
+  stats?: ApiCollectionStats;
+  createdAt: string;
+  updatedAt: string;
+  deployedAt?: string;
+}
+
+export interface ApiCollectionMetadata {
+  websiteUrl?: string;
+  discordUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  mediumUrl?: string;
+  telegramUrl?: string;
+  ipfsHash?: string;
+  ipfsUrl?: string;
+}
+
+export interface ApiCollectionStats {
+  totalItems: number;
+  totalOwners: number;
+  totalVolume: string;
+  floorPrice: string;
+  totalSales: number;
+  averagePrice?: string;
+  lastSaleAt?: string;
+}
+
+export interface ApiCollectionConnection {
+  items: ApiCollection[];
+  pageInfo: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+}
+
+export interface CreateCollectionInput {
+  name: string;
+  symbol: string;
+  tokenStandard: ApiTokenStandard;
+  chainId: string;
+  deployerAddress: string;
+  imageUrl: string;
+  description?: string;
+  bannerImageUrl?: string;
+  featuredImageUrl?: string;
+  baseUri?: string;
+  maxSupply?: number;
+  mintPrice?: string;
+  mintPriceAllowlist?: string;
+  mintPricePublic?: string;
+  mintStartTime?: string;
+  allowlistStageDurationSeconds?: number;
+  mintLimitPerWallet?: number;
+  royaltyFeeBps?: number;
+  royaltyRecipient?: string;
+  websiteUrl?: string;
+  discordUrl?: string;
+  twitterUrl?: string;
+}
+
+export interface UpdateCollectionInput {
+  contractAddress?: string;
+  status?: ApiCollectionStatus;
+  deployedAt?: string;
+  description?: string;
+  bannerImageUrl?: string;
+  websiteUrl?: string;
+  discordUrl?: string;
+  twitterUrl?: string;
+}
+
+export interface AddToAllowlistInput {
+  collectionId: string;
+  walletAddresses: string[];
+  maxMintAmount?: number;
+}
