@@ -99,6 +99,12 @@ export function useCreateCollection() {
         allowlistDurationSeconds = (days * 24 * 60 * 60) + (hours * 60 * 60);
       }
 
+      // Ensure we have at least one image
+      const finalImageUrl = imageUrl || artworkUrl;
+      if (!finalImageUrl) {
+        throw new Error('Collection image is required');
+      }
+
       // Build input
       const input: CreateCollectionInput = {
         name: formData.name,
@@ -106,7 +112,7 @@ export function useCreateCollection() {
         tokenStandard: formData.artworkMode as ApiTokenStandard,
         chainId,
         deployerAddress: address,
-        imageUrl: imageUrl || artworkUrl || '',
+        imageUrl: finalImageUrl,
         description: formData.description,
 
         // For ERC721, use metadataBaseUrl as baseUri
@@ -141,13 +147,15 @@ export function useCreateCollection() {
         royaltyRecipient: address,
       };
 
-      const { data, errors } = await createCollection({
+      const result = await createCollection({
         variables: { input },
       });
 
-      if (errors || !data?.createCollection) {
-        throw new Error(errors?.[0]?.message || 'Failed to create collection');
+      if (result.error || !result.data?.createCollection) {
+        throw new Error(result.error?.message || 'Failed to create collection');
       }
+
+      const data = result.data;
 
       const collectionId = data.createCollection.id;
       setState(prev => ({

@@ -7,6 +7,13 @@
 
 import { useQuery, useLazyQuery, useMutation } from '@apollo/client/react';
 import { gql, type TypedDocumentNode } from '@apollo/client';
+import type {
+  ApiCollection,
+  ApiCollectionConnection,
+  CreateCollectionInput,
+  UpdateCollectionInput,
+  AddToAllowlistInput,
+} from '@/shared/types/collection';
 
 // ============================================================================
 // Query Documents
@@ -220,15 +227,15 @@ export function useGetNonceQuery(options: {
   return useQuery(GET_NONCE_DOCUMENT, options);
 }
 
-export function useGetNonceLazyQuery(options?: any) {
-  return useLazyQuery(GET_NONCE_DOCUMENT, options);
+export function useGetNonceLazyQuery() {
+  return useLazyQuery(GET_NONCE_DOCUMENT);
 }
 
 export function useMeQuery(options?: { skip?: boolean }) {
   return useQuery(ME_DOCUMENT, options);
 }
 
-export function useMeLazyQuery(options?: any) {
+export function useMeLazyQuery(options?: { fetchPolicy?: 'cache-first' | 'network-only' | 'cache-only' | 'no-cache' | 'standby' }) {
   return useLazyQuery(ME_DOCUMENT, options);
 }
 
@@ -236,8 +243,8 @@ export function useMyWalletsQuery(options?: { skip?: boolean }) {
   return useQuery(MY_WALLETS_DOCUMENT, options);
 }
 
-export function useMyWalletsLazyQuery(options?: any) {
-  return useLazyQuery(MY_WALLETS_DOCUMENT, options);
+export function useMyWalletsLazyQuery() {
+  return useLazyQuery(MY_WALLETS_DOCUMENT);
 }
 
 // ============================================================================
@@ -271,14 +278,6 @@ export function useLinkWalletMutation() {
 // ============================================================================
 // Collection Documents
 // ============================================================================
-
-import type {
-  ApiCollection,
-  ApiCollectionConnection,
-  CreateCollectionInput,
-  UpdateCollectionInput,
-  AddToAllowlistInput,
-} from '@/shared/types/collection';
 
 // Create Collection Mutation
 const CREATE_COLLECTION_DOCUMENT = gql(`

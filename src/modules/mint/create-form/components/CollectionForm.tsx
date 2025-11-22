@@ -8,7 +8,8 @@ import { ArtSection } from "@/modules/mint/create-form/components/ArtSection";
 import { MintDetails } from "@/modules/mint/create-form/components/MintDetails";
 import { CollectionProcess } from "@/modules/mint/create-form/components/CollectionProcess";
 import { useForm } from "react-hook-form";
-import { MintTerminalCreateForm, MintTerminalCreateFormSchema } from "@/shared/types/mint";
+import type { MintTerminalCreateForm } from "@/shared/types/mint";
+import { MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { useCreateCollection } from "../hooks/useCreateCollection";
@@ -75,14 +76,7 @@ export default function CollectionForm() {
       return;
     }
 
-    // Validate form
-    const { success, error } = MintTerminalCreateFormSchema.safeParse(data);
-    if (!success) {
-      console.error("Validation error:", error);
-      toast.error("Please fix form errors before submitting");
-      return;
-    }
-
+    // Form validation is handled by zodResolver
     // Open progress dialog and submit
     setIsDialogOpen(true);
     await submit(data);
