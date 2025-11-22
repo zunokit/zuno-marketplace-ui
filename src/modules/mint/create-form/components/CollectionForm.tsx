@@ -10,21 +10,38 @@ import { CollectionProcess } from "@/modules/mint/create-form/components/Collect
 import { useForm } from "react-hook-form";
 import { MintTerminalCreateForm, MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { useCreateCollection } from "../hooks/useCreateCollection";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function CollectionForm() {
+  const { isAuthenticated, isWalletConnected } = useAuth();
+  const {
+    step1Status,
+    step2Status,
+    step3Status,
+    submit,
+    reset: resetProcess,
+    isProcessing,
+    error
+  } = useCreateCollection();
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const form = useForm<MintTerminalCreateForm>({
     resolver: zodResolver(MintTerminalCreateFormSchema),
-    mode: "onChange", // Trigger validation on change
+    mode: "onChange",
     defaultValues: {
-      chain: "sepolia", // Set a default chain instead of empty string
+      chain: "sepolia",
       name: "",
       symbol: "",
-      collectionImage: undefined, // Don't set to null, let it be undefined
-      artworkMode: "ERC721", // Default to ERC721
-      mintStartAt: new Date(Date.now()).toISOString(), // 5 minutes from now
+      collectionImage: undefined,
+      artworkMode: "ERC721",
+      mintStartAt: new Date(Date.now()).toISOString(),
       description: "",
-      sameArtworkImage: undefined, // Don't set to null, let it be undefined
-      metadataBaseUrl: "", // Empty string is fine for ERC721 artwork mode
+      sameArtworkImage: undefined,
+      metadataBaseUrl: "",
       mintPrice: "0",
       royaltyPercent: 0,
       maxSupply: null,
@@ -43,16 +60,43 @@ export default function CollectionForm() {
 
   const handleClearForm = () => {
     form.reset();
+    resetProcess();
   };
 
-  const onSubmit = (data: MintTerminalCreateForm) => {
-    const { success, error } = MintTerminalCreateFormSchema.safeParse(data);
-    if (!success) {
-      console.log(error);
+  const onSubmit = async (data: MintTerminalCreateForm) => {
+    // Validate authentication
+    if (!isWalletConnected) {
+      toast.error("Please connect your wallet first");
       return;
     }
-    console.log(data);
+
+    if (!isAuthenticated) {
+      toast.error("Please sign in with your wallet");
+      return;
+    }
+
+    // Validate form
+    const { success, error } = MintTerminalCreateFormSchema.safeParse(data);
+    if (!success) {
+      console.error("Validation error:", error);
+      toast.error("Please fix form errors before submitting");
+      return;
+    }
+
+    // Open progress dialog and submit
+    setIsDialogOpen(true);
+    await submit(data);
   };
+
+  // Close dialog on error after 3s
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setIsDialogOpen(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -92,17 +136,31 @@ export default function CollectionForm() {
           <Button
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-            disabled={form.formState.isSubmitting || !form.formState.isValid}
+            disabled={
+              form.formState.isSubmitting ||
+              !form.formState.isValid ||
+              isProcessing ||
+              !isWalletConnected
+            }
           >
-            {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+            {!isWalletConnected
+              ? "Connect Wallet"
+              : !isAuthenticated
+                ? "Sign In Required"
+                : isProcessing
+                  ? "Creating..."
+                  : "Create Collection"
+            }
           </Button>
         </form>
       </Form>
+
       <CollectionProcess
-        isOpen={false}
-        onOpenChange={() => {}}
-        step1Status={"pending"}
-        step2Status={"pending"}
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        step1Status={step1Status}
+        step2Status={step2Status}
+        step3Status={step3Status}
       />
     </div>
   );

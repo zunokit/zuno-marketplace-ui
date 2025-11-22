@@ -267,3 +267,280 @@ export function useUpdateProfileMutation() {
 export function useLinkWalletMutation() {
   return useMutation(LINK_WALLET_DOCUMENT);
 }
+
+// ============================================================================
+// Collection Documents
+// ============================================================================
+
+import type {
+  ApiCollection,
+  ApiCollectionConnection,
+  CreateCollectionInput,
+  UpdateCollectionInput,
+  AddToAllowlistInput,
+} from '@/shared/types/collection';
+
+// Create Collection Mutation
+const CREATE_COLLECTION_DOCUMENT = gql(`
+  mutation CreateCollection($input: CreateCollectionInput!) {
+    createCollection(input: $input) {
+      id
+      name
+      symbol
+      slug
+      status
+      chainId
+      imageUrl
+      createdAt
+    }
+  }
+`) as TypedDocumentNode<
+  { createCollection: ApiCollection },
+  { input: CreateCollectionInput }
+>;
+
+// Update Collection Mutation
+const UPDATE_COLLECTION_DOCUMENT = gql(`
+  mutation UpdateCollection($id: ID!, $input: UpdateCollectionInput!) {
+    updateCollection(id: $id, input: $input) {
+      id
+      status
+      contractAddress
+      deployedAt
+      updatedAt
+    }
+  }
+`) as TypedDocumentNode<
+  { updateCollection: ApiCollection },
+  { id: string; input: UpdateCollectionInput }
+>;
+
+// Add to Allowlist Mutation
+const ADD_TO_ALLOWLIST_DOCUMENT = gql(`
+  mutation AddToAllowlist($input: AddToAllowlistInput!) {
+    addToAllowlist(input: $input)
+  }
+`) as TypedDocumentNode<
+  { addToAllowlist: boolean },
+  { input: AddToAllowlistInput }
+>;
+
+// Delete Collection Mutation
+const DELETE_COLLECTION_DOCUMENT = gql(`
+  mutation DeleteCollection($id: ID!) {
+    deleteCollection(id: $id)
+  }
+`) as TypedDocumentNode<
+  { deleteCollection: boolean },
+  { id: string }
+>;
+
+// Get Single Collection Query
+const GET_COLLECTION_DOCUMENT = gql(`
+  query GetCollection($id: ID, $slug: String, $contractAddress: String) {
+    collection(id: $id, slug: $slug, contractAddress: $contractAddress) {
+      id
+      userId
+      name
+      symbol
+      slug
+      description
+      contractAddress
+      chainId
+      tokenStandard
+      status
+      indexStatus
+      creatorAddress
+      deployerAddress
+      imageUrl
+      bannerImageUrl
+      featuredImageUrl
+      baseUri
+      maxSupply
+      mintPrice
+      mintPriceAllowlist
+      mintPricePublic
+      mintStartTime
+      allowlistStageEnd
+      royaltyFeeBps
+      royaltyRecipient
+      metadata {
+        websiteUrl
+        discordUrl
+        twitterUrl
+        instagramUrl
+        ipfsHash
+        ipfsUrl
+      }
+      stats {
+        totalItems
+        totalOwners
+        totalVolume
+        floorPrice
+        totalSales
+      }
+      createdAt
+      updatedAt
+      deployedAt
+    }
+  }
+`) as TypedDocumentNode<
+  { collection: ApiCollection | null },
+  { id?: string; slug?: string; contractAddress?: string }
+>;
+
+// My Collections Query
+const MY_COLLECTIONS_DOCUMENT = gql(`
+  query MyCollections($page: Int, $limit: Int) {
+    myCollections(page: $page, limit: $limit) {
+      items {
+        id
+        name
+        symbol
+        slug
+        imageUrl
+        chainId
+        status
+        tokenStandard
+        stats {
+          totalItems
+          totalVolume
+          floorPrice
+        }
+        createdAt
+      }
+      pageInfo {
+        page
+        limit
+        total
+        totalPages
+        hasNext
+        hasPrev
+      }
+    }
+  }
+`) as TypedDocumentNode<
+  { myCollections: ApiCollectionConnection },
+  { page?: number; limit?: number }
+>;
+
+// List Collections Query (public browse)
+const LIST_COLLECTIONS_DOCUMENT = gql(`
+  query ListCollections(
+    $page: Int
+    $limit: Int
+    $sortBy: String
+    $sortOrder: String
+    $category: String
+    $chainId: String
+    $isVerified: Boolean
+    $searchQuery: String
+  ) {
+    collections(
+      page: $page
+      limit: $limit
+      sortBy: $sortBy
+      sortOrder: $sortOrder
+      category: $category
+      chainId: $chainId
+      isVerified: $isVerified
+      searchQuery: $searchQuery
+    ) {
+      items {
+        id
+        name
+        symbol
+        slug
+        imageUrl
+        bannerImageUrl
+        chainId
+        status
+        tokenStandard
+        stats {
+          totalItems
+          totalOwners
+          totalVolume
+          floorPrice
+          totalSales
+        }
+        createdAt
+      }
+      pageInfo {
+        page
+        limit
+        total
+        totalPages
+        hasNext
+        hasPrev
+      }
+    }
+  }
+`) as TypedDocumentNode<
+  { collections: ApiCollectionConnection },
+  {
+    page?: number;
+    limit?: number;
+    sortBy?: string;
+    sortOrder?: string;
+    category?: string;
+    chainId?: string;
+    isVerified?: boolean;
+    searchQuery?: string;
+  }
+>;
+
+// ============================================================================
+// Collection Mutation Hooks
+// ============================================================================
+
+export function useCreateCollectionMutation() {
+  return useMutation(CREATE_COLLECTION_DOCUMENT);
+}
+
+export function useUpdateCollectionMutation() {
+  return useMutation(UPDATE_COLLECTION_DOCUMENT);
+}
+
+export function useAddToAllowlistMutation() {
+  return useMutation(ADD_TO_ALLOWLIST_DOCUMENT);
+}
+
+export function useDeleteCollectionMutation() {
+  return useMutation(DELETE_COLLECTION_DOCUMENT);
+}
+
+// ============================================================================
+// Collection Query Hooks
+// ============================================================================
+
+export function useGetCollectionQuery(variables: {
+  id?: string;
+  slug?: string;
+  contractAddress?: string;
+}) {
+  return useQuery(GET_COLLECTION_DOCUMENT, {
+    variables,
+    skip: !variables.id && !variables.slug && !variables.contractAddress,
+  });
+}
+
+export function useGetCollectionLazyQuery() {
+  return useLazyQuery(GET_COLLECTION_DOCUMENT);
+}
+
+export function useMyCollectionsQuery(variables?: { page?: number; limit?: number }) {
+  return useQuery(MY_COLLECTIONS_DOCUMENT, { variables });
+}
+
+export function useListCollectionsQuery(variables?: {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: string;
+  category?: string;
+  chainId?: string;
+  isVerified?: boolean;
+  searchQuery?: string;
+}) {
+  return useQuery(LIST_COLLECTIONS_DOCUMENT, { variables });
+}
