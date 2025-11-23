@@ -22,6 +22,10 @@ export default function CollectionForm() {
     step1Status,
     step2Status,
     step3Status,
+    step4Status,
+    step5Status,
+    txHash,
+    contractAddress,
     submit,
     reset: resetProcess,
     isProcessing,
@@ -155,6 +159,10 @@ export default function CollectionForm() {
         step1Status={step1Status}
         step2Status={step2Status}
         step3Status={step3Status}
+        step4Status={step4Status}
+        step5Status={step5Status}
+        txHash={txHash}
+        contractAddress={contractAddress}
       />
     </div>
   );

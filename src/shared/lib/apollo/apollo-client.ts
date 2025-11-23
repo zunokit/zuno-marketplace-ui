@@ -14,7 +14,7 @@ import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { CombinedGraphQLErrors } from '@apollo/client/errors';
 
-const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:8081/graphql';
+const GRAPHQL_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`;
 
 /**
  * Callback for token refresh

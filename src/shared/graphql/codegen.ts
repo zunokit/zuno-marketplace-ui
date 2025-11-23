@@ -1,6 +1,6 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
-const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:8081/graphql';
+const GRAPHQL_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`;
 
 const config: CodegenConfig = {
   // Fetch schema from remote GraphQL endpoint (from env)

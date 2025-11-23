@@ -15,6 +15,10 @@ interface CollectionProcessProps {
   step1Status: StepStatus;
   step2Status: StepStatus;
   step3Status?: StepStatus;
+  step4Status?: StepStatus;
+  step5Status?: StepStatus;
+  txHash?: string | null;
+  contractAddress?: string | null;
 }
 
 function StepIcon({ status }: { status: StepStatus }) {
@@ -36,6 +40,10 @@ export function CollectionProcess({
   step1Status,
   step2Status,
   step3Status = 'pending',
+  step4Status = 'pending',
+  step5Status = 'pending',
+  txHash,
+  contractAddress,
 }: CollectionProcessProps) {
   const steps = [
     {
@@ -53,11 +61,23 @@ export function CollectionProcess({
       description: "Setting up presale allowlist addresses",
       status: step3Status,
     },
+    {
+      title: "Deploying Contract",
+      description: txHash ? `Transaction: ${txHash.slice(0, 10)}...` : "Deploying smart contract to blockchain",
+      status: step4Status,
+    },
+    {
+      title: "Finalizing Deployment",
+      description: contractAddress ? `Contract: ${contractAddress.slice(0, 10)}...` : "Updating collection with contract address",
+      status: step5Status,
+    },
   ];
 
   const allDone = step1Status === 'success' &&
                   step2Status === 'success' &&
-                  step3Status === 'success';
+                  step3Status === 'success' &&
+                  step4Status === 'success' &&
+                  step5Status === 'success';
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
