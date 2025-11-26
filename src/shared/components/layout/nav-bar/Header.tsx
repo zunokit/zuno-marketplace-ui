@@ -37,7 +37,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 shrink-0">
             <Image
-              src="/images/logo.png"
+              src="https://zunokit.github.io/zuno-marketplace-assets/images/zuno-logo.png"
               alt="Zuno"
               width={32}
               height={32}
