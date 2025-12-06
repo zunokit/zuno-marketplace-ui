@@ -1,24 +1,22 @@
 "use client";
 
 import { useState, useMemo, useCallback, Component, ReactNode, useEffect } from "react";
-import { Button } from "@/shared/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { cn } from "@/shared/utils/tailwind-utils";
 import ControlBar from "@/modules/marketplace/components/ControlBar";
 import NFTListView from "@/modules/marketplace/components/NFTListView";
 import NFTGrid from "@/modules/marketplace/components/NFTGrid";
-// import CartModal from "@/modules/marketplace/components/CartModal";
-import InformationNFT from "@/modules/marketplace/components/InformationNFT";
 import FilterSidebar from "@/modules/marketplace/components/FilterSidebar";
 import SellerModal from "@/modules/marketplace/components/SellerModal";
-// import { BuyerModal } from "@/modules/marketplace/components/BuyerModal";
 import { useNFTSelection } from "@/modules/marketplace/hooks/useNFTSelection";
 import { useMyItems } from "@/modules/marketplace/hooks/useMyItems";
+import HeroHeader from "@/modules/marketplace/components/HeroHeader";
+import CollectionNav from "@/modules/marketplace/components/CollectionNav";
+import BottomActionBar from "@/modules/marketplace/components/BottomActionBar";
 import type { Collection } from "@/shared/utils/mock/collection";
 import type { Nft } from "@/modules/marketplace/types";
 import { NftStatus } from "@/modules/marketplace/types";
+import { debounce } from "lodash";
 
-// Type definitions for sorting and filtering
 interface SortingState {
   id: string;
   desc: boolean;
@@ -28,10 +26,7 @@ interface ColumnFilter {
   id: string;
   value: string;
 }
-import { debounce } from "lodash";
-import { ChartBar, Activity, TrendingUp } from "lucide-react";
 
-// Error Boundary để bắt lỗi trong NFTListView
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
 
@@ -46,9 +41,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <h3 className="text-lg font-medium">Something went wrong</h3>
-            <p className="text-os-gray-300">
-              Please try refreshing the page or contact support.
-            </p>
+            <p className="text-os-gray-300">Please try refreshing the page.</p>
           </div>
         </div>
       );
@@ -65,28 +58,18 @@ interface ShopNFTsProps {
 export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFTsProps) {
   const [collection] = useState(initialCollection);
   const [selectedNFTs, setSelectedNFTs] = useState<string[]>([]);
-  // Default view based on screen size - list view for table display
-  const [view, setView] = useState<"grid" | "list" | "compact">(() => {
-    if (typeof window !== "undefined") {
-      // Use list view for both mobile and desktop to show table
-      return "list";
-    }
-    return "list";
-  });
+  const [activeTab, setActiveTab] = useState("items");
+  const [view, setView] = useState<"grid" | "list" | "compact">("grid");
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState<[number, number]>([0.001, 0.1]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
-  const [myItemsCartOpen, setMyItemsCartOpen] = useState(false);
-  const [myItemsListingStep, setMyItemsListingStep] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState<Nft | null>(null);
-  const [showBuyerModal, setShowBuyerModal] = useState(false);
   const [showSellerModal, setShowSellerModal] = useState(false);
   const [sorting, setSorting] = useState<SortingState[]>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
   const [filteredAndSortedNFTs, setFilteredAndSortedNFTs] = useState<Nft[]>([]);
 
-  // Mock connection status
   const isConnected = true;
   const address = "0x1234567890123456789012345678901234567890";
 
@@ -166,18 +149,17 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     setFilteredAndSortedNFTs(filtered);
   }, [safeNFTs, statusFilter, sortBy, priceRange, searchValue, filterAndSortNFTs]);
 
-  // Dispatch cart updates to global footer
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent('cartUpdate', {
-      detail: { itemCount: selectedNFTs.length }
-    }));
+    window.dispatchEvent(
+      new CustomEvent("cartUpdate", {
+        detail: { itemCount: selectedNFTs.length },
+      })
+    );
   }, [selectedNFTs]);
 
-  // Memoize onSelectedNFTsChange để ổn định tham chiếu
   const onSelectedNFTsChange = useCallback(
     (ids: Set<string>) => {
       setSelectedNFTs(Array.from(ids));
-      // Cập nhật filteredAndSortedNFTs với tất cả NFT, đánh dấu selected
       const visibleNFTs = safeNFTs.map(nft => ({
         ...nft,
         selected: ids.has(nft.id),
@@ -188,26 +170,19 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     [safeNFTs, filterAndSortNFTs]
   );
 
-  const {
-    sliderValue,
-    isSliding,
+  const { 
+    sliderValue, 
+    isSliding, 
     handleSliderChange,
-    handleSliderDragStart,
-    handleSliderDragEnd,
     handleItemCountChange,
-    handleIndividualSelection,
+    handleIndividualSelection 
   } = useNFTSelection({
     initialNFTs: safeNFTs,
     onVisibleNFTsChange: setFilteredAndSortedNFTs,
     onSelectedNFTsChange,
   });
 
-  const handleRemoveItem = useCallback(
-    (id: string) => {
-      handleIndividualSelection(id, false);
-    },
-    [handleIndividualSelection]
-  );
+  const [actionMode, setActionMode] = useState<"buy" | "sell">("buy");
 
   const handleNFTSelection = useCallback(
     (id: string) => {
@@ -216,18 +191,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     [handleIndividualSelection, selectedNFTs]
   );
 
-  const handleMyItemsList = useCallback(() => {
-    setMyItemsListingStep(1);
-    setTimeout(() => setMyItemsListingStep(2), 1200);
-    setTimeout(() => setMyItemsListingStep(3), 2600);
-    setTimeout(() => {
-      setMyItemsListingStep(0);
-      setMyItemsCartOpen(false);
-      setSelectedNFTs([]);
-    }, 4000);
-  }, []);
-
-  const handleMyItemsNFTCardClick = useCallback((nft: Nft) => {
+  const handleNFTCardClick = useCallback((nft: Nft) => {
     setSelectedNFT(nft);
     setShowSellerModal(true);
   }, []);
@@ -266,199 +230,175 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     );
   }
 
-  return (
-    <div className="min-h-screen text-foreground transition-all duration-150 duration-300">
-      <main className="w-full mx-auto relative">
-        <div className="w-full">
-          <InformationNFT collection={collection} />
-        </div>
-        <div className="px-0 sm:px-4 md:px-6 lg:px-8">
-          <Tabs defaultValue="items">
-          <div className="flex items-center justify-between border-b">
-            <TabsList className="bg-transparent p-0 ml-2 sm:ml-0">
-              <TabsTrigger
-                value="items"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 sm:px-3"
-              >
-                Items
-              </TabsTrigger>
-              {isConnected && (
-                <TabsTrigger
-                  value="my-items"
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 sm:px-3"
-                >
-                  My Items
-                </TabsTrigger>
+  const renderContent = () => {
+    switch (activeTab) {
+      case "items":
+        return (
+          <div className="flex transition-all duration-300 ease-in-out">
+            {/* Desktop Filter Sidebar */}
+            <div
+              className={cn(
+                "hidden md:block w-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
+                showFilters && "w-56"
               )}
-              <TabsTrigger
-                value="offers"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-2 sm:px-3"
-              >
-                Offers
-              </TabsTrigger>
-            </TabsList>
-            {/* Chart, Analytics, Activity buttons - Desktop only */}
-            <div className="hidden md:flex gap-2">
-              <Button variant="ghost" size="sm">
-                <ChartBar className="h-4 w-4 mr-2" />
-                Chart
-              </Button>
-              <Button variant="ghost" size="sm">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                Analytics
-              </Button>
-              <Button variant="ghost" size="sm">
-                <Activity className="h-4 w-4 mr-2" />
-                Activity
-              </Button>
+            >
+              {showFilters && (
+                <FilterSidebar
+                  onClose={() => setShowFilters(false)}
+                  priceRange={priceRange}
+                  onPriceRangeChange={handlePriceRangeChange}
+                  onStatusChange={setStatusFilter}
+                  onSortChange={setSortBy}
+                  isOpen={true}
+                />
+              )}
             </div>
-          </div>
 
-          <TabsContent value="items" className="mt-0 px-2 sm:px-4">
-            <div className="flex items-center justify-center p-12">
-              <div className="text-center">
-                <h3 className="text-lg font-medium">Coming Soon</h3>
-                <p className="text-os-gray-300">Items functionality will be available soon</p>
+            {/* Mobile Filter Sheet */}
+            {showFilters && (
+              <div className="md:hidden">
+                <FilterSidebar
+                  onClose={() => setShowFilters(false)}
+                  priceRange={priceRange}
+                  onPriceRangeChange={handlePriceRangeChange}
+                  onStatusChange={setStatusFilter}
+                  onSortChange={setSortBy}
+                  isOpen={showFilters}
+                />
               </div>
-            </div>
-          </TabsContent>
+            )}
 
-          {isConnected && (
-            <TabsContent value="my-items" className="mt-0 px-0">
-              <div className="flex transition-all duration-300 ease-in-out">
-                {/* Desktop Filter Sidebar */}
-                <div
-                  className={cn(
-                    "hidden md:block w-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
-                    showFilters && "w-56"
-                  )}
-                >
-                  {showFilters && (
-                    <FilterSidebar
-                      onClose={() => setShowFilters(false)}
-                      priceRange={priceRange}
-                      onPriceRangeChange={handlePriceRangeChange}
-                      onStatusChange={setStatusFilter}
-                      onSortChange={setSortBy}
-                      isOpen={true}
-                    />
-                  )}
-                </div>
+            <div className="flex-1 transition-all duration-300 ease-in-out min-w-0">
+              <div className="flex flex-col h-[calc(100vh-200px)]">
+                <ControlBar
+                  view={view}
+                  setView={setView}
+                  showFilters={showFilters}
+                  setShowFilters={setShowFilters}
+                  searchValue={searchValue}
+                  onSearch={debouncedSetColumnFilters}
+                  sortValue={sortValue}
+                  onSort={debouncedSetSorting}
+                  totalItems={filteredAndSortedNFTs.length}
+                />
 
-                {/* Mobile Filter Sheet */}
-                {showFilters && (
-                  <div className="md:hidden">
-                    <FilterSidebar
-                      onClose={() => setShowFilters(false)}
-                      priceRange={priceRange}
-                      onPriceRangeChange={handlePriceRangeChange}
-                      onStatusChange={setStatusFilter}
-                      onSortChange={setSortBy}
-                      isOpen={showFilters}
-                    />
-                  </div>
-                )}
-
-                <div className="flex-1 transition-all duration-300 ease-in-out min-w-0">
-                  <div className="flex flex-col h-[calc(100vh-200px)]">
-                    <ControlBar
-                      view={view}
-                      setView={setView}
-                      showFilters={showFilters}
-                      setShowFilters={setShowFilters}
-                      searchValue={searchValue}
-                      onSearch={debouncedSetColumnFilters}
-                      sortValue={sortValue}
-                      onSort={debouncedSetSorting}
-                    />
-
-                    <div className="flex-1 min-h-[400px] md:pb-20 relative">
-                      {myItemsLoading ? (
-                        <div className="flex items-center justify-center h-64">
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                        </div>
-                      ) : filteredAndSortedNFTs.length === 0 ? (
-                        <div className="flex items-center justify-center h-64">
-                          <div className="text-center">
-                            <h3 className="text-lg font-medium">No Items Found</h3>
-                            <p className="text-os-gray-300">
-                              Adjust your filters to see more items.
-                            </p>
-                          </div>
-                        </div>
-                      ) : view === "list" ? (
-                        <ErrorBoundary>
-                          <div className="absolute inset-0">
-                            <NFTListView
-                              type="seller"
-                              nfts={filteredAndSortedNFTs}
-                              sorting={sorting}
-                              setSorting={setSorting}
-                              columnFilters={columnFilters}
-                              setColumnFilters={setColumnFilters}
-                              onSelect={handleNFTSelection}
-                              onCardClick={handleMyItemsNFTCardClick}
-                              selectedNFTs={selectedNFTs}
-                            />
-                          </div>
-                        </ErrorBoundary>
-                      ) : (
-                        <NFTGrid
+                <div className="flex-1 min-h-[400px] md:pb-20 relative">
+                  {myItemsLoading ? (
+                    <div className="flex items-center justify-center h-64">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                  ) : filteredAndSortedNFTs.length === 0 ? (
+                    <div className="flex items-center justify-center h-64">
+                      <div className="text-center">
+                        <h3 className="text-lg font-medium">No Items Found</h3>
+                        <p className="text-os-gray-300">Adjust your filters to see more items.</p>
+                      </div>
+                    </div>
+                  ) : view === "list" ? (
+                    <ErrorBoundary>
+                      <div className="absolute inset-0">
+                        <NFTListView
                           type="seller"
                           nfts={filteredAndSortedNFTs}
-                          view={view === "compact" ? "compact" : "grid"}
-                          showFilters={showFilters}
-                          isSliding={isSliding}
+                          sorting={sorting}
+                          setSorting={setSorting}
+                          columnFilters={columnFilters}
+                          setColumnFilters={setColumnFilters}
                           onSelect={handleNFTSelection}
-                          onCardClick={handleMyItemsNFTCardClick}
+                          onCardClick={handleNFTCardClick}
                           selectedNFTs={selectedNFTs}
                         />
-                      )}
-                    </div>
-                  </div>
+                      </div>
+                    </ErrorBoundary>
+                  ) : (
+                    <NFTGrid
+                      type="seller"
+                      nfts={filteredAndSortedNFTs}
+                      view={view === "compact" ? "compact" : "grid"}
+                      showFilters={showFilters}
+                      isSliding={isSliding}
+                      onSelect={handleNFTSelection}
+                      onCardClick={handleNFTCardClick}
+                      selectedNFTs={selectedNFTs}
+                    />
+                  )}
                 </div>
               </div>
-
-  
-              {/* <CartModal
-                open={myItemsCartOpen}
-                onOpenChange={setMyItemsCartOpen}
-                items={safeNFTs.filter((nft) => selectedNFTs.includes(nft.id))}
-                onRemoveItem={handleRemoveItem}
-                onBuy={handleMyItemsList}
-                type="seller"
-                listingStep={myItemsListingStep}
-                onClearAllItems={() => {
-                  setSelectedNFTs([]);
-                }}
-              /> */}
-            </TabsContent>
-          )}
-
-          <TabsContent value="offers" className="px-2 sm:px-4">
-            <div className="flex items-center justify-center p-12">
-              <div className="text-center">
-                <h3 className="text-lg font-medium">No Offers Available</h3>
-                <p className="text-os-gray-300">
-                  There are currently no offers for this collection
-                </p>
-              </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          </div>
+        );
+
+      case "offers":
+        return (
+          <div className="flex items-center justify-center p-12">
+            <div className="text-center">
+              <h3 className="text-lg font-medium">No Offers Available</h3>
+              <p className="text-os-gray-300">There are currently no offers for this collection</p>
+            </div>
+          </div>
+        );
+
+      case "holders":
+        return (
+          <div className="flex items-center justify-center p-12">
+            <div className="text-center">
+              <h3 className="text-lg font-medium">Holders</h3>
+              <p className="text-os-gray-300">Holders information coming soon</p>
+            </div>
+          </div>
+        );
+
+      case "activity":
+        return (
+          <div className="flex items-center justify-center p-12">
+            <div className="text-center">
+              <h3 className="text-lg font-medium">Activity</h3>
+              <p className="text-os-gray-300">Activity feed coming soon</p>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen text-foreground transition-all duration-150">
+      <main className="w-full mx-auto relative">
+        {/* Hero Header */}
+        <div className="w-full">
+          <HeroHeader collection={collection} videoUrl={collection.banner} useMockData={true} />
         </div>
+
+        {/* Collection Navigation - Single navigation, no duplicates */}
+        <div className="px-0 sm:px-4 md:px-6 lg:px-8">
+          <CollectionNav
+            collectionSlug={contractAddress}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
+        </div>
+
+        {/* Content based on active tab */}
+        <div className="px-0 sm:px-4 md:px-6 lg:px-8">{renderContent()}</div>
       </main>
 
-      {/* {showBuyerModal && selectedNFT && (
-        <BuyerModal
-          nft={selectedNFT}
-          open={showBuyerModal}
-          onOpenChange={setShowBuyerModal}
-        />
-      )} */}
       {showSellerModal && selectedNFT && (
         <SellerModal nft={selectedNFT} open={showSellerModal} onOpenChange={setShowSellerModal} />
       )}
+
+      <BottomActionBar
+        mode={actionMode}
+        onModeChange={setActionMode}
+        itemCount={selectedNFTs.length}
+        maxItems={safeNFTs.length}
+        sliderValue={sliderValue}
+        onSliderChange={handleSliderChange}
+        onItemCountChange={(count) => handleItemCountChange(String(count))}
+        onBuyFloor={() => console.log("Buy floor clicked", selectedNFTs)}
+        onMakeOffer={() => console.log("Make offer clicked", selectedNFTs)}
+      />
     </div>
   );
 }

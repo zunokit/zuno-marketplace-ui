@@ -20,6 +20,7 @@ interface ControlBarProps {
   onSearch: (value: string) => void;
   sortValue: string;
   onSort: (value: string) => void;
+  totalItems?: number;
 }
 
 export default function ControlBar({
@@ -31,6 +32,7 @@ export default function ControlBar({
   onSearch,
   sortValue,
   onSort,
+  totalItems = 0,
 }: ControlBarProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
@@ -166,6 +168,9 @@ export default function ControlBar({
             <List className="h-4 w-4" />
           </Button>
         </div>
+
+        {/* Items count */}
+        <span className="text-sm text-os-gray-300 font-mono">{totalItems} items</span>
       </div>
     </div>
   );
