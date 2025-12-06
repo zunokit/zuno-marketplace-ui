@@ -110,7 +110,7 @@ export default function CollectionImageCarousel({
           {images.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
+              className={`w-3 h-3 rounded-full transition-all duration-150 ${
                 index === currentIndex ? "bg-white" : "bg-white/30 dark:bg-white/20"
               }`}
               onClick={() => setCurrentIndex(index)}

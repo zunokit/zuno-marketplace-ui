@@ -48,7 +48,7 @@ export function ProfileHeader({
   return (
     <div className="relative">
       {/* Banner */}
-      <div className="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden rounded-xl">
+      <div className="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden rounded-[12px]">
         {profile.banner ? (
           <Image src={profile.banner} alt="Profile banner" fill className="object-cover" />
         ) : (
@@ -81,7 +81,7 @@ export function ProfileHeader({
               )}
             </div>
 
-            {profile.username && <p className="text-muted-foreground mb-2">@{profile.username}</p>}
+            {profile.username && <p className="text-os-gray-300 mb-2">@{profile.username}</p>}
 
             <div className="flex items-center gap-2 mb-4">
               <code className="text-sm bg-muted px-2 py-1 rounded">
@@ -150,7 +150,7 @@ export function ProfileHeader({
         </div>
 
         {/* Bio */}
-        {profile.bio && <p className="mt-4 text-muted-foreground max-w-3xl">{profile.bio}</p>}
+        {profile.bio && <p className="mt-4 text-os-gray-300 max-w-3xl">{profile.bio}</p>}
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mt-6">
@@ -169,9 +169,9 @@ export function ProfileHeader({
 
 function StatsCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="bg-card rounded-lg p-3 border">
-      <p className="text-xs text-muted-foreground mb-1">{label}</p>
-      <p className="font-semibold">{value}</p>
+    <div className="bg-card rounded-[8px] p-3 border">
+      <p className="text-xs text-os-gray-300 mb-1">{label}</p>
+      <p className="font-medium font-sans">{value}</p>
     </div>
   );
 }

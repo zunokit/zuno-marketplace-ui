@@ -124,19 +124,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <DialogTitle className="sr-only">Search NFTs and Collections</DialogTitle>
 
         {/* Search Header */}
-        <div className="border-b border-border dark:border-border p-5 bg-background dark:bg-card">
+        <div className="border-b border-border-subtle dark:border-border-subtle p-5 bg-background dark:bg-card">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-os-gray-300" />
             <Input
               autoFocus
               value={searchTerm}
               onChange={e => handleSearch(e.target.value)}
               placeholder="Search NFTs, collections, creators and wallets..."
-              className="pl-12 pr-12 h-12 text-base border border-border dark:border-border focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-lg"
+              className="pl-12 pr-12 h-12 text-base border border-border-subtle dark:border-border-subtle focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-[8px]"
             />
             <button
               onClick={onClose}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-os-gray-300 hover:text-white"
             >
               <X className="h-5 w-5" />
             </button>
@@ -146,7 +146,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         {/* Main Content with Sidebar */}
         <div className="flex flex-1 overflow-hidden">
           {/* Left Sidebar - Categories */}
-          <div className="w-48 border-r border-border dark:border-border bg-secondary/50 dark:bg-card p-3">
+          <div className="w-48 border-r border-border-subtle dark:border-border-subtle bg-secondary/50 dark:bg-card p-3">
             <div className="space-y-1">
               {categories.map(category => {
                 const Icon = category.icon;
@@ -155,10 +155,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
                     className={cn(
-                      "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all",
+                      "w-full flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm font-medium transition-all",
                       selectedCategory === category.id
-                        ? "bg-accent/10 text-accent"
-                        : "text-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground hover:bg-background dark:hover:bg-card"
+                        ? "bg-frosted-2/10 text-accent"
+                        : "text-white hover:text-white dark:text-os-gray-300 dark:hover:text-white hover:bg-background dark:hover:bg-card"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -175,7 +175,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <div className="p-6 space-y-6">
                 {/* Trending Searches */}
                 <div>
-                  <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-3">
+                  <div className="flex items-center gap-2 text-sm font-medium text-os-gray-300 mb-3">
                     <TrendingUp className="h-4 w-4" />
                     Trending Searches
                   </div>
@@ -184,7 +184,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <button
                         key={item.id}
                         onClick={() => handleSearch(item.term)}
-                        className="flex items-center justify-between p-3 rounded-lg bg-background border border-border hover:border-accent transition-all group"
+                        className="flex items-center justify-between p-3 rounded-[8px] bg-background border border-border-subtle hover:border-accent transition-all group"
                       >
                         <div className="flex items-center gap-2">
                           <span className="text-lg">{item.icon}</span>
@@ -192,7 +192,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         </div>
                         <span
                           className={cn(
-                            "text-xs font-semibold",
+                            "text-xs font-medium font-sans",
                             item.change.startsWith("+")
                               ? "text-success dark:text-success"
                               : "text-destructive dark:text-destructive"
@@ -208,11 +208,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 {/* Recent Searches */}
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm font-medium text-os-gray-300">
                       <Clock className="h-4 w-4" />
                       Recent Searches
                     </div>
-                    <button className="text-xs text-muted-foreground hover:text-foreground">
+                    <button className="text-xs text-os-gray-300 hover:text-white">
                       Clear all
                     </button>
                   </div>
@@ -221,17 +221,17 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <button
                         key={item.id}
                         onClick={() => handleSearch(item.term)}
-                        className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-secondary transition-colors group"
+                        className="w-full flex items-center justify-between p-2.5 rounded-[8px] hover:bg-secondary transition-all duration-150 group"
                       >
                         <div className="flex items-center gap-3">
                           {item.type === "wallet" ? (
-                            <Wallet className="h-4 w-4 text-muted-foreground" />
+                            <Wallet className="h-4 w-4 text-os-gray-300" />
                           ) : (
-                            <ImageIcon className="h-4 w-4 text-muted-foreground" />
+                            <ImageIcon className="h-4 w-4 text-os-gray-300" />
                           )}
                           <span>{item.term}</span>
                         </div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ArrowRight className="h-4 w-4 text-os-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-150" />
                       </button>
                     ))}
                   </div>
@@ -239,7 +239,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
                 {/* Top Collections */}
                 <div>
-                  <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-3">
+                  <div className="flex items-center gap-2 text-sm font-medium text-os-gray-300 mb-3">
                     <Trophy className="h-4 w-4" />
                     Top Collections Today
                   </div>
@@ -249,7 +249,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={collection.id}
                         href={`/collections/${collection.id}`}
                         onClick={onClose}
-                        className="p-4 rounded-lg bg-background border border-border hover:border-accent transition-all group"
+                        className="p-4 rounded-[8px] bg-background border border-border-subtle hover:border-accent transition-all group"
                       >
                         <div className="flex items-start gap-3">
                           <div className="relative">
@@ -258,7 +258,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               alt={collection.name}
                               width={48}
                               height={48}
-                              className="rounded-lg"
+                              className="rounded-[8px]"
                             />
                             {collection.verified && (
                               <div className="absolute -bottom-1 -right-1 bg-info rounded-full p-0.5">
@@ -270,23 +270,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             </div>
                           </div>
                           <div className="flex-1">
-                            <p className="font-semibold group-hover:text-accent">
+                            <p className="font-medium font-sans group-hover:text-accent">
                               {collection.name}
                             </p>
                             <div className="mt-2 space-y-1">
                               <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Floor</span>
+                                <span className="text-os-gray-300">Floor</span>
                                 <span className="font-medium">{collection.floor}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Vol</span>
+                                <span className="text-os-gray-300">Vol</span>
                                 <span className="font-medium">{collection.volume}</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">24h</span>
+                                <span className="text-os-gray-300">24h</span>
                                 <span
                                   className={cn(
-                                    "font-semibold",
+                                    "font-medium font-sans",
                                     collection.change.startsWith("+")
                                       ? "text-success dark:text-success"
                                       : "text-destructive dark:text-destructive"
@@ -308,14 +308,14 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               <div className="p-4">
                 {isSearching ? (
                   <div className="flex items-center justify-center py-20">
-                    <div className="flex items-center gap-2 text-muted-foreground">
+                    <div className="flex items-center gap-2 text-os-gray-300">
                       <div className="animate-spin rounded-full h-5 w-5 border-2 border-current border-t-transparent" />
                       Searching...
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-os-gray-300">
                       Showing results for &quot;{searchTerm}&quot;
                     </div>
                     {/* Placeholder for search results */}
@@ -323,10 +323,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       {[1, 2, 3].map(i => (
                         <div
                           key={i}
-                          className="p-4 rounded-lg border border-border hover:bg-secondary cursor-pointer"
+                          className="p-4 rounded-[8px] border border-border-subtle hover:bg-secondary cursor-pointer"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-lg bg-muted animate-pulse" />
+                            <div className="w-12 h-12 rounded-[8px] bg-muted animate-pulse" />
                             <div className="flex-1">
                               <div className="h-4 w-32 bg-muted rounded animate-pulse mb-2" />
                               <div className="h-3 w-24 bg-muted rounded animate-pulse" />
@@ -343,7 +343,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-border bg-secondary dark:bg-card px-5 py-3 flex items-center justify-between text-xs text-muted-foreground">
+        <div className="border-t border-border-subtle bg-secondary dark:bg-card px-5 py-3 flex items-center justify-between text-xs text-os-gray-300">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
@@ -365,7 +365,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             </span>
           </div>
           <div>
-            Powered by <span className="font-semibold">Magic Search™</span>
+            Powered by <span className="font-medium font-sans">Magic Search™</span>
           </div>
         </div>
       </DialogContent>

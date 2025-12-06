@@ -30,8 +30,8 @@ export default function MintProgress() {
     return (
       <div className="w-full" aria-live="polite">
         <div className="flex justify-between mb-2">
-          <span className="text-sm font-semibold text-foreground dark:text-foreground">Minted</span>
-          <span className="text-sm font-semibold text-foreground dark:text-foreground">
+          <span className="text-sm font-medium font-sans text-white dark:text-white">Minted</span>
+          <span className="text-sm font-medium font-sans text-white dark:text-white">
             <Loader2 className="inline h-4 w-4 animate-spin" />
           </span>
         </div>
@@ -43,7 +43,7 @@ export default function MintProgress() {
   // Error or invalid data state
   if (!maxSupply) {
     return (
-      <div className="text-center text-sm text-muted-foreground dark:text-muted-foreground">
+      <div className="text-center text-sm text-os-gray-300 dark:text-os-gray-300">
         Unable to load mint progress.
       </div>
     );
@@ -53,15 +53,15 @@ export default function MintProgress() {
   return (
     <div className="w-full" aria-live="polite">
       <div className="flex justify-between mb-2">
-        <span className="text-sm font-semibold text-foreground dark:text-foreground">
+        <span className="text-sm font-medium font-sans text-white dark:text-white">
           {isERC1155 && selectedEditionData
             ? `${selectedEditionData.name} Minted`
             : "Collection Minted"}
         </span>
-        <span className="text-sm font-semibold text-foreground dark:text-foreground">
+        <span className="text-sm font-medium font-sans text-white dark:text-white">
           {totalMinted}/{maxSupply}
           {isERC1155 && selectedEditionData && (
-            <span className="text-xs text-muted-foreground ml-1">
+            <span className="text-xs text-os-gray-300 ml-1">
               ({selectedEditionData.remaining} left)
             </span>
           )}

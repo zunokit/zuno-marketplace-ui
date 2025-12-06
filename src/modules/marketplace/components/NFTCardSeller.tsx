@@ -31,7 +31,7 @@ export default function NFTCardSeller({
   return (
     <div
       className={cn(
-        "group relative rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md",
+        "group relative rounded-[8px] border bg-card text-card-foreground shadow-os-sm transition-all duration-300 hover:shadow-md",
         compact ? "p-0.5" : "p-1",
         (isSliding || disabled) && "pointer-events-none",
         isSelected && "border-primary dark:border-primary"
@@ -40,7 +40,7 @@ export default function NFTCardSeller({
       <div className={cn("hidden group-hover:block absolute inset-0", isSelected && "block")}>
         <div
           className={cn(
-            "hidden group-hover:block absolute z-10 bg-muted/30 text-muted-foreground hover:bg-muted/50 rounded-xl p-2",
+            "hidden group-hover:block absolute z-10 bg-muted/30 text-os-gray-300 hover:bg-muted/50 rounded-[12px] p-2",
             compact ? "left-2 top-2" : "left-4 top-3",
             isSelected && "block"
           )}
@@ -61,10 +61,10 @@ export default function NFTCardSeller({
               onSelect();
             }}
             className={cn(
-              "cursor-pointer h-10 w-10 rounded-full border flex items-center justify-center transition-colors",
+              "cursor-pointer h-10 w-10 rounded-full border flex items-center justify-center transition-all duration-150",
               isSelected
                 ? "bg-primary text-white"
-                : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
+                : "bg-muted/30 text-os-gray-300 hover:bg-muted/50"
             )}
           >
             {isSelected ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
@@ -80,7 +80,7 @@ export default function NFTCardSeller({
               compact ? "h-10" : "h-15",
               isSelected
                 ? "bg-primary text-white"
-                : "bg-muted/30 text-muted-foreground hover:bg-muted/50"
+                : "bg-muted/30 text-os-gray-300 hover:bg-muted/50"
             )}
           >
             <Zap />
@@ -95,7 +95,7 @@ export default function NFTCardSeller({
         className={cn("cursor-pointer", compact ? "p-0.5 pb-10" : "p-1 pb-15")}
         onClick={() => onClick?.(nft)}
       >
-        <div className="aspect-square overflow-hidden rounded-md">
+        <div className="aspect-square overflow-hidden rounded-[6px]">
           <Image
             src={nft.image || "https://placehold.co/200x200"}
             alt={`${nft.name} ${nft.id}`}
@@ -107,7 +107,7 @@ export default function NFTCardSeller({
 
         <div className={cn("mt-1.5", compact ? "text-xs" : "text-sm")}>
           <div className="flex items-center justify-between">
-            <div className="font-medium text-foreground truncate">{nft.name}</div>
+            <div className="font-medium text-white truncate">{nft.name}</div>
             {!compact && (
               <div className="flex items-center gap-0.5">
                 <Button variant="ghost" size="icon" className="h-5 w-5">

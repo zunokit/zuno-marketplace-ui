@@ -22,10 +22,10 @@ export default function Error({
     <div className="flex items-center justify-center min-h-screen p-4 md:p-8">
       <div className="w-full max-w-md space-y-6 text-center">
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tighter text-white sm:text-5xl">
             Something went wrong
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             We encountered an error while processing your request.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function Error({
           </Button>
         </div>
         {error.digest && (
-          <p className="text-xs text-muted-foreground pt-4">Error ID: {error.digest}</p>
+          <p className="text-xs text-os-gray-300 pt-4">Error ID: {error.digest}</p>
         )}
       </div>
     </div>

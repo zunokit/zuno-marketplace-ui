@@ -51,7 +51,7 @@ export function StatsPage() {
     <div className="mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Market Statistics</h1>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Real-time analytics and trending data across the marketplace
         </p>
       </div>
@@ -61,11 +61,11 @@ export function StatsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Volume</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-4 w-4 text-os-gray-300" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.totalVolume} ETH</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-os-gray-300">
               <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +12.5% from last month
             </p>
@@ -75,11 +75,11 @@ export function StatsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+            <Activity className="h-4 w-4 text-os-gray-300" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.totalSales}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-os-gray-300">
               <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +8.2% from last month
             </p>
@@ -89,11 +89,11 @@ export function StatsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Price</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <Package className="h-4 w-4 text-os-gray-300" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.avgPrice} ETH</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-os-gray-300">
               <TrendingDown className="h-3 w-3 inline mr-1 text-destructive" />
               -3.4% from last month
             </p>
@@ -103,11 +103,11 @@ export function StatsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-4 w-4 text-os-gray-300" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{marketStats.activeUsers}</div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-os-gray-300">
               <TrendingUp className="h-3 w-3 inline mr-1 text-success" />
               +18.7% from last month
             </p>
@@ -256,7 +256,7 @@ export function StatsPage() {
               <CardTitle>Recent Market Activity</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
+              <div className="text-center py-8 text-os-gray-300">
                 Live activity feed coming soon...
               </div>
             </CardContent>

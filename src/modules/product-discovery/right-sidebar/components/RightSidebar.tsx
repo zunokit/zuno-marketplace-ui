@@ -54,7 +54,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
       <button
         onClick={handleToggle}
         className={cn(
-          "fixed right-0 top-1/2 z-50 -translate-y-1/2 rounded-l-lg border border-r-0 border-border bg-card p-2 shadow-lg transition-all duration-700 ease-in-out hover:bg-secondary hover:shadow-xl",
+          "fixed right-0 top-1/2 z-50 -translate-y-1/2 rounded-l-lg border border-r-0 border-border-subtle bg-card p-2 shadow-os-focus transition-all duration-700 ease-in-out hover:bg-secondary hover:shadow-xl",
           isCollapsed ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
         )}
         aria-label="Expand sidebar"
@@ -64,23 +64,23 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
 
       <aside
         className={cn(
-          "fixed top-[108px] md:top-[124px] xl:top-[117px] right-0 hidden h-[calc(100vh-108px)] md:h-[calc(100vh-124px)] xl:h-[calc(100vh-117px)] flex-shrink-0 border-l border-border bg-card transition-all duration-700 ease-in-out lg:flex lg:flex-col overflow-hidden z-30",
+          "fixed top-[108px] md:top-[124px] xl:top-[117px] right-0 hidden h-[calc(100vh-108px)] md:h-[calc(100vh-124px)] xl:h-[calc(100vh-117px)] flex-shrink-0 border-l border-border-subtle bg-card transition-all duration-700 ease-in-out lg:flex lg:flex-col overflow-hidden z-30",
           isCollapsed ? "w-0 border-l-0" : "w-[420px]"
         )}
         role="complementary"
       >
         {/* Fixed Header */}
-        <div className={cn("flex-shrink-0 border-b border-border px-5 py-3 bg-card", isCollapsed ? "w-0" : "w-[420px]")}>
+        <div className={cn("flex-shrink-0 border-b border-border-subtle px-5 py-3 bg-card", isCollapsed ? "w-0" : "w-[420px]")}>
           <div className="flex items-center justify-between gap-3">
             {/* Tabs */}
-            <div className="flex items-center gap-1 rounded-lg border border-border p-1">
+            <div className="flex items-center gap-1 rounded-[8px] border border-border-subtle p-1">
               <button
                 onClick={() => setActiveTab("nfts")}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
+                  "flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-all duration-150",
                   activeTab === "nfts"
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-background text-white shadow-os-sm"
+                    : "text-os-gray-300 hover:text-white"
                 )}
               >
                 <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -94,10 +94,10 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
               <button
                 onClick={() => setActiveTab("tokens")}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
+                  "flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-all duration-150",
                   activeTab === "tokens"
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-background text-white shadow-os-sm"
+                    : "text-os-gray-300 hover:text-white"
                 )}
               >
                 <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -113,13 +113,13 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 <div className="relative">
                   <button
                     onClick={() => setShowTimePeriodDropdown(!showTimePeriodDropdown)}
-                    className="flex items-center gap-1 rounded-md border border-border bg-background px-2.5 py-1 text-xs font-medium transition-colors hover:bg-secondary"
+                    className="flex items-center gap-1 rounded-[6px] border border-border-subtle bg-background px-2.5 py-1 text-xs font-medium transition-all duration-150 hover:bg-secondary"
                   >
                     {timePeriodLabels[timePeriod]}
                     <ChevronDown className="h-3 w-3" />
                   </button>
                   {showTimePeriodDropdown && (
-                    <div className="absolute left-0 top-full z-10 mt-1 w-24 rounded-lg border border-border bg-card shadow-lg">
+                    <div className="absolute left-0 top-full z-10 mt-1 w-24 rounded-[8px] border border-border-subtle bg-card shadow-os-focus">
                       {(Object.keys(timePeriodLabels) as TimePeriod[]).map((period) => (
                         <button
                           key={period}
@@ -128,7 +128,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                             setShowTimePeriodDropdown(false);
                           }}
                           className={cn(
-                            "w-full px-3 py-2 text-left text-sm transition-colors hover:bg-secondary",
+                            "w-full px-3 py-2 text-left text-sm transition-all duration-150 hover:bg-secondary",
                             timePeriod === period && "bg-primary/10 text-primary"
                           )}
                         >
@@ -141,12 +141,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
               )}
 
               {/* View controls */}
-              <div className="flex items-center gap-0.5 rounded-md border border-border p-0.5">
+              <div className="flex items-center gap-0.5 rounded-[6px] border border-border-subtle p-0.5">
                 <button
                   onClick={() => setViewMode("compact")}
                   className={cn(
-                    "rounded p-1 transition-colors",
-                    viewMode === "compact" ? "bg-background text-foreground" : "text-muted-foreground hover:bg-secondary"
+                    "rounded p-1 transition-all duration-150",
+                    viewMode === "compact" ? "bg-background text-white" : "text-os-gray-300 hover:bg-secondary"
                   )}
                   aria-label="Compact view"
                 >
@@ -155,8 +155,8 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 <button
                   onClick={() => setViewMode("expanded")}
                   className={cn(
-                    "rounded p-1 transition-colors",
-                    viewMode === "expanded" ? "bg-background text-foreground" : "text-muted-foreground hover:bg-secondary"
+                    "rounded p-1 transition-all duration-150",
+                    viewMode === "expanded" ? "bg-background text-white" : "text-os-gray-300 hover:bg-secondary"
                   )}
                   aria-label="Expanded view"
                 >
@@ -164,7 +164,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 </button>
                 <button
                   onClick={handleToggle}
-                  className="rounded p-1 text-muted-foreground transition-colors hover:bg-secondary"
+                  className="rounded p-1 text-os-gray-300 transition-all duration-150 hover:bg-secondary"
                   aria-label="Collapse sidebar"
                 >
                   <ChevronRight className="h-3.5 w-3.5" />
@@ -176,25 +176,25 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
 
         {/* Fixed Column Headers */}
         {viewMode === "compact" ? (
-          <div className={cn("flex-shrink-0 flex items-center justify-between border-b border-border px-5 py-2.5 bg-card", isCollapsed ? "w-0 overflow-hidden" : "w-[420px]")}>
-            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <div className={cn("flex-shrink-0 flex items-center justify-between border-b border-border-subtle px-5 py-2.5 bg-card", isCollapsed ? "w-0 overflow-hidden" : "w-[420px]")}>
+            <h2 className="text-[11px] font-medium font-sans uppercase tracking-wider text-os-gray-300">
               {activeTab === "nfts" ? "Collection" : "Token"}
             </h2>
             <div className="flex items-center gap-12">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <span className="text-[11px] font-medium font-sans uppercase tracking-wider text-os-gray-300">
                 {activeTab === "nfts" ? "Floor" : "Price"}
               </span>
-              <span className="w-14 text-right text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <span className="w-14 text-right text-[11px] font-medium font-sans uppercase tracking-wider text-os-gray-300">
                 Change
               </span>
             </div>
           </div>
         ) : (
-          <div className={cn("flex-shrink-0 flex items-center justify-between border-b border-border px-5 py-2.5 bg-card", isCollapsed ? "w-0 overflow-hidden" : "w-[420px]")}>
-            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          <div className={cn("flex-shrink-0 flex items-center justify-between border-b border-border-subtle px-5 py-2.5 bg-card", isCollapsed ? "w-0 overflow-hidden" : "w-[420px]")}>
+            <h2 className="text-[11px] font-medium font-sans uppercase tracking-wider text-os-gray-300">
               {activeTab === "nfts" ? "Collection" : "Token"}
             </h2>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="text-[11px] font-medium font-sans uppercase tracking-wider text-os-gray-300">
               {activeTab === "nfts" ? "Floor" : "Price"}
             </span>
           </div>
@@ -219,7 +219,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                     <Link
                       key={collection.id}
                       href={`/collections/${collection.slug}`}
-                      className="flex items-center justify-between rounded-md p-2 transition-colors hover:bg-secondary/50"
+                      className="flex items-center justify-between rounded-[6px] p-2 transition-all duration-150 hover:bg-secondary/50"
                     >
                       <div className="flex items-center gap-2.5 min-w-0 flex-1">
                         <div className="relative h-10 w-10 flex-shrink-0">
@@ -227,7 +227,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                             src={collection.imageUrl || "/placeholder.svg"}
                             alt={collection.name}
                             fill
-                            className="rounded-md object-cover"
+                            className="rounded-[6px] object-cover"
                           />
                         </div>
                         <div className="flex items-center gap-1.5 min-w-0">
@@ -238,13 +238,13 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
 
                       <div className="flex items-center gap-10 flex-shrink-0">
                         <div className="flex flex-col items-end">
-                          <span className="text-sm font-semibold whitespace-nowrap">
+                          <span className="text-sm font-medium font-sans whitespace-nowrap">
                             {floorPrice.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
                           </span>
-                          <span className="text-xs text-muted-foreground">{currency}</span>
+                          <span className="text-xs text-os-gray-300">{currency}</span>
                         </div>
                         <span
                           className={cn(
@@ -261,7 +261,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                     <Link
                       key={collection.id}
                       href={`/collections/${collection.slug}`}
-                      className="flex items-center justify-between rounded-md p-2.5 transition-colors hover:bg-secondary/50"
+                      className="flex items-center justify-between rounded-[6px] p-2.5 transition-all duration-150 hover:bg-secondary/50"
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
                         <div className="relative h-12 w-12 flex-shrink-0">
@@ -269,7 +269,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                             src={collection.imageUrl || "/placeholder.svg"}
                             alt={collection.name}
                             fill
-                            className="rounded-md object-cover"
+                            className="rounded-[6px] object-cover"
                           />
                         </div>
                         <div className="flex items-center gap-1.5 min-w-0">
@@ -279,14 +279,14 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                       </div>
 
                       <div className="flex flex-col items-end flex-shrink-0">
-                        <span className="text-sm font-semibold whitespace-nowrap">
+                        <span className="text-sm font-medium font-sans whitespace-nowrap">
                           {floorPrice.toLocaleString(undefined, {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}
                         </span>
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs text-muted-foreground">{currency}</span>
+                          <span className="text-xs text-os-gray-300">{currency}</span>
                           <span
                             className={cn(
                               "text-xs font-medium",
@@ -305,7 +305,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                   viewMode === "compact" ? (
                     <div
                       key={token.id}
-                      className="flex items-center justify-between rounded-lg p-2 transition-colors hover:bg-secondary/50"
+                      className="flex items-center justify-between rounded-[8px] p-2 transition-all duration-150 hover:bg-secondary/50"
                     >
                       <div className="flex items-center gap-2.5">
                         <div className="relative h-9 w-9">
@@ -328,7 +328,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                       </div>
 
                       <div className="flex items-center gap-12">
-                        <span className="text-sm font-semibold">
+                        <span className="text-sm font-medium font-sans">
                           {token.price < 0.01 ? "< " : ""}$
                           {token.price < 0.01
                             ? token.price.toFixed(6)
@@ -351,7 +351,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                   ) : (
                     <div
                       key={token.id}
-                      className="flex items-center justify-between rounded-lg p-2.5 transition-colors hover:bg-secondary/50"
+                      className="flex items-center justify-between rounded-[8px] p-2.5 transition-all duration-150 hover:bg-secondary/50"
                     >
                       <div className="flex items-center gap-3">
                         <div className="relative h-12 w-12">
@@ -376,12 +376,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                             <span className="text-sm font-medium">{token.name}</span>
                             {token.verified && <CheckCircle2 className="h-3.5 w-3.5 text-primary" />}
                           </div>
-                          <span className="text-xs text-muted-foreground">{token.symbol}</span>
+                          <span className="text-xs text-os-gray-300">{token.symbol}</span>
                         </div>
                       </div>
 
                       <div className="flex flex-col items-end">
-                        <span className="text-sm font-semibold">
+                        <span className="text-sm font-medium font-sans">
                           {token.price < 0.01 ? "< " : ""}$
                           {token.price < 0.01
                             ? token.price.toFixed(6)

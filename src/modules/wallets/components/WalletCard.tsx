@@ -69,7 +69,7 @@ export function WalletCard({ wallet, onConnect }: WalletCardProps) {
 
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="text-lg font-semibold">{wallet.name}</h3>
+              <h3 className="text-lg font-medium font-sans">{wallet.name}</h3>
               {wallet.isPopular && (
                 <Badge variant="secondary" className="text-xs">
                   Popular
@@ -81,7 +81,7 @@ export function WalletCard({ wallet, onConnect }: WalletCardProps) {
             </div>
 
             {wallet.description && (
-              <p className="text-sm text-muted-foreground mb-3">{wallet.description}</p>
+              <p className="text-sm text-os-gray-300 mb-3">{wallet.description}</p>
             )}
 
             {/* Features */}
@@ -89,8 +89,8 @@ export function WalletCard({ wallet, onConnect }: WalletCardProps) {
               <div className="space-y-1 mb-3">
                 {wallet.features.slice(0, 3).map((feature, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <Shield className="h-3 w-3 text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">{feature.name}</span>
+                    <Shield className="h-3 w-3 text-os-gray-300" />
+                    <span className="text-xs text-os-gray-300">{feature.name}</span>
                   </div>
                 ))}
               </div>
@@ -98,7 +98,7 @@ export function WalletCard({ wallet, onConnect }: WalletCardProps) {
 
             {/* Supported Chains */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs text-muted-foreground">Supports:</span>
+              <span className="text-xs text-os-gray-300">Supports:</span>
               {wallet.supportedChains.slice(0, 3).map(chain => (
                 <Badge key={chain.id} variant="outline" className="text-xs">
                   {chain.name}

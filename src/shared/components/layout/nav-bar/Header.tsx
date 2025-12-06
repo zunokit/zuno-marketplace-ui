@@ -25,10 +25,10 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "border-b py-3 transition-all duration-300",
+        "border-b py-3 transition-all duration-150",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:dark:bg-card/70 border-border/70 dark:border-border"
-          : "bg-background dark:bg-card border-border dark:border-border"
+          ? "bg-frosted-2 backdrop-blur-xl border-border-subtle"
+          : "bg-background border-border-subtle"
       )}
     >
       <div className="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 lg:gap-3 px-2 sm:px-3 md:px-4 lg:px-6 mx-auto max-w-[1920px] w-full">
@@ -43,7 +43,7 @@ export default function Header() {
               height={32}
               className="w-7 h-7 sm:w-8 sm:h-8"
             />
-            <div className="hidden sm:block text-base md:text-lg lg:text-xl font-semibold tracking-wide text-foreground dark:text-white whitespace-nowrap">
+            <div className="hidden sm:block text-base md:text-lg lg:text-xl font-medium tracking-wide text-white whitespace-nowrap font-sans">
               ZUNO
             </div>
           </Link>
@@ -79,7 +79,7 @@ export default function Header() {
         </div>
 
         {/* Right Section - Wallet & Mobile Menu */}
-        <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2 pl-1 sm:pl-1.5 md:pl-2 border-l border-transparent sm:border-border dark:sm:border-border shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2 pl-1 sm:pl-1.5 md:pl-2 border-l border-transparent sm:border-border-subtle shrink-0">
           {/* Wallet Connect Button */}
           <ConnectWalletButton />
           {/* Mobile Menu - Show when desktop menu is hidden (< 1024px) */}

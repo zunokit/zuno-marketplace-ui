@@ -133,7 +133,7 @@ export function LaunchpadPage() {
               alt={project.name}
               width={64}
               height={64}
-              className="rounded-lg border-2 border-background"
+              className="rounded-[8px] border-2 border-background"
             />
             <div>
               <h3 className="text-xl font-bold text-white">{project.name}</h3>
@@ -146,12 +146,12 @@ export function LaunchpadPage() {
       </div>
 
       <CardContent className="p-6 space-y-4">
-        <p className="text-muted-foreground line-clamp-2">{project.description}</p>
+        <p className="text-os-gray-300 line-clamp-2">{project.description}</p>
 
         {/* Progress */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Progress</span>
+            <span className="text-os-gray-300">Progress</span>
             <span className="font-medium">
               {project.raised} / {project.goal} ETH ({getProjectProgress(project).toFixed(1)}%)
             </span>
@@ -162,16 +162,16 @@ export function LaunchpadPage() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <p className="text-sm text-muted-foreground">Participants</p>
-            <p className="font-semibold">{project.participants.toLocaleString()}</p>
+            <p className="text-sm text-os-gray-300">Participants</p>
+            <p className="font-medium font-sans">{project.participants.toLocaleString()}</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Mint Price</p>
-            <p className="font-semibold">{project.mintPrice} ETH</p>
+            <p className="text-sm text-os-gray-300">Mint Price</p>
+            <p className="font-medium font-sans">{project.mintPrice} ETH</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground">Time</p>
-            <p className="font-semibold">{getTimeLeft(project.endDate)}</p>
+            <p className="text-sm text-os-gray-300">Time</p>
+            <p className="font-medium font-sans">{getTimeLeft(project.endDate)}</p>
           </div>
         </div>
 
@@ -209,7 +209,7 @@ export function LaunchpadPage() {
           <Rocket className="h-8 w-8 text-primary" />
           <h1 className="text-3xl font-bold">Launchpad</h1>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Discover and invest in upcoming NFT projects vetted by our team
         </p>
       </div>
@@ -219,11 +219,11 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
+              <div className="p-2 bg-primary/10 rounded-[8px]">
                 <DollarSign className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Raised</p>
+                <p className="text-sm text-os-gray-300">Total Raised</p>
                 <p className="text-xl font-bold">1,234 ETH</p>
               </div>
             </div>
@@ -233,11 +233,11 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-success/10 rounded-lg">
+              <div className="p-2 bg-success/10 rounded-[8px]">
                 <Rocket className="h-5 w-5 text-success" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Projects Launched</p>
+                <p className="text-sm text-os-gray-300">Projects Launched</p>
                 <p className="text-xl font-bold">45</p>
               </div>
             </div>
@@ -247,11 +247,11 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-info/10 rounded-lg">
+              <div className="p-2 bg-info/10 rounded-[8px]">
                 <Users className="h-5 w-5 text-info" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Participants</p>
+                <p className="text-sm text-os-gray-300">Total Participants</p>
                 <p className="text-xl font-bold">23.5K</p>
               </div>
             </div>
@@ -261,11 +261,11 @@ export function LaunchpadPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-accent/10 rounded-lg">
+              <div className="p-2 bg-frosted-2/10 rounded-[8px]">
                 <CheckCircle className="h-5 w-5 text-accent" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Success Rate</p>
+                <p className="text-sm text-os-gray-300">Success Rate</p>
                 <p className="text-xl font-bold">92%</p>
               </div>
             </div>
@@ -318,7 +318,7 @@ export function LaunchpadPage() {
                 <span className="text-xl font-bold text-primary">1</span>
               </div>
               <h4 className="font-medium mb-1">Apply</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-os-gray-300">
                 Projects apply and go through our vetting process
               </p>
             </div>
@@ -327,7 +327,7 @@ export function LaunchpadPage() {
                 <span className="text-xl font-bold text-primary">2</span>
               </div>
               <h4 className="font-medium mb-1">Review</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-os-gray-300">
                 Our team reviews and verifies each project
               </p>
             </div>
@@ -336,7 +336,7 @@ export function LaunchpadPage() {
                 <span className="text-xl font-bold text-primary">3</span>
               </div>
               <h4 className="font-medium mb-1">Launch</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-os-gray-300">
                 Approved projects launch on our platform
               </p>
             </div>
@@ -345,7 +345,7 @@ export function LaunchpadPage() {
                 <span className="text-xl font-bold text-primary">4</span>
               </div>
               <h4 className="font-medium mb-1">Mint</h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-os-gray-300">
                 Users can mint NFTs from verified projects
               </p>
             </div>

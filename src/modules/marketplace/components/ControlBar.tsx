@@ -41,7 +41,7 @@ export default function ControlBar({
       {/* Search - Expandable */}
       {searchOpen ? (
         <div className="flex items-center gap-2 p-2">
-          <Search className="h-4 w-4 text-muted-foreground" />
+          <Search className="h-4 w-4 text-os-gray-300" />
           <Input
             type="text"
             placeholder="Search..."
@@ -115,7 +115,7 @@ export default function ControlBar({
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-os-gray-300" />
           <Input
             type="text"
             placeholder="Search items..."
@@ -140,7 +140,7 @@ export default function ControlBar({
         </Select>
 
         {/* View Toggle */}
-        <div className="flex gap-1 border rounded-md p-1">
+        <div className="flex gap-1 border rounded-[6px] p-1">
           <Button
             variant={view === "compact" ? "secondary" : "ghost"}
             size="icon"

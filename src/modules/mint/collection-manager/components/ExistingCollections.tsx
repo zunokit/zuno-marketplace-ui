@@ -26,13 +26,13 @@ export default function ExistingCollections() {
   }, []);
 
   return (
-    <Card className="bg-background dark:bg-card border-border text-foreground dark:text-white">
+    <Card className="bg-background dark:bg-card border-border-subtle text-white dark:text-white">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium">Existing Collections</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-os-gray-300">
             View your deployed collections on {"unknown chain"}
           </p>
         </div>
@@ -41,14 +41,14 @@ export default function ExistingCollections() {
           <DropdownMenuTrigger asChild className="w-full">
             <Button
               variant="outline"
-              className="w-full justify-between bg-secondary dark:bg-card border-border text-foreground dark:text-white hover:bg-muted dark:hover:bg-card/80"
+              className="w-full justify-between bg-secondary dark:bg-card border-border-subtle text-white dark:text-white hover:bg-muted dark:hover:bg-card/80"
             >
               View Collection
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-background dark:bg-card border-border text-foreground dark:text-white"
+            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-background dark:bg-card border-border-subtle text-white dark:text-white"
             align="start"
             sideOffset={5}
           >
@@ -79,8 +79,8 @@ export default function ExistingCollections() {
                 ))
               ) : (
                 <div className="flex flex-col items-center py-6">
-                  <Sprout className="h-8 w-8 text-muted-foreground mb-2" />
-                  <p className="text-sm text-muted-foreground">
+                  <Sprout className="h-8 w-8 text-os-gray-300 mb-2" />
+                  <p className="text-sm text-os-gray-300">
                     No collections found for this wallet
                   </p>
                 </div>

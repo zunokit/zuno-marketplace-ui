@@ -82,13 +82,13 @@ export function CollectionsList() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold mb-2">Explore Collections</h1>
-        <p className="text-muted-foreground">Browse through our curated NFT collections</p>
+        <p className="text-os-gray-300">Browse through our curated NFT collections</p>
       </div>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-os-gray-300" />
           <Input
             placeholder="Search collections..."
             value={searchQuery}
@@ -114,7 +114,7 @@ export function CollectionsList() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredAndSortedCollections.map((collection, index) => (
           <Link key={collection.address} href={`/collections/${getCollectionSlug(collection)}`}>
-            <Card className="overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-200 h-full">
+            <Card className="overflow-hidden cursor-pointer hover:shadow-os-focus transition-all duration-200 h-full">
               <div className="relative h-32">
                 {collection.banner ? (
                   <Image
@@ -127,7 +127,7 @@ export function CollectionsList() {
                   <div className="h-full bg-gradient-to-br from-purple-500 to-pink-500" />
                 )}
                 <div className="absolute -bottom-8 left-4">
-                  <div className="relative h-16 w-16 rounded-lg overflow-hidden border-4 border-background">
+                  <div className="relative h-16 w-16 rounded-[8px] overflow-hidden border-4 border-background">
                     {collection.image ? (
                       <Image
                         src={collection.image}
@@ -149,7 +149,7 @@ export function CollectionsList() {
 
               <CardContent className="pt-12 pb-4">
                 <div className="flex items-center gap-1 mb-2">
-                  <h3 className="font-semibold truncate">{collection.name}</h3>
+                  <h3 className="font-medium font-sans truncate">{collection.name}</h3>
                   {collection.verified && (
                     <Badge variant="outline" className="text-xs">
                       ✓
@@ -159,24 +159,24 @@ export function CollectionsList() {
 
                 <div className="grid grid-cols-2 gap-3 mt-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground text-xs mb-1">Floor</p>
+                    <p className="text-os-gray-300 text-xs mb-1">Floor</p>
                     <p className="font-medium">{collection.floorPrice || "—"} ETH</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground text-xs mb-1">24h Vol</p>
+                    <p className="text-os-gray-300 text-xs mb-1">24h Vol</p>
                     <p className="font-medium flex items-center gap-1">
                       {collection.volume24h || "—"} ETH
                     </p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground text-xs mb-1 flex items-center gap-1">
+                    <p className="text-os-gray-300 text-xs mb-1 flex items-center gap-1">
                       <Package className="h-3 w-3" />
                       Items
                     </p>
                     <p className="font-medium">{collection.itemCount.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground text-xs mb-1 flex items-center gap-1">
+                    <p className="text-os-gray-300 text-xs mb-1 flex items-center gap-1">
                       <Users className="h-3 w-3" />
                       Owners
                     </p>

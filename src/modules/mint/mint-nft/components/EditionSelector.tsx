@@ -47,12 +47,12 @@ export default function EditionSelector() {
   return (
     <div className="my-5 space-y-3">
       <div className="flex justify-between items-center gap-5">
-        <h3 className="text-lg font-semibold text-foreground dark:text-white">
+        <h3 className="text-lg font-medium font-sans text-white dark:text-white">
           Select Edition <span className="text-primary">*</span>
         </h3>
         <div className="flex items-center gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-os-gray-300" />
             <Input
               placeholder="Search editions..."
               value={editionFilter}
@@ -73,7 +73,7 @@ export default function EditionSelector() {
               <SelectItem value="newest">Newest</SelectItem>
             </SelectContent>
           </Select>
-          <div className="flex border border-border">
+          <div className="flex border border-border-subtle">
             <Button
               variant={editionViewMode === "grid" ? "default" : "ghost"}
               size="sm"
@@ -104,10 +104,10 @@ export default function EditionSelector() {
               />
             </div>
             <div>
-              <h4 className="font-medium text-foreground dark:text-white">
+              <h4 className="font-medium text-white dark:text-white">
                 {selectedEditionData.name}
               </h4>
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-4 text-sm text-os-gray-300">
                 <span>{selectedEditionData.price} ETH</span>
                 <span>
                   {selectedEditionData.remaining} / {selectedEditionData.maxSupply} remaining
@@ -130,11 +130,11 @@ export default function EditionSelector() {
           <div
             key={edition.id}
             className={`
-              border rounded-md cursor-pointer transition-all duration-200 hover:shadow-md border-border
+              border rounded-[6px] cursor-pointer transition-all duration-200 hover:shadow-md border-border-subtle
               ${
                 selectedEdition === edition.id
                   ? "border-info bg-info/10"
-                  : "border-border hover:border-border/60"
+                  : "border-border-subtle hover:border-border-subtle/60"
               }
               ${editionViewMode === "list" ? "p-3" : "p-4"}
             `}
@@ -146,23 +146,23 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground dark:text-white">{edition.name}</h4>
+                  <h4 className="font-medium text-white dark:text-white">{edition.name}</h4>
                   <div className="mt-1 space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Price</span>
-                      <span className="font-medium text-foreground dark:text-white">
+                      <span className="text-os-gray-300">Price</span>
+                      <span className="font-medium text-white dark:text-white">
                         {edition.price} ETH
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Remaining</span>
-                      <span className="text-foreground dark:text-white">
+                      <span className="text-os-gray-300">Remaining</span>
+                      <span className="text-white dark:text-white">
                         {edition.remaining} / {edition.maxSupply}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Per wallet</span>
-                      <span className="text-foreground dark:text-white">
+                      <span className="text-os-gray-300">Per wallet</span>
+                      <span className="text-white dark:text-white">
                         {edition.perWalletLimit}
                       </span>
                     </div>
@@ -175,8 +175,8 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-foreground dark:text-white">{edition.name}</h4>
-                  <div className="mt-1 flex items-center gap-4 text-sm text-muted-foreground">
+                  <h4 className="font-medium text-white dark:text-white">{edition.name}</h4>
+                  <div className="mt-1 flex items-center gap-4 text-sm text-os-gray-300">
                     <span>{edition.price} ETH</span>
                     <span>
                       {edition.remaining} / {edition.maxSupply} remaining
@@ -191,7 +191,7 @@ export default function EditionSelector() {
       </div>
 
       {filteredEditions.length === 0 && (
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="text-center py-8 text-os-gray-300">
           No editions found matching your search.
         </div>
       )}

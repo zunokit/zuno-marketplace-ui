@@ -76,7 +76,7 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
   return (
     <Card
       className={cn(
-        "group cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg dark:hover:shadow-white/10",
+        "group cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-os-focus dark:hover:shadow-white/10",
         className
       )}
       onClick={handleCardClick}
@@ -105,33 +105,33 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
       </div>
 
       <CardContent className="p-4">
-        <h3 className="font-semibold text-lg truncate">{auction.name}</h3>
+        <h3 className="font-medium font-sans text-lg truncate">{auction.name}</h3>
 
         <div className="flex items-center gap-2 mt-2">
           <Avatar className="h-6 w-6">
             <AvatarImage src={auction.seller.avatar} alt={auction.seller.name} />
             <AvatarFallback>{auction.seller.name?.[0] || "?"}</AvatarFallback>
           </Avatar>
-          <span className="text-sm text-muted-foreground truncate">
+          <span className="text-sm text-os-gray-300 truncate">
             {auction.seller.name || auction.seller.address.slice(0, 8)}
           </span>
         </div>
 
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-os-gray-300">
               {auction.bids.length > 0 ? "Current Bid" : "Starting Price"}
             </p>
-            <p className="font-semibold">
+            <p className="font-medium font-sans">
               {auction.currentBid} {auction.currency}
             </p>
           </div>
 
           <div>
-            <p className="text-xs text-muted-foreground">Bids</p>
+            <p className="text-xs text-os-gray-300">Bids</p>
             <div className="flex items-center gap-1">
               <Users className="h-4 w-4" />
-              <span className="font-semibold">{auction.bids.length}</span>
+              <span className="font-medium font-sans">{auction.bids.length}</span>
             </div>
           </div>
         </div>

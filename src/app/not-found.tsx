@@ -11,10 +11,10 @@ export default function NotFound() {
     <div className="flex items-center justify-center min-h-screen p-4 md:p-8">
       <div className="w-full max-w-md space-y-6 text-center">
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold tracking-tighter text-foreground sm:text-5xl animate-bounce">
+          <h1 className="text-4xl font-bold tracking-tighter text-white sm:text-5xl animate-bounce">
             404
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             The page youre looking for doesnt exist or has been moved.
           </p>
         </div>

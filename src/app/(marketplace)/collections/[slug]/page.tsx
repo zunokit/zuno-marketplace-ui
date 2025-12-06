@@ -37,7 +37,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
     <div className=" mx-auto py-8">
       {/* Collection Header */}
       <div className="mb-8">
-        <div className="relative h-48 md:h-64 rounded-xl overflow-hidden mb-6">
+        <div className="relative h-48 md:h-64 rounded-[12px] overflow-hidden mb-6">
           <div
             className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500"
             style={{
@@ -58,20 +58,20 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
         {/* Collection Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-card rounded-lg p-4 border">
-            <p className="text-sm text-muted-foreground mb-1">Items</p>
+          <div className="bg-card rounded-[8px] p-4 border">
+            <p className="text-sm text-os-gray-300 mb-1">Items</p>
             <p className="text-2xl font-bold">{collection.itemCount}</p>
           </div>
-          <div className="bg-card rounded-lg p-4 border">
-            <p className="text-sm text-muted-foreground mb-1">Owners</p>
+          <div className="bg-card rounded-[8px] p-4 border">
+            <p className="text-sm text-os-gray-300 mb-1">Owners</p>
             <p className="text-2xl font-bold">{collection.ownerCount}</p>
           </div>
-          <div className="bg-card rounded-lg p-4 border">
-            <p className="text-sm text-muted-foreground mb-1">Floor Price</p>
+          <div className="bg-card rounded-[8px] p-4 border">
+            <p className="text-sm text-os-gray-300 mb-1">Floor Price</p>
             <p className="text-2xl font-bold">{collection.floorPrice} ETH</p>
           </div>
-          <div className="bg-card rounded-lg p-4 border">
-            <p className="text-sm text-muted-foreground mb-1">Volume (24h)</p>
+          <div className="bg-card rounded-[8px] p-4 border">
+            <p className="text-sm text-os-gray-300 mb-1">Volume (24h)</p>
             <p className="text-2xl font-bold">{collection.volume24h} ETH</p>
           </div>
         </div>
@@ -93,7 +93,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {collectionNFTs.map(nft => (
-            <Card key={nft.id} className="group hover:shadow-lg transition-shadow">
+            <Card key={nft.id} className="group hover:shadow-os-focus transition-shadow">
               <CardContent className="p-0">
                 <Link href={`/nft/${nft.id}`}>
                   <div className="aspect-square relative overflow-hidden rounded-t-lg">
@@ -103,7 +103,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all duration-150">
                       <Button
                         size="icon"
                         variant="ghost"
@@ -122,8 +122,8 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                 <div className="p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <p className="text-xs text-muted-foreground">{collection.name}</p>
-                      <h3 className="font-semibold">{nft.name}</h3>
+                      <p className="text-xs text-os-gray-300">{collection.name}</p>
+                      <h3 className="font-medium font-sans">{nft.name}</h3>
                     </div>
                     <Badge variant="outline" className="text-xs">
                       #{nft.id.slice(-4)}
@@ -132,7 +132,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
                   <div className="flex justify-between items-end">
                     <div>
-                      <p className="text-xs text-muted-foreground">Current Price</p>
+                      <p className="text-xs text-os-gray-300">Current Price</p>
                       <p className="font-bold">{nft.price} ETH</p>
                     </div>
                     <div className="flex gap-1">
@@ -153,7 +153,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
 
         {collectionNFTs.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No NFTs found in this collection</p>
+            <p className="text-os-gray-300">No NFTs found in this collection</p>
           </div>
         )}
       </div>

@@ -60,9 +60,9 @@ export default function MintInfo() {
   return (
     <div className="space-y-4">
       {/* Token Standard Info */}
-      <div className="p-3 bg-secondary dark:bg-dialog rounded-lg border border-border dark:border-border">
+      <div className="p-3 bg-secondary dark:bg-dialog rounded-[8px] border border-border-subtle dark:border-border-subtle">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground dark:text-foreground">
+          <span className="text-sm font-medium text-white dark:text-white">
             Token Standard: {tokenStandard}
           </span>
           <span className="text-xs px-2 py-1 rounded-full bg-info/10 text-info dark:bg-info/10 dark:text-info">
@@ -70,7 +70,7 @@ export default function MintInfo() {
           </span>
         </div>
         {isERC721 && SUPPORTS_BATCH && (
-          <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+          <p className="text-xs text-os-gray-300 dark:text-os-gray-300 mt-1">
             ERC-721A batch minting supported
           </p>
         )}
@@ -85,7 +85,7 @@ export default function MintInfo() {
             <Label className="text-sm text-white flex items-center gap-1">
               Allowlist Mint Credentials <span className="text-primary">*</span>
             </Label>
-            <span className="text-sm text-muted-foreground">Required</span>
+            <span className="text-sm text-os-gray-300">Required</span>
           </div>
           <div className="space-y-2">
             <div className="relative">
@@ -101,7 +101,7 @@ export default function MintInfo() {
                 }}
                 placeholder="Signature (0x...)"
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border text-white placeholder:text-muted-foreground dark:bg-dialog dark:border-border",
+                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   signature &&
                     !/^0x[0-9a-fA-F]{130}$/.test(signature) &&
                     "border-destructive focus-visible:ring-destructive"
@@ -112,7 +112,7 @@ export default function MintInfo() {
                 <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-success" />
               )}
             </div>
-            <p className="text-sm text-muted-foreground">65-byte hex signature provided by the allowlist</p>
+            <p className="text-sm text-os-gray-300">65-byte hex signature provided by the allowlist</p>
           </div>
           <div className="space-y-2">
             <div className="relative">
@@ -130,7 +130,7 @@ export default function MintInfo() {
                 type="number"
                 min={0}
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border text-white placeholder:text-muted-foreground dark:bg-dialog dark:border-border",
+                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   nonce &&
                     (!Number.isInteger(Number(nonce)) || Number(nonce) < 0) &&
                     "border-destructive focus-visible:ring-destructive"
@@ -141,7 +141,7 @@ export default function MintInfo() {
                 <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-success" />
               )}
             </div>
-            <p className="text-sm text-muted-foreground">Nonce value provided by the allowlist</p>
+            <p className="text-sm text-os-gray-300">Nonce value provided by the allowlist</p>
           </div>
         </div>
       )}
@@ -149,8 +149,8 @@ export default function MintInfo() {
       <div className="space-y-2">
         {/* ERC-721 without batch support - quantity fixed at 1 */}
         {isERC721 && !SUPPORTS_BATCH ? (
-          <div className="p-3 bg-muted dark:bg-muted rounded-md border border-border dark:border-border">
-            <span className="text-sm text-muted-foreground dark:text-muted-foreground">
+          <div className="p-3 bg-muted dark:bg-muted rounded-[6px] border border-border-subtle dark:border-border-subtle">
+            <span className="text-sm text-os-gray-300 dark:text-os-gray-300">
               Quantity is fixed at 1 for this ERC-721 collection
             </span>
           </div>
@@ -174,7 +174,7 @@ export default function MintInfo() {
               onChange={e => setAmount(Math.max(1, Math.min(maxQuantity, Number(e.target.value))))}
               min={1}
               max={maxQuantity}
-              className="h-10 text-sm bg-dialog border-border text-white text-center w-20"
+              className="h-10 text-sm bg-dialog border-border-subtle text-white text-center w-20"
               aria-label="Number of NFTs to mint"
             />
             <Button
@@ -200,7 +200,7 @@ export default function MintInfo() {
           </div>
         )}
 
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-os-gray-300">
           {isERC1155 && selectedEditionData ? (
             <>
               Minting {amount} of &quot;{selectedEditionData.name}&quot; edition.
@@ -232,10 +232,10 @@ export default function MintInfo() {
           id="terms"
           checked={agreedToTerms}
           onCheckedChange={checked => setAgreedToTerms(checked as boolean)}
-          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-border dark:data-[state=checked]:bg-primary dark:data-[state=checked]:border-primary dark:border-border"
+          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-border-subtle dark:data-[state=checked]:bg-primary dark:data-[state=checked]:border-primary dark:border-border-subtle"
           aria-label="Agree to terms of service"
         />
-        <Label htmlFor="terms" className="text-sm text-muted-foreground leading-tight">
+        <Label htmlFor="terms" className="text-sm text-os-gray-300 leading-tight">
           By clicking mint, you agree to the{" "}
           <a
             href="#"

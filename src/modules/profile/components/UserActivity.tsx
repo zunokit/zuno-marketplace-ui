@@ -35,7 +35,7 @@ export function UserActivity({ profile }: UserActivityProps) {
       <div className="mx-auto px-4 py-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Activity</h2>
-          <p className="text-muted-foreground">Recent transactions and activities</p>
+          <p className="text-os-gray-300">Recent transactions and activities</p>
         </div>
 
         <Tabs value={activityFilter} onValueChange={setActivityFilter}>
@@ -51,7 +51,7 @@ export function UserActivity({ profile }: UserActivityProps) {
           <TabsContent value={activityFilter}>
             {filteredActivities.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No activity found</p>
+                <p className="text-os-gray-300">No activity found</p>
               </div>
             ) : (
               <ActivityList activities={filteredActivities} />

@@ -108,9 +108,9 @@ export default function NavLink({
           aria-expanded={isOpen}
           aria-current={active ? "page" : undefined}
           className={cn(
-            "px-3 py-2 rounded-md text-sm font-medium text-foreground hover:text-foreground transition-colors flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
+            "px-3 py-2 rounded-[6px] text-sm font-medium text-white hover:text-white transition-all duration-150 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
             "dark:text-white/70 dark:hover:text-white",
-            active && "bg-secondary text-foreground dark:bg-white/10 dark:text-white"
+            active && "bg-secondary text-white dark:bg-white/10 dark:text-white"
           )}
         >
           {children}
@@ -128,7 +128,7 @@ export default function NavLink({
               : "opacity-0 scale-95 -translate-y-1 pointer-events-none"
           )}
         >
-          <div className="rounded-lg bg-background shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-card dark:ring-border overflow-hidden">
+          <div className="rounded-[8px] bg-background shadow-os-focus ring-1 ring-black ring-opacity-5 dark:bg-card dark:ring-border overflow-hidden">
             <div className="py-1" role="menu">
               {dropdownItems.map(item => {
                 const Icon = item.icon ? iconMap[item.icon] : null;
@@ -143,11 +143,11 @@ export default function NavLink({
                   >
                     <div className="flex items-start gap-3">
                       {Icon && (
-                        <Icon className="h-4 w-4 mt-0.5 text-muted-foreground group-hover:text-foreground dark:group-hover:text-foreground" />
+                        <Icon className="h-4 w-4 mt-0.5 text-os-gray-300 group-hover:text-white dark:group-hover:text-white" />
                       )}
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-foreground group-hover:text-foreground dark:group-hover:text-white">
+                          <span className="text-sm font-medium text-white group-hover:text-white dark:group-hover:text-white">
                             {item.label}
                           </span>
                           {item.badge && (
@@ -166,7 +166,7 @@ export default function NavLink({
                           )}
                         </div>
                         {item.description && (
-                          <p className="text-xs text-muted-foreground mt-0.5">
+                          <p className="text-xs text-os-gray-300 mt-0.5">
                             {item.description}
                           </p>
                         )}
@@ -187,9 +187,9 @@ export default function NavLink({
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "px-3 py-2 rounded-md text-sm font-medium text-foreground hover:text-foreground  transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
+        "px-3 py-2 rounded-[6px] text-sm font-medium text-white hover:text-white  transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
         "dark:text-white/70 dark:hover:text-white ",
-        active && "bg-secondary text-foreground dark:bg-white/10 dark:text-white"
+        active && "bg-secondary text-white dark:bg-white/10 dark:text-white"
       )}
     >
       {children}

@@ -218,7 +218,7 @@ export default function MintButton() {
             config.variant === "destructive" &&
               "bg-destructive hover:bg-destructive/90 text-white dark:bg-destructive dark:hover:bg-destructive/90",
             config.variant === "secondary" &&
-              "bg-secondary hover:bg-muted text-foreground dark:bg-muted dark:hover:bg-hover dark:text-foreground",
+              "bg-secondary hover:bg-muted text-white dark:bg-muted dark:hover:bg-hover dark:text-white",
             config.disabled && "opacity-50 cursor-not-allowed"
           )}
         >

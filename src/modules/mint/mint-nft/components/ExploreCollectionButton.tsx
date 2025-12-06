@@ -13,7 +13,7 @@ export default function ExploreCollectionButton() {
     <div className="w-full bg-secondary dark:bg-card p-3 rounded-xs">
       <Link
         href={`/marketplace/${collection?.slug}`}
-        className="flex items-center justify-center gap-2 p-2 w-full rounded-xs bg-muted hover:bg-muted/80 text-foreground dark:bg-muted dark:hover:bg-muted/80 dark:text-foreground text-sm"
+        className="flex items-center justify-center gap-2 p-2 w-full rounded-xs bg-muted hover:bg-muted/80 text-white dark:bg-muted dark:hover:bg-muted/80 dark:text-white text-sm"
       >
         <p>Explore Collection</p>
         <ExternalLink className="w-3 h-3" />

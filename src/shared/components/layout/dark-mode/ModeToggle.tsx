@@ -29,7 +29,7 @@ export function ModeToggle() {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      className="bg-background border-border hover:bg-secondary text-foreground dark:bg-card dark:border-border dark:hover:bg-card/80 dark:text-white/70 transition-colors"
+      className="bg-background border-border-subtle hover:bg-secondary text-white dark:bg-card dark:border-border-subtle dark:hover:bg-card/80 dark:text-white/70 transition-all duration-150"
     >
       {currentTheme === "dark" ? (
         <Sun className="h-[1.2rem] w-[1.2rem] text-amber-500" />

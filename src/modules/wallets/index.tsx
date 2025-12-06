@@ -64,14 +64,14 @@ export function Wallets() {
     <div className="mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Connect Your Wallet</h1>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Choose from a variety of wallets to connect to the marketplace
         </p>
       </div>
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-os-gray-300" />
         <Input
           placeholder="Search wallets..."
           value={searchQuery}
@@ -101,8 +101,8 @@ export function Wallets() {
         <TabsContent value={selectedCategory}>
           {filteredWallets.length === 0 ? (
             <div className="text-center py-12">
-              <Wallet2 className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground">No wallets found matching your criteria</p>
+              <Wallet2 className="h-12 w-12 mx-auto mb-4 text-os-gray-300" />
+              <p className="text-os-gray-300">No wallets found matching your criteria</p>
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

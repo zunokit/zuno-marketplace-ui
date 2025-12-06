@@ -10,14 +10,14 @@ type MintAmountProps = {
 
 export default function MintAmount({ amount, setAmount, maxQuantity }: MintAmountProps) {
   return (
-    <div className="flex items-center border border-border rounded-xs  overflow-hidden">
+    <div className="flex items-center border border-border-subtle rounded-xs  overflow-hidden">
       <Button
         type="button"
         variant="ghost"
         size="sm"
         onClick={() => setAmount(Math.max(1, amount - 1))}
         disabled={amount <= 1}
-        className="w-10 h-10 p-0 rounded-none border-r border-border disabled:opacity-50 text-muted-foreground"
+        className="w-10 h-10 p-0 rounded-none border-r border-border-subtle disabled:opacity-50 text-os-gray-300"
       >
         -
       </Button>
@@ -28,7 +28,7 @@ export default function MintAmount({ amount, setAmount, maxQuantity }: MintAmoun
         onChange={e => setAmount(Math.max(1, Math.min(maxQuantity, Number(e.target.value))))}
         min={1}
         max={maxQuantity}
-        className="h-10 text-sm bg-transparent border-0 text-foreground dark:text-white text-center w-16 focus:ring-0 focus:border-0"
+        className="h-10 text-sm bg-transparent border-0 text-white dark:text-white text-center w-16 focus:ring-0 focus:border-0"
         aria-label="Number of NFTs to mint"
       />
       <Button
@@ -37,7 +37,7 @@ export default function MintAmount({ amount, setAmount, maxQuantity }: MintAmoun
         size="sm"
         onClick={() => setAmount(Math.min(maxQuantity, amount + 1))}
         disabled={amount >= maxQuantity}
-        className="w-10 h-10 p-0 rounded-none border-l border-border disabled:opacity-50 text-muted-foreground"
+        className="w-10 h-10 p-0 rounded-none border-l border-border-subtle disabled:opacity-50 text-os-gray-300"
       >
         +
       </Button>

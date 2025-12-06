@@ -46,7 +46,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <h3 className="text-lg font-medium">Something went wrong</h3>
-            <p className="text-muted-foreground">
+            <p className="text-os-gray-300">
               Please try refreshing the page or contact support.
             </p>
           </div>
@@ -260,14 +260,14 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <h3 className="text-lg font-medium">No Collection Found</h3>
-          <p className="text-muted-foreground">Collection not available</p>
+          <p className="text-os-gray-300">Collection not available</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen text-foreground transition-colors duration-300">
+    <div className="min-h-screen text-white transition-all duration-150 duration-300">
       <main className="w-full mx-auto relative">
         <div className="w-full">
           <InformationNFT collection={collection} />
@@ -318,7 +318,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             <div className="flex items-center justify-center p-12">
               <div className="text-center">
                 <h3 className="text-lg font-medium">Coming Soon</h3>
-                <p className="text-muted-foreground">Items functionality will be available soon</p>
+                <p className="text-os-gray-300">Items functionality will be available soon</p>
               </div>
             </div>
           </TabsContent>
@@ -381,7 +381,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                         <div className="flex items-center justify-center h-64">
                           <div className="text-center">
                             <h3 className="text-lg font-medium">No Items Found</h3>
-                            <p className="text-muted-foreground">
+                            <p className="text-os-gray-300">
                               Adjust your filters to see more items.
                             </p>
                           </div>
@@ -439,7 +439,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             <div className="flex items-center justify-center p-12">
               <div className="text-center">
                 <h3 className="text-lg font-medium">No Offers Available</h3>
-                <p className="text-muted-foreground">
+                <p className="text-os-gray-300">
                   There are currently no offers for this collection
                 </p>
               </div>

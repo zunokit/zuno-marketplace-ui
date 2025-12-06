@@ -81,7 +81,7 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
           <TabsTrigger key={tab.value} value={tab.value} className="flex items-center gap-2">
             <tab.icon className="h-4 w-4" />
             <span>{tab.label}</span>
-            <span className="ml-1 text-xs text-muted-foreground">({tab.count})</span>
+            <span className="ml-1 text-xs text-os-gray-300">({tab.count})</span>
           </TabsTrigger>
         ))}
       </TabsList>
@@ -131,7 +131,7 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
 
       <TabsContent value="offers" className="mt-6">
         <div className="text-center py-12">
-          <p className="text-muted-foreground">No active offers</p>
+          <p className="text-os-gray-300">No active offers</p>
         </div>
       </TabsContent>
     </Tabs>

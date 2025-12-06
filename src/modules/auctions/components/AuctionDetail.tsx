@@ -82,14 +82,14 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
 
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Description</h3>
-              <p className="text-muted-foreground">{auction.description}</p>
+              <h3 className="font-medium font-sans mb-4">Description</h3>
+              <p className="text-os-gray-300">{auction.description}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Seller</h3>
+              <h3 className="font-medium font-sans mb-4">Seller</h3>
               <div className="flex items-center gap-3">
                 <Avatar className="h-12 w-12">
                   <AvatarImage src={auction.seller.avatar} />
@@ -99,7 +99,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                   <p className="font-medium">
                     {auction.seller.name || auction.seller.address.slice(0, 8)}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-os-gray-300">
                     {auction.seller.address.slice(0, 6)}...
                     {auction.seller.address.slice(-4)}
                   </p>
@@ -130,7 +130,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
           <div className="grid grid-cols-3 gap-4">
             <Card>
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                <div className="flex items-center gap-2 text-os-gray-300 mb-1">
                   <Clock className="h-4 w-4" />
                   <span className="text-xs">Time Left</span>
                 </div>
@@ -139,7 +139,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
             </Card>
             <Card>
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                <div className="flex items-center gap-2 text-os-gray-300 mb-1">
                   <Users className="h-4 w-4" />
                   <span className="text-xs">Bidders</span>
                 </div>
@@ -148,7 +148,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
             </Card>
             <Card>
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                <div className="flex items-center gap-2 text-os-gray-300 mb-1">
                   <TrendingUp className="h-4 w-4" />
                   <span className="text-xs">Bid Increment</span>
                 </div>
@@ -161,7 +161,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
           <Card>
             <CardContent className="p-6 space-y-4">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">
+                <p className="text-sm text-os-gray-300 mb-1">
                   {auction.bids.length > 0 ? "Current Bid" : "Starting Price"}
                 </p>
                 <p className="text-4xl font-bold">
@@ -197,15 +197,15 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                       Place Bid
                     </Button>
                   </div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-os-gray-300">
                     You must bid at least {minBidAmount.toFixed(3)} {auction.currency}
                   </p>
                 </div>
               )}
 
               {auction.status === "ended" && auction.winner && (
-                <div className="bg-muted/50 rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground mb-1">Winner</p>
+                <div className="bg-muted/50 rounded-[8px] p-4">
+                  <p className="text-sm text-os-gray-300 mb-1">Winner</p>
                   <p className="font-medium">{auction.winner.name || auction.winner.address}</p>
                   <p className="text-2xl font-bold mt-1">
                     {auction.currentBid} {auction.currency}
@@ -233,12 +233,12 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                   className="mt-4 space-y-3 max-h-[400px] overflow-y-auto"
                 >
                   {auction.bids.length === 0 ? (
-                    <p className="text-center text-muted-foreground py-4">No bids yet</p>
+                    <p className="text-center text-os-gray-300 py-4">No bids yet</p>
                   ) : (
                     auction.bids.map((bid, index) => (
                       <div
                         key={bid.id}
-                        className={`flex items-center justify-between p-3 rounded-lg ${
+                        className={`flex items-center justify-between p-3 rounded-[8px] ${
                           index === 0 ? "bg-primary/10 border border-primary/20" : "bg-muted/50"
                         }`}
                       >
@@ -251,7 +251,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                             <p className="font-medium text-sm">
                               {bid.bidder.name || bid.bidder.address.slice(0, 8)}
                             </p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-xs text-os-gray-300">
                               {formatDistanceToNow(bid.timestamp, {
                                 addSuffix: true,
                               })}
@@ -259,7 +259,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="font-semibold">
+                          <p className="font-medium font-sans">
                             {bid.amount} {auction.currency}
                           </p>
                           {index === 0 && (
@@ -275,27 +275,27 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
 
                 <TabsContent value="details" className="mt-4 space-y-2">
                   <div className="flex justify-between py-2">
-                    <span className="text-muted-foreground">Contract</span>
+                    <span className="text-os-gray-300">Contract</span>
                     <span className="font-mono text-sm">
                       {auction.contractAddress.slice(0, 6)}...
                       {auction.contractAddress.slice(-4)}
                     </span>
                   </div>
                   <div className="flex justify-between py-2">
-                    <span className="text-muted-foreground">Token ID</span>
+                    <span className="text-os-gray-300">Token ID</span>
                     <span>{auction.tokenId}</span>
                   </div>
                   <div className="flex justify-between py-2">
-                    <span className="text-muted-foreground">Start Time</span>
+                    <span className="text-os-gray-300">Start Time</span>
                     <span>{auction.startTime.toLocaleDateString()}</span>
                   </div>
                   <div className="flex justify-between py-2">
-                    <span className="text-muted-foreground">End Time</span>
+                    <span className="text-os-gray-300">End Time</span>
                     <span>{auction.endTime.toLocaleDateString()}</span>
                   </div>
                   {auction.reservePrice && (
                     <div className="flex justify-between py-2">
-                      <span className="text-muted-foreground">Reserve Price</span>
+                      <span className="text-os-gray-300">Reserve Price</span>
                       <span>
                         {auction.reservePrice} {auction.currency}
                       </span>

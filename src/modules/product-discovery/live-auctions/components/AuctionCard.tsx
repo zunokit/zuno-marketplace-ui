@@ -78,12 +78,12 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
 
   const getBadgeStyles = () => {
     if (urgency === "urgent") {
-      return "bg-red-500/90 text-white border-red-400/20 shadow-lg shadow-red-500/30";
+      return "bg-red-500/90 text-white border-red-400/20 shadow-os-focus shadow-red-500/30";
     }
     if (urgency === "warning") {
-      return "bg-orange-500/90 text-white border-orange-400/20 shadow-lg shadow-orange-500/30";
+      return "bg-orange-500/90 text-white border-orange-400/20 shadow-os-focus shadow-orange-500/30";
     }
-    return "bg-black/60 text-white border-white/10 shadow-lg";
+    return "bg-black/60 text-white border-white/10 shadow-os-focus";
   };
 
   return (
@@ -99,7 +99,7 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
 export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLeave }: AuctionCardProps) {
   return (
     <Card
-      className="overflow-hidden border-2 border-border/50 flex flex-col bg-card transition-all duration-300"
+      className="overflow-hidden border-2 border-border-subtle/50 flex flex-col bg-card transition-all duration-300"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -123,7 +123,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
             <TimeRemaining endTime={auction.endTime} />
             <Badge
               variant="secondary"
-              className="backdrop-blur-xl bg-black/60 border-white/10 text-white font-semibold shadow-lg"
+              className="backdrop-blur-xl bg-black/60 border-white/10 text-white font-medium font-sans shadow-os-focus"
             >
               <Eye className="h-3 w-3 mr-1" />
               {auction.viewers}
@@ -132,7 +132,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
 
           {/* Live Indicator */}
           <div className="absolute bottom-3 left-3">
-            <Badge className="bg-red-500 text-white border-0 shadow-lg shadow-red-500/50 font-bold px-2.5 py-1">
+            <Badge className="bg-red-500 text-white border-0 shadow-os-focus shadow-red-500/50 font-bold px-2.5 py-1">
               <span className="relative flex h-2 w-2 mr-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
@@ -147,21 +147,21 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
       <CardContent className="pt-3 pb-2 px-3 flex-1 flex flex-col">
         {/* Collection & Title */}
         <div className="mb-2">
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+          <p className="text-[10px] font-medium font-sans text-os-gray-300 uppercase tracking-wide mb-1">
             {auction.collection}
           </p>
-          <h3 className="font-bold text-sm leading-tight line-clamp-1 text-foreground">
+          <h3 className="font-bold text-sm leading-tight line-clamp-1 text-white">
             {auction.name}
           </h3>
         </div>
 
         {/* Seller Info */}
-        <div className="flex items-center gap-1.5 mb-3 pb-2 border-b border-border/30">
-          <Avatar className="h-5 w-5 border border-border/50">
+        <div className="flex items-center gap-1.5 mb-3 pb-2 border-b border-border-subtle/30">
+          <Avatar className="h-5 w-5 border border-border-subtle/50">
             <AvatarImage src={auction.seller.avatar} />
             <AvatarFallback className="text-[8px] bg-muted">{auction.seller.name[0]}</AvatarFallback>
           </Avatar>
-          <span className="text-[10px] text-muted-foreground truncate flex-1">
+          <span className="text-[10px] text-os-gray-300 truncate flex-1">
             @{auction.seller.name}
           </span>
           {auction.seller.verified && (
@@ -176,7 +176,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
           {/* Current Bid with Growth */}
           <div>
             <div className="flex items-center justify-between mb-0.5">
-              <p className="text-[10px] font-medium text-muted-foreground">Current Bid</p>
+              <p className="text-[10px] font-medium text-os-gray-300">Current Bid</p>
               <div className="flex items-center gap-0.5 px-1.5 py-0.5 bg-emerald-500/10 dark:bg-emerald-500/5 rounded">
                 <TrendingUp className="h-2.5 w-2.5 text-emerald-600 dark:text-emerald-400" />
                 <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
@@ -185,23 +185,23 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
               </div>
             </div>
             <div className="flex items-baseline gap-1.5">
-              <p className="font-bold text-xl tracking-tight text-foreground">
+              <p className="font-bold text-xl tracking-tight text-white">
                 {auction.currentBid}
               </p>
-              <span className="text-xs font-medium text-muted-foreground">{auction.currency}</span>
+              <span className="text-xs font-medium text-os-gray-300">{auction.currency}</span>
             </div>
           </div>
 
           {/* Bids & Top Bidder */}
-          <div className="flex items-center justify-between py-1.5 px-2 bg-muted/30 rounded-md">
+          <div className="flex items-center justify-between py-1.5 px-2 bg-muted/30 rounded-[6px]">
             <div className="flex items-center gap-1.5">
-              <Avatar className="h-4 w-4 border border-border/50">
+              <Avatar className="h-4 w-4 border border-border-subtle/50">
                 <AvatarImage src={auction.topBidder.avatar} />
                 <AvatarFallback className="text-[7px] bg-background">{auction.topBidder.name[0]}</AvatarFallback>
               </Avatar>
-              <span className="text-[10px] font-medium text-foreground">@{auction.topBidder.name}</span>
+              <span className="text-[10px] font-medium text-white">@{auction.topBidder.name}</span>
             </div>
-            <span className="text-[10px] font-semibold text-muted-foreground">{auction.totalBids} bids</span>
+            <span className="text-[10px] font-medium font-sans text-os-gray-300">{auction.totalBids} bids</span>
           </div>
 
           {/* Reserve Price */}
@@ -209,7 +209,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
             {auction.reservePrice && (
               <div className="space-y-1">
                 <div className="flex items-center justify-between text-[10px]">
-                  <span className="text-muted-foreground font-medium">Reserve</span>
+                  <span className="text-os-gray-300 font-medium">Reserve</span>
                   <span className={`font-bold ${auction.reserveMet ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"}`}>
                     {auction.reserveMet ? "✓ Met" : `${auction.reservePrice} ${auction.currency}`}
                   </span>

@@ -58,15 +58,15 @@ export default async function DiscoverChainPage({ params }: PageProps) {
 
       <div className="pt-20 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-foreground dark:text-white mb-4">
+          <h1 className="text-3xl font-bold text-white dark:text-white mb-4">
             Discover on {selectedChain?.name}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             Explore NFTs and collections on the {selectedChain?.name} blockchain.
           </p>
 
-          <div className="mt-8 p-6 bg-secondary dark:bg-card rounded-lg">
-            <p className="text-muted-foreground">
+          <div className="mt-8 p-6 bg-secondary dark:bg-card rounded-[8px]">
+            <p className="text-os-gray-300">
               Content for {selectedChain?.name} will be displayed here...
             </p>
           </div>

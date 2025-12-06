@@ -5,24 +5,39 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 const buttonVariants = cva(
-  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all duration-150 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none font-sans",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        // OpenSea primary button (highlighted actions)
+        default: "bg-frosted-2 text-white border border-border-medium hover:bg-border-medium hover:border-border-strong shadow-os-inset font-medium rounded-[6px]",
+
+        // OpenSea secondary button (most common)
+        secondary: "bg-frosted-1 text-os-gray-300 border border-border-subtle hover:bg-hover-bg hover:border-border-medium shadow-os-inset rounded-[6px]",
+
+        // Destructive/Error button
         destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-error-bg-medium text-os-error border border-os-error hover:bg-error-bg-light hover:border-os-error/80 rounded-[6px]",
+
+        // Success button
+        success:
+          "bg-success-bg-medium text-os-success border border-os-success hover:bg-success-bg-light hover:border-os-success/80 rounded-[6px]",
+
+        // Outline button (frosted glass)
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-frosted-2 border border-border-subtle text-white hover:bg-[var(--color-frosted-6)] hover:border-border-strong backdrop-blur-xl rounded-[6px]",
+
+        // Ghost button (no background)
+        ghost: "text-os-gray-300 hover:bg-hover-bg hover:text-white rounded-[6px]",
+
+        // Link-style button
+        link: "text-[rgb(131,195,255)] underline-offset-4 hover:underline hover:opacity-80",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
+        sm: "h-8 gap-1.5 px-3 has-[>svg]:px-2.5 text-xs",
+        lg: "h-10 px-6 has-[>svg]:px-4 text-base",
+        icon: "size-9 rounded-full p-2",
       },
     },
     defaultVariants: {
