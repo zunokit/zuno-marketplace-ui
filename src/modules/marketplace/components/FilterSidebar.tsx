@@ -153,7 +153,7 @@ export default function FilterSidebar({
   return (
     <div className="h-full border-r p-4 space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold">Filters</h3>
+        <h3 className="font-medium font-sans">Filters</h3>
         <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>

@@ -23,7 +23,7 @@ export function AuctionsFilter({ filter, onFilterChange }: AuctionsFilterProps) 
     <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
       <div>
         <h2 className="text-2xl font-bold">Live Auctions</h2>
-        <p className="text-muted-foreground">Bid on exclusive NFTs in real-time auctions</p>
+        <p className="text-os-gray-300">Bid on exclusive NFTs in real-time auctions</p>
       </div>
 
       <Select value={filter.sortBy} onValueChange={handleSortChange}>

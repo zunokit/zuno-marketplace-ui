@@ -103,7 +103,7 @@ export function UserNFTs({ profile }: UserNFTsProps) {
       <div className="mx-auto px-4 py-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Owned NFTs</h2>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             {filteredNFTs.length} of {userNFTs.length} items
           </p>
         </div>
@@ -111,7 +111,7 @@ export function UserNFTs({ profile }: UserNFTsProps) {
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-os-gray-300" />
             <Input
               placeholder="Search NFTs..."
               value={searchQuery}
@@ -149,7 +149,7 @@ export function UserNFTs({ profile }: UserNFTsProps) {
 
         {filteredNFTs.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No NFTs found</p>
+            <p className="text-os-gray-300">No NFTs found</p>
           </div>
         ) : (
           <NFTGrid

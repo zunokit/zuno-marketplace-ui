@@ -12,15 +12,15 @@ interface NFTAttributesProps {
 
 export function NFTAttributes({ attributes }: NFTAttributesProps) {
   if (attributes.length === 0) {
-    return <p className="text-muted-foreground text-sm">No attributes</p>;
+    return <p className="text-os-gray-300 text-sm">No attributes</p>;
   }
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
       {attributes.map((attr, index) => (
-        <div key={index} className="bg-muted/50 rounded-lg p-3 border border-border/50">
-          <p className="text-xs text-muted-foreground uppercase mb-1">{attr.trait_type}</p>
-          <p className="font-semibold text-sm">
+        <div key={index} className="bg-muted/50 rounded-[8px] p-3 border border-border-subtle/50">
+          <p className="text-xs text-os-gray-300 uppercase mb-1">{attr.trait_type}</p>
+          <p className="font-medium font-sans text-sm">
             {attr.display_type === "number" ? attr.value : String(attr.value)}
           </p>
           {attr.display_type === "number" && (

@@ -50,12 +50,12 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
         <div className="grid gap-4">
           {/* NFT Preview */}
           <div className="flex gap-4">
-            <div className="relative h-24 w-24 rounded-lg overflow-hidden">
+            <div className="relative h-24 w-24 rounded-[8px] overflow-hidden">
               {nft.image && <Image src={nft.image} alt={nft.name} fill className="object-cover" />}
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-lg">{nft.name}</h3>
-              <p className="text-sm text-muted-foreground">#{nft.tokenId}</p>
+              <h3 className="font-medium font-sans text-lg">{nft.name}</h3>
+              <p className="text-sm text-os-gray-300">#{nft.tokenId}</p>
               <Badge
                 variant={nft.status === NftStatus.Listed ? "default" : "secondary"}
                 className="mt-2"
@@ -107,7 +107,7 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
                     />
                   </div>
 
-                  <div className="rounded-lg bg-muted p-4">
+                  <div className="rounded-[8px] bg-muted p-4">
                     <h4 className="font-medium mb-2">Listing Summary</h4>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
@@ -124,7 +124,7 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
                           {(parseFloat(listPrice) * 0.025).toFixed(4)} ETH
                         </span>
                       </div>
-                      <div className="flex justify-between font-semibold pt-2 border-t">
+                      <div className="flex justify-between font-medium font-sans pt-2 border-t">
                         <span>You Receive:</span>
                         <span>{(parseFloat(listPrice) * 0.975).toFixed(4)} ETH</span>
                       </div>
@@ -138,7 +138,7 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
               <div className="space-y-3">
                 {nft.attributes?.map((attr, index) => (
                   <div key={index} className="flex justify-between py-2 border-b">
-                    <span className="text-muted-foreground">{attr.trait_type}</span>
+                    <span className="text-os-gray-300">{attr.trait_type}</span>
                     <span className="font-medium">{attr.value}</span>
                   </div>
                 ))}

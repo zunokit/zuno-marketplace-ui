@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Globe, PanelRightClose, PanelRightOpen } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import Image from "next/image";
 import { mockChains } from "@/shared/utils/mock/mockChain";
@@ -19,13 +18,10 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
   const [selectedChain, setSelectedChain] = useState<string>("all");
   const isScrolled = useScroll(10);
 
-  // Đồng bộ giá trị selectedChain với route hiện tại khi component mount
   useEffect(() => {
-    // Kiểm tra xem có phải đang ở route /discover/[slug] không
     const pathSegments = pathname.split("/");
     if (pathSegments.length >= 3 && pathSegments[1] === "discover") {
       const slugFromPath = pathSegments[2];
-      // Kiểm tra xem slug có hợp lệ không
       const supportedChains = mockChains();
       const isValidChain = supportedChains.some(chain => chain.slug === slugFromPath);
 
@@ -35,104 +31,123 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
         setSelectedChain("all");
       }
     } else {
-      // Nếu không phải route discover thì set về "all"
       setSelectedChain("all");
     }
   }, [pathname]);
 
+  const baseButtonStyles = cn(
+    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap text-sm",
+    "transition-[transform,background,border] duration-200 ease-out active:scale-[0.97]",
+    "h-8 rounded-md px-2.5 backdrop-blur-2xl cursor-pointer",
+    "border focus-visible:outline-none"
+  );
+
+  const activeButtonStyles = cn(
+    "font-medium text-foreground",
+    "bg-frosted-2 hover:bg-frosted-6 focus:bg-frosted-6 active:bg-frosted-6",
+    "border-border-medium hover:border-border-strong focus:border-border-strong active:border-border-strong"
+  );
+
+  const inactiveButtonStyles = cn(
+    "text-os-gray-300",
+    "bg-transparent hover:bg-frosted-1 focus:bg-frosted-1 active:bg-frosted-1",
+    "border-border-subtle hover:border-border-medium focus:border-border-medium active:border-border-medium"
+  );
+
   return (
     <div
       className={cn(
-        "fixed left-0 right-0 top-[56px] md:top-[65px] xl:top-[60px] z-40 border-b transition-all duration-300",
+        "sticky top-0 z-30 border-b border-border-subtle transition-all duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border/70 dark:border-border"
-          : "bg-background dark:bg-card border-border dark:border-border"
+          ? "bg-background/80 backdrop-blur-md"
+          : "bg-background"
       )}
     >
-      <div className="w-full mx-auto py-2 md:py-3 px-2 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2 md:gap-4">
-          <div className="flex space-x-0.5 md:space-x-1 overflow-x-auto flex-1 scrollbar-hide"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
+      <div className="w-full mx-auto py-2 md:py-3 px-3 md:px-4 lg:px-6">
+        <div className="flex justify-between relative z-10 w-full items-center gap-4">
+          {/* Chain Navigation */}
+          <nav
+            aria-label="Chains"
+            className="flex items-center gap-2 overflow-x-auto flex-1 scrollbar-hidden"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-          <Link
-            href="/"
-            className={cn(
-              "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-md md:rounded-lg cursor-pointer transition-all duration-200 flex-shrink-0",
-              selectedChain === "all"
-                ? "bg-primary text-primary-foreground"
-                : isScrolled
-                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
-            )}
-          >
-            <Globe className="w-4 h-4 md:w-[18px] md:h-[18px]" />
-            <span
-              className={cn(
-                "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-opacity duration-150 whitespace-nowrap",
-                selectedChain === "all" ? "hidden md:block" : "opacity-0 w-0 overflow-hidden"
-              )}
-            >
-              All Chains
-            </span>
-          </Link>
+            <div className="flex items-center gap-1.5">
+              {/* All Chains Button */}
+              <Link
+                href="/"
+                className={cn(
+                  baseButtonStyles,
+                  selectedChain === "all" ? activeButtonStyles : inactiveButtonStyles
+                )}
+                role="switch"
+                aria-checked={selectedChain === "all"}
+              >
+                All
+              </Link>
 
-          {mockChains().map(chain => (
-            <Link
-              key={chain.id}
-              href={`/discover/${chain.slug}`}
-              className={cn(
-                "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-md md:rounded-lg cursor-pointer transition-all duration-200 flex-shrink-0",
-                String(selectedChain) === String(chain.slug)
-                  ? "bg-primary text-primary-foreground"
-                  : isScrolled
-                    ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                    : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
-              )}
-            >
-              <div
-                className={cn(
-                  "w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center",
-                  String(chain.slug) === String(selectedChain)
-                    ? "bg-primary-foreground/20"
-                    : "bg-transparent"
-                )}
-              >
-                <Image src={chain.icon} alt={`${chain.name} icon`} width={20} height={20} className="md:w-6 md:h-6" />
-              </div>
-              <span
-                className={cn(
-                  "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-opacity duration-150 whitespace-nowrap",
-                  String(chain.slug) === String(selectedChain)
-                    ? "opacity-100"
-                    : "opacity-0 w-0 overflow-hidden"
-                )}
-              >
-                {chain.name}
-              </span>
-            </Link>
-          ))}
-          </div>
+              {/* Chain Buttons */}
+              {mockChains().map(chain => {
+                const isActive = String(selectedChain) === String(chain.slug);
+                return (
+                  <Link
+                    key={chain.id}
+                    href={`/discover/${chain.slug}`}
+                    className={cn(
+                      baseButtonStyles,
+                      isActive ? activeButtonStyles : inactiveButtonStyles
+                    )}
+                    role="switch"
+                    aria-checked={isActive}
+                  >
+                    <div className="flex items-center justify-center w-4 h-4 flex-shrink-0">
+                      <Image
+                        src={chain.icon}
+                        alt={`${chain.name}`}
+                        width={16}
+                        height={16}
+                        className="w-4 h-4 rounded-full object-cover"
+                      />
+                    </div>
+                    {/* Show name only on sm+ screens when active */}
+                    {isActive && (
+                      <span className="font-medium hidden sm:inline">{chain.name}</span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
 
           {/* Sidebar Toggle Button */}
           {onToggleSidebar && (
             <button
+              type="button"
               onClick={onToggleSidebar}
               className={cn(
-                "hidden lg:flex items-center justify-center h-8 md:h-10 w-8 md:w-10 rounded-md md:rounded-lg transition-all duration-200 flex-shrink-0",
-                isScrolled
-                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                "hidden lg:inline-flex items-center justify-center",
+                "whitespace-nowrap rounded-md font-medium",
+                "transition-[transform,background,border] duration-200 ease-out",
+                "focus-visible:outline-none active:scale-[0.97]",
+                "backdrop-blur-2xl h-8 w-8 p-1.5 cursor-pointer",
+                "bg-transparent hover:bg-frosted-1 focus:bg-frosted-1 active:bg-frosted-1",
+                "border border-border-subtle hover:border-border-medium focus:border-border-medium active:border-border-medium"
               )}
-              aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
+              aria-label={isSidebarCollapsed ? "Show Chart" : "Hide Chart"}
             >
-              {isSidebarCollapsed ? (
-                <PanelRightOpen className="w-4 h-4 md:w-[18px] md:h-[18px]" />
-              ) : (
-                <PanelRightClose className="w-4 h-4 md:w-[18px] md:h-[18px]" />
-              )}
+              <div className="flex pointer-events-none" aria-hidden="true">
+                <svg
+                  aria-label={isSidebarCollapsed ? "Show Chart" : "Hide Chart"}
+                  className="fill-current text-os-gray-300"
+                  fill="currentColor"
+                  height="20"
+                  role="img"
+                  viewBox="0 -960 960 960"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="m140-220-60-60 300-300 160 160 284-320 56 56-340 384-160-160-240 240Z" />
+                </svg>
+              </div>
             </button>
           )}
         </div>

@@ -28,14 +28,14 @@ export function UserCollections({ profile }: UserCollectionsProps) {
       <div className="mx-auto px-4 py-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Collections</h2>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             {userCollections.length} collections by {profile.displayName || profile.username}
           </p>
         </div>
 
         {userCollections.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No collections yet</p>
+            <p className="text-os-gray-300">No collections yet</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,7 +44,7 @@ export function UserCollections({ profile }: UserCollectionsProps) {
                 key={collection.address}
                 href={`/collections/${collection.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
-                <Card className="overflow-hidden cursor-pointer hover:shadow-lg transition-all">
+                <Card className="overflow-hidden cursor-pointer hover:shadow-os-focus transition-all">
                   <div className="relative h-32">
                     {collection.banner ? (
                       <Image
@@ -66,7 +66,7 @@ export function UserCollections({ profile }: UserCollectionsProps) {
 
                   <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-semibold truncate">{collection.name}</h3>
+                      <h3 className="font-medium font-sans truncate">{collection.name}</h3>
                       {collection.verified && (
                         <Badge variant="outline" className="text-xs">
                           ✓
@@ -74,27 +74,27 @@ export function UserCollections({ profile }: UserCollectionsProps) {
                       )}
                     </div>
 
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                    <p className="text-sm text-os-gray-300 mb-4 line-clamp-2">
                       {collection.description}
                     </p>
 
                     <div className="grid grid-cols-3 gap-2 text-sm">
                       <div>
-                        <p className="text-xs text-muted-foreground flex items-center gap-1 mb-1">
+                        <p className="text-xs text-os-gray-300 flex items-center gap-1 mb-1">
                           <Package className="h-3 w-3" />
                           Items
                         </p>
                         <p className="font-medium">{collection.itemCount}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-muted-foreground flex items-center gap-1 mb-1">
+                        <p className="text-xs text-os-gray-300 flex items-center gap-1 mb-1">
                           <Users className="h-3 w-3" />
                           Owners
                         </p>
                         <p className="font-medium">{collection.ownerCount}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-muted-foreground flex items-center gap-1 mb-1">
+                        <p className="text-xs text-os-gray-300 flex items-center gap-1 mb-1">
                           <TrendingUp className="h-3 w-3" />
                           Floor
                         </p>
@@ -104,7 +104,7 @@ export function UserCollections({ profile }: UserCollectionsProps) {
 
                     {collection.role === "Collaborator" && (
                       <div className="mt-3 pt-3 border-t">
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-os-gray-300">
                           Owns {collection.itemsOwned} items in this collection
                         </p>
                       </div>

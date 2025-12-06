@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/shared/components/ui/card";
 export function CarouselItemSkeleton() {
   return (
     <div className="relative group h-full">
-      <Card className="overflow-hidden border border-border bg-background dark:bg-card text-foreground dark:text-white text-sm h-full p-0">
+      <Card className="overflow-hidden border border-border bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0">
         <div className="flex flex-col h-full">
           {/* Image skeleton */}
           <div className="relative aspect-square w-full overflow-hidden bg-muted animate-pulse"></div>

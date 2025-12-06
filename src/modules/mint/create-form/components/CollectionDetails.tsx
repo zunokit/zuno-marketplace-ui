@@ -21,7 +21,7 @@ export function CollectionDetails() {
   const { formState, setValue } = useFormContext();
 
   return (
-    <div className="space-y-6 bg-background dark:bg-dialog p-6 rounded-lg border border-border dark:border-border">
+    <div className="space-y-6 bg-background dark:bg-dialog p-6 rounded-[8px] border border-border-subtle dark:border-border-subtle">
       <div className="space-y-6">
         {/* Chain Selection */}
         <div>
@@ -41,7 +41,7 @@ export function CollectionDetails() {
                     value={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-full bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0">
+                      <SelectTrigger className="w-full bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0">
                         <SelectValue>
                           {(() => {
                             const selectedChain = mockChains().find(c => c.name === field.value);
@@ -71,7 +71,7 @@ export function CollectionDetails() {
                         </SelectValue>
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-background dark:bg-muted border-border dark:border-border text-foreground">
+                    <SelectContent className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground">
                       {mockChains().map(chain => (
                         <SelectItem
                           key={chain.id}
@@ -107,7 +107,7 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="The Pond"
-                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -129,7 +129,7 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="POND"
-                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
@@ -144,7 +144,7 @@ export function CollectionDetails() {
         {/* Collection Image */}
         <div>
           <Label className="text-foreground">Collection Image</Label>
-          <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
+          <p className="text-sm text-foreground dark:text-os-gray-300 mt-1">
             Image that will be shown as the main image for the collection. Recommended: 800x800px
             jpg
           </p>
@@ -156,7 +156,7 @@ export function CollectionDetails() {
               render={({ field: { onChange, value, ...field } }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="border border-dashed border-border dark:border-border rounded-md p-6 flex flex-col items-center justify-center bg-secondary dark:bg-transparent mt-2">
+                    <div className="border border-dashed border-border-subtle dark:border-border-subtle rounded-[6px] p-6 flex flex-col items-center justify-center bg-secondary dark:bg-transparent mt-2">
                       <input
                         type="file"
                         id="collection-image"
@@ -181,7 +181,7 @@ export function CollectionDetails() {
                               alt="Collection preview"
                               fill
                               style={{ objectFit: "cover" }}
-                              className="rounded-md"
+                              className="rounded-[6px]"
                             />
                             <button
                               type="button"
@@ -195,20 +195,20 @@ export function CollectionDetails() {
                                 if (input) input.value = "";
                               }}
                             >
-                              <X className="h-4 w-4 text-white" />
+                              <X className="h-4 w-4 text-foreground" />
                             </button>
                           </div>
-                          <p className="text-sm text-foreground dark:text-muted-foreground mt-2">
+                          <p className="text-sm text-foreground dark:text-os-gray-300 mt-2">
                             {value?.name}
                           </p>
-                          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
+                          <p className="text-xs text-os-gray-300 dark:text-os-gray-300">
                             {value && (value.size / 1024 / 1024).toFixed(2)} MB
                           </p>
                         </div>
                       ) : (
                         <>
-                          <Upload className="h-6 w-6 mb-2 text-muted-foreground" />
-                          <p className="text-sm text-center text-foreground dark:text-muted-foreground">
+                          <Upload className="h-6 w-6 mb-2 text-os-gray-300" />
+                          <p className="text-sm text-center text-foreground dark:text-os-gray-300">
                             Drop your artwork here
                             <br />
                             to upload
@@ -217,7 +217,7 @@ export function CollectionDetails() {
                             type="button"
                             variant="outline"
                             size="sm"
-                            className="mt-4 bg-background dark:bg-muted border-border dark:border-border text-foreground hover:bg-muted dark:hover:bg-hover"
+                            className="mt-4 bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground hover:bg-muted dark:hover:bg-hover"
                             onClick={e => {
                               e.preventDefault();
                               document.getElementById("collection-image")?.click();
@@ -249,7 +249,7 @@ export function CollectionDetails() {
                   <FormControl>
                     <Textarea
                       placeholder="e.g. The Pond is the greatest collection ever made"
-                      className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground min-h-24 mt-2 focus-visible:ring-0 focus-visible:ring-offset-0 resize-y"
+                      className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground min-h-24 mt-2 focus-visible:ring-0 focus-visible:ring-offset-0 resize-y"
                       style={{ whiteSpace: "pre-wrap" }}
                       {...field}
                     />

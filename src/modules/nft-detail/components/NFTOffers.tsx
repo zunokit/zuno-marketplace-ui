@@ -33,7 +33,7 @@ export function NFTOffers({ offers, currentPrice, isOwner = false }: NFTOffersPr
   if (offers.length === 0) {
     return (
       <Card className="p-8 text-center">
-        <p className="text-muted-foreground">No offers yet</p>
+        <p className="text-os-gray-300">No offers yet</p>
         <Button className="mt-4" variant="outline">
           Make an Offer
         </Button>
@@ -60,7 +60,7 @@ export function NFTOffers({ offers, currentPrice, isOwner = false }: NFTOffersPr
                   <p className="font-medium">
                     {offer.offerer.name || offer.offerer.address.slice(0, 8)}
                   </p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 text-sm text-os-gray-300">
                     <Clock className="h-3 w-3" />
                     {offer.expiresAt && (
                       <span>
@@ -76,7 +76,7 @@ export function NFTOffers({ offers, currentPrice, isOwner = false }: NFTOffersPr
 
               <div className="flex items-center gap-4">
                 <div className="text-right">
-                  <p className="font-semibold text-lg">
+                  <p className="font-medium font-sans text-lg">
                     {offer.price} {offer.currency}
                   </p>
                   <Badge variant={isHighOffer ? "default" : "secondary"} className="text-xs">

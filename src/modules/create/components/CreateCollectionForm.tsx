@@ -71,7 +71,7 @@ export function CreateCollectionForm() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold mb-2">Create New Collection</h1>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Deploy your own smart contract and launch your NFT collection
         </p>
       </div>
@@ -110,7 +110,7 @@ export function CreateCollectionForm() {
                     value={formData.symbol}
                     onChange={e => handleInputChange("symbol", e.target.value)}
                   />
-                  <p className="text-xs text-muted-foreground">3-4 uppercase letters</p>
+                  <p className="text-xs text-os-gray-300">3-4 uppercase letters</p>
                 </div>
               </div>
 
@@ -199,23 +199,23 @@ export function CreateCollectionForm() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label>Logo Image</Label>
-                  <div className="border-2 border-dashed rounded-lg p-6 text-center hover:bg-muted/50 cursor-pointer">
-                    <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">
+                  <div className="border-2 border-dashed rounded-[8px] p-6 text-center hover:bg-muted/50 cursor-pointer">
+                    <Upload className="h-8 w-8 mx-auto mb-2 text-os-gray-300" />
+                    <p className="text-sm text-os-gray-300">
                       Click to upload or drag and drop
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">Recommended: 350x350px</p>
+                    <p className="text-xs text-os-gray-300 mt-1">Recommended: 350x350px</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label>Banner Image</Label>
-                  <div className="border-2 border-dashed rounded-lg p-6 text-center hover:bg-muted/50 cursor-pointer">
-                    <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">
+                  <div className="border-2 border-dashed rounded-[8px] p-6 text-center hover:bg-muted/50 cursor-pointer">
+                    <Upload className="h-8 w-8 mx-auto mb-2 text-os-gray-300" />
+                    <p className="text-sm text-os-gray-300">
                       Click to upload or drag and drop
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">Recommended: 1400x400px</p>
+                    <p className="text-xs text-os-gray-300 mt-1">Recommended: 1400x400px</p>
                   </div>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export function CreateCollectionForm() {
                     value={formData.maxSupply}
                     onChange={e => handleInputChange("maxSupply", e.target.value)}
                   />
-                  <p className="text-xs text-muted-foreground">Leave empty for unlimited supply</p>
+                  <p className="text-xs text-os-gray-300">Leave empty for unlimited supply</p>
                 </div>
 
                 <div className="space-y-2">
@@ -338,7 +338,7 @@ export function CreateCollectionForm() {
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label>Enable Whitelist</Label>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-os-gray-300">
                     Allow only whitelisted addresses to mint
                   </p>
                 </div>
@@ -351,7 +351,7 @@ export function CreateCollectionForm() {
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label>Enable Presale</Label>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-os-gray-300">
                     Set up a presale phase before public mint
                   </p>
                 </div>
@@ -371,30 +371,30 @@ export function CreateCollectionForm() {
               <CardDescription>Make sure everything looks good before deploying</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-lg bg-muted/50 p-4 space-y-3">
+              <div className="rounded-[8px] bg-muted/50 p-4 space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Name</span>
+                  <span className="text-os-gray-300">Name</span>
                   <span className="font-medium">{formData.name || "—"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Symbol</span>
+                  <span className="text-os-gray-300">Symbol</span>
                   <span className="font-medium">{formData.symbol || "—"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Max Supply</span>
+                  <span className="text-os-gray-300">Max Supply</span>
                   <span className="font-medium">{formData.maxSupply || "Unlimited"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Mint Price</span>
+                  <span className="text-os-gray-300">Mint Price</span>
                   <span className="font-medium">{formData.mintPrice || "0"} ETH</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Royalties</span>
+                  <span className="text-os-gray-300">Royalties</span>
                   <span className="font-medium">{formData.royaltyPercentage}%</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-4 bg-warning/10 rounded-lg">
+              <div className="flex items-center gap-2 p-4 bg-warning/10 rounded-[8px]">
                 <AlertCircle className="h-5 w-5 text-warning" />
                 <p className="text-sm">
                   Deploying a smart contract requires gas fees. Make sure you have enough ETH in

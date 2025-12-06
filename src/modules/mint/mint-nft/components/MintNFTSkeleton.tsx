@@ -5,9 +5,9 @@ export default function MintNFTSkeleton() {
   return (
     <>
       <div className="flex xl:flex-row items-center justify-center gap-10 xl:gap-50 flex-col mb-20">
-        <div className="bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-lg p-5 relative w-full max-w-full overflow-hidden xl:max-w-3xl border border-border">
+        <div className="bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-[8px] p-5 relative w-full max-w-full overflow-hidden xl:max-w-3xl border border-border-subtle">
           {/* Main image skeleton */}
-          <div className="aspect-square relative rounded-md overflow-hidden">
+          <div className="aspect-square relative rounded-[6px] overflow-hidden">
             <Skeleton className="absolute inset-0 w-full h-full" />
           </div>
 
@@ -16,7 +16,7 @@ export default function MintNFTSkeleton() {
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-48 h-48 relative rounded-md overflow-hidden"
+                className="flex-shrink-0 w-48 h-48 relative rounded-[6px] overflow-hidden"
               >
                 <Skeleton className="absolute inset-0 w-full h-full" />
               </div>
@@ -26,7 +26,7 @@ export default function MintNFTSkeleton() {
         <div className="flex flex-col gap-5">
           <div className="bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card flex items-center justify-center p-6">
             <div className="w-full space-y-4 max-w-md">
-              <div className="bg-background border-border dark:bg-card rounded-xl overflow-hidden border shadow-xl">
+              <div className="bg-background border-border-subtle dark:bg-card rounded-[12px] overflow-hidden border shadow-xl">
                 {/* Mint Stages Header */}
                 <div className="p-5 space-y-4 bg-secondary dark:bg-card">
                   <Skeleton className="h-5 w-32" />
@@ -36,7 +36,7 @@ export default function MintNFTSkeleton() {
                     {[...Array(3)].map((_, index) => (
                       <div
                         key={index}
-                        className="rounded-lg py-4 px-5 border border-border"
+                        className="rounded-[8px] py-4 px-5 border border-border-subtle"
                       >
                         <div className="flex justify-between items-center mb-2">
                           <Skeleton className="h-4 w-32" />
@@ -56,7 +56,7 @@ export default function MintNFTSkeleton() {
                 </div>
 
                 {/* Mint Panel */}
-                <div className="p-5 space-y-5 bg-background dark:bg-card border-t border-border">
+                <div className="p-5 space-y-5 bg-background dark:bg-card border-t border-border-subtle">
                   {/* Progress bar */}
                   <div className="space-y-2 pt-1">
                     <div className="flex items-center">
@@ -85,12 +85,12 @@ export default function MintNFTSkeleton() {
                   </div>
 
                   {/* Mint button */}
-                  <Skeleton className="h-10 w-full rounded-md" />
+                  <Skeleton className="h-10 w-full rounded-[6px]" />
                 </div>
               </div>
 
               {/* Explore button */}
-              <Skeleton className="h-10 w-full rounded-md" />
+              <Skeleton className="h-10 w-full rounded-[6px]" />
             </div>
           </div>
           <div className="w-full bg-secondary dark:bg-card p-4 rounded-xs">
@@ -99,7 +99,7 @@ export default function MintNFTSkeleton() {
         </div>
       </div>
       <div className="w-full">
-        <div className="border-b border-border">
+        <div className="border-b border-border-subtle">
           <div className="bg-transparent h-auto p-0">
             <Skeleton className="h-8 w-24" />
           </div>

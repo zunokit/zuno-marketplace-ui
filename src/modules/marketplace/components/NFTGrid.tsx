@@ -27,7 +27,7 @@ export default function NFTGrid({
   selectedNFTs,
 }: NFTGridProps) {
   if (!nfts || nfts.length === 0) {
-    return <div className="p-3 text-center text-muted-foreground">No NFTs available.</div>;
+    return <div className="p-3 text-center text-os-gray-300">No NFTs available.</div>;
   }
 
   const commonProps = {

@@ -5,7 +5,7 @@ import React from "react";
 export default function CollectionOverviewTabs() {
   return (
     <Tabs defaultValue="overview" className="w-full">
-      <div className="border-b border-border">
+      <div className="border-b border-border-subtle">
         <TabsList className="bg-transparent h-auto p-0">
           <TabsTrigger
             value="overview"

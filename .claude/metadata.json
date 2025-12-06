@@ -1,12 +1,10 @@
 {
   "name": "ClaudeKit Engineer",
   "version": "v1.19.0",
-  "installedAt": "2025-12-06T01:11:13.595Z",
+  "installedAt": "2025-12-06T03:58:43.504Z",
   "scope": "local",
   "installedFiles": [
-    ".ckignore",
     ".env.example",
-    ".gitignore",
     ".mcp.json.example",
     "agents/brainstormer.md",
     "agents/code-reviewer.md",
@@ -163,7 +161,6 @@
     "skills/chrome-devtools/references/cdp-domains.md",
     "skills/chrome-devtools/references/performance-guide.md",
     "skills/chrome-devtools/references/puppeteer-reference.md",
-    "skills/chrome-devtools/scripts/.gitignore",
     "skills/chrome-devtools/scripts/README.md",
     "skills/chrome-devtools/scripts/__tests__/selector.test.js",
     "skills/chrome-devtools/scripts/click.js",
@@ -443,7 +440,6 @@
     "skills/mcp-management/references/gemini-cli-integration.md",
     "skills/mcp-management/references/mcp-protocol.md",
     "skills/mcp-management/scripts/.env.example",
-    "skills/mcp-management/scripts/.gitignore",
     "skills/mcp-management/scripts/cli.ts",
     "skills/mcp-management/scripts/dist/analyze-tools.js",
     "skills/mcp-management/scripts/dist/cli.js",
@@ -528,7 +524,6 @@
     "skills/repomix/scripts/tests/test_repomix_batch.py",
     "skills/research/SKILL.md",
     "skills/sequential-thinking/.env.example",
-    "skills/sequential-thinking/.gitignore",
     "skills/sequential-thinking/README.md",
     "skills/sequential-thinking/SKILL.md",
     "skills/sequential-thinking/package.json",
@@ -727,20 +722,8 @@
   ],
   "files": [
     {
-      "path": ".ckignore",
-      "checksum": "c8027cca7bab7c9fb3fcb840314bc403aacb23aa1b27f6cdc5a307d8de2f03ce",
-      "ownership": "user",
-      "installedVersion": "v1.19.0"
-    },
-    {
       "path": ".env.example",
       "checksum": "9a142a3f8a84b67798c4e042ae2188439460cfbfb127e4aae35878f844459743",
-      "ownership": "user",
-      "installedVersion": "v1.19.0"
-    },
-    {
-      "path": ".gitignore",
-      "checksum": "c76731d53b517cc2a60743a9f45d15a53f3e90184017c98868ef91c6f3f61abe",
       "ownership": "user",
       "installedVersion": "v1.19.0"
     },
@@ -1659,12 +1642,6 @@
     {
       "path": "skills/chrome-devtools/scripts/__tests__/selector.test.js",
       "checksum": "69fa6c4d04f2c8d0578325894fc06ea820e4c771d267d90969f09343e076d5e2",
-      "ownership": "user",
-      "installedVersion": "v1.19.0"
-    },
-    {
-      "path": "skills/chrome-devtools/scripts/.gitignore",
-      "checksum": "dba27c31aad935787bb275c3e5e4e957708f15386de599eff1db476022cd7e4c",
       "ownership": "user",
       "installedVersion": "v1.19.0"
     },
@@ -3343,12 +3320,6 @@
       "installedVersion": "v1.19.0"
     },
     {
-      "path": "skills/mcp-management/scripts/.gitignore",
-      "checksum": "1dc41f5f75efaa8248b4c04cae81f5d7e171935f935b280cbc766a62f0cfed91",
-      "ownership": "user",
-      "installedVersion": "v1.19.0"
-    },
-    {
       "path": "skills/mcp-management/scripts/cli.ts",
       "checksum": "598056daca6a872a5277569ddfc39065e8df6031cedb2bf5ed35800867be2c8f",
       "ownership": "user",
@@ -3861,12 +3832,6 @@
     {
       "path": "skills/sequential-thinking/.env.example",
       "checksum": "69cc3a94aa1459e5ea14044e9a6905fd75beacae9665253a4b0c0bd67b92a43d",
-      "ownership": "user",
-      "installedVersion": "v1.19.0"
-    },
-    {
-      "path": "skills/sequential-thinking/.gitignore",
-      "checksum": "dfb359d3c052adc6f35924dbc58aa578329ff77b8c13f365c92cb80f418f4257",
       "ownership": "user",
       "installedVersion": "v1.19.0"
     },

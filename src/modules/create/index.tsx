@@ -88,7 +88,7 @@ export function CreateHub() {
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Create Your NFT</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-xl text-os-gray-300 max-w-2xl mx-auto">
           Choose how you want to bring your digital assets to life
         </p>
       </div>
@@ -100,7 +100,7 @@ export function CreateHub() {
             key={option.id}
             className={`relative overflow-hidden cursor-pointer transition-all duration-300 ${
               selectedOption === option.id
-                ? "ring-2 ring-primary shadow-lg scale-[1.02]"
+                ? "ring-2 ring-primary shadow-os-focus scale-[1.02]"
                 : "hover:shadow-md"
             }`}
             onClick={() => setSelectedOption(option.id as "nft" | "collection")}
@@ -109,7 +109,7 @@ export function CreateHub() {
 
             <CardHeader>
               <div className="flex items-start justify-between mb-2">
-                <div className={`p-3 rounded-lg bg-gradient-to-br ${option.color} text-white`}>
+                <div className={`p-3 rounded-[8px] bg-gradient-to-br ${option.color} text-foreground`}>
                   <option.icon className="h-6 w-6" />
                 </div>
                 <Badge variant="secondary">{option.badge}</Badge>
@@ -148,8 +148,8 @@ export function CreateHub() {
                 <div className="inline-flex p-3 rounded-full bg-primary/10 text-primary mb-4">
                   <benefit.icon className="h-6 w-6" />
                 </div>
-                <h3 className="font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                <h3 className="font-medium font-sans mb-2">{benefit.title}</h3>
+                <p className="text-sm text-os-gray-300">{benefit.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -160,7 +160,7 @@ export function CreateHub() {
       <Card className="mt-12 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-purple-500/20">
         <CardContent className="text-center py-8">
           <h3 className="text-2xl font-bold mb-3">Ready to Create?</h3>
-          <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+          <p className="text-os-gray-300 mb-6 max-w-md mx-auto">
             Join thousands of creators who are already minting and selling their NFTs on our
             platform
           </p>

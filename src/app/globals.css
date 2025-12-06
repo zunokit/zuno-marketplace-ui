@@ -4,13 +4,94 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Base colors */
+  /* ==================== FONTS (OPENSEA INSPIRED) ==================== */
+  --font-sans: var(--font-gt-america, var(--font-geist-sans));
+  --font-mono: var(--font-gt-america-mono, var(--font-geist-mono));
+
+  /* ==================== OPENSEA COLORS - TAILWIND ACCESSIBLE ==================== */
+  /* OpenSea Grays */
+  --color-os-gray-50: #fcfcfc;
+  --color-os-gray-100: #f9f9f9;
+  --color-os-gray-300: #acadae;
+  --color-os-gray-400: #34353c;
+  --color-os-gray-500: #26272d;
+  --color-os-gray-700: #101010;
+
+  /* OpenSea Semantic Colors */
+  --color-os-success: #47bb64;
+  --color-os-error: #e24756;
+  --color-os-info: #83c3ff;
+  --color-os-warning: #ffcc00;
+  --color-os-rare: #00a3ff;
+  --color-os-legendary: #ff8a00;
+  --color-os-epic: #d358ff;
+
+  /* OpenSea Transparency Effects - use CSS vars for light/dark mode support */
+  --color-frosted-1: var(--frosted-1);
+  --color-frosted-2: var(--frosted-2);
+  --color-frosted-6: var(--frosted-6);
+  --color-frosted-7: var(--frosted-7);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-medium: var(--border-medium);
+  --color-border-strong: var(--border-strong);
+  --color-hover-bg: var(--hover-bg);
+  --color-active-bg: var(--active-bg);
+  --color-overlay: var(--overlay-bg);
+
+  /* Success Transparency */
+  --color-success-bg-light: rgb(71 187 100/8%);
+  --color-success-bg-medium: rgb(71 187 100/16%);
+  --color-success-border: rgba(71, 187, 100, 0.3);
+
+  /* Error Transparency */
+  --color-error-bg-light: rgb(226 71 86/8%);
+  --color-error-bg-medium: rgb(226 71 86/16%);
+  --color-error-border: rgba(226, 71, 86, 0.3);
+
+  /* Warning Transparency */
+  --color-warning-bg-light: rgb(255 204 0/8%);
+  --color-warning-bg-medium: rgb(255 204 0/16%);
+  --color-warning-border: rgba(255, 204, 0, 0.3);
+
+  /* Info Transparency */
+  --color-info-bg-light: rgb(131 195 255/8%);
+  --color-info-bg-medium: rgb(131 195 255/16%);
+  --color-info-border: rgba(131, 195, 255, 0.3);
+
+  /* Rarity Transparency */
+  --color-rare-bg: rgb(0 163 255/30%);
+  --color-rare-bg-light: rgb(0 163 255/8%);
+  --color-rare-border: rgba(0, 163, 255, 0.5);
+
+  --color-legendary-bg: rgb(255 138 0/30%);
+  --color-legendary-bg-light: rgb(255 138 0/8%);
+  --color-legendary-border: rgba(255, 138, 0, 0.5);
+
+  --color-epic-bg: rgb(211 88 255/30%);
+  --color-epic-bg-light: rgb(211 88 255/8%);
+  --color-epic-border: rgba(211, 88, 255, 0.5);
+
+  /* ==================== OPENSEA SPACING ==================== */
+  --spacing-os-0_5: 2px;
+  --spacing-os-1: 4px;
+  --spacing-os-1_5: 6px;
+  --spacing-os-2: 8px;
+  --spacing-os-3: 12px;
+  --spacing-os-5: 20px;
+  --spacing-os-6: 24px;
+
+  /* ==================== OPENSEA BORDER RADIUS ==================== */
+  --radius-os-sm: 3px;
+  --radius-os: 4px;
+  --radius-os-md: 4.5px;
+  --radius-os-lg: 6px;
+  --radius-os-xl: 8px;
+  --radius-os-2xl: 12px;
+  --radius-os-full: 9999px;
+
+  /* ==================== BASE THEME COLORS ==================== */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  /* Fonts */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 
   /* UI Elements */
   --color-card: var(--card);
@@ -79,70 +160,244 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  /* ==================== BASE FROSTED/BORDER VARS (dark mode defaults) ==================== */
+  --frosted-1: rgb(255 255 255/4%);
+  --frosted-2: rgb(255 255 255/8%);
+  --frosted-6: rgb(255 255 255/32%);
+  --frosted-7: rgb(255 255 255/50%);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --hover-bg: rgba(255, 255, 255, 0.04);
+  --active-bg: rgba(255, 255, 255, 0.08);
+  --overlay-bg: rgb(0 0 0/60%);
 
-  /* Base colors */
-  --background: oklch(1 0 0); /* White */
-  --foreground: oklch(0.145 0 0); /* Near black */
+  /* ==================== OPENSEA FROSTED/TRANSPARENT COLORS ==================== */
+  --color-frosted-1: rgb(255 255 255/4%);
+  --color-frosted-2: rgb(255 255 255/8%);
+  --color-frosted-6: rgb(255 255 255/32%);
+  --color-frosted-7: rgb(255 255 255/50%);
+  --color-overlay: rgb(0 0 0/60%);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
 
-  /* UI Elements */
-  --card: oklch(1 0 0); /* White */
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0); /* White */
-  --popover-foreground: oklch(0.145 0 0);
-  --dialog: oklch(1 0 0); /* White */
-  --dialog-foreground: oklch(0.145 0 0);
+  /* Success transparencies */
+  --color-success-transparent-1: rgb(71 187 100/8%);
+  --color-success-transparent-2: rgb(71 187 100/16%);
 
-  /* Semantic colors */
-  --primary: oklch(0.205 0 0); /* Dark gray */
-  --primary-foreground: oklch(0.985 0 0); /* Off-white */
-  --secondary: oklch(0.97 0 0); /* Light gray */
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0); /* Light gray */
-  --muted-foreground: oklch(0.556 0 0); /* Medium gray */
-  --accent: oklch(0.97 0 0); /* Light gray */
-  --accent-foreground: oklch(0.205 0 0);
+  /* Error transparencies */
+  --color-error-transparent-1: rgb(226 71 86/8%);
+  --color-error-transparent-2: rgb(226 71 86/16%);
 
-  /* Status colors */
-  --destructive: oklch(0.577 0.245 27.325); /* Red */
-  --destructive-foreground: oklch(0.985 0 0); /* White */
-  --success: oklch(0.6 0.15 145); /* Green */
-  --success-foreground: oklch(0.985 0 0); /* White */
-  --warning: oklch(0.75 0.15 85); /* Yellow/Orange */
-  --warning-foreground: oklch(0.145 0 0); /* Dark text */
-  --info: oklch(0.55 0.18 230); /* Blue */
-  --info-foreground: oklch(0.985 0 0); /* White */
+  /* Warning transparencies */
+  --color-warning-transparent-1: rgb(255 204 0/8%);
+  --color-warning-transparent-2: rgb(255 204 0/16%);
 
-  /* Border & Input */
-  --border: oklch(0.922 0 0); /* Light gray */
-  --border-muted: oklch(0.96 0 0); /* Lighter gray */
-  --input: oklch(0.922 0 0); /* Light gray */
-  --ring: oklch(0.708 0 0); /* Medium gray */
+  /* Rarity transparencies */
+  --color-rare-transparent: rgb(0 163 255/30%);
+  --color-rare-transparent-1: rgb(0 163 255/8%);
+  --color-legendary-transparent: rgb(255 138 0/30%);
+  --color-legendary-transparent-1: rgb(255 138 0/8%);
+  --color-epic-transparent: rgb(211 88 255/30%);
+  --color-epic-transparent-1: rgb(211 88 255/8%);
 
-  /* Interactive states */
-  --hover: oklch(0.95 0 0); /* Slightly darker than background */
-  --active: oklch(0.9 0 0); /* Slightly darker than hover */
+  /* ==================== OPENSEA DARK THEME ==================== */
+  --radius: 6px; /* OpenSea default radius */
+
+  /* Base colors - OpenSea dark theme */
+  --background: oklch(0.145 0 0); /* Very dark #25262b */
+  --foreground: oklch(0.985 0 0); /* Off-white */
+
+  /* UI Elements - OpenSea style frosted glass */
+  --card: oklch(0.18 0 0); /* Slightly lighter than background */
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --dialog: oklch(0.16 0 0);
+  --dialog-foreground: oklch(0.985 0 0);
+
+  /* Semantic colors - OpenSea palette */
+  --primary: #acadae; /* OpenSea gray-300 */
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: rgba(255, 255, 255, 0.08); /* Frosted effect */
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: #acadae;
+  --accent: rgba(255, 255, 255, 0.12);
+  --accent-foreground: oklch(0.985 0 0);
+
+  /* Status colors - OpenSea semantic colors */
+  --destructive: #e24756; /* OpenSea error */
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: #47bb64; /* OpenSea success */
+  --success-foreground: oklch(0.985 0 0);
+  --warning: #ffcc00; /* OpenSea warning */
+  --warning-foreground: oklch(0.145 0 0);
+  --info: #83c3ff; /* OpenSea info blue */
+  --info-foreground: oklch(0.985 0 0);
+
+  /* Border & Input - OpenSea subtle borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-muted: rgba(255, 255, 255, 0.04);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: rgba(255, 255, 255, 0.16);
+
+  /* Interactive states - OpenSea hover effects */
+  --hover: rgba(255, 255, 255, 0.06);
+  --active: rgba(255, 255, 255, 0.1);
 
   /* Scrollbar */
-  --scrollbar-thumb: oklch(0.5 0 0 / 20%);
+  --scrollbar-thumb: oklch(1 0 0 / 20%);
+  --scrollbar-track: transparent;
+
+  /* Charts - OpenSea inspired */
+  --chart-1: #47bb64; /* Success green */
+  --chart-2: #83c3ff; /* Info blue */
+  --chart-3: #ff8a00; /* Legendary orange */
+  --chart-4: #d358ff; /* Epic purple */
+  --chart-5: #e24756; /* Error red */
+
+  /* Sidebar - Dark theme */
+  --sidebar: oklch(0.18 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #acadae;
+  --sidebar-primary-foreground: oklch(0.145 0 0);
+  --sidebar-accent: rgba(255, 255, 255, 0.08);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: rgba(255, 255, 255, 0.16);
+
+  /* OpenSea ring offset */
+  --tw-ring-offset-color: #fff;
+}
+
+/* ==================== LIGHT MODE (WCAG AA COMPLIANT) ==================== */
+html:not(.dark) {
+  /* Light mode frosted/border overrides */
+  --frosted-1: #f3f4f6;
+  --frosted-2: #e5e7eb;
+  --frosted-6: #d1d5db;
+  --frosted-7: #9ca3af;
+  --border-subtle: #d1d5db;
+  --border-medium: #9ca3af;
+  --border-strong: #6b7280;
+  --hover-bg: #f3f4f6;
+  --active-bg: #e5e7eb;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+
+  /* Base colors - High contrast for visibility */
+  --background: #ffffff;          /* Pure white background */
+  --foreground: #0d1117;          /* Very dark text - maximum contrast */
+
+  /* UI Elements - Clear hierarchy with shadows */
+  --card: #f9fafb;                /* Light gray cards - stand out from white */
+  --card-foreground: #0d1117;
+  --popover: #ffffff;
+  --popover-foreground: #0d1117;
+  --dialog: #ffffff;
+  --dialog-foreground: #0d1117;
+
+  /* Semantic colors - Strong contrast */
+  --primary: #1a1a1a;             /* Dark for visibility */
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #0d1117;
+  --muted: #f9fafb;
+  --muted-foreground: #374151;    /* Darker gray - better visibility */
+  --accent: #ddf4ff;              /* Light blue tint */
+  --accent-foreground: #0969da;
+
+  /* Status colors - WCAG AA compliant */
+  --destructive: #cf222e;         /* GitHub red - 5.01:1 */
+  --destructive-foreground: #ffffff;
+  --success: #1a7f37;             /* GitHub green - 4.84:1 */
+  --success-foreground: #ffffff;
+  --warning: #9a6700;             /* Dark yellow - readable */
+  --warning-foreground: #ffffff;
+  --info: #0969da;                /* GitHub blue - 5.88:1 */
+  --info-foreground: #ffffff;
+
+  /* Borders - Visible but not harsh */
+  --border: #d1d5db;              /* Darker borders for visibility */
+  --border-muted: #e5e7eb;
+  --input: #d1d5db;
+  --ring: #0969da;
+
+  /* Interactive states */
+  --hover: #f3f4f6;
+  --active: #e5e7eb;
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
   --scrollbar-track: transparent;
 
   /* Charts */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: #1a7f37;
+  --chart-2: #0969da;
+  --chart-3: #bf8700;
+  --chart-4: #8250df;
+  --chart-5: #cf222e;
 
   /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #24292f;
+  --sidebar-primary: #0969da;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f6f8fa;
+  --sidebar-accent-foreground: #24292f;
+  --sidebar-border: #d0d7de;
+  --sidebar-ring: #0969da;
+
+  /* OpenSea variables - High contrast for light mode */
+  --color-border-subtle: #d1d5db;     /* Darker borders - more visible */
+  --color-border-medium: #9ca3af;
+  --color-border-strong: #6b7280;
+  --color-frosted-1: #f3f4f6;         /* Light gray inputs - visible against white */
+  --color-frosted-2: #e5e7eb;         /* Slightly darker bg */
+  --color-frosted-6: #d1d5db;         /* Hover states - even darker */
+  --color-hover-bg: #f3f4f6;
+  --color-active-bg: #e5e7eb;
+  --color-overlay: rgba(0, 0, 0, 0.75);
+  --color-os-gray-300: #374151;       /* Dark gray - clearly visible secondary text */
+
+  /* Success - Light mode */
+  --color-success-bg-light: #dafbe1;
+  --color-success-bg-medium: #aceebb;
+  --color-success-border: #1a7f37;
+  --color-os-success: #1a7f37;
+
+  /* Error - Light mode */
+  --color-error-bg-light: #ffebe9;
+  --color-error-bg-medium: #ffcecb;
+  --color-error-border: #cf222e;
+  --color-os-error: #cf222e;
+
+  /* Warning - Light mode */
+  --color-warning-bg-light: #fff8c5;
+  --color-warning-bg-medium: #fae17d;
+  --color-warning-border: #9a6700;
+  --color-os-warning: #bf8700;
+
+  /* Info - Light mode */
+  --color-info-bg-light: #ddf4ff;
+  --color-info-bg-medium: #b6e3ff;
+  --color-info-border: #0969da;
+  --color-os-info: #0969da;
+
+  /* Rarity - Light mode vibrant */
+  --color-rare-bg: #ddf4ff;
+  --color-rare-bg-light: #eef8ff;
+  --color-rare-border: #0969da;
+  --color-os-rare: #0969da;
+
+  --color-legendary-bg: #fff8c5;
+  --color-legendary-bg-light: #fffbdd;
+  --color-legendary-border: #bf8700;
+  --color-os-legendary: #bf8700;
+
+  --color-epic-bg: #fbefff;
+  --color-epic-bg-light: #fdf7ff;
+  --color-epic-border: #8250df;
+  --color-os-epic: #8250df;
 }
 
 .dark {
@@ -208,6 +463,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Override OpenSea CSS variables for dark mode */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-frosted-1: rgb(255 255 255/4%);
+  --color-frosted-2: rgb(255 255 255/8%);
+  --color-frosted-6: rgb(255 255 255/32%);
+  --color-hover-bg: rgba(255, 255, 255, 0.04);
+  --color-active-bg: rgba(255, 255, 255, 0.08);
+  --color-overlay: rgb(0 0 0/60%);
+  --color-os-gray-300: #acadae;
 }
 
 @layer base {
@@ -308,4 +575,231 @@
 /* Prevent text selection while scrolling */
 .sticky-table-wrapper:active {
   user-select: none;
+}
+
+/* ==================== OPENSEA UTILITY CLASSES ==================== */
+
+/* OpenSea Button Styles */
+.btn-os-secondary {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: rgb(172, 173, 174);
+  padding: 0px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 14px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-os-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn-os-primary {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgb(255, 255, 255);
+  padding: 0px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-os-primary:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* OpenSea Link Styles */
+.link-os-white {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: 400;
+  transition: opacity 0.15s ease;
+}
+
+.link-os-white:hover {
+  opacity: 0.8;
+}
+
+.link-os-gray {
+  color: rgb(172, 173, 174);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s ease;
+}
+
+.link-os-gray:hover {
+  color: rgb(255, 255, 255);
+}
+
+.link-os-blue {
+  color: rgb(131, 195, 255);
+  text-decoration: none;
+  font-weight: 400;
+  transition: opacity 0.15s ease;
+}
+
+.link-os-blue:hover {
+  opacity: 0.8;
+}
+
+/* OpenSea Card with Frosted Glass */
+.card-os-frosted {
+  background-color: var(--color-frosted-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.card-os-frosted:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* OpenSea Shadows */
+.shadow-os-inset {
+  box-shadow: rgba(255, 255, 255, 0.08) 0px 0px 0px 1px inset;
+}
+
+.shadow-os-sm {
+  box-shadow: rgba(0, 0, 0, 0.03) 0px 1px 2px 0px;
+}
+
+.shadow-os-focus {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px, rgba(0, 0, 0, 0.2) 0px 0px 0px 2px;
+}
+
+/* OpenSea Badge Styles */
+.badge-os-success {
+  background-color: var(--color-success-transparent-2);
+  color: #47bb64;
+  border: 1px solid rgba(71, 187, 100, 0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-os-error {
+  background-color: var(--color-error-transparent-2);
+  color: #e24756;
+  border: 1px solid rgba(226, 71, 86, 0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-os-legendary {
+  background-color: var(--color-legendary-transparent);
+  color: #ff8a00;
+  border: 1px solid rgba(255, 138, 0, 0.5);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-os-epic {
+  background-color: var(--color-epic-transparent);
+  color: #d358ff;
+  border: 1px solid rgba(211, 88, 255, 0.5);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-os-rare {
+  background-color: var(--color-rare-transparent);
+  color: #00a3ff;
+  border: 1px solid rgba(0, 163, 255, 0.5);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* OpenSea Typography - GT America inspired */
+.text-os-h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.5;
+  font-family: var(--font-sans);
+}
+
+.text-os-h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  font-family: var(--font-sans);
+}
+
+.text-os-caption {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(172, 173, 174);
+  font-family: var(--font-sans);
+}
+
+.text-os-mono {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* OpenSea Input Styles */
+.input-os {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+.input-os:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.input-os:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+.input-os::placeholder {
+  color: rgb(172, 173, 174);
 }
