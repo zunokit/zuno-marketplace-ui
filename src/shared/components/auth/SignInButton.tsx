@@ -120,7 +120,7 @@ export function SignInButton() {
         variant="outline"
         size="sm"
         onClick={handleSignOut}
-        className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 text-xs sm:text-sm whitespace-nowrap"
+        className="h-7 sm:h-8 px-2 sm:px-3 text-xs whitespace-nowrap"
       >
         Sign Out
       </Button>
@@ -133,9 +133,9 @@ export function SignInButton() {
       size="sm"
       onClick={handleSignIn}
       disabled={isLoading}
-      className="h-8 sm:h-9 md:h-10 px-2 sm:px-3 text-xs sm:text-sm whitespace-nowrap"
+      className="h-7 sm:h-8 px-2 sm:px-3 text-xs whitespace-nowrap"
     >
-      {isLoading ? 'Signing In...' : 'Sign In'}
+      {isLoading ? 'Signing...' : 'Sign In'}
     </Button>
   );
 }

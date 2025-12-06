@@ -209,7 +209,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
           "fixed right-0 top-1/2 z-50 -translate-y-1/2",
           "inline-flex items-center justify-center",
           "rounded-l-lg border border-r-0 border-border-subtle",
-          "backdrop-blur-2xl bg-card p-2",
+          "backdrop-blur-2xl bg-background p-2",
           "transition-all duration-700 ease-in-out",
           "hover:bg-frosted-1 hover:border-border-medium",
           isCollapsed ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
@@ -221,9 +221,9 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
 
       <aside
         className={cn(
-          "fixed top-[108px] md:top-[124px] xl:top-[117px] right-0",
-          "hidden h-[calc(100vh-108px)] md:h-[calc(100vh-124px)] xl:h-[calc(100vh-117px)]",
-          "flex-shrink-0 border-l border-border-subtle bg-card",
+          "fixed top-10 sm:top-11 lg:top-12 right-0",
+          "hidden h-[calc(100vh-40px)] sm:h-[calc(100vh-44px)] lg:h-[calc(100vh-48px)]",
+          "flex-shrink-0 border-l border-border-subtle bg-background",
           "transition-all duration-700 ease-in-out",
           "lg:flex lg:flex-col overflow-hidden z-30",
           isCollapsed ? "w-0 border-l-0" : "w-[420px]"
@@ -280,7 +280,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 <ChevronLeftIcon />
               </button>
               {showTimePeriodDropdown && (
-                <div className="absolute right-0 top-full z-10 mt-1 w-20 rounded-md border border-border-subtle bg-card shadow-lg">
+                <div className="absolute right-0 top-full z-10 mt-1 w-20 rounded-md border border-border-subtle bg-background shadow-lg">
                   {(Object.keys(timePeriodLabels) as TimePeriod[]).map((period) => (
                     <button
                       key={period}
