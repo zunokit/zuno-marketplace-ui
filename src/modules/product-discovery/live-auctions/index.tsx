@@ -239,14 +239,14 @@ export default function LiveAuctions() {
       <div className="mx-auto">
         {/* Section Header - Matching CarouselHeader */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground dark:text-white">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground dark:text-foreground">
             Live Auctions
           </h2>
           <Button
             variant="outline"
             size="sm"
             asChild
-            className="border-border text-foreground dark:text-white hover:bg-secondary dark:hover:bg-white/5"
+            className="border-border-subtle text-foreground dark:text-foreground hover:bg-secondary dark:hover:bg-card/5"
           >
             <Link href="/auctions">See all</Link>
           </Button>

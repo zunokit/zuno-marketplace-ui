@@ -59,7 +59,7 @@ export function ActivityList({ activities }: ActivityListProps) {
       case "listing":
         return "bg-warning/10 text-warning";
       case "bid":
-        return "bg-accent/10 text-accent";
+        return "bg-frosted-2/10 text-accent";
       case "transfer":
         return "bg-warning/10 text-warning";
       case "mint":
@@ -79,7 +79,7 @@ export function ActivityList({ activities }: ActivityListProps) {
         <Card key={activity.id} className="p-4">
           <div className="flex items-center gap-4">
             {/* NFT Image */}
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg">
+            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-[8px]">
               <Image
                 src={activity.nft.image}
                 alt={activity.nft.name}
@@ -103,7 +103,7 @@ export function ActivityList({ activities }: ActivityListProps) {
                   </div>
 
                   <h4 className="font-medium truncate">{activity.nft.name}</h4>
-                  <p className="text-sm text-muted-foreground truncate">
+                  <p className="text-sm text-os-gray-300 truncate">
                     {activity.nft.collection}
                   </p>
 
@@ -111,15 +111,15 @@ export function ActivityList({ activities }: ActivityListProps) {
                   {(activity.from || activity.to) && (
                     <div className="flex items-center gap-2 mt-2 text-sm">
                       {activity.from && (
-                        <span className="text-muted-foreground">
+                        <span className="text-os-gray-300">
                           From: {truncateAddress(activity.from)}
                         </span>
                       )}
                       {activity.from && activity.to && (
-                        <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                        <ArrowRight className="h-3 w-3 text-os-gray-300" />
                       )}
                       {activity.to && (
-                        <span className="text-muted-foreground">
+                        <span className="text-os-gray-300">
                           To: {truncateAddress(activity.to)}
                         </span>
                       )}
@@ -130,11 +130,11 @@ export function ActivityList({ activities }: ActivityListProps) {
                 {/* Price and Time */}
                 <div className="text-right">
                   {activity.price && (
-                    <p className="font-semibold">
+                    <p className="font-medium font-sans">
                       {activity.price} {activity.currency}
                     </p>
                   )}
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-os-gray-300">
                     {formatDistanceToNow(activity.timestamp, {
                       addSuffix: true,
                     })}

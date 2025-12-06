@@ -62,7 +62,7 @@ export default function CollectionImageCarousel({
           variant="ghost"
           size="icon"
           onClick={handleCloseClick}
-          className="text-white hover:bg-white/10 dark:hover:bg-white/5 h-10 w-10 cursor-pointer"
+          className="text-foreground hover:bg-card/10 dark:hover:bg-card/5 h-10 w-10 cursor-pointer"
           aria-label="Close image carousel"
         >
           <X className="h-7 w-7" />
@@ -74,7 +74,7 @@ export default function CollectionImageCarousel({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-5 z-10 rounded-full bg-black/50 dark:bg-white/10 hover:bg-black/70 dark:hover:bg-white/20 text-white h-12 w-12"
+            className="absolute left-5 z-10 rounded-full bg-black/50 dark:bg-card/10 hover:bg-black/70 dark:hover:bg-card/20 text-foreground h-12 w-12"
             onClick={handlePrevious}
           >
             <ChevronLeft className="h-8 w-8" />
@@ -97,7 +97,7 @@ export default function CollectionImageCarousel({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-5 z-10 rounded-full bg-black/50 dark:bg-white/10 hover:bg-black/70 dark:hover:bg-white/20 text-white h-12 w-12"
+            className="absolute right-5 z-10 rounded-full bg-black/50 dark:bg-card/10 hover:bg-black/70 dark:hover:bg-card/20 text-foreground h-12 w-12"
             onClick={handleNext}
           >
             <ChevronRight className="h-8 w-8" />
@@ -110,8 +110,8 @@ export default function CollectionImageCarousel({
           {images.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentIndex ? "bg-white" : "bg-white/30 dark:bg-white/20"
+              className={`w-3 h-3 rounded-full transition-all duration-150 ${
+                index === currentIndex ? "bg-card" : "bg-card/30 dark:bg-card/20"
               }`}
               onClick={() => setCurrentIndex(index)}
             />

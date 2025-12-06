@@ -73,7 +73,7 @@ const CountdownTimer = ({ endTime, onEnd, isLive = false }: CountdownTimerProps)
           className={`w-10 h-6 flex items-center justify-center rounded text-sm ${
             isLive
               ? "bg-primary/20 text-primary border border-primary/50"
-              : "bg-muted text-muted-foreground border border-border"
+              : "bg-muted text-os-gray-300 border border-border-subtle"
           }`}
         >
           <span className="text-sm">{formatNumber(timeLeft[unit as keyof typeof timeLeft])}</span>

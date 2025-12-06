@@ -65,7 +65,7 @@ export function ProfileSettings() {
     <div className="mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Profile Settings</h1>
-        <p className="text-muted-foreground">Manage your profile information and preferences</p>
+        <p className="text-os-gray-300">Manage your profile information and preferences</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
@@ -99,12 +99,12 @@ export function ProfileSettings() {
 
                 <div className="flex-1 space-y-4">
                   <Label>Banner</Label>
-                  <div className="border-2 border-dashed rounded-lg p-6 text-center">
-                    <Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">
+                  <div className="border-2 border-dashed rounded-[8px] p-6 text-center">
+                    <Upload className="h-8 w-8 mx-auto mb-2 text-os-gray-300" />
+                    <p className="text-sm text-os-gray-300">
                       Click to upload or drag and drop
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">Recommended: 1400x400px</p>
+                    <p className="text-xs text-os-gray-300 mt-1">Recommended: 1400x400px</p>
                   </div>
                 </div>
               </div>
@@ -296,7 +296,7 @@ export function ProfileSettings() {
                 <AlertCircle className="h-5 w-5 text-warning flex-shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <p className="font-medium">Wallet Address</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-os-gray-300">
                     Your wallet address is always public and cannot be hidden. This is required for
                     blockchain transparency.
                   </p>

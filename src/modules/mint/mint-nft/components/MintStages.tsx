@@ -17,18 +17,18 @@ const MintStages = () => {
 
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-foreground dark:text-white">Mint Stages</h4>
+      <h4 className="text-lg font-medium font-sans text-foreground dark:text-foreground">Mint Stages</h4>
       <div
         className={cn(
-          "rounded-lg py-4 px-5 transition-all duration-200 border-2 border-border",
+          "rounded-[8px] py-4 px-5 transition-all duration-200 border-2 border-border-subtle",
           status === "live" &&
             "border border-primary bg-primary/10"
         )}
       >
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
-            <Lock className="h-4 w-4 text-muted-foreground" />
-            <span className="text-foreground dark:text-white text-sm font-semibold">
+            <Lock className="h-4 w-4 text-os-gray-300" />
+            <span className="text-foreground dark:text-foreground text-sm font-medium font-sans">
               {isPublic ? "Public" : "Allowlist"}
             </span>
           </div>
@@ -41,11 +41,11 @@ const MintStages = () => {
             </div>
           )}
           {status === "ended" && (
-            <span className="text-muted-foreground text-sm">ENDED</span>
+            <span className="text-os-gray-300 text-sm">ENDED</span>
           )}
           {status === "upcoming" && startDate && (
             <div className="flex items-center gap-2">
-              <span className="text-muted-foreground text-sm">STARTS IN</span>
+              <span className="text-os-gray-300 text-sm">STARTS IN</span>
               <CountdownTimer endTime={startDate} onEnd={() => {}} isLive={false} />
             </div>
           )}

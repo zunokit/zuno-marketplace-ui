@@ -95,7 +95,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Attributes */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Attributes</h3>
+              <h3 className="font-medium font-sans mb-4">Attributes</h3>
               <NFTAttributes attributes={nft.attributes || []} />
             </CardContent>
           </Card>
@@ -118,7 +118,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
               )}
             </div>
             <h1 className="text-3xl font-bold mb-2">{nft.name}</h1>
-            <p className="text-muted-foreground">
+            <p className="text-os-gray-300">
               Owned by {nft.owner.name || nft.owner.address.slice(0, 8)}
             </p>
           </div>
@@ -128,7 +128,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Current Price</p>
+                  <p className="text-sm text-os-gray-300 mb-1">Current Price</p>
                   <p className="text-3xl font-bold">
                     {nft.price} {nft.currency}
                   </p>
@@ -157,8 +157,8 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Description */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-3">Description</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-medium font-sans mb-3">Description</h3>
+              <p className="text-os-gray-300">
                 {nft.metadata.description || "No description available"}
               </p>
             </CardContent>
@@ -167,10 +167,10 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Details */}
           <Card>
             <CardContent className="p-6">
-              <h3 className="font-semibold mb-3">Details</h3>
+              <h3 className="font-medium font-sans mb-3">Details</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Contract Address</span>
+                  <span className="text-os-gray-300">Contract Address</span>
                   <a
                     href={`https://etherscan.io/address/${nft.blockchain.contractAddress}`}
                     target="_blank"
@@ -182,15 +182,15 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
                   </a>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Token ID</span>
+                  <span className="text-os-gray-300">Token ID</span>
                   <span>{nft.blockchain.tokenId}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Token Standard</span>
+                  <span className="text-os-gray-300">Token Standard</span>
                   <span>{nft.blockchain.tokenStandard}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Chain</span>
+                  <span className="text-os-gray-300">Chain</span>
                   <span>{nft.blockchain.chain}</span>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           <h2 className="text-2xl font-bold mb-6">More from this collection</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {nft.moreFromCollection.slice(0, 6).map(item => (
-              <Card key={item.id} className="cursor-pointer hover:shadow-lg transition-shadow">
+              <Card key={item.id} className="cursor-pointer hover:shadow-os-focus transition-shadow">
                 <div className="relative aspect-square">
                   <Image
                     src={item.image}
@@ -241,7 +241,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
                 </div>
                 <CardContent className="p-3">
                   <p className="font-medium text-sm truncate">{item.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-os-gray-300">
                     {item.price} {item.currency}
                   </p>
                 </CardContent>

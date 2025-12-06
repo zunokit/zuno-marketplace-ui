@@ -27,11 +27,11 @@ export function MintDetails() {
   const stages = watch("stages");
 
   return (
-    <div className="space-y-6 bg-background dark:bg-dialog p-6 rounded-lg border border-border dark:border-border">
+    <div className="space-y-6 bg-background dark:bg-dialog p-6 rounded-[8px] border border-border-subtle dark:border-border-subtle">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <div className="flex items-center gap-1">
-            <Label className="text-foreground dark:text-white">Mint Price</Label>
+            <Label className="text-foreground dark:text-foreground">Mint Price</Label>
           </div>
           {formState.isSubmitting ? (
             <Skeleton className="h-10 w-full mt-1" />
@@ -44,10 +44,10 @@ export function MintDetails() {
                     <div className="flex mt-2">
                       <Input
                         placeholder="0.00"
-                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground dark:text-white rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
-                      <div className="bg-muted dark:bg-hover border border-border dark:border-border rounded-r-md px-4 flex items-center text-foreground dark:text-white">
+                      <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-foreground dark:text-foreground">
                         ETH
                       </div>
                     </div>
@@ -60,8 +60,8 @@ export function MintDetails() {
         </div>
         <div>
           <div className="flex items-center gap-1">
-            <Label className="text-foreground dark:text-white">Royalty Percent</Label>
-            <HelpCircle className="h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
+            <Label className="text-foreground dark:text-foreground">Royalty Percent</Label>
+            <HelpCircle className="h-4 w-4 text-os-gray-300 dark:text-os-gray-300" />
           </div>
           {formState.isSubmitting ? (
             <Skeleton className="h-10 w-full mt-1" />
@@ -77,11 +77,11 @@ export function MintDetails() {
                         type="number"
                         min="0"
                         max="100"
-                        className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground dark:text-white rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                         onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
                       />
-                      <div className="bg-muted dark:bg-hover border border-border dark:border-border rounded-r-md px-4 flex items-center text-foreground dark:text-white">
+                      <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-foreground dark:text-foreground">
                         %
                       </div>
                     </div>
@@ -97,8 +97,8 @@ export function MintDetails() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <div className="flex items-center gap-1">
-            <Label className="text-foreground dark:text-white">Max Supply</Label>
-            <HelpCircle className="h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
+            <Label className="text-foreground dark:text-foreground">Max Supply</Label>
+            <HelpCircle className="h-4 w-4 text-os-gray-300 dark:text-os-gray-300" />
           </div>
           {formState.isSubmitting ? (
             <Skeleton className="h-10 w-full mt-1" />
@@ -112,7 +112,7 @@ export function MintDetails() {
                       placeholder="1000"
                       type="number"
                       min="1"
-                      className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground dark:text-white mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                       {...field}
                       value={field.value || ""}
                       onChange={e =>
@@ -128,8 +128,8 @@ export function MintDetails() {
         </div>
         <div>
           <div className="flex items-center gap-1">
-            <Label className="text-foreground dark:text-white">Mint Limit per Wallet</Label>
-            <HelpCircle className="h-4 w-4 text-muted-foreground dark:text-muted-foreground" />
+            <Label className="text-foreground dark:text-foreground">Mint Limit per Wallet</Label>
+            <HelpCircle className="h-4 w-4 text-os-gray-300 dark:text-os-gray-300" />
           </div>
           {formState.isSubmitting ? (
             <Skeleton className="h-10 w-full mt-1" />
@@ -143,7 +143,7 @@ export function MintDetails() {
                       placeholder="10"
                       type="number"
                       min="1"
-                      className="bg-secondary dark:bg-muted border-border dark:border-border text-foreground dark:text-white mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                       {...field}
                       value={field.value || ""}
                       onChange={e =>
@@ -159,7 +159,7 @@ export function MintDetails() {
         </div>
       </div>
       <div>
-        <Label className="text-foreground dark:text-white">Mint Start Date & Time</Label>
+        <Label className="text-foreground dark:text-foreground">Mint Start Date & Time</Label>
         {formState.isSubmitting ? (
           <Skeleton className="h-10 w-full mt-1" />
         ) : (
@@ -171,7 +171,7 @@ export function MintDetails() {
                   <DateTimePicker24h
                     value={field.value ? new Date(field.value) : undefined}
                     onChange={newDate => field.onChange(newDate.toISOString())}
-                    className="mt-2 [&>div>button]:bg-secondary [&>div>button]:dark:bg-muted [&>div>button]:border-border dark:border-border [&>div>button]:text-foreground [&>div>button]:dark:text-white [&>div>button]:focus-visible:ring-0 [&>div>button]:focus-visible:ring-offset-0 [&>div>div>div]:bg-background [&>div>div>div]:dark:bg-muted [&>div>div>div]:border-border dark:border-border [&>div>div>div]:text-foreground [&>div>div>div]:dark:text-white"
+                    className="mt-2 [&>div>button]:bg-secondary [&>div>button]:dark:bg-muted [&>div>button]:border-border-subtle dark:border-border-subtle [&>div>button]:text-foreground [&>div>button]:dark:text-foreground [&>div>button]:focus-visible:ring-0 [&>div>button]:focus-visible:ring-offset-0 [&>div>div>div]:bg-background [&>div>div>div]:dark:bg-muted [&>div>div>div]:border-border-subtle dark:border-border-subtle [&>div>div>div]:text-foreground [&>div>div>div]:dark:text-foreground"
                   />
                 </FormControl>
                 <FormMessage className="text-destructive" />
@@ -181,8 +181,8 @@ export function MintDetails() {
         )}
       </div>
       <div>
-        <Label className="text-foreground dark:text-white">Mint Stages</Label>
-        <p className="text-sm text-foreground dark:text-muted-foreground mt-1">
+        <Label className="text-foreground dark:text-foreground">Mint Stages</Label>
+        <p className="text-sm text-foreground dark:text-os-gray-300 mt-1">
           Configure your mint stages. Public stage is required.
         </p>
         {/* Show general stages validation errors */}
@@ -198,12 +198,12 @@ export function MintDetails() {
             {/* Show current stages from form */}
             {stages?.[0]?.presale && (
               <div
-                className="border border-border dark:border-border rounded-md p-4 bg-secondary dark:bg-muted relative cursor-pointer"
+                className="border border-border-subtle dark:border-border-subtle rounded-[6px] p-4 bg-secondary dark:bg-muted relative cursor-pointer"
                 onClick={() => setAllowlistDialogOpen(true)}
               >
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-foreground dark:text-white">Allowlist Stage</h3>
+                    <h3 className="font-medium text-foreground dark:text-foreground">Allowlist Stage</h3>
                     <span className="bg-info/10 text-info text-xs px-2 py-0.5 rounded">
                       {stages?.[0]?.presale?.price || getValues("mintPrice") || "0"} ETH
                     </span>
@@ -213,7 +213,7 @@ export function MintDetails() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-muted-foreground"
+                        className="h-8 w-8 text-os-gray-300"
                         onClick={e => e.stopPropagation()}
                       >
                         <MoreVertical className="h-4 w-4" />
@@ -221,14 +221,14 @@ export function MintDetails() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
-                      className="bg-background dark:bg-muted border-border dark:border-border"
+                      className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle"
                     >
                       <DropdownMenuItem
                         onClick={e => {
                           e.stopPropagation();
                           setAllowlistDialogOpen(true);
                         }}
-                        className="text-foreground dark:text-white hover:bg-muted dark:hover:bg-hover cursor-pointer"
+                        className="text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-hover cursor-pointer"
                       >
                         Edit
                       </DropdownMenuItem>
@@ -249,7 +249,7 @@ export function MintDetails() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <div className="mt-2 text-sm text-foreground dark:text-muted-foreground">
+                <div className="mt-2 text-sm text-foreground dark:text-os-gray-300">
                   <span>{stages?.[0]?.presale?.allowlistAddresses?.length || 0} addresses</span>
                   {stages?.[0]?.presale?.duration && (
                     <span className="ml-4">
@@ -263,12 +263,12 @@ export function MintDetails() {
 
             {/* Public Stage - Always present */}
             <div
-              className="border border-border dark:border-border rounded-md p-4 bg-secondary dark:bg-muted relative cursor-pointer"
+              className="border border-border-subtle dark:border-border-subtle rounded-[6px] p-4 bg-secondary dark:bg-muted relative cursor-pointer"
               onClick={() => setPublicDialogOpen(true)}
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-medium text-foreground dark:text-white">Public Stage</h3>
+                  <h3 className="font-medium text-foreground dark:text-foreground">Public Stage</h3>
                   <span className="bg-success/10 text-success text-xs px-2 py-0.5 rounded">
                     {stages?.[0]?.public?.price || getValues("mintPrice") || "0"} ETH
                   </span>
@@ -278,7 +278,7 @@ export function MintDetails() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-muted-foreground"
+                      className="h-8 w-8 text-os-gray-300"
                       onClick={e => e.stopPropagation()}
                     >
                       <MoreVertical className="h-4 w-4" />
@@ -286,21 +286,21 @@ export function MintDetails() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    className="bg-background dark:bg-muted border-border dark:border-border"
+                    className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle"
                   >
                     <DropdownMenuItem
                       onClick={e => {
                         e.stopPropagation();
                         setPublicDialogOpen(true);
                       }}
-                      className="text-foreground dark:text-white hover:bg-muted dark:hover:bg-hover cursor-pointer"
+                      className="text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-hover cursor-pointer"
                     >
                       Edit
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <div className="mt-2 text-sm text-foreground dark:text-muted-foreground">
+              <div className="mt-2 text-sm text-foreground dark:text-os-gray-300">
                 <span>Open to everyone</span>
                 {stages?.[0]?.public?.duration && (
                   <span className="ml-4">
@@ -313,11 +313,11 @@ export function MintDetails() {
 
             {/* Add Allowlist Stage button - only show if no presale exists */}
             {!stages?.[0]?.presale && (
-              <div className="border border-border dark:border-border rounded-md p-3 bg-secondary dark:bg-dialog flex justify-center">
+              <div className="border border-border-subtle dark:border-border-subtle rounded-[6px] p-3 bg-secondary dark:bg-dialog flex justify-center">
                 <Button
                   type="button"
                   variant="ghost"
-                  className="cursor-pointer w-full text-muted-foreground dark:text-muted-foreground flex items-center justify-center gap-2 hover:bg-transparent hover:text-foreground dark:hover:text-muted-foreground"
+                  className="cursor-pointer w-full text-os-gray-300 dark:text-os-gray-300 flex items-center justify-center gap-2 hover:bg-transparent hover:text-foreground dark:hover:text-os-gray-300"
                   onClick={() => {
                     // Add presale stage to the existing stages
                     if (stages?.[0]) {

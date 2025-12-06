@@ -65,7 +65,7 @@ export default function CartModal({
     <ScrollArea className={isMobile ? "flex-1" : "max-h-[400px] pr-4"}>
       <div className="space-y-3">
         {items.map(item => (
-          <div key={item.id} className="flex items-center gap-3 p-3 rounded-lg border bg-card">
+          <div key={item.id} className="flex items-center gap-3 p-3 rounded-[8px] border bg-card">
             {/* Image */}
             <div className="relative h-16 w-16 rounded overflow-hidden flex-shrink-0">
               {item.image && (
@@ -76,8 +76,8 @@ export default function CartModal({
             {/* Info */}
             <div className="flex-1 min-w-0">
               <h4 className="font-medium truncate">{item.name}</h4>
-              <p className="text-sm text-muted-foreground">#{item.tokenId}</p>
-              <p className="text-sm font-semibold">{item.listPrice || item.mintPrice || "0"} ETH</p>
+              <p className="text-sm text-os-gray-300">#{item.tokenId}</p>
+              <p className="text-sm font-medium font-sans">{item.listPrice || item.mintPrice || "0"} ETH</p>
             </div>
 
             {/* Remove Button */}
@@ -124,7 +124,7 @@ export default function CartModal({
         <span>Subtotal ({items.length} items)</span>
         <span>{totalPrice.toFixed(4)} ETH</span>
       </div>
-      <div className="flex justify-between font-semibold">
+      <div className="flex justify-between font-medium font-sans">
         <span>Total</span>
         <span>{totalPrice.toFixed(4)} ETH</span>
       </div>

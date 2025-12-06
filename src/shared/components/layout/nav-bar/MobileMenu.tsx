@@ -49,7 +49,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="text-foreground hover:bg-secondary dark:text-white dark:hover:bg-white/5 shrink-0 h-8 w-8 sm:h-9 sm:w-9"
+          className="text-foreground hover:bg-secondary dark:text-foreground dark:hover:bg-card/5 shrink-0 h-8 w-8 sm:h-9 sm:w-9"
           aria-label="Open menu"
         >
           <MenuIcon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -57,7 +57,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-[85vw] max-w-sm bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-l border-border pt-16 px-4 overflow-y-auto dark:bg-card/95 dark:supports-[backdrop-filter]:bg-card/80 dark:border-border"
+        className="w-[85vw] max-w-sm bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-l border-border-subtle pt-16 px-4 overflow-y-auto dark:bg-card/95 dark:supports-[backdrop-filter]:bg-card/80 dark:border-border-subtle"
       >
         <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
         <nav className="flex flex-col space-y-1">
@@ -70,7 +70,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                   <Link
                     href={item.href}
                     onClick={handleLinkClick}
-                    className="flex-1 px-3 py-2.5 text-base font-medium text-foreground hover:text-foreground hover:bg-secondary rounded-md transition-colors dark:text-white/80 dark:hover:text-white dark:hover:bg-white/5"
+                    className="flex-1 px-3 py-2.5 text-base font-medium text-foreground hover:text-foreground hover:bg-secondary rounded-[6px] transition-all duration-150 dark:text-foreground/80 dark:hover:text-foreground dark:hover:bg-card/5"
                   >
                     {item.label}
                   </Link>
@@ -79,7 +79,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                       variant="ghost"
                       size="icon"
                       onClick={() => toggleExpand(item.id)}
-                      className="h-9 w-9 shrink-0 text-muted-foreground hover:text-foreground dark:hover:text-white"
+                      className="h-9 w-9 shrink-0 text-os-gray-300 hover:text-foreground dark:hover:text-foreground"
                       aria-label={`Toggle ${item.label} submenu`}
                     >
                       <ChevronRight
@@ -99,7 +99,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                         key={dropItem.href}
                         href={dropItem.href}
                         onClick={handleLinkClick}
-                        className="flex items-start gap-2 px-3 py-2 text-sm text-foreground hover:text-foreground hover:bg-secondary/50 rounded-md transition-colors dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 group"
+                        className="flex items-start gap-2 px-3 py-2 text-sm text-foreground hover:text-foreground hover:bg-secondary/50 rounded-[6px] transition-all duration-150 dark:text-foreground/60 dark:hover:text-foreground dark:hover:bg-card/5 group"
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export default function MobileMenu({ navItems }: MobileMenuProps) {
                             )}
                           </div>
                           {dropItem.description && (
-                            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                            <p className="text-xs text-os-gray-300 mt-0.5 line-clamp-1">
                               {dropItem.description}
                             </p>
                           )}

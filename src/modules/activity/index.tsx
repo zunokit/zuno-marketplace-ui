@@ -124,7 +124,7 @@ const getActivityColor = (type: ActivityType) => {
     case "listing":
       return "bg-info";
     case "bid":
-      return "bg-accent";
+      return "bg-frosted-2";
     case "transfer":
       return "bg-warning";
     case "mint":
@@ -220,8 +220,8 @@ export default function MarketplaceActivity() {
   }, [activities, selectedTypes, selectedBlockchain, timeFilter]);
 
   const ActivityRow = ({ item }: { item: ActivityItem }) => (
-    <div className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-colors rounded-lg">
-      <div className={`p-2 rounded-full ${getActivityColor(item.type)} text-white`}>
+    <div className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-all duration-150 rounded-[8px]">
+      <div className={`p-2 rounded-full ${getActivityColor(item.type)} text-foreground`}>
         {getActivityIcon(item.type)}
       </div>
 
@@ -231,23 +231,23 @@ export default function MarketplaceActivity() {
           alt={item.nft.name}
           width={48}
           height={48}
-          className="rounded-lg cursor-pointer hover:opacity-80"
+          className="rounded-[8px] cursor-pointer hover:opacity-80"
         />
       </Link>
 
       <div className="flex-1">
         <div className="flex items-center gap-2 flex-wrap">
           <Link href={`/profile/${item.from.address}`}>
-            <span className="font-semibold hover:text-primary cursor-pointer">
+            <span className="font-medium font-sans hover:text-primary cursor-pointer">
               {item.from.name}
             </span>
           </Link>
 
-          <span className="text-muted-foreground">{getActivityDescription(item)}</span>
+          <span className="text-os-gray-300">{getActivityDescription(item)}</span>
 
           {item.to && (
             <Link href={`/profile/${item.to.address}`}>
-              <span className="font-semibold hover:text-primary cursor-pointer">
+              <span className="font-medium font-sans hover:text-primary cursor-pointer">
                 {item.to.name}
               </span>
             </Link>
@@ -262,12 +262,12 @@ export default function MarketplaceActivity() {
 
         <div className="flex items-center gap-4 mt-1">
           <Link href={`/collections/${item.nft.collection}`}>
-            <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
+            <span className="text-sm text-os-gray-300 hover:text-primary cursor-pointer">
               {item.nft.collection}
             </span>
           </Link>
 
-          <span className="text-sm text-muted-foreground">{item.nft.name}</span>
+          <span className="text-sm text-os-gray-300">{item.nft.name}</span>
 
           <Badge variant="outline" className="text-xs">
             {item.blockchain}
@@ -276,7 +276,7 @@ export default function MarketplaceActivity() {
       </div>
 
       <div className="text-right">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-os-gray-300">
           {formatDistanceToNow(item.timestamp, { addSuffix: true })}
         </p>
         <Link
@@ -304,7 +304,7 @@ export default function MarketplaceActivity() {
     <div className="mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4">Activity Feed</h1>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Real-time marketplace activity across all collections
         </p>
       </div>
@@ -318,7 +318,7 @@ export default function MarketplaceActivity() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalVolume.toFixed(2)} ETH</div>
-            <p className="text-xs text-muted-foreground">Last 7 days</p>
+            <p className="text-xs text-os-gray-300">Last 7 days</p>
           </CardContent>
         </Card>
 
@@ -329,7 +329,7 @@ export default function MarketplaceActivity() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalSales}</div>
-            <p className="text-xs text-muted-foreground">Last 7 days</p>
+            <p className="text-xs text-os-gray-300">Last 7 days</p>
           </CardContent>
         </Card>
 
@@ -340,7 +340,7 @@ export default function MarketplaceActivity() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.avgPrice.toFixed(3)} ETH</div>
-            <p className="text-xs text-muted-foreground">Per transaction</p>
+            <p className="text-xs text-os-gray-300">Per transaction</p>
           </CardContent>
         </Card>
 
@@ -351,7 +351,7 @@ export default function MarketplaceActivity() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalTransactions}</div>
-            <p className="text-xs text-muted-foreground">Total activity</p>
+            <p className="text-xs text-os-gray-300">Total activity</p>
           </CardContent>
         </Card>
       </div>
@@ -443,7 +443,7 @@ export default function MarketplaceActivity() {
               filteredActivities.map(item => <ActivityRow key={item.id} item={item} />)
             ) : (
               <div className="text-center py-8">
-                <p className="text-muted-foreground">No activity matching your filters</p>
+                <p className="text-os-gray-300">No activity matching your filters</p>
                 <Button
                   variant="outline"
                   className="mt-4"

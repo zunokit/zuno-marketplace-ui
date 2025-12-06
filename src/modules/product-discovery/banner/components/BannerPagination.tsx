@@ -16,8 +16,8 @@ export default function BannerPagination({ count, current, api }: BannerPaginati
           onClick={() => api?.scrollTo(index)}
           className={`h-2 rounded-full transition-all duration-300 ${
             current === index + 1
-              ? "bg-black dark:bg-white w-8"
-              : "bg-black/40 dark:bg-white/40 w-2 hover:bg-black/60 dark:hover:bg-white/60"
+              ? "bg-black dark:bg-card w-8"
+              : "bg-black/40 dark:bg-card/40 w-2 hover:bg-black/60 dark:hover:bg-card/60"
           } flex-1 xl:flex-none`}
         />
       ))}

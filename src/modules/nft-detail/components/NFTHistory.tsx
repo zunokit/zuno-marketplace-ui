@@ -56,7 +56,7 @@ export function NFTHistory({ activities }: NFTHistoryProps) {
       case "transfer":
         return "bg-info/10 text-info";
       case "sale":
-        return "bg-accent/10 text-accent";
+        return "bg-frosted-2/10 text-accent";
       case "listing":
         return "bg-warning/10 text-warning";
       case "offer":
@@ -64,7 +64,7 @@ export function NFTHistory({ activities }: NFTHistoryProps) {
       case "bid":
         return "bg-primary/10 text-primary";
       default:
-        return "bg-muted/10 text-muted-foreground";
+        return "bg-muted/10 text-os-gray-300";
     }
   };
 
@@ -89,7 +89,7 @@ export function NFTHistory({ activities }: NFTHistoryProps) {
                 </span>
                 {activity.to && (
                   <>
-                    <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                    <ArrowRight className="h-3 w-3 text-os-gray-300" />
                     <span className="font-medium">
                       {activity.to.name || truncateAddress(activity.to.address)}
                     </span>
@@ -100,11 +100,11 @@ export function NFTHistory({ activities }: NFTHistoryProps) {
 
             <div className="flex items-center gap-4 text-sm">
               {activity.price && (
-                <span className="font-semibold">
+                <span className="font-medium font-sans">
                   {activity.price} {activity.currency}
                 </span>
               )}
-              <span className="text-muted-foreground">
+              <span className="text-os-gray-300">
                 {formatDistanceToNow(activity.timestamp, { addSuffix: true })}
               </span>
               <a

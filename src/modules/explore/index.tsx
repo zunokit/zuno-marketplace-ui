@@ -166,7 +166,7 @@ export default function ExploreMarketplace() {
   const FilterSidebar = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="font-semibold mb-3">Status</h3>
+        <h3 className="font-medium font-sans mb-3">Status</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -192,7 +192,7 @@ export default function ExploreMarketplace() {
       </div>
 
       <div>
-        <h3 className="font-semibold mb-3">Price Range</h3>
+        <h3 className="font-medium font-sans mb-3">Price Range</h3>
         <div className="space-y-3">
           <Slider
             value={priceRange}
@@ -220,7 +220,7 @@ export default function ExploreMarketplace() {
       </div>
 
       <div>
-        <h3 className="font-semibold mb-3">Categories</h3>
+        <h3 className="font-medium font-sans mb-3">Categories</h3>
         <div className="space-y-2">
           {["Art", "Gaming", "Music", "Photography", "Sports", "Collectibles"].map(category => (
             <div key={category} className="flex items-center space-x-2">
@@ -244,7 +244,7 @@ export default function ExploreMarketplace() {
       </div>
 
       <div>
-        <h3 className="font-semibold mb-3">Blockchain</h3>
+        <h3 className="font-medium font-sans mb-3">Blockchain</h3>
         <div className="space-y-2">
           {["Ethereum", "Polygon", "Solana", "BNB Chain"].map(chain => (
             <div key={chain} className="flex items-center space-x-2">
@@ -304,7 +304,7 @@ export default function ExploreMarketplace() {
               className={cn(
                 "absolute top-2 right-2",
                 nft.rarity === "Legendary" && "bg-warning",
-                nft.rarity === "Epic" && "bg-accent",
+                nft.rarity === "Epic" && "bg-frosted-2",
                 nft.rarity === "Rare" && "bg-info",
                 nft.rarity === "Uncommon" && "bg-success",
                 nft.rarity === "Common" && "bg-secondary"
@@ -315,8 +315,8 @@ export default function ExploreMarketplace() {
           )}
         </div>
         <CardContent className="pt-4">
-          <p className="text-xs text-muted-foreground mb-1">{nft.collection}</p>
-          <h3 className="font-semibold truncate">{nft.name}</h3>
+          <p className="text-xs text-os-gray-300 mb-1">{nft.collection}</p>
+          <h3 className="font-medium font-sans truncate">{nft.name}</h3>
 
           <div className="flex items-center gap-2 mt-2 mb-3">
             <Image
@@ -326,7 +326,7 @@ export default function ExploreMarketplace() {
               height={20}
               className="rounded-full"
             />
-            <span className="text-xs text-muted-foreground">@{nft.owner.name}</span>
+            <span className="text-xs text-os-gray-300">@{nft.owner.name}</span>
             {nft.owner.verified && (
               <Badge variant="secondary" className="text-xs px-1">
                 Verified
@@ -336,7 +336,7 @@ export default function ExploreMarketplace() {
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-os-gray-300">
                 {nft.isAuction ? "Current Bid" : "Price"}
               </p>
               <p className="font-bold">
@@ -345,7 +345,7 @@ export default function ExploreMarketplace() {
             </div>
             {nft.lastSale && (
               <div className="text-right">
-                <p className="text-xs text-muted-foreground">Last Sale</p>
+                <p className="text-xs text-os-gray-300">Last Sale</p>
                 <p className="text-sm">{nft.lastSale.toFixed(2)} ETH</p>
               </div>
             )}
@@ -365,7 +365,7 @@ export default function ExploreMarketplace() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4">Explore NFTs</h1>
-        <p className="text-muted-foreground">
+        <p className="text-os-gray-300">
           Discover and collect extraordinary NFTs from creators around the world
         </p>
       </div>
@@ -376,7 +376,7 @@ export default function ExploreMarketplace() {
           <div className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-success" />
             <div>
-              <p className="text-sm text-muted-foreground">Total Volume</p>
+              <p className="text-sm text-os-gray-300">Total Volume</p>
               <p className="text-xl font-bold">892.5K ETH</p>
             </div>
           </div>
@@ -385,7 +385,7 @@ export default function ExploreMarketplace() {
           <div className="flex items-center gap-2">
             <Grid3X3 className="h-5 w-5 text-info" />
             <div>
-              <p className="text-sm text-muted-foreground">Total NFTs</p>
+              <p className="text-sm text-os-gray-300">Total NFTs</p>
               <p className="text-xl font-bold">{allNFTs.length}</p>
             </div>
           </div>
@@ -394,7 +394,7 @@ export default function ExploreMarketplace() {
           <div className="flex items-center gap-2">
             <DollarSign className="h-5 w-5 text-warning" />
             <div>
-              <p className="text-sm text-muted-foreground">Floor Price</p>
+              <p className="text-sm text-os-gray-300">Floor Price</p>
               <p className="text-xl font-bold">0.08 ETH</p>
             </div>
           </div>
@@ -403,7 +403,7 @@ export default function ExploreMarketplace() {
           <div className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-accent" />
             <div>
-              <p className="text-sm text-muted-foreground">Active Auctions</p>
+              <p className="text-sm text-os-gray-300">Active Auctions</p>
               <p className="text-xl font-bold">{allNFTs.filter(n => n.isAuction).length}</p>
             </div>
           </div>
@@ -413,7 +413,7 @@ export default function ExploreMarketplace() {
       {/* Controls Bar */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-os-gray-300 h-4 w-4" />
           <Input
             placeholder="Search NFTs, collections..."
             value={searchQuery}
@@ -453,7 +453,7 @@ export default function ExploreMarketplace() {
             </SelectContent>
           </Select>
 
-          <div className="flex gap-1 border rounded-md p-1">
+          <div className="flex gap-1 border rounded-[6px] p-1">
             <Button
               variant={viewMode === "grid" ? "default" : "ghost"}
               size="icon"
@@ -520,7 +520,7 @@ export default function ExploreMarketplace() {
         {/* Desktop Sidebar */}
         <aside className="hidden md:block w-64 shrink-0">
           <div className="sticky top-4">
-            <h2 className="font-semibold mb-4 flex items-center gap-2">
+            <h2 className="font-medium font-sans mb-4 flex items-center gap-2">
               <SlidersHorizontal className="h-4 w-4" />
               Filters
             </h2>
@@ -531,7 +531,7 @@ export default function ExploreMarketplace() {
         {/* NFT Grid/List */}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-muted-foreground">{filteredNFTs.length} items</p>
+            <p className="text-sm text-os-gray-300">{filteredNFTs.length} items</p>
           </div>
 
           {viewMode === "grid" ? (
@@ -544,20 +544,20 @@ export default function ExploreMarketplace() {
             <div className="space-y-4">
               {filteredNFTs.map(nft => (
                 <Link key={nft.id} href={`/nft/${nft.id}`}>
-                  <Card className="p-4 hover:shadow-lg transition-all cursor-pointer">
+                  <Card className="p-4 hover:shadow-os-focus transition-all cursor-pointer">
                     <div className="flex gap-4">
                       <Image
                         src={nft.image}
                         alt={nft.name}
                         width={120}
                         height={120}
-                        className="rounded-lg object-cover"
+                        className="rounded-[8px] object-cover"
                       />
                       <div className="flex-1">
                         <div className="flex justify-between items-start">
                           <div>
-                            <p className="text-sm text-muted-foreground">{nft.collection}</p>
-                            <h3 className="font-semibold text-lg">{nft.name}</h3>
+                            <p className="text-sm text-os-gray-300">{nft.collection}</p>
+                            <h3 className="font-medium font-sans text-lg">{nft.name}</h3>
                             <div className="flex items-center gap-2 mt-1">
                               <Image
                                 src={nft.owner.avatar}
@@ -566,20 +566,20 @@ export default function ExploreMarketplace() {
                                 height={16}
                                 className="rounded-full"
                               />
-                              <span className="text-xs text-muted-foreground">
+                              <span className="text-xs text-os-gray-300">
                                 @{nft.owner.name}
                               </span>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-os-gray-300">
                               {nft.isAuction ? "Current Bid" : "Price"}
                             </p>
                             <p className="font-bold text-lg">
                               {nft.price.toFixed(2)} {nft.currency}
                             </p>
                             {nft.lastSale && (
-                              <p className="text-xs text-muted-foreground mt-1">
+                              <p className="text-xs text-os-gray-300 mt-1">
                                 Last: {nft.lastSale.toFixed(2)} ETH
                               </p>
                             )}
@@ -606,7 +606,7 @@ export default function ExploreMarketplace() {
 
           {filteredNFTs.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No NFTs found matching your criteria</p>
+              <p className="text-os-gray-300">No NFTs found matching your criteria</p>
               <Button
                 variant="outline"
                 className="mt-4"

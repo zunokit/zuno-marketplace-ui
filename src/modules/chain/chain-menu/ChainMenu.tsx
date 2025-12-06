@@ -45,8 +45,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
       className={cn(
         "fixed left-0 right-0 top-[56px] md:top-[65px] xl:top-[60px] z-40 border-b transition-all duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border/70 dark:border-border"
-          : "bg-background dark:bg-card border-border dark:border-border"
+          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border-subtle/70 dark:border-border-subtle"
+          : "bg-background dark:bg-card border-border-subtle dark:border-border-subtle"
       )}
     >
       <div className="w-full mx-auto py-2 md:py-3 px-2 md:px-6 lg:px-8">
@@ -60,18 +60,18 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
           <Link
             href="/"
             className={cn(
-              "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-md md:rounded-lg cursor-pointer transition-all duration-200 flex-shrink-0",
+              "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-[6px] md:rounded-[8px] cursor-pointer transition-all duration-200 flex-shrink-0",
               selectedChain === "all"
                 ? "bg-primary text-primary-foreground"
                 : isScrolled
-                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
             )}
           >
             <Globe className="w-4 h-4 md:w-[18px] md:h-[18px]" />
             <span
               className={cn(
-                "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-opacity duration-150 whitespace-nowrap",
+                "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-all duration-150 duration-150 whitespace-nowrap",
                 selectedChain === "all" ? "hidden md:block" : "opacity-0 w-0 overflow-hidden"
               )}
             >
@@ -84,12 +84,12 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               key={chain.id}
               href={`/discover/${chain.slug}`}
               className={cn(
-                "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-md md:rounded-lg cursor-pointer transition-all duration-200 flex-shrink-0",
+                "flex items-center h-8 md:h-10 px-2 md:px-3 rounded-[6px] md:rounded-[8px] cursor-pointer transition-all duration-200 flex-shrink-0",
                 String(selectedChain) === String(chain.slug)
                   ? "bg-primary text-primary-foreground"
                   : isScrolled
-                    ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                    : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                    ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                    : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
               )}
             >
               <div
@@ -104,7 +104,7 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               </div>
               <span
                 className={cn(
-                  "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-opacity duration-150 whitespace-nowrap",
+                  "ml-1.5 md:ml-2 text-xs md:text-sm font-medium transition-all duration-150 duration-150 whitespace-nowrap",
                   String(chain.slug) === String(selectedChain)
                     ? "opacity-100"
                     : "opacity-0 w-0 overflow-hidden"
@@ -121,10 +121,10 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
             <button
               onClick={onToggleSidebar}
               className={cn(
-                "hidden lg:flex items-center justify-center h-8 md:h-10 w-8 md:w-10 rounded-md md:rounded-lg transition-all duration-200 flex-shrink-0",
+                "hidden lg:flex items-center justify-center h-8 md:h-10 w-8 md:w-10 rounded-[6px] md:rounded-[8px] transition-all duration-200 flex-shrink-0",
                 isScrolled
-                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
               )}
               aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
             >

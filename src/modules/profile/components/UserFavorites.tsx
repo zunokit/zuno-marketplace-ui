@@ -47,14 +47,14 @@ export function UserFavorites({ profile }: UserFavoritesProps) {
       <div className="mx-auto px-4 py-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Favorite NFTs</h2>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             {favoriteNFTs.length} items favorited by {profile.displayName || profile.username}
           </p>
         </div>
 
         {favoriteNFTs.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No favorites yet</p>
+            <p className="text-os-gray-300">No favorites yet</p>
           </div>
         ) : (
           <NFTGrid

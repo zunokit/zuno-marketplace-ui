@@ -102,7 +102,7 @@ export default function NFTListView({
                     <div className="min-w-0 flex-1">
                       <p className="font-medium truncate text-sm md:text-base">{nft.name}</p>
                       {nft.description && (
-                        <p className="text-xs md:text-sm text-muted-foreground truncate hidden md:block">
+                        <p className="text-xs md:text-sm text-os-gray-300 truncate hidden md:block">
                           {nft.description}
                         </p>
                       )}
@@ -122,7 +122,7 @@ export default function NFTListView({
                   {nft.listPrice || nft.mintPrice ? (
                     <span className="font-medium">{nft.listPrice || nft.mintPrice} ETH</span>
                   ) : (
-                    <span className="text-muted-foreground">-</span>
+                    <span className="text-os-gray-300">-</span>
                   )}
                 </td>
                 <td className="p-2 md:p-3">
