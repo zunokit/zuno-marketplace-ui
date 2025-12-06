@@ -60,7 +60,7 @@ export default function MintForm() {
       {isAllowlistMint && (
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label className="text-sm text-white flex items-center gap-1">
+            <Label className="text-sm text-foreground flex items-center gap-1">
               Allowlist Mint Credentials <span className="text-primary">*</span>
             </Label>
             <span className="text-sm text-os-gray-300">Required</span>
@@ -79,7 +79,7 @@ export default function MintForm() {
                 }}
                 placeholder="Signature (0x...)"
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
+                  "h-10 text-sm bg-dialog border-border-subtle text-foreground placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   signature &&
                     !/^0x[0-9a-fA-F]{130}$/.test(signature) &&
                     "border-destructive focus-visible:ring-destructive"
@@ -108,7 +108,7 @@ export default function MintForm() {
                 type="number"
                 min={0}
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
+                  "h-10 text-sm bg-dialog border-border-subtle text-foreground placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   nonce &&
                     (!Number.isInteger(Number(nonce)) || Number(nonce) < 0) &&
                     "border-destructive focus-visible:ring-destructive"

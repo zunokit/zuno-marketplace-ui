@@ -267,7 +267,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   }
 
   return (
-    <div className="min-h-screen text-white transition-all duration-150 duration-300">
+    <div className="min-h-screen text-foreground transition-all duration-150 duration-300">
       <main className="w-full mx-auto relative">
         <div className="w-full">
           <InformationNFT collection={collection} />

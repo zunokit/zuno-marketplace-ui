@@ -17,7 +17,7 @@ const MintStages = () => {
 
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-medium font-sans text-white dark:text-white">Mint Stages</h4>
+      <h4 className="text-lg font-medium font-sans text-foreground dark:text-foreground">Mint Stages</h4>
       <div
         className={cn(
           "rounded-[8px] py-4 px-5 transition-all duration-200 border-2 border-border-subtle",
@@ -28,7 +28,7 @@ const MintStages = () => {
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
             <Lock className="h-4 w-4 text-os-gray-300" />
-            <span className="text-white dark:text-white text-sm font-medium font-sans">
+            <span className="text-foreground dark:text-foreground text-sm font-medium font-sans">
               {isPublic ? "Public" : "Allowlist"}
             </span>
           </div>
@@ -50,7 +50,7 @@ const MintStages = () => {
             </div>
           )}
         </div>
-        <div className="text-white text-sm">Price: {mintPrice} ETH</div>
+        <div className="text-foreground text-sm">Price: {mintPrice} ETH</div>
       </div>
     </div>
   );

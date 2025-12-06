@@ -62,7 +62,7 @@ export default function CollectionForm() {
           variant="ghost"
           size="sm"
           onClick={handleClearForm}
-          className="text-os-gray-300 hover:text-white dark:hover:text-white"
+          className="text-os-gray-300 hover:text-foreground dark:hover:text-foreground"
         >
           <RotateCcw className="h-4 w-4 mr-1" /> Clear Form
         </Button>
@@ -81,7 +81,7 @@ export default function CollectionForm() {
               {...form.register("agreeTos")}
               className="rounded border-border-subtle"
             />
-            <label htmlFor="agreeTos" className="text-sm text-white dark:text-white">
+            <label htmlFor="agreeTos" className="text-sm text-foreground dark:text-foreground">
               I agree to the Terms of Service
             </label>
           </div>

@@ -10,28 +10,28 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // OpenSea primary button (highlighted actions)
-        default: "bg-frosted-2 text-white border border-border-medium hover:bg-border-medium hover:border-border-strong shadow-os-inset font-medium rounded-[6px]",
+        default: "bg-primary text-primary-foreground border border-border-medium hover:bg-primary/90 hover:border-border-strong shadow-os-inset font-medium rounded-[6px]",
 
         // OpenSea secondary button (most common)
-        secondary: "bg-frosted-1 text-os-gray-300 border border-border-subtle hover:bg-hover-bg hover:border-border-medium shadow-os-inset rounded-[6px]",
+        secondary: "bg-secondary text-secondary-foreground border border-border-subtle hover:bg-hover-bg hover:border-border-medium shadow-os-inset rounded-[6px]",
 
         // Destructive/Error button
         destructive:
-          "bg-error-bg-medium text-os-error border border-os-error hover:bg-error-bg-light hover:border-os-error/80 rounded-[6px]",
+          "bg-destructive text-destructive-foreground border border-destructive hover:bg-destructive/90 rounded-[6px]",
 
         // Success button
         success:
-          "bg-success-bg-medium text-os-success border border-os-success hover:bg-success-bg-light hover:border-os-success/80 rounded-[6px]",
+          "bg-success text-success-foreground border border-success hover:bg-success/90 rounded-[6px]",
 
         // Outline button (frosted glass)
         outline:
-          "bg-frosted-2 border border-border-subtle text-white hover:bg-[var(--color-frosted-6)] hover:border-border-strong backdrop-blur-xl rounded-[6px]",
+          "bg-card border border-border-subtle text-foreground hover:bg-accent hover:border-border-strong backdrop-blur-xl rounded-[6px]",
 
         // Ghost button (no background)
-        ghost: "text-os-gray-300 hover:bg-hover-bg hover:text-white rounded-[6px]",
+        ghost: "text-muted-foreground hover:bg-hover-bg hover:text-foreground rounded-[6px]",
 
         // Link-style button
-        link: "text-[rgb(131,195,255)] underline-offset-4 hover:underline hover:opacity-80",
+        link: "text-info underline-offset-4 hover:underline hover:opacity-80",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

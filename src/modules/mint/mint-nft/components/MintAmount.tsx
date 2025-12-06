@@ -28,7 +28,7 @@ export default function MintAmount({ amount, setAmount, maxQuantity }: MintAmoun
         onChange={e => setAmount(Math.max(1, Math.min(maxQuantity, Number(e.target.value))))}
         min={1}
         max={maxQuantity}
-        className="h-10 text-sm bg-transparent border-0 text-white dark:text-white text-center w-16 focus:ring-0 focus:border-0"
+        className="h-10 text-sm bg-transparent border-0 text-foreground dark:text-foreground text-center w-16 focus:ring-0 focus:border-0"
         aria-label="Number of NFTs to mint"
       />
       <Button

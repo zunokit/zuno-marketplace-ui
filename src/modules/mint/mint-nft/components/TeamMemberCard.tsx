@@ -31,7 +31,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
 
           {/* Text content with padding */}
           <div className="w-full p-3 text-center">
-            <h3 className="text-sm font-medium text-white">{name}</h3>
+            <h3 className="text-sm font-medium text-foreground">{name}</h3>
             <p className="text-[10px] text-primary mt-0.5 leading-tight">{title}</p>
 
             {linkedinUrl && (
@@ -39,7 +39,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-os-gray-300 hover:text-white transition-all duration-150"
+                className="mt-2 inline-block text-os-gray-300 hover:text-foreground transition-all duration-150"
               >
                 <Linkedin className="h-4 w-4" />
               </a>
@@ -53,7 +53,7 @@ export const TeamMemberCard = ({ name, title, image, bio, linkedinUrl }: TeamMem
         <div
           className={cn(
             "absolute z-10 w-64 bg-card border border-border-subtle rounded-[6px] p-3 shadow-os-focus",
-            "text-xs text-white leading-relaxed",
+            "text-xs text-foreground leading-relaxed",
             "top-0 left-full ml-2"
           )}
         >

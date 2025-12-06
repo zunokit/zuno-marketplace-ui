@@ -57,14 +57,14 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
           >
             <TabsTrigger
               value="mint"
-              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-white text-sm"
+              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
             >
               Mint Your NFT
             </TabsTrigger>
             {shouldShowHistoryTab && (
               <TabsTrigger
                 value="history"
-                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-white text-sm"
+                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
               >
                 History
               </TabsTrigger>
@@ -86,7 +86,7 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
           {shouldShowHistoryTab && (
             <TabsContent value="history" className="space-y-4">
               <div className="bg-background border-border-subtle dark:bg-muted rounded-[8px] p-6 border dark:border-border-subtle shadow-os-sm">
-                <h2 className="text-xl font-medium font-sans text-white dark:text-white mb-4">
+                <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground mb-4">
                   Mint History
                 </h2>
 
@@ -143,7 +143,7 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                               </div>
                               <div className="p-3 flex-1">
                                 <div className="flex justify-between items-start mb-1">
-                                  <h3 className="font-medium text-white dark:text-white text-sm truncate">
+                                  <h3 className="font-medium text-foreground dark:text-foreground text-sm truncate">
                                     {nft.name || `NFT #${nft.tokenId}`}
                                   </h3>
                                   <span className="text-xs text-os-gray-300 dark:text-os-gray-300 ml-1 whitespace-nowrap">
@@ -177,10 +177,10 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
           }}
         >
           <DialogHeader>
-            <DialogTitle className="text-white dark:text-white">Confirm Mint</DialogTitle>
+            <DialogTitle className="text-foreground dark:text-foreground">Confirm Mint</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-white dark:text-white">
+            <p className="text-sm text-foreground dark:text-foreground">
               You are about to mint{" "}
               <span className="font-medium">
                 {amount} NFT{amount > 1 ? "s" : ""}
@@ -216,14 +216,14 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
             <Button
               variant="outline"
               onClick={() => setShowConfirmModal(false)}
-              className="border-border-subtle text-white hover:bg-muted dark:border-border-subtle dark:text-white dark:hover:bg-hover"
+              className="border-border-subtle text-foreground hover:bg-muted dark:border-border-subtle dark:text-foreground dark:hover:bg-hover"
             >
               Cancel
             </Button>
             <Button
               onClick={submitMint}
               disabled={isMintingNft || isLoading}
-              className="bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 text-foreground dark:bg-primary dark:hover:bg-primary/90"
             >
               {isMintingNft || isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

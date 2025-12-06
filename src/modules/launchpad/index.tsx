@@ -136,8 +136,8 @@ export function LaunchpadPage() {
               className="rounded-[8px] border-2 border-background"
             />
             <div>
-              <h3 className="text-xl font-bold text-white">{project.name}</h3>
-              <p className="text-sm text-white/80">
+              <h3 className="text-xl font-bold text-foreground">{project.name}</h3>
+              <p className="text-sm text-foreground/80">
                 {project.mintPrice} ETH • {project.maxSupply.toLocaleString()} items
               </p>
             </div>

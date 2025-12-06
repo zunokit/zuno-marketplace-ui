@@ -64,8 +64,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               selectedChain === "all"
                 ? "bg-primary text-primary-foreground"
                 : isScrolled
-                  ? "bg-secondary/70 text-white hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-white hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
             )}
           >
             <Globe className="w-4 h-4 md:w-[18px] md:h-[18px]" />
@@ -88,8 +88,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
                 String(selectedChain) === String(chain.slug)
                   ? "bg-primary text-primary-foreground"
                   : isScrolled
-                    ? "bg-secondary/70 text-white hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                    : "bg-secondary text-white hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                    ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                    : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
               )}
             >
               <div
@@ -123,8 +123,8 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
               className={cn(
                 "hidden lg:flex items-center justify-center h-8 md:h-10 w-8 md:w-10 rounded-[6px] md:rounded-[8px] transition-all duration-200 flex-shrink-0",
                 isScrolled
-                  ? "bg-secondary/70 text-white hover:bg-muted/70 dark:bg-card/70 dark:text-white/70 dark:hover:bg-card/50"
-                  : "bg-secondary text-white hover:bg-muted dark:bg-card dark:text-white/70 dark:hover:bg-card/80"
+                  ? "bg-secondary/70 text-foreground hover:bg-muted/70 dark:bg-card/70 dark:text-foreground/70 dark:hover:bg-card/50"
+                  : "bg-secondary text-foreground hover:bg-muted dark:bg-card dark:text-foreground/70 dark:hover:bg-card/80"
               )}
               aria-label={isSidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
             >

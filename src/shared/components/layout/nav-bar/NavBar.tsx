@@ -108,9 +108,9 @@ export default function NavLink({
           aria-expanded={isOpen}
           aria-current={active ? "page" : undefined}
           className={cn(
-            "px-3 py-2 rounded-[6px] text-sm font-medium text-white hover:text-white transition-all duration-150 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
-            "dark:text-white/70 dark:hover:text-white",
-            active && "bg-secondary text-white dark:bg-white/10 dark:text-white"
+            "px-3 py-2 rounded-[6px] text-sm font-medium text-foreground hover:text-foreground transition-all duration-150 flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
+            "dark:text-foreground/70 dark:hover:text-foreground",
+            active && "bg-secondary text-foreground dark:bg-card/10 dark:text-foreground"
           )}
         >
           {children}
@@ -137,17 +137,17 @@ export default function NavLink({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-3 hover:bg-secondary dark:hover:bg-white/5 transition-all duration-150 group"
+                    className="block px-4 py-3 hover:bg-secondary dark:hover:bg-card/5 transition-all duration-150 group"
                     role="menuitem"
                     onClick={() => setIsOpen(false)}
                   >
                     <div className="flex items-start gap-3">
                       {Icon && (
-                        <Icon className="h-4 w-4 mt-0.5 text-os-gray-300 group-hover:text-white dark:group-hover:text-white" />
+                        <Icon className="h-4 w-4 mt-0.5 text-os-gray-300 group-hover:text-foreground dark:group-hover:text-foreground" />
                       )}
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <span className="text-sm font-medium text-white group-hover:text-white dark:group-hover:text-white">
+                          <span className="text-sm font-medium text-foreground group-hover:text-foreground dark:group-hover:text-foreground">
                             {item.label}
                           </span>
                           {item.badge && (
@@ -187,9 +187,9 @@ export default function NavLink({
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "px-3 py-2 rounded-[6px] text-sm font-medium text-white hover:text-white  transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
-        "dark:text-white/70 dark:hover:text-white ",
-        active && "bg-secondary text-white dark:bg-white/10 dark:text-white"
+        "px-3 py-2 rounded-[6px] text-sm font-medium text-foreground hover:text-foreground  transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/60",
+        "dark:text-foreground/70 dark:hover:text-foreground ",
+        active && "bg-secondary text-foreground dark:bg-card/10 dark:text-foreground"
       )}
     >
       {children}

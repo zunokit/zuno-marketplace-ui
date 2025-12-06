@@ -31,15 +31,15 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
       <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs md:text-sm max-w-[1920px] mx-auto">
         {/* Left Section */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4 lg:gap-6 shrink-0">
-          <button className="flex items-center gap-1 md:gap-1.5 text-white hover:text-os-gray-300 transition-all duration-150 whitespace-nowrap">
+          <button className="flex items-center gap-1 md:gap-1.5 text-foreground hover:text-os-gray-300 transition-all duration-150 whitespace-nowrap">
             <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-success rounded-full"></span>
             <span className="font-medium text-[10px] sm:text-xs md:text-sm">Live</span>
           </button>
-          <button className="hidden md:flex items-center gap-1.5 text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap">
+          <button className="hidden md:flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap">
             <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
             <span className="hidden lg:inline">Aggregating</span>
           </button>
-          <button className="hidden xl:flex items-center gap-1.5 text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap">
+          <button className="hidden xl:flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap">
             <Radio className="w-4 h-4" />
             <span>Networks</span>
           </button>
@@ -48,10 +48,10 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
 
         {/* Center Section - Hide on mobile/tablet */}
         <div className="hidden xl:flex items-center gap-4 lg:gap-6 shrink-0">
-          <button className="text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap">
+          <button className="text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap">
             Terms of Service
           </button>
-          <button className="text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap">
+          <button className="text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap">
             Privacy Policy
           </button>
           <div className="w-px h-4 bg-border"></div>
@@ -59,7 +59,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
 
         {/* Right Section */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 shrink-0 overflow-x-auto scrollbar-hide">
-          <div className="flex items-center gap-1 md:gap-1.5 text-white shrink-0">
+          <div className="flex items-center gap-1 md:gap-1.5 text-foreground shrink-0">
             <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
@@ -72,7 +72,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
             <span className="text-[10px] sm:text-xs md:text-sm whitespace-nowrap">1.21 GWEI</span>
           </div>
           <div className="w-px h-3 sm:h-4 bg-border hidden md:block"></div>
-          <button className="hidden lg:flex items-center gap-1.5 text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap">
+          <button className="hidden lg:flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap">
             <Info className="w-4 h-4" />
             <span>Support</span>
           </button>
@@ -80,7 +80,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
           {mounted && (
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-1 text-os-gray-300 hover:text-white transition-all duration-150 shrink-0"
+              className="flex items-center gap-1 text-os-gray-300 hover:text-foreground transition-all duration-150 shrink-0"
               aria-label="Toggle theme"
             >
               {/* Mobile/Tablet: Only show current theme icon */}
@@ -103,19 +103,19 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
             </button>
           )}
           <div className="w-px h-3 sm:h-4 bg-border hidden lg:block"></div>
-          <button className="text-white hover:text-os-gray-300 transition-all duration-150 font-medium text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0">
+          <button className="text-foreground hover:text-os-gray-300 transition-all duration-150 font-medium text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0">
             Collector
           </button>
-          <button className="hidden lg:block text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap shrink-0">
+          <button className="hidden lg:block text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap shrink-0">
             Pro
           </button>
-          <button className="hidden xl:block text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap shrink-0">
+          <button className="hidden xl:block text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap shrink-0">
             Crypto
           </button>
-          <button className="hidden xl:block text-os-gray-300 hover:text-white transition-all duration-150 whitespace-nowrap shrink-0">
+          <button className="hidden xl:block text-os-gray-300 hover:text-foreground transition-all duration-150 whitespace-nowrap shrink-0">
             USD
           </button>
-          <button className="hidden lg:block text-os-gray-300 hover:text-white transition-all duration-150 shrink-0">
+          <button className="hidden lg:block text-os-gray-300 hover:text-foreground transition-all duration-150 shrink-0">
             <Volume2 className="w-4 h-4" />
           </button>
           {itemCount !== undefined && itemCount > 0 && openCart && (
@@ -123,7 +123,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
               <div className="w-px h-3 sm:h-4 bg-border shrink-0"></div>
               <button
                 onClick={openCart}
-                className="flex items-center gap-1 sm:gap-1.5 text-os-gray-300 hover:text-white transition-all duration-150 relative whitespace-nowrap shrink-0"
+                className="flex items-center gap-1 sm:gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 relative whitespace-nowrap shrink-0"
               >
                 <div className="relative">
                   <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

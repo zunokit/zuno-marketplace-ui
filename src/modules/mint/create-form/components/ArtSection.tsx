@@ -33,7 +33,7 @@ export function ArtSection() {
 
   return (
     <div className="space-y-4 bg-background dark:bg-dialog p-6 rounded-[8px] border border-border-subtle dark:border-border-subtle">
-      <Label className="text-white dark:text-white">NFT Art Type</Label>
+      <Label className="text-foreground dark:text-foreground">NFT Art Type</Label>
       {formState.isSubmitting ? (
         <Skeleton className="h-80 w-full mt-1" />
       ) : (
@@ -66,7 +66,7 @@ export function ArtSection() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-white dark:text-white">
+                        <h3 className="font-medium text-foreground dark:text-foreground">
                           ERC-1155 Collection
                         </h3>
                         <p className="text-sm text-os-gray-300 mt-1">
@@ -75,7 +75,7 @@ export function ArtSection() {
                       </div>
                       {field.value === "ERC1155" && (
                         <div className="absolute top-3 right-3 bg-success rounded-full p-1">
-                          <Check className="h-4 w-4 text-white" />
+                          <Check className="h-4 w-4 text-foreground" />
                         </div>
                       )}
                     </div>
@@ -126,7 +126,7 @@ export function ArtSection() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-white dark:text-white">
+                        <h3 className="font-medium text-foreground dark:text-foreground">
                           ERC-721 Collection
                         </h3>
                         <p className="text-sm text-os-gray-300 mt-1">
@@ -135,7 +135,7 @@ export function ArtSection() {
                       </div>
                       {field.value === "ERC721" && (
                         <div className="absolute top-3 right-3 bg-success rounded-full p-1">
-                          <Check className="h-4 w-4 text-white" />
+                          <Check className="h-4 w-4 text-foreground" />
                         </div>
                       )}
                     </div>
@@ -146,7 +146,7 @@ export function ArtSection() {
                     {field.value === "ERC721" ? (
                       <div className="border border-dashed border-border-subtle dark:border-border-subtle rounded-[8px] p-6 flex flex-col items-center justify-center h-full bg-secondary dark:bg-transparent">
                         <Link className="h-10 w-10 mb-4 text-os-gray-300" />
-                        <h3 className="font-medium text-white dark:text-white mb-1">
+                        <h3 className="font-medium text-foreground dark:text-foreground mb-1">
                           Metadata URL
                         </h3>
                         <p className="text-sm text-os-gray-300 text-center mb-4">
@@ -163,7 +163,7 @@ export function ArtSection() {
                               <FormControl>
                                 <Input
                                   placeholder="https://ipfs.io/ipfs/<CID>"
-                                  className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white placeholder:text-os-gray-300 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                  className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground placeholder:text-os-gray-300 focus-visible:ring-0 focus-visible:ring-offset-0"
                                   {...field}
                                 />
                               </FormControl>
@@ -226,7 +226,7 @@ export function ArtSection() {
                                         if (input) input.value = "";
                                       }}
                                     >
-                                      <X className="h-4 w-4 text-white" />
+                                      <X className="h-4 w-4 text-foreground" />
                                     </button>
                                   </div>
                                   <p className="text-sm text-os-gray-300 mt-2">
@@ -239,7 +239,7 @@ export function ArtSection() {
                               ) : (
                                 <>
                                   <Upload className="h-10 w-10 mb-4 text-os-gray-300" />
-                                  <h3 className="font-medium text-white dark:text-white mb-1">
+                                  <h3 className="font-medium text-foreground dark:text-foreground mb-1">
                                     Drop your artwork here to upload
                                   </h3>
                                   <p className="text-sm text-os-gray-300 text-center mb-4">
@@ -249,7 +249,7 @@ export function ArtSection() {
                                     type="button"
                                     variant="outline"
                                     size="sm"
-                                    className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white hover:bg-muted dark:hover:bg-hover"
+                                    className="bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-hover"
                                     onClick={e => {
                                       e.preventDefault();
                                       document.getElementById("nft-artwork")?.click();

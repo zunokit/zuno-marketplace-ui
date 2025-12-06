@@ -74,14 +74,14 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-[6px] p-2.5 lg:p-3 leading-none no-underline outline-none transition-all duration-150 hover:bg-hover-bg hover:text-white focus:bg-hover-bg focus:text-white group",
+            "block select-none space-y-1 rounded-[6px] p-2.5 lg:p-3 leading-none no-underline outline-none transition-all duration-150 hover:bg-hover-bg hover:text-foreground focus:bg-hover-bg focus:text-foreground group",
             className
           )}
           {...props}
         >
           <div className="flex items-start gap-2 lg:gap-3">
             {Icon && (
-              <Icon className="h-3.5 w-3.5 lg:h-4 lg:w-4 mt-0.5 text-os-gray-300 group-hover:text-white transition-all duration-150 shrink-0" />
+              <Icon className="h-3.5 w-3.5 lg:h-4 lg:w-4 mt-0.5 text-os-gray-300 group-hover:text-foreground transition-all duration-150 shrink-0" />
             )}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
@@ -128,7 +128,7 @@ export default function NavDropdown({
         className={cn(
           navigationMenuTriggerStyle(),
           "bg-transparent hover:bg-hover-bg text-xs lg:text-sm xl:text-base px-1.5 lg:px-2 xl:px-3 h-8 lg:h-9 font-sans transition-all duration-150",
-          active && "bg-frosted-2 text-white"
+          active && "bg-frosted-2 text-foreground"
         )}
       >
         {children}
@@ -143,7 +143,7 @@ export default function NavDropdown({
           <NavigationMenuTrigger
             className={cn(
               "bg-transparent hover:bg-hover-bg text-xs lg:text-sm xl:text-base px-1.5 lg:px-2 xl:px-3 h-8 lg:h-9 font-sans transition-all duration-150",
-              active && "bg-frosted-2 text-white"
+              active && "bg-frosted-2 text-foreground"
             )}
           >
             {children}

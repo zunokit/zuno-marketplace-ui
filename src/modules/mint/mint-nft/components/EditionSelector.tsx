@@ -47,7 +47,7 @@ export default function EditionSelector() {
   return (
     <div className="my-5 space-y-3">
       <div className="flex justify-between items-center gap-5">
-        <h3 className="text-lg font-medium font-sans text-white dark:text-white">
+        <h3 className="text-lg font-medium font-sans text-foreground dark:text-foreground">
           Select Edition <span className="text-primary">*</span>
         </h3>
         <div className="flex items-center gap-3">
@@ -104,7 +104,7 @@ export default function EditionSelector() {
               />
             </div>
             <div>
-              <h4 className="font-medium text-white dark:text-white">
+              <h4 className="font-medium text-foreground dark:text-foreground">
                 {selectedEditionData.name}
               </h4>
               <div className="flex items-center gap-4 text-sm text-os-gray-300">
@@ -146,23 +146,23 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-white dark:text-white">{edition.name}</h4>
+                  <h4 className="font-medium text-foreground dark:text-foreground">{edition.name}</h4>
                   <div className="mt-1 space-y-1">
                     <div className="flex justify-between text-sm">
                       <span className="text-os-gray-300">Price</span>
-                      <span className="font-medium text-white dark:text-white">
+                      <span className="font-medium text-foreground dark:text-foreground">
                         {edition.price} ETH
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-os-gray-300">Remaining</span>
-                      <span className="text-white dark:text-white">
+                      <span className="text-foreground dark:text-foreground">
                         {edition.remaining} / {edition.maxSupply}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-os-gray-300">Per wallet</span>
-                      <span className="text-white dark:text-white">
+                      <span className="text-foreground dark:text-foreground">
                         {edition.perWalletLimit}
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-white dark:text-white">{edition.name}</h4>
+                  <h4 className="font-medium text-foreground dark:text-foreground">{edition.name}</h4>
                   <div className="mt-1 flex items-center gap-4 text-sm text-os-gray-300">
                     <span>{edition.price} ETH</span>
                     <span>

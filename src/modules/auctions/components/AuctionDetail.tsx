@@ -71,7 +71,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
               <Image src={auction.image} alt={auction.name} fill className="object-cover" />
               {auction.status === "active" && (
                 <div className="absolute top-4 right-4">
-                  <Badge className="bg-red-500 text-white animate-pulse">
+                  <Badge className="bg-red-500 text-foreground animate-pulse">
                     <Clock className="h-3 w-3 mr-1" />
                     LIVE
                   </Badge>

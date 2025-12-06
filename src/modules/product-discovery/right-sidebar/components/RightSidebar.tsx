@@ -79,8 +79,8 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 className={cn(
                   "flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-all duration-150",
                   activeTab === "nfts"
-                    ? "bg-background text-white shadow-os-sm"
-                    : "text-os-gray-300 hover:text-white"
+                    ? "bg-background text-foreground shadow-os-sm"
+                    : "text-os-gray-300 hover:text-foreground"
                 )}
               >
                 <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -96,8 +96,8 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                 className={cn(
                   "flex items-center gap-1.5 rounded-[6px] px-3 py-1.5 text-xs font-medium transition-all duration-150",
                   activeTab === "tokens"
-                    ? "bg-background text-white shadow-os-sm"
-                    : "text-os-gray-300 hover:text-white"
+                    ? "bg-background text-foreground shadow-os-sm"
+                    : "text-os-gray-300 hover:text-foreground"
                 )}
               >
                 <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -146,7 +146,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                   onClick={() => setViewMode("compact")}
                   className={cn(
                     "rounded p-1 transition-all duration-150",
-                    viewMode === "compact" ? "bg-background text-white" : "text-os-gray-300 hover:bg-secondary"
+                    viewMode === "compact" ? "bg-background text-foreground" : "text-os-gray-300 hover:bg-secondary"
                   )}
                   aria-label="Compact view"
                 >
@@ -156,7 +156,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                   onClick={() => setViewMode("expanded")}
                   className={cn(
                     "rounded p-1 transition-all duration-150",
-                    viewMode === "expanded" ? "bg-background text-white" : "text-os-gray-300 hover:bg-secondary"
+                    viewMode === "expanded" ? "bg-background text-foreground" : "text-os-gray-300 hover:bg-secondary"
                   )}
                   aria-label="Expanded view"
                 >

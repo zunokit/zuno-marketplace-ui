@@ -38,8 +38,8 @@ export default function SearchBar({ isMobile }: SearchBarProps) {
             type="search"
             placeholder={isMobile ? "Search..." : "Search collections"}
             className={cn(
-              "w-full pl-7 sm:pl-9 md:pl-10 pr-2 md:pr-16 lg:pr-20 h-8 sm:h-9 rounded-[6px] bg-secondary/80 border border-border-subtle focus:border-border-subtle text-white placeholder-muted-foreground cursor-pointer text-xs sm:text-sm",
-              "dark:bg-card/80 dark:border-border-subtle dark:focus:border-border-subtle dark:text-white dark:placeholder-muted-foreground",
+              "w-full pl-7 sm:pl-9 md:pl-10 pr-2 md:pr-16 lg:pr-20 h-8 sm:h-9 rounded-[6px] bg-secondary/80 border border-border-subtle focus:border-border-subtle text-foreground placeholder-muted-foreground cursor-pointer text-xs sm:text-sm",
+              "dark:bg-card/80 dark:border-border-subtle dark:focus:border-border-subtle dark:text-foreground dark:placeholder-muted-foreground",
               "transition-all duration-200 truncate"
             )}
             onClick={() => setIsModalOpen(true)}

@@ -26,7 +26,7 @@ export default function ExistingCollections() {
   }, []);
 
   return (
-    <Card className="bg-background dark:bg-card border-border-subtle text-white dark:text-white">
+    <Card className="bg-background dark:bg-card border-border-subtle text-foreground dark:text-foreground">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium">Existing Collections</CardTitle>
       </CardHeader>
@@ -41,14 +41,14 @@ export default function ExistingCollections() {
           <DropdownMenuTrigger asChild className="w-full">
             <Button
               variant="outline"
-              className="w-full justify-between bg-secondary dark:bg-card border-border-subtle text-white dark:text-white hover:bg-muted dark:hover:bg-card/80"
+              className="w-full justify-between bg-secondary dark:bg-card border-border-subtle text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-card/80"
             >
               View Collection
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-background dark:bg-card border-border-subtle text-white dark:text-white"
+            className="w-[var(--radix-dropdown-menu-trigger-width)] max-w-full bg-background dark:bg-card border-border-subtle text-foreground dark:text-foreground"
             align="start"
             sideOffset={5}
           >

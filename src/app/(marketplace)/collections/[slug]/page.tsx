@@ -47,12 +47,12 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             }}
           />
           <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-foreground">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
               {collection.name}
               {collection.verified && " ✓"}
             </h1>
-            <p className="text-white/80">{collection.description}</p>
+            <p className="text-foreground/80">{collection.description}</p>
           </div>
         </div>
 
@@ -107,7 +107,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                       <Button
                         size="icon"
                         variant="ghost"
-                        className="bg-white/80 backdrop-blur-sm"
+                        className="bg-card/80 backdrop-blur-sm"
                         onClick={e => {
                           e.preventDefault();
                           // Handle like action

@@ -63,7 +63,7 @@ export default function NFTCardSeller({
             className={cn(
               "cursor-pointer h-10 w-10 rounded-full border flex items-center justify-center transition-all duration-150",
               isSelected
-                ? "bg-primary text-white"
+                ? "bg-primary text-foreground"
                 : "bg-muted/30 text-os-gray-300 hover:bg-muted/50"
             )}
           >
@@ -76,10 +76,10 @@ export default function NFTCardSeller({
             variant="ghost"
             size="icon"
             className={cn(
-              "w-full hover:bg-primary! dark:hover:bg-primary! text-black! dark:text-white! bg-muted!  dark:bg-muted!   rounded-none rounded-b-lg",
+              "w-full hover:bg-primary! dark:hover:bg-primary! text-black! dark:text-foreground! bg-muted!  dark:bg-muted!   rounded-none rounded-b-lg",
               compact ? "h-10" : "h-15",
               isSelected
-                ? "bg-primary text-white"
+                ? "bg-primary text-foreground"
                 : "bg-muted/30 text-os-gray-300 hover:bg-muted/50"
             )}
           >
@@ -107,7 +107,7 @@ export default function NFTCardSeller({
 
         <div className={cn("mt-1.5", compact ? "text-xs" : "text-sm")}>
           <div className="flex items-center justify-between">
-            <div className="font-medium text-white truncate">{nft.name}</div>
+            <div className="font-medium text-foreground truncate">{nft.name}</div>
             {!compact && (
               <div className="flex items-center gap-0.5">
                 <Button variant="ghost" size="icon" className="h-5 w-5">

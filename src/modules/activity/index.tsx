@@ -221,7 +221,7 @@ export default function MarketplaceActivity() {
 
   const ActivityRow = ({ item }: { item: ActivityItem }) => (
     <div className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-all duration-150 rounded-[8px]">
-      <div className={`p-2 rounded-full ${getActivityColor(item.type)} text-white`}>
+      <div className={`p-2 rounded-full ${getActivityColor(item.type)} text-foreground`}>
         {getActivityIcon(item.type)}
       </div>
 

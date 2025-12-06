@@ -30,8 +30,8 @@ export default function MintProgress() {
     return (
       <div className="w-full" aria-live="polite">
         <div className="flex justify-between mb-2">
-          <span className="text-sm font-medium font-sans text-white dark:text-white">Minted</span>
-          <span className="text-sm font-medium font-sans text-white dark:text-white">
+          <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">Minted</span>
+          <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">
             <Loader2 className="inline h-4 w-4 animate-spin" />
           </span>
         </div>
@@ -53,12 +53,12 @@ export default function MintProgress() {
   return (
     <div className="w-full" aria-live="polite">
       <div className="flex justify-between mb-2">
-        <span className="text-sm font-medium font-sans text-white dark:text-white">
+        <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">
           {isERC1155 && selectedEditionData
             ? `${selectedEditionData.name} Minted`
             : "Collection Minted"}
         </span>
-        <span className="text-sm font-medium font-sans text-white dark:text-white">
+        <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">
           {totalMinted}/{maxSupply}
           {isERC1155 && selectedEditionData && (
             <span className="text-xs text-os-gray-300 ml-1">

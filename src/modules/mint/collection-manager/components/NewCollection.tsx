@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export default function NewCollection() {
   return (
-    <Card className="bg-background dark:bg-card border-border-subtle text-white dark:text-white">
+    <Card className="bg-background dark:bg-card border-border-subtle text-foreground dark:text-foreground">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-medium">New Collection</CardTitle>
       </CardHeader>

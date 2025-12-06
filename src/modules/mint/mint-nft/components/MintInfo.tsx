@@ -62,7 +62,7 @@ export default function MintInfo() {
       {/* Token Standard Info */}
       <div className="p-3 bg-secondary dark:bg-dialog rounded-[8px] border border-border-subtle dark:border-border-subtle">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-white dark:text-white">
+          <span className="text-sm font-medium text-foreground dark:text-foreground">
             Token Standard: {tokenStandard}
           </span>
           <span className="text-xs px-2 py-1 rounded-full bg-info/10 text-info dark:bg-info/10 dark:text-info">
@@ -82,7 +82,7 @@ export default function MintInfo() {
       {isAllowlistMint && (
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label className="text-sm text-white flex items-center gap-1">
+            <Label className="text-sm text-foreground flex items-center gap-1">
               Allowlist Mint Credentials <span className="text-primary">*</span>
             </Label>
             <span className="text-sm text-os-gray-300">Required</span>
@@ -101,7 +101,7 @@ export default function MintInfo() {
                 }}
                 placeholder="Signature (0x...)"
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
+                  "h-10 text-sm bg-dialog border-border-subtle text-foreground placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   signature &&
                     !/^0x[0-9a-fA-F]{130}$/.test(signature) &&
                     "border-destructive focus-visible:ring-destructive"
@@ -130,7 +130,7 @@ export default function MintInfo() {
                 type="number"
                 min={0}
                 className={cn(
-                  "h-10 text-sm bg-dialog border-border-subtle text-white placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
+                  "h-10 text-sm bg-dialog border-border-subtle text-foreground placeholder:text-os-gray-300 dark:bg-dialog dark:border-border-subtle",
                   nonce &&
                     (!Number.isInteger(Number(nonce)) || Number(nonce) < 0) &&
                     "border-destructive focus-visible:ring-destructive"
@@ -174,7 +174,7 @@ export default function MintInfo() {
               onChange={e => setAmount(Math.max(1, Math.min(maxQuantity, Number(e.target.value))))}
               min={1}
               max={maxQuantity}
-              className="h-10 text-sm bg-dialog border-border-subtle text-white text-center w-20"
+              className="h-10 text-sm bg-dialog border-border-subtle text-foreground text-center w-20"
               aria-label="Number of NFTs to mint"
             />
             <Button

@@ -62,8 +62,8 @@ export function HomeBanner() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:group-hover:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-white hover:text-white w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
-        <CarouselNext className="hidden md:group-hover:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-white hover:text-white w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
+        <CarouselPrevious className="hidden md:group-hover:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-foreground hover:text-foreground w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
+        <CarouselNext className="hidden md:group-hover:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-foreground hover:text-foreground w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
       </Carousel>
 
       <BannerPagination count={count} current={current} api={api} />

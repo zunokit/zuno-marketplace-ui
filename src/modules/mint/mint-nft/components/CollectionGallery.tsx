@@ -52,7 +52,7 @@ export default function CollectionGallery({
         <Button
           variant="ghost"
           size="icon"
-          className="bg-muted dark:bg-card border border-border-subtle text-white dark:text-white hover:bg-secondary dark:hover:bg-card/80 rounded-[6px] h-10 w-10 cursor-pointer"
+          className="bg-muted dark:bg-card border border-border-subtle text-foreground dark:text-foreground hover:bg-secondary dark:hover:bg-card/80 rounded-[6px] h-10 w-10 cursor-pointer"
           onClick={() => onOpenCarousel(currentIndex)}
           aria-label={`Open carousel at image ${currentIndex + 1} of ${collection.name}`}
         >

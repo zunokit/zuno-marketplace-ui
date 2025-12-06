@@ -16,7 +16,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
   const [showInfo, setShowInfo] = useState(true);
 
   return (
-    <div className="border-b text-white">
+    <div className="border-b text-foreground">
       {/* Mobile Header */}
       <div className="md:hidden p-2 border-b border-border-subtle">
         <div className="flex gap-2">
@@ -37,7 +37,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
             <div className="flex items-center gap-2">
               <h1 className="text-sm font-medium font-sans truncate">{collection?.name || "Collection"}</h1>
               <div className="w-3 h-3 rounded-full bg-primary flex items-center justify-center shrink-0">
-                <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-2 h-2 text-foreground" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -58,7 +58,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                   variant="secondary"
                   size="sm"
                   onClick={() => setShowInfo(!showInfo)}
-                  className="bg-muted hover:bg-hover text-white h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
+                  className="bg-muted hover:bg-hover text-foreground h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
                 >
                   <span className="hidden md:inline">Info</span>
                   <span className="md:hidden">i</span>
@@ -67,7 +67,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="bg-muted hover:bg-hover text-white h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
+                  className="bg-muted hover:bg-hover text-foreground h-5 px-1 md:px-1.5 text-xs flex-shrink-0"
                   onClick={() => {
                     const url = window.location.href;
                     navigator.clipboard.writeText(url);
@@ -79,10 +79,10 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                 </Button>
               </div>
               <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-white flex-shrink-0">
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0">
                   <X className="w-2.5 h-2.5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-white flex-shrink-0">
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0">
                   <Globe className="w-2.5 h-2.5" />
                 </Button>
               </div>
@@ -158,7 +158,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-medium font-sans whitespace-nowrap">{collection?.name || "Collection"}</h1>
                 <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
-                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-3 h-3 text-foreground" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -179,7 +179,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                 variant="secondary"
                 size="sm"
                 onClick={() => setShowInfo(!showInfo)}
-                className="bg-muted hover:bg-hover text-white h-8 px-3"
+                className="bg-muted hover:bg-hover text-foreground h-8 px-3"
               >
                 Info
                 <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
@@ -187,7 +187,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
               <Button
                 variant="secondary"
                 size="sm"
-                className="bg-muted hover:bg-hover text-white h-8 px-3"
+                className="bg-muted hover:bg-hover text-foreground h-8 px-3"
                 onClick={() => {
                   const url = window.location.href;
                   navigator.clipboard.writeText(url);
@@ -197,10 +197,10 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
                 Share Stats
                 <Share2 className="w-3 h-3 ml-1" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-white">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-foreground">
                 <X className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-white">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-foreground">
                 <Globe className="w-4 h-4" />
               </Button>
             </div>
@@ -260,7 +260,7 @@ export default function InformationNFT({ collection }: InformationNFTProps) {
           <div className="mt-4 border-t border-border-subtle pt-4 relative mx-6 lg:mx-8 xl:mx-12">
             {/* Flag Collection Button */}
             <div className="absolute top-4 right-6 lg:right-8 xl:right-12">
-              <Button variant="ghost" size="sm" className="text-os-gray-300 hover:text-white h-8 px-2">
+              <Button variant="ghost" size="sm" className="text-os-gray-300 hover:text-foreground h-8 px-2">
                 <Flag className="w-3 h-3 mr-1" />
                 <span className="text-xs">Flag Collection</span>
               </Button>

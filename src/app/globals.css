@@ -258,6 +258,124 @@
   --tw-ring-offset-color: #fff;
 }
 
+/* ==================== LIGHT MODE (WCAG AA COMPLIANT) ==================== */
+html:not(.dark) {
+  /* Base colors - High contrast for visibility */
+  --background: #ffffff;          /* Pure white background */
+  --foreground: #0d1117;          /* Very dark text - maximum contrast */
+
+  /* UI Elements - Clear hierarchy with shadows */
+  --card: #f9fafb;                /* Light gray cards - stand out from white */
+  --card-foreground: #0d1117;
+  --popover: #ffffff;
+  --popover-foreground: #0d1117;
+  --dialog: #ffffff;
+  --dialog-foreground: #0d1117;
+
+  /* Semantic colors - Strong contrast */
+  --primary: #1a1a1a;             /* Dark for visibility */
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #0d1117;
+  --muted: #f9fafb;
+  --muted-foreground: #374151;    /* Darker gray - better visibility */
+  --accent: #ddf4ff;              /* Light blue tint */
+  --accent-foreground: #0969da;
+
+  /* Status colors - WCAG AA compliant */
+  --destructive: #cf222e;         /* GitHub red - 5.01:1 */
+  --destructive-foreground: #ffffff;
+  --success: #1a7f37;             /* GitHub green - 4.84:1 */
+  --success-foreground: #ffffff;
+  --warning: #9a6700;             /* Dark yellow - readable */
+  --warning-foreground: #ffffff;
+  --info: #0969da;                /* GitHub blue - 5.88:1 */
+  --info-foreground: #ffffff;
+
+  /* Borders - Visible but not harsh */
+  --border: #d1d5db;              /* Darker borders for visibility */
+  --border-muted: #e5e7eb;
+  --input: #d1d5db;
+  --ring: #0969da;
+
+  /* Interactive states */
+  --hover: #f3f4f6;
+  --active: #e5e7eb;
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --scrollbar-track: transparent;
+
+  /* Charts */
+  --chart-1: #1a7f37;
+  --chart-2: #0969da;
+  --chart-3: #bf8700;
+  --chart-4: #8250df;
+  --chart-5: #cf222e;
+
+  /* Sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #24292f;
+  --sidebar-primary: #0969da;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f6f8fa;
+  --sidebar-accent-foreground: #24292f;
+  --sidebar-border: #d0d7de;
+  --sidebar-ring: #0969da;
+
+  /* OpenSea variables - High contrast for light mode */
+  --color-border-subtle: #d1d5db;     /* Darker borders - more visible */
+  --color-border-medium: #9ca3af;
+  --color-border-strong: #6b7280;
+  --color-frosted-1: #f3f4f6;         /* Light gray inputs - visible against white */
+  --color-frosted-2: #e5e7eb;         /* Slightly darker bg */
+  --color-frosted-6: #d1d5db;         /* Hover states - even darker */
+  --color-hover-bg: #f3f4f6;
+  --color-active-bg: #e5e7eb;
+  --color-overlay: rgba(0, 0, 0, 0.75);
+  --color-os-gray-300: #374151;       /* Dark gray - clearly visible secondary text */
+
+  /* Success - Light mode */
+  --color-success-bg-light: #dafbe1;
+  --color-success-bg-medium: #aceebb;
+  --color-success-border: #1a7f37;
+  --color-os-success: #1a7f37;
+
+  /* Error - Light mode */
+  --color-error-bg-light: #ffebe9;
+  --color-error-bg-medium: #ffcecb;
+  --color-error-border: #cf222e;
+  --color-os-error: #cf222e;
+
+  /* Warning - Light mode */
+  --color-warning-bg-light: #fff8c5;
+  --color-warning-bg-medium: #fae17d;
+  --color-warning-border: #9a6700;
+  --color-os-warning: #bf8700;
+
+  /* Info - Light mode */
+  --color-info-bg-light: #ddf4ff;
+  --color-info-bg-medium: #b6e3ff;
+  --color-info-border: #0969da;
+  --color-os-info: #0969da;
+
+  /* Rarity - Light mode vibrant */
+  --color-rare-bg: #ddf4ff;
+  --color-rare-bg-light: #eef8ff;
+  --color-rare-border: #0969da;
+  --color-os-rare: #0969da;
+
+  --color-legendary-bg: #fff8c5;
+  --color-legendary-bg-light: #fffbdd;
+  --color-legendary-border: #bf8700;
+  --color-os-legendary: #bf8700;
+
+  --color-epic-bg: #fbefff;
+  --color-epic-bg-light: #fdf7ff;
+  --color-epic-border: #8250df;
+  --color-os-epic: #8250df;
+}
+
 .dark {
   /* Base colors */
   --background: oklch(0.145 0 0); /* Very dark */
@@ -321,6 +439,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Override OpenSea CSS variables for dark mode */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-frosted-1: rgb(255 255 255/4%);
+  --color-frosted-2: rgb(255 255 255/8%);
+  --color-frosted-6: rgb(255 255 255/32%);
+  --color-hover-bg: rgba(255, 255, 255, 0.04);
+  --color-active-bg: rgba(255, 255, 255, 0.08);
+  --color-overlay: rgb(0 0 0/60%);
+  --color-os-gray-300: #acadae;
 }
 
 @layer base {

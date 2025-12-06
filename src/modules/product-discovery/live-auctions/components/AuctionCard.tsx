@@ -78,12 +78,12 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
 
   const getBadgeStyles = () => {
     if (urgency === "urgent") {
-      return "bg-red-500/90 text-white border-red-400/20 shadow-os-focus shadow-red-500/30";
+      return "bg-red-500/90 text-foreground border-red-400/20 shadow-os-focus shadow-red-500/30";
     }
     if (urgency === "warning") {
-      return "bg-orange-500/90 text-white border-orange-400/20 shadow-os-focus shadow-orange-500/30";
+      return "bg-orange-500/90 text-foreground border-orange-400/20 shadow-os-focus shadow-orange-500/30";
     }
-    return "bg-black/60 text-white border-white/10 shadow-os-focus";
+    return "bg-black/60 text-foreground border-white/10 shadow-os-focus";
   };
 
   return (
@@ -123,7 +123,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
             <TimeRemaining endTime={auction.endTime} />
             <Badge
               variant="secondary"
-              className="backdrop-blur-xl bg-black/60 border-white/10 text-white font-medium font-sans shadow-os-focus"
+              className="backdrop-blur-xl bg-black/60 border-white/10 text-foreground font-medium font-sans shadow-os-focus"
             >
               <Eye className="h-3 w-3 mr-1" />
               {auction.viewers}
@@ -132,10 +132,10 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
 
           {/* Live Indicator */}
           <div className="absolute bottom-3 left-3">
-            <Badge className="bg-red-500 text-white border-0 shadow-os-focus shadow-red-500/50 font-bold px-2.5 py-1">
+            <Badge className="bg-red-500 text-foreground border-0 shadow-os-focus shadow-red-500/50 font-bold px-2.5 py-1">
               <span className="relative flex h-2 w-2 mr-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-card opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-card"></span>
               </span>
               LIVE
             </Badge>
@@ -150,7 +150,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
           <p className="text-[10px] font-medium font-sans text-os-gray-300 uppercase tracking-wide mb-1">
             {auction.collection}
           </p>
-          <h3 className="font-bold text-sm leading-tight line-clamp-1 text-white">
+          <h3 className="font-bold text-sm leading-tight line-clamp-1 text-foreground">
             {auction.name}
           </h3>
         </div>
@@ -185,7 +185,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
               </div>
             </div>
             <div className="flex items-baseline gap-1.5">
-              <p className="font-bold text-xl tracking-tight text-white">
+              <p className="font-bold text-xl tracking-tight text-foreground">
                 {auction.currentBid}
               </p>
               <span className="text-xs font-medium text-os-gray-300">{auction.currency}</span>
@@ -199,7 +199,7 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
                 <AvatarImage src={auction.topBidder.avatar} />
                 <AvatarFallback className="text-[7px] bg-background">{auction.topBidder.name[0]}</AvatarFallback>
               </Avatar>
-              <span className="text-[10px] font-medium text-white">@{auction.topBidder.name}</span>
+              <span className="text-[10px] font-medium text-foreground">@{auction.topBidder.name}</span>
             </div>
             <span className="text-[10px] font-medium font-sans text-os-gray-300">{auction.totalBids} bids</span>
           </div>

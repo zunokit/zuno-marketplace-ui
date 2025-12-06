@@ -43,7 +43,7 @@ export default function Header() {
               height={32}
               className="w-7 h-7 sm:w-8 sm:h-8"
             />
-            <div className="hidden sm:block text-base md:text-lg lg:text-xl font-medium tracking-wide text-white whitespace-nowrap font-sans">
+            <div className="hidden sm:block text-base md:text-lg lg:text-xl font-medium tracking-wide text-foreground whitespace-nowrap font-sans">
               ZUNO
             </div>
           </Link>

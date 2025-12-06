@@ -42,22 +42,22 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTitle className="bg-background dark:bg-dialog border-border-subtle dark:border-border-subtle text-white dark:text-white hidden">
+      <DialogTitle className="bg-background dark:bg-dialog border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground hidden">
         Allowlist Stage
       </DialogTitle>
       <DialogContent
-        className="bg-background dark:bg-dialog border-border-subtle dark:border-border-subtle text-white dark:text-white max-w-md p-0"
+        className="bg-background dark:bg-dialog border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground max-w-md p-0"
         onInteractOutside={e => {
           e.preventDefault();
         }}
       >
         <div className="p-6 pb-0 flex justify-between items-center">
-          <h2 className="text-xl font-medium font-sans text-white dark:text-white">Allowlist Stage</h2>
+          <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground">Allowlist Stage</h2>
         </div>
 
         <div className="p-6 space-y-4">
           <div>
-            <Label className="text-white dark:text-white">Mint Price</Label>
+            <Label className="text-foreground dark:text-foreground">Mint Price</Label>
             <div className="flex mt-2">
               <Input
                 placeholder="0.00"
@@ -76,16 +76,16 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
                     setValue("stages", newStages);
                   }
                 }}
-                className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
               />
-              <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-white dark:text-white">
+              <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-foreground dark:text-foreground">
                 ETH
               </div>
             </div>
           </div>
 
           <div>
-            <Label className="text-white dark:text-white">Stage Duration</Label>
+            <Label className="text-foreground dark:text-foreground">Stage Duration</Label>
             <div className="flex gap-2 mt-2">
               <div className="flex flex-1">
                 <Input
@@ -117,9 +117,9 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
                       }, 0);
                     }
                   }}
-                  className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
-                <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-white dark:text-white">
+                <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-foreground dark:text-foreground">
                   Days
                 </div>
               </div>
@@ -154,9 +154,9 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
                       }, 0);
                     }
                   }}
-                  className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
-                <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-white dark:text-white">
+                <div className="bg-muted dark:bg-hover border border-border-subtle dark:border-border-subtle rounded-r-md px-4 flex items-center text-foreground dark:text-foreground">
                   Hours
                 </div>
               </div>
@@ -164,7 +164,7 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
           </div>
 
           <div>
-            <Label className="text-white dark:text-white">Wallets (one per line)</Label>
+            <Label className="text-foreground dark:text-foreground">Wallets (one per line)</Label>
             <Textarea
               value={allowlistText}
               onChange={e => {
@@ -190,7 +190,7 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
                 }
               }}
               placeholder="0x123...\n0x456..."
-              className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-white dark:text-white mt-2 min-h-[100px] max-h-[300px] overflow-y-auto focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground dark:text-foreground mt-2 min-h-[100px] max-h-[300px] overflow-y-auto focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
 

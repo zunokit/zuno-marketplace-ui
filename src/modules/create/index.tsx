@@ -109,7 +109,7 @@ export function CreateHub() {
 
             <CardHeader>
               <div className="flex items-start justify-between mb-2">
-                <div className={`p-3 rounded-[8px] bg-gradient-to-br ${option.color} text-white`}>
+                <div className={`p-3 rounded-[8px] bg-gradient-to-br ${option.color} text-foreground`}>
                   <option.icon className="h-6 w-6" />
                 </div>
                 <Badge variant="secondary">{option.badge}</Badge>

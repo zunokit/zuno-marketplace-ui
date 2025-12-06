@@ -136,7 +136,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             />
             <button
               onClick={onClose}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-os-gray-300 hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-os-gray-300 hover:text-foreground"
             >
               <X className="h-5 w-5" />
             </button>
@@ -158,7 +158,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       "w-full flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm font-medium transition-all",
                       selectedCategory === category.id
                         ? "bg-frosted-2/10 text-accent"
-                        : "text-white hover:text-white dark:text-os-gray-300 dark:hover:text-white hover:bg-background dark:hover:bg-card"
+                        : "text-foreground hover:text-foreground dark:text-os-gray-300 dark:hover:text-foreground hover:bg-background dark:hover:bg-card"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -212,7 +212,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <Clock className="h-4 w-4" />
                       Recent Searches
                     </div>
-                    <button className="text-xs text-os-gray-300 hover:text-white">
+                    <button className="text-xs text-os-gray-300 hover:text-foreground">
                       Clear all
                     </button>
                   </div>
@@ -262,10 +262,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             />
                             {collection.verified && (
                               <div className="absolute -bottom-1 -right-1 bg-info rounded-full p-0.5">
-                                <Star className="h-3 w-3 text-white fill-white" />
+                                <Star className="h-3 w-3 text-foreground fill-white" />
                               </div>
                             )}
-                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center text-foreground text-xs font-bold">
                               {index + 1}
                             </div>
                           </div>

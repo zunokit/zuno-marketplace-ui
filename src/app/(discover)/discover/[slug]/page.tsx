@@ -58,7 +58,7 @@ export default async function DiscoverChainPage({ params }: PageProps) {
 
       <div className="pt-20 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-white dark:text-white mb-4">
+          <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-4">
             Discover on {selectedChain?.name}
           </h1>
           <p className="text-os-gray-300">

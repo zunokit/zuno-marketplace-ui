@@ -53,7 +53,7 @@ export function CollectionCard({
       onMouseLeave={onMouseLeave}
       onClick={handleCardClick}
     >
-      <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-white dark:text-white text-sm h-full p-0">
+      <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0">
         <div className="flex flex-col h-full">
           <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
@@ -77,7 +77,7 @@ export function CollectionCard({
               >
                 <div className="flex flex-col items-center gap-2 w-full">
                   <Button
-                    className="w-full text-xs cursor-pointer bg-background/90 hover:bg-background text-white dark:bg-background/90 dark:hover:bg-background dark:text-white"
+                    className="w-full text-xs cursor-pointer bg-background/90 hover:bg-background text-foreground dark:bg-background/90 dark:hover:bg-background dark:text-foreground"
                     variant="secondary"
                     size="sm"
                     type="button"
@@ -92,7 +92,7 @@ export function CollectionCard({
           </div>
 
           <CardContent className="p-3 flex flex-col h-[120px] justify-between">
-            <h3 className="font-medium font-sans truncate text-base text-white dark:text-white mb-2">
+            <h3 className="font-medium font-sans truncate text-base text-foreground dark:text-foreground mb-2">
               {item.name}
             </h3>
 
@@ -101,7 +101,7 @@ export function CollectionCard({
                 <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
                   PRICE
                 </p>
-                <p className="font-medium text-sm text-white dark:text-white truncate">
+                <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
                   {item.mintPrice || "N/A"}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export function CollectionCard({
                 <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
                   ITEMS
                 </p>
-                <p className="font-medium text-sm text-white dark:text-white truncate">
+                <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
                   {item.maxSupply}
                 </p>
               </div>
@@ -117,7 +117,7 @@ export function CollectionCard({
                 <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
                   MINTED
                 </p>
-                <p className="font-medium text-sm text-white dark:text-white truncate">
+                <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
                   {item.totalMinted}
                 </p>
               </div>
@@ -125,7 +125,7 @@ export function CollectionCard({
 
             <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-border-subtle dark:border-border-subtle">
               <span className={`w-2 h-2 rounded-full ${statusColor}`}></span>
-              <span className="text-xs text-white dark:text-white truncate" title={statusText}>
+              <span className="text-xs text-foreground dark:text-foreground truncate" title={statusText}>
                 {statusText}
               </span>
             </div>
