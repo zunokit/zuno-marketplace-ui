@@ -57,10 +57,10 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
   return (
     <div
       className={cn(
-        "sticky top-0 z-30 border-b transition-all duration-300",
+        "sticky top-0 z-30 border-b border-border-subtle transition-all duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border-subtle/70 dark:border-border-subtle"
-          : "bg-background dark:bg-card border-border-subtle dark:border-border-subtle"
+          ? "bg-background/80 backdrop-blur-md"
+          : "bg-background"
       )}
     >
       <div className="w-full mx-auto py-2 md:py-3 px-3 md:px-4 lg:px-6">
@@ -108,8 +108,9 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
                         className="w-4 h-4 rounded-full object-cover"
                       />
                     </div>
+                    {/* Show name only on sm+ screens when active */}
                     {isActive && (
-                      <span className="font-medium">{chain.name}</span>
+                      <span className="font-medium hidden sm:inline">{chain.name}</span>
                     )}
                   </Link>
                 );
