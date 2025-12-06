@@ -13,7 +13,9 @@ import {
 } from '@/shared/graphql/hooks';
 import type { MintTerminalCreateForm } from '@/shared/types/mint';
 import type { CreateCollectionInput, ApiTokenStandard } from '@/shared/types/collection';
-import { useZuno } from 'zuno-marketplace-sdk/react';
+import { useCollection } from 'zuno-marketplace-sdk/react';
+import type { CollectionParams } from 'zuno-marketplace-sdk';
+import { durationToSeconds } from '@/shared/utils/time';
 
 export type StepStatus = 'pending' | 'loading' | 'success' | 'error';
 
@@ -43,10 +45,17 @@ export function useCreateCollection() {
   const { address } = useAccount();
   const { isAuthenticated } = useAuth();
   const { uploadFile } = useMediaUpload();
-  const [createCollection] = useCreateCollectionMutation();
-  const [addToAllowlist] = useAddToAllowlistMutation();
-  const [updateCollection] = useUpdateCollectionMutation();
-  const sdk = useZuno();
+  const [createCollectionMutation] = useCreateCollectionMutation();
+  const [addToAllowlistMutation] = useAddToAllowlistMutation();
+  const [updateCollectionMutation] = useUpdateCollectionMutation();
+  
+  // SDK hooks for blockchain operations
+  const { 
+    createERC721, 
+    createERC1155, 
+    addToAllowlist: sdkAddToAllowlist, 
+    setAllowlistOnly 
+  } = useCollection();
 
   const [state, setState] = useState<CreateCollectionState>({
     step1Status: 'pending',
@@ -111,8 +120,7 @@ export function useCreateCollection() {
       const stage = formData.stages?.[0];
       let allowlistStageDurationSeconds: number | undefined;
       if (stage?.presale?.duration) {
-        allowlistStageDurationSeconds = (stage.presale.duration.days * 24 * 60 * 60) +
-                                        (stage.presale.duration.hours * 60 * 60);
+        allowlistStageDurationSeconds = durationToSeconds(stage.presale.duration);
       }
 
       const input: CreateCollectionInput = {
@@ -136,7 +144,7 @@ export function useCreateCollection() {
         royaltyRecipient: address,
       };
 
-      const result = await createCollection({ variables: { input } });
+      const result = await createCollectionMutation({ variables: { input } });
 
       if (!result.data?.createCollection) {
         throw new Error('Failed to create collection');
@@ -151,15 +159,16 @@ export function useCreateCollection() {
         collectionId,
       }));
 
-      // === STEP 3: Add Allowlist (if presale configured) ===
-      if (stage?.presale?.allowlistAddresses?.length) {
+      // === STEP 3: Add Allowlist to Database (if presale configured) ===
+      const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+      if (allowlistAddresses.length > 0) {
         setState(prev => ({ ...prev, step3Status: 'loading' }));
 
-        await addToAllowlist({
+        await addToAllowlistMutation({
           variables: {
             input: {
               collectionId,
-              walletAddresses: stage.presale.allowlistAddresses,
+              walletAddresses: allowlistAddresses,
               maxMintAmount: formData.mintLimitPerWallet || undefined,
             },
           },
@@ -173,25 +182,44 @@ export function useCreateCollection() {
       // === STEP 4: Deploy Smart Contract via SDK ===
       setState(prev => ({ ...prev, step4Status: 'loading' }));
 
+      // Build collection params for SDK
+      const collectionParams: CollectionParams = {
+        name: formData.name,
+        symbol: formData.symbol,
+        description: formData.description || '',
+        mintPrice: stage?.public?.price || formData.mintPrice || '0',
+        royaltyFee: Math.round((formData.royaltyPercent || 0) * 100),
+        maxSupply: formData.maxSupply || 10000,
+        mintLimitPerWallet: formData.mintLimitPerWallet || 0,
+        publicMintPrice: stage?.public?.price || formData.mintPrice || '0',
+        allowlistStageDuration: allowlistStageDurationSeconds || 0,
+        tokenURI: input.baseUri || '',
+      };
+
       let deployResult;
 
       if (formData.artworkMode === 'ERC721') {
-        // ✅ Use SDK's collection module
-        deployResult = await sdk.collection.createERC721Collection({
-          name: formData.name,
-          symbol: formData.symbol,
-          baseUri: input.baseUri || '',
-          maxSupply: Number(input.maxSupply),
-        });
+        deployResult = await createERC721.mutateAsync(collectionParams);
       } else {
-        // ✅ Use SDK's collection module
-        deployResult = await sdk.collection.createERC1155Collection({
-          uri: input.baseUri || '',
-        });
+        deployResult = await createERC1155.mutateAsync(collectionParams);
       }
 
       const deployedAddress = deployResult.address;
       const deployTxHash = deployResult.tx.hash;
+
+      // Add addresses to allowlist on blockchain if provided
+      if (allowlistAddresses.length > 0) {
+        await sdkAddToAllowlist.mutateAsync({ 
+          collectionAddress: deployedAddress, 
+          addresses: allowlistAddresses 
+        });
+        
+        // Enable allowlist-only mode
+        await setAllowlistOnly.mutateAsync({ 
+          collectionAddress: deployedAddress, 
+          enabled: true 
+        });
+      }
 
       setState(prev => ({
         ...prev,
@@ -203,7 +231,7 @@ export function useCreateCollection() {
       // === STEP 5: Update Database with Contract Address ===
       setState(prev => ({ ...prev, step5Status: 'loading' }));
 
-      await updateCollection({
+      await updateCollectionMutation({
         variables: {
           id: collectionId,
           input: {
@@ -241,11 +269,14 @@ export function useCreateCollection() {
     isAuthenticated,
     address,
     uploadFile,
-    createCollection,
-    addToAllowlist,
-    updateCollection,
+    createCollectionMutation,
+    addToAllowlistMutation,
+    updateCollectionMutation,
+    createERC721,
+    createERC1155,
+    sdkAddToAllowlist,
+    setAllowlistOnly,
     router,
-    sdk
   ]);
 
   const reset = useCallback(() => {
