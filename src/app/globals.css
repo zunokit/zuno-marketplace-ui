@@ -26,17 +26,17 @@
   --color-os-legendary: #ff8a00;
   --color-os-epic: #d358ff;
 
-  /* OpenSea Transparency Effects */
-  --color-frosted-1: rgb(255 255 255/4%);
-  --color-frosted-2: rgb(255 255 255/8%);
-  --color-frosted-6: rgb(255 255 255/32%);
-  --color-frosted-7: rgb(255 255 255/50%);
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-medium: rgba(255, 255, 255, 0.12);
-  --color-border-strong: rgba(255, 255, 255, 0.16);
-  --color-hover-bg: rgba(255, 255, 255, 0.04);
-  --color-active-bg: rgba(255, 255, 255, 0.08);
-  --color-overlay: rgb(0 0 0/60%);
+  /* OpenSea Transparency Effects - use CSS vars for light/dark mode support */
+  --color-frosted-1: var(--frosted-1);
+  --color-frosted-2: var(--frosted-2);
+  --color-frosted-6: var(--frosted-6);
+  --color-frosted-7: var(--frosted-7);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-medium: var(--border-medium);
+  --color-border-strong: var(--border-strong);
+  --color-hover-bg: var(--hover-bg);
+  --color-active-bg: var(--active-bg);
+  --color-overlay: var(--overlay-bg);
 
   /* Success Transparency */
   --color-success-bg-light: rgb(71 187 100/8%);
@@ -160,6 +160,18 @@
 }
 
 :root {
+  /* ==================== BASE FROSTED/BORDER VARS (dark mode defaults) ==================== */
+  --frosted-1: rgb(255 255 255/4%);
+  --frosted-2: rgb(255 255 255/8%);
+  --frosted-6: rgb(255 255 255/32%);
+  --frosted-7: rgb(255 255 255/50%);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --hover-bg: rgba(255, 255, 255, 0.04);
+  --active-bg: rgba(255, 255, 255, 0.08);
+  --overlay-bg: rgb(0 0 0/60%);
+
   /* ==================== OPENSEA FROSTED/TRANSPARENT COLORS ==================== */
   --color-frosted-1: rgb(255 255 255/4%);
   --color-frosted-2: rgb(255 255 255/8%);
@@ -260,6 +272,18 @@
 
 /* ==================== LIGHT MODE (WCAG AA COMPLIANT) ==================== */
 html:not(.dark) {
+  /* Light mode frosted/border overrides */
+  --frosted-1: #f3f4f6;
+  --frosted-2: #e5e7eb;
+  --frosted-6: #d1d5db;
+  --frosted-7: #9ca3af;
+  --border-subtle: #d1d5db;
+  --border-medium: #9ca3af;
+  --border-strong: #6b7280;
+  --hover-bg: #f3f4f6;
+  --active-bg: #e5e7eb;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+
   /* Base colors - High contrast for visibility */
   --background: #ffffff;          /* Pure white background */
   --foreground: #0d1117;          /* Very dark text - maximum contrast */
