@@ -57,13 +57,13 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
   return (
     <div
       className={cn(
-        "fixed left-0 right-0 top-[56px] md:top-[65px] xl:top-[60px] z-40 border-b transition-all duration-300",
+        "sticky top-0 z-30 border-b transition-all duration-300",
         isScrolled
           ? "bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 dark:bg-card/80 dark:supports-[backdrop-filter]:bg-card/70 border-border-subtle/70 dark:border-border-subtle"
           : "bg-background dark:bg-card border-border-subtle dark:border-border-subtle"
       )}
     >
-      <div className="w-full mx-auto py-2 md:py-3 px-2 md:px-6 lg:px-8">
+      <div className="w-full mx-auto py-2 md:py-3 px-3 md:px-4 lg:px-6">
         <div className="flex justify-between relative z-10 w-full items-center gap-4">
           {/* Chain Navigation */}
           <nav

@@ -221,8 +221,8 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
 
       <aside
         className={cn(
-          "fixed top-[108px] md:top-[124px] xl:top-[117px] right-0",
-          "hidden h-[calc(100vh-108px)] md:h-[calc(100vh-124px)] xl:h-[calc(100vh-117px)]",
+          "fixed top-10 sm:top-11 lg:top-12 right-0",
+          "hidden h-[calc(100vh-40px)] sm:h-[calc(100vh-44px)] lg:h-[calc(100vh-48px)]",
           "flex-shrink-0 border-l border-border-subtle bg-card",
           "transition-all duration-700 ease-in-out",
           "lg:flex lg:flex-col overflow-hidden z-30",
