@@ -525,8 +525,9 @@ export function useGetCollectionLazyQuery() {
   return useLazyQuery(GET_COLLECTION_DOCUMENT);
 }
 
-export function useMyCollectionsQuery(variables?: { page?: number; limit?: number }) {
-  return useQuery(MY_COLLECTIONS_DOCUMENT, { variables });
+export function useMyCollectionsQuery(options?: { page?: number; limit?: number; skip?: boolean }) {
+  const { skip, ...variables } = options || {};
+  return useQuery(MY_COLLECTIONS_DOCUMENT, { variables, skip });
 }
 
 export function useListCollectionsQuery(variables?: {
