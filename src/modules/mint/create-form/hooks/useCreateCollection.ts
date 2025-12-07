@@ -161,21 +161,42 @@ export function useCreateCollection() {
 
       // === STEP 3: Add Allowlist to Database (if presale configured) ===
       const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+      console.log('[CreateCollection] Step 3 - Allowlist Debug:', {
+        stage,
+        presale: stage?.presale,
+        allowlistAddresses,
+        allowlistCount: allowlistAddresses.length,
+        collectionId,
+        mintLimitPerWallet: formData.mintLimitPerWallet,
+      });
+
       if (allowlistAddresses.length > 0) {
         setState(prev => ({ ...prev, step3Status: 'loading' }));
 
-        await addToAllowlistMutation({
-          variables: {
-            input: {
-              collectionId,
-              walletAddresses: allowlistAddresses,
-              maxMintAmount: formData.mintLimitPerWallet || undefined,
-            },
-          },
+        console.log('[CreateCollection] Step 3 - Calling addToAllowlistMutation with:', {
+          collectionId,
+          walletAddresses: allowlistAddresses,
+          maxMintAmount: formData.mintLimitPerWallet || undefined,
         });
 
-        setState(prev => ({ ...prev, step3Status: 'success' }));
+        try {
+          const allowlistResult = await addToAllowlistMutation({
+            variables: {
+              input: {
+                collectionId,
+                walletAddresses: allowlistAddresses,
+                maxMintAmount: formData.mintLimitPerWallet || undefined,
+              },
+            },
+          });
+          console.log('[CreateCollection] Step 3 - Allowlist result:', allowlistResult);
+          setState(prev => ({ ...prev, step3Status: 'success' }));
+        } catch (allowlistError) {
+          console.error('[CreateCollection] Step 3 - Allowlist error:', allowlistError);
+          throw allowlistError;
+        }
       } else {
+        console.log('[CreateCollection] Step 3 - No allowlist addresses, skipping');
         setState(prev => ({ ...prev, step3Status: 'success' }));
       }
 
