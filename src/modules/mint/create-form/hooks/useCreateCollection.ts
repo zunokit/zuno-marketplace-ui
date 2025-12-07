@@ -118,9 +118,20 @@ export function useCreateCollection() {
 
       // Get allowlist stage data if exists
       const stage = formData.stages?.[0];
+      const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+      
+      // Calculate mint start time and allowlist stage end
+      const mintStartTime = formData.mintStartAt 
+        ? new Date(formData.mintStartAt) 
+        : new Date();
+      
+      let allowlistStageEnd: string | undefined;
       let allowlistStageDurationSeconds: number | undefined;
-      if (stage?.presale?.duration) {
+      if (stage?.presale?.duration && allowlistAddresses.length > 0) {
         allowlistStageDurationSeconds = durationToSeconds(stage.presale.duration);
+        allowlistStageEnd = new Date(
+          mintStartTime.getTime() + allowlistStageDurationSeconds * 1000
+        ).toISOString();
       }
 
       const input: CreateCollectionInput = {
@@ -135,10 +146,8 @@ export function useCreateCollection() {
         maxSupply: formData.maxSupply ? Number(formData.maxSupply) : 10000,
         mintPriceAllowlist: stage?.presale?.price || '0',
         mintPricePublic: stage?.public?.price || formData.mintPrice || '0',
-        mintStartTime: formData.mintStartAt
-          ? new Date(formData.mintStartAt).toISOString()
-          : new Date().toISOString(),
-        allowlistStageDurationSeconds,
+        mintStartTime: mintStartTime.toISOString(),
+        allowlistStageEnd,
         mintLimitPerWallet: formData.mintLimitPerWallet || 10,
         royaltyFeeBps: formData.royaltyPercent ? formData.royaltyPercent * 100 : 500,
         royaltyRecipient: address,
@@ -160,7 +169,6 @@ export function useCreateCollection() {
       }));
 
       // === STEP 3: Add Allowlist to Database (if presale configured) ===
-      const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
       console.log('[CreateCollection] Step 3 - Allowlist Debug:', {
         stage,
         presale: stage?.presale,
@@ -173,10 +181,11 @@ export function useCreateCollection() {
       if (allowlistAddresses.length > 0) {
         setState(prev => ({ ...prev, step3Status: 'loading' }));
 
+        const maxMintAmount = formData.mintLimitPerWallet || 10; // Default to 10 if not specified
         console.log('[CreateCollection] Step 3 - Calling addToAllowlistMutation with:', {
           collectionId,
           walletAddresses: allowlistAddresses,
-          maxMintAmount: formData.mintLimitPerWallet || undefined,
+          maxMintAmount,
         });
 
         try {
@@ -185,7 +194,7 @@ export function useCreateCollection() {
               input: {
                 collectionId,
                 walletAddresses: allowlistAddresses,
-                maxMintAmount: formData.mintLimitPerWallet || undefined,
+                maxMintAmount,
               },
             },
           });
@@ -204,16 +213,21 @@ export function useCreateCollection() {
       setState(prev => ({ ...prev, step4Status: 'loading' }));
 
       // Build collection params for SDK
+      const publicPrice = stage?.public?.price || formData.mintPrice || '0';
+      const allowlistPrice = stage?.presale?.price || publicPrice;
+      
       const collectionParams: CollectionParams = {
         name: formData.name,
         symbol: formData.symbol,
         description: formData.description || '',
-        mintPrice: stage?.public?.price || formData.mintPrice || '0',
+        mintPrice: publicPrice,
         royaltyFee: Math.round((formData.royaltyPercent || 0) * 100),
         maxSupply: formData.maxSupply || 10000,
         mintLimitPerWallet: formData.mintLimitPerWallet || 0,
-        publicMintPrice: stage?.public?.price || formData.mintPrice || '0',
-        allowlistStageDuration: allowlistStageDurationSeconds || 0,
+        allowlistMintPrice: allowlistPrice, // Allowlist stage price
+        publicMintPrice: publicPrice,
+        // Only set allowlist duration if addresses provided
+        allowlistStageDuration: allowlistAddresses.length > 0 ? (allowlistStageDurationSeconds || 0) : 0,
         tokenURI: input.baseUri || '',
       };
 

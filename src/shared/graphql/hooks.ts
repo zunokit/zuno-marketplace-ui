@@ -374,8 +374,8 @@ const GET_COLLECTION_DOCUMENT = gql(`
       stats {
         totalItems
         totalOwners
-        totalVolume
-        floorPrice
+        totalVolumeWei
+        floorPriceWei
         totalSales
       }
       createdAt
@@ -403,18 +403,17 @@ const MY_COLLECTIONS_DOCUMENT = gql(`
         tokenStandard
         stats {
           totalItems
-          totalVolume
-          floorPrice
+          totalVolumeWei
+          floorPriceWei
         }
         createdAt
       }
       pageInfo {
         page
         limit
-        total
-        totalPages
+        totalCount
         hasNext
-        hasPrev
+        hasPrevious
       }
     }
   }
@@ -458,8 +457,8 @@ const LIST_COLLECTIONS_DOCUMENT = gql(`
         stats {
           totalItems
           totalOwners
-          totalVolume
-          floorPrice
+          totalVolumeWei
+          floorPriceWei
           totalSales
         }
         createdAt
@@ -467,10 +466,9 @@ const LIST_COLLECTIONS_DOCUMENT = gql(`
       pageInfo {
         page
         limit
-        total
-        totalPages
+        totalCount
         hasNext
-        hasPrev
+        hasPrevious
       }
     }
   }

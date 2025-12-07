@@ -4,7 +4,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { ZunoContextProvider } from "zuno-marketplace-sdk/react";
+import { ZunoContextProvider, WagmiSignerSync } from "zuno-marketplace-sdk/react";
 import { ZunoSDKConfig } from "zuno-marketplace-sdk";
 import { wagmiConfig } from "@/shared/config/wagmi";
 import { ReactNode } from "react";
@@ -34,6 +34,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
           <ZunoContextProvider config={zunoConfig} queryClient={queryClient}>
+            <WagmiSignerSync />
             {children}
           </ZunoContextProvider>
         </RainbowKitProvider>

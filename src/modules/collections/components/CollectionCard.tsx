@@ -75,11 +75,11 @@ export function CollectionCard({ collection }: CollectionCardProps) {
               </div>
               <div>
                 <p className="text-muted-foreground">Volume</p>
-                <p className="font-medium">{collection.stats.totalVolume || '0'}</p>
+                <p className="font-medium">{collection.stats.totalVolumeWei || '0'}</p>
               </div>
               <div>
                 <p className="text-muted-foreground">Floor</p>
-                <p className="font-medium">{collection.stats.floorPrice || '0'}</p>
+                <p className="font-medium">{collection.stats.floorPriceWei || '0'}</p>
               </div>
             </div>
           )}

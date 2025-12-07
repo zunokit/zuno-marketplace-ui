@@ -82,7 +82,7 @@ export default function MyCollectionsPage() {
       )}
 
       {/* Pagination */}
-      {data?.myCollections.pageInfo && data.myCollections.pageInfo.totalPages > 1 && (
+      {data?.myCollections.pageInfo && data.myCollections.pageInfo.totalCount > 20 && (
         <div className="flex justify-center mt-8">
           {/* Add pagination component */}
         </div>

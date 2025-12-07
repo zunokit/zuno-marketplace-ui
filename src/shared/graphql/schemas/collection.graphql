@@ -74,13 +74,18 @@ type CollectionMetadata {
 }
 
 type CollectionStats {
+  collectionId: ID!
   totalItems: Int!
   totalOwners: Int!
-  totalVolume: String!
-  floorPrice: String!
   totalSales: Int!
-  averagePrice: String
+  floorPriceWei: String!
+  totalVolumeWei: String!
+  averagePriceWei: String!
+  volume24hWei: String!
+  sales24h: Int!
   lastSaleAt: String
+  lastMintAt: String
+  updatedAt: String!
 }
 
 type CollectionConnection {
@@ -89,37 +94,36 @@ type CollectionConnection {
 }
 
 type PageInfo {
+  totalCount: Int!
   page: Int!
   limit: Int!
-  total: Int!
-  totalPages: Int!
   hasNext: Boolean!
-  hasPrev: Boolean!
+  hasPrevious: Boolean!
 }
 
-# Inputs - mapped from MintTerminalCreateForm
+# Inputs - mapped from backend CreateCollectionInput
 input CreateCollectionInput {
   # Required
   name: String!
   symbol: String!
   tokenStandard: TokenStandard!
-  chainId: String!
   deployerAddress: String!
-  imageUrl: String!
 
   # Optional
   description: String
-  bannerImageUrl: String
+  category: String
+  chainId: String
+  imageUrl: String
+  bannerUrl: String
   featuredImageUrl: String
 
   # Mint settings
   baseUri: String
   maxSupply: Int
-  mintPrice: String
   mintPriceAllowlist: String
   mintPricePublic: String
   mintStartTime: String
-  allowlistStageDurationSeconds: Int
+  allowlistStageEnd: String
   mintLimitPerWallet: Int
 
   # Royalty
@@ -128,8 +132,6 @@ input CreateCollectionInput {
 
   # Metadata links
   websiteUrl: String
-  discordUrl: String
-  twitterUrl: String
 }
 
 input UpdateCollectionInput {
@@ -146,7 +148,7 @@ input UpdateCollectionInput {
 input AddToAllowlistInput {
   collectionId: ID!
   walletAddresses: [String!]!
-  maxMintAmount: Int
+  maxMintAmount: Int!
 }
 
 # Queries
