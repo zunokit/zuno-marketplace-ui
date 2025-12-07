@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAccount } from 'wagmi';
-import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from '@/shared/graphql/hooks';
+import { useMeLazyQuery, useLogoutMutation, RefreshSessionDocument } from '@/shared/graphql/hooks';
 import { graphqlClient } from '@/shared/lib/graphql-client';
 import type { AuthUser } from '@/shared/types/auth';
+
+// Singleton refresh state to prevent race conditions
+let isRefreshing = false;
+let refreshPromise: Promise<string | null> | null = null;
 
 /**
  * Client-side authentication hook
@@ -19,32 +23,59 @@ export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const hasCheckedAuth = useRef(false);
 
   // Use generated lazy query hook
   const [getMe] = useMeLazyQuery({
     fetchPolicy: 'network-only',
   });
   const [logoutMutation] = useLogoutMutation();
-  const [refreshSession] = useRefreshSessionMutation();
+
+  // Singleton refresh function to prevent race conditions
+  const refreshSessionSingleton = async (): Promise<string | null> => {
+    // If already refreshing, wait for the existing promise
+    if (isRefreshing && refreshPromise) {
+      console.log('[Auth] Refresh already in progress, waiting...');
+      return refreshPromise;
+    }
+
+    isRefreshing = true;
+    refreshPromise = (async () => {
+      try {
+        const client = graphqlClient.getClient();
+        const result = await client.mutate({
+          mutation: RefreshSessionDocument,
+          variables: {},
+        });
+
+        if (result.data?.refreshSession?.accessToken) {
+          graphqlClient.setAccessToken(result.data.refreshSession.accessToken);
+          console.log('[Auth] Session refreshed successfully');
+          return result.data.refreshSession.accessToken;
+        }
+        return null;
+      } catch (error) {
+        console.log('[Auth] No valid refresh token, user needs to sign in');
+        return null;
+      } finally {
+        isRefreshing = false;
+        refreshPromise = null;
+      }
+    })();
+
+    return refreshPromise;
+  };
 
   useEffect(() => {
+    // Prevent duplicate auth checks
+    if (hasCheckedAuth.current) return;
+    hasCheckedAuth.current = true;
+
     const checkAuth = async () => {
       setIsLoading(true);
       try {
-        // First, try to refresh session using HttpOnly cookie
-        // This will restore the accessToken if user has a valid refresh token
-        try {
-          const { data: refreshData } = await refreshSession();
-          if (refreshData?.refreshSession?.accessToken) {
-            // Store the new access token
-            graphqlClient.setAccessToken(refreshData.refreshSession.accessToken);
-            console.log('[Auth] Session refreshed successfully');
-          }
-        } catch (refreshError) {
-          // Refresh failed - this is okay, user might not have a valid session
-          // Continue to check with getMe() anyway
-          console.log('[Auth] No valid refresh token, user needs to sign in');
-        }
+        // First, try to refresh session using singleton
+        await refreshSessionSingleton();
 
         // Now try to get user data
         const { data } = await getMe();
@@ -58,7 +89,6 @@ export function useAuth() {
         }
       } catch (error) {
         // Auth check failed (no valid session)
-        // This is expected if user is not logged in or refresh token expired
         setUser(null);
         setIsAuthenticated(false);
       } finally {
@@ -71,9 +101,11 @@ export function useAuth() {
     const handleLogout = () => {
       setUser(null);
       setIsAuthenticated(false);
+      hasCheckedAuth.current = false; // Reset so auth check runs on next login
     };
 
     const handleLogin = async () => {
+      hasCheckedAuth.current = false; // Reset to allow auth check
       await checkAuth();
     };
 
@@ -84,7 +116,8 @@ export function useAuth() {
       window.removeEventListener('auth:logout', handleLogout);
       window.removeEventListener('auth:login', handleLogin);
     };
-  }, [isConnected, address]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Run only once on mount
 
   const logout = async () => {
     try {
