@@ -40,14 +40,14 @@ export default function BottomActionBar({
   const incrementCount = () => onItemCountChange(Math.min(maxItems, itemCount + 1));
 
   return (
-    <div className={cn("hidden md:block", className)}>
+    <div className={cn(className)}>
       <div
         className={cn(
           "flex items-center",
           "right-0 left-0 z-[60] h-14 w-full",
           "border-t border-border bg-background/95 backdrop-blur-sm",
           "scrollbar-hide overflow-y-auto",
-          "fixed bottom-[40px] md:bottom-[44px]",
+          "fixed bottom-0",
           "lg:left-[52px] lg:w-[calc(100%-52px)]"
         )}
       >

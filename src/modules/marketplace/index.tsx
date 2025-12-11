@@ -170,12 +170,12 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     [safeNFTs, filterAndSortNFTs]
   );
 
-  const { 
-    sliderValue, 
-    isSliding, 
+  const {
+    sliderValue,
+    isSliding,
     handleSliderChange,
     handleItemCountChange,
-    handleIndividualSelection 
+    handleIndividualSelection,
   } = useNFTSelection({
     initialNFTs: safeNFTs,
     onVisibleNFTsChange: setFilteredAndSortedNFTs,
@@ -234,12 +234,12 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     switch (activeTab) {
       case "items":
         return (
-          <div className="flex transition-all duration-300 ease-in-out">
+          <div className="flex transition-all duration-300 ease-in-out h-full">
             {/* Desktop Filter Sidebar */}
             <div
               className={cn(
-                "hidden md:block w-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
-                showFilters && "w-56"
+                "hidden md:block w-0 h-full shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
+                showFilters && "w-[240px] 3xl:w-[390px]"
               )}
             >
               {showFilters && (
@@ -268,61 +268,57 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
               </div>
             )}
 
-            <div className="flex-1 transition-all duration-300 ease-in-out min-w-0">
-              <div className="flex flex-col h-[calc(100vh-200px)]">
-                <ControlBar
-                  view={view}
-                  setView={setView}
-                  showFilters={showFilters}
-                  setShowFilters={setShowFilters}
-                  searchValue={searchValue}
-                  onSearch={debouncedSetColumnFilters}
-                  sortValue={sortValue}
-                  onSort={debouncedSetSorting}
-                  totalItems={filteredAndSortedNFTs.length}
-                />
+            <div className="flex-1 transition-all duration-300 ease-in-out min-w-0 flex flex-col h-full overflow-hidden">
+              <ControlBar
+                view={view}
+                setView={setView}
+                showFilters={showFilters}
+                setShowFilters={setShowFilters}
+                searchValue={searchValue}
+                onSearch={debouncedSetColumnFilters}
+                sortValue={sortValue}
+                onSort={debouncedSetSorting}
+                totalItems={filteredAndSortedNFTs.length}
+              />
 
-                <div className="flex-1 min-h-[400px] md:pb-20 relative">
-                  {myItemsLoading ? (
-                    <div className="flex items-center justify-center h-64">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              <div className="flex-1 overflow-y-auto scrollbar-hide pb-32 md:pb-20 relative">
+                {myItemsLoading ? (
+                  <div className="flex items-center justify-center h-64">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                  </div>
+                ) : filteredAndSortedNFTs.length === 0 ? (
+                  <div className="flex items-center justify-center h-64">
+                    <div className="text-center">
+                      <h3 className="text-lg font-medium">No Items Found</h3>
+                      <p className="text-os-gray-300">Adjust your filters to see more items.</p>
                     </div>
-                  ) : filteredAndSortedNFTs.length === 0 ? (
-                    <div className="flex items-center justify-center h-64">
-                      <div className="text-center">
-                        <h3 className="text-lg font-medium">No Items Found</h3>
-                        <p className="text-os-gray-300">Adjust your filters to see more items.</p>
-                      </div>
-                    </div>
-                  ) : view === "list" ? (
-                    <ErrorBoundary>
-                      <div className="absolute inset-0">
-                        <NFTListView
-                          type="seller"
-                          nfts={filteredAndSortedNFTs}
-                          sorting={sorting}
-                          setSorting={setSorting}
-                          columnFilters={columnFilters}
-                          setColumnFilters={setColumnFilters}
-                          onSelect={handleNFTSelection}
-                          onCardClick={handleNFTCardClick}
-                          selectedNFTs={selectedNFTs}
-                        />
-                      </div>
-                    </ErrorBoundary>
-                  ) : (
-                    <NFTGrid
+                  </div>
+                ) : view === "list" ? (
+                  <ErrorBoundary>
+                    <NFTListView
                       type="seller"
                       nfts={filteredAndSortedNFTs}
-                      view={view === "compact" ? "compact" : "grid"}
-                      showFilters={showFilters}
-                      isSliding={isSliding}
+                      sorting={sorting}
+                      setSorting={setSorting}
+                      columnFilters={columnFilters}
+                      setColumnFilters={setColumnFilters}
                       onSelect={handleNFTSelection}
                       onCardClick={handleNFTCardClick}
                       selectedNFTs={selectedNFTs}
                     />
-                  )}
-                </div>
+                  </ErrorBoundary>
+                ) : (
+                  <NFTGrid
+                    type="seller"
+                    nfts={filteredAndSortedNFTs}
+                    view={view === "compact" ? "compact" : "grid"}
+                    showFilters={showFilters}
+                    isSliding={isSliding}
+                    onSelect={handleNFTSelection}
+                    onCardClick={handleNFTCardClick}
+                    selectedNFTs={selectedNFTs}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -364,14 +360,14 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   };
 
   return (
-    <div className="min-h-screen text-foreground transition-all duration-150">
-      <main className="w-full mx-auto relative">
-        {/* Hero Header */}
-        <div className="w-full">
-          <HeroHeader collection={collection} videoUrl={collection.banner} useMockData={true} />
-        </div>
+    <div className="h-screen overflow-hidden text-foreground transition-all duration-150 flex flex-col">
+      {/* Hero Header - Natural height */}
+      <div className="w-full shrink-0">
+        <HeroHeader collection={collection} videoUrl={collection.banner} useMockData={true} />
+      </div>
 
-        {/* Collection Navigation - Single navigation, no duplicates */}
+      {/* Collection Navigation - Hidden on mobile, visible on desktop */}
+      <div className="hidden md:block shrink-0">
         <div className="px-0 sm:px-4 md:px-6 lg:px-8">
           <CollectionNav
             collectionSlug={contractAddress}
@@ -379,26 +375,117 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             onTabChange={setActiveTab}
           />
         </div>
+      </div>
 
-        {/* Content based on active tab */}
-        <div className="px-0 sm:px-4 md:px-6 lg:px-8">{renderContent()}</div>
-      </main>
+      {/* Content - Takes remaining space */}
+      <div className="flex-1 overflow-hidden mb-28 md:mb-0">
+        <div className="h-full px-0 sm:px-4 md:px-6 lg:px-8">{renderContent()}</div>
+      </div>
 
-      {showSellerModal && selectedNFT && (
-        <SellerModal nft={selectedNFT} open={showSellerModal} onOpenChange={setShowSellerModal} />
-      )}
+      {/* Mobile Bottom Navigation - Tabs */}
+      <div className="md:hidden shrink-0 fixed bottom-6 left-4 right-4 z-50 rounded-2xl bg-background/98 backdrop-blur-xl backdrop-saturate-150 border border-border/80 shadow-[0_10px_35px_rgba(0,0,0,0.28)] ring-1 ring-primary/5 safe-area-bottom">
+        <div className="flex items-center justify-around h-[4.25rem] px-2 py-1.5 gap-1">
+          <button
+            onClick={() => setActiveTab("items")}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
+              activeTab === "items"
+                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              />
+            </svg>
+            <span className="text-[12px] font-semibold leading-none">Items</span>
+          </button>
 
-      <BottomActionBar
-        mode={actionMode}
-        onModeChange={setActionMode}
-        itemCount={selectedNFTs.length}
-        maxItems={safeNFTs.length}
-        sliderValue={sliderValue}
-        onSliderChange={handleSliderChange}
-        onItemCountChange={(count) => handleItemCountChange(String(count))}
-        onBuyFloor={() => console.log("Buy floor clicked", selectedNFTs)}
-        onMakeOffer={() => console.log("Make offer clicked", selectedNFTs)}
-      />
+          <button
+            onClick={() => setActiveTab("offers")}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
+              activeTab === "offers"
+                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+              />
+            </svg>
+            <span className="text-[12px] font-semibold leading-none">Offers</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("activity")}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
+              activeTab === "activity"
+                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+            <span className="text-[12px] font-semibold leading-none">Activity</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("holders")}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
+              activeTab === "holders"
+                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            )}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span className="text-[12px] font-semibold leading-none">More</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
