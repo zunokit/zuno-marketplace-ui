@@ -1,0 +1,31 @@
+# Wallet Queries & Mutations
+
+# Get my linked wallets
+query MyWallets {
+  myWallets {
+    id
+    userId
+    accountId
+    address
+    chainId
+    isPrimary
+    verifiedAt
+    createdAt
+    updatedAt
+  }
+}
+
+# Link a new wallet
+mutation LinkWallet($input: LinkWalletInput!) {
+  linkWallet(input: $input) {
+    id
+    userId
+    accountId
+    address
+    chainId
+    isPrimary
+    verifiedAt
+    createdAt
+    updatedAt
+  }
+}

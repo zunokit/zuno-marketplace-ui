@@ -8,12 +8,10 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const supportedChains = mockChains();
-  const chain = supportedChains.find((c) => String(c.slug) === slug);
+  const chain = supportedChains.find(c => String(c.slug) === slug);
 
   if (!chain) {
     return {
@@ -46,17 +44,13 @@ export async function generateMetadata({
 export default async function DiscoverChainPage({ params }: PageProps) {
   const { slug } = await params;
   const supportedChains = mockChains();
-  const isValidChain = supportedChains.some(
-    (chain) => String(chain.slug) === slug
-  );
+  const isValidChain = supportedChains.some(chain => String(chain.slug) === slug);
 
   if (!isValidChain) {
     notFound();
   }
 
-  const selectedChain = supportedChains.find(
-    (chain) => String(chain.slug) === slug
-  );
+  const selectedChain = supportedChains.find(chain => String(chain.slug) === slug);
 
   return (
     <div>
@@ -64,16 +58,15 @@ export default async function DiscoverChainPage({ params }: PageProps) {
 
       <div className="pt-20 px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-4">
             Discover on {selectedChain?.name}
           </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Explore NFTs and collections on the {selectedChain?.name}{" "}
-            blockchain.
+          <p className="text-os-gray-300">
+            Explore NFTs and collections on the {selectedChain?.name} blockchain.
           </p>
 
-          <div className="mt-8 p-6 bg-gray-50 dark:bg-[#1A1F2C] rounded-lg">
-            <p className="text-gray-500 dark:text-gray-400">
+          <div className="mt-8 p-6 bg-secondary dark:bg-card rounded-[8px]">
+            <p className="text-os-gray-300">
               Content for {selectedChain?.name} will be displayed here...
             </p>
           </div>

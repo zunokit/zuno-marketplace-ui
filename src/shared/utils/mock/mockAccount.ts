@@ -19,14 +19,12 @@ export function makeMockAccount(
       pfpUrl: "https://avatars.githubusercontent.com/u/9919?s=200&v=4", // placeholder
       bannerUrl: undefined,
       profileUrl:
-        platform === "opensea"
-          ? "https://opensea.io/eth_whale"
-          : "https://magiceden.io/u/sol_degen",
+        platform === "opensea" ? "https://opensea.io/eth_whale" : "https://zuno.io/u/sol_degen",
       ensName: platform === "opensea" ? "whale.eth" : undefined,
     },
     socials: {
       x: platform === "opensea" ? "eth_whale" : "sol_degen",
-      discord: platform === "magiceden" ? "soldegen#1234" : undefined,
+      discord: platform === "zuno" ? "soldegen#1234" : undefined,
     },
     wallets: [
       // primary wallet per platform
@@ -71,13 +69,11 @@ export function makeMockAccount(
       },
       watchlist: {
         collections:
-          platform === "opensea"
-            ? ["azuki", "thememeland-captains"]
-            : ["degods", "madlads"],
+          platform === "opensea" ? ["azuki", "thememeland-captains"] : ["degods", "madlads"],
         items: [],
       },
       chainSpecific:
-        platform === "magiceden"
+        platform === "zuno"
           ? {
               defaultClick: "openItem",
               feeDisplay: "includeAllFees",
@@ -105,10 +101,7 @@ export function makeMockAccount(
               {
                 name: "SOL Showcase",
                 description: "Top SOL picks",
-                itemRefs: [
-                  "solana:mainnet/So1111...",
-                  "solana:mainnet/Me1111...",
-                ],
+                itemRefs: ["solana:mainnet/So1111...", "solana:mainnet/Me1111..."],
               },
             ],
           },
@@ -121,7 +114,7 @@ export function makeMockAccount(
       followingCount: 321,
     },
     rewards:
-      platform === "magiceden"
+      platform === "zuno"
         ? {
             me: {
               season: "S1",
@@ -143,5 +136,5 @@ export function makeMockAccount(
 export const mockOpenSeaAccount = (overrides: Partial<PlatformUser> = {}) =>
   makeMockAccount("opensea", overrides);
 
-export const mockMagicEdenAccount = (overrides: Partial<PlatformUser> = {}) =>
-  makeMockAccount("magiceden", overrides);
+export const mockZunoAccount = (overrides: Partial<PlatformUser> = {}) =>
+  makeMockAccount("zuno", overrides);

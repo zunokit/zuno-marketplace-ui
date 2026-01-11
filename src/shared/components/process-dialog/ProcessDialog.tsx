@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/shared/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/components/ui/dialog";
 
 import { CheckCircle2, Loader2 } from "lucide-react";
 export type ProcessStatus = "pending" | "processing" | "completed";
@@ -35,16 +30,16 @@ export function ProcessDialog({
     switch (status) {
       case "processing":
         return (
-          <div className="h-5 w-5 rounded-full bg-pink-600 flex items-center justify-center">
-            <Loader2 className="h-4 w-4 animate-spin text-white" />
+          <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center">
+            <Loader2 className="h-4 w-4 animate-spin text-primary-foreground" />
           </div>
         );
       case "completed":
-        return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+        return <CheckCircle2 className="h-5 w-5 text-success" />;
       case "pending":
       default:
         return (
-          <div className="h-5 w-5 rounded-full border-2 border-gray-500 dark:border-gray-500" />
+          <div className="h-5 w-5 rounded-full border-2 border-border" />
         );
     }
   };
@@ -52,35 +47,30 @@ export function ProcessDialog({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="sm:max-w-[425px] bg-white dark:bg-[#0e0a1a] border-gray-200 dark:border-[#3a3450] text-gray-900 dark:text-white [&>button]:hidden"
-        onInteractOutside={(e) => e.preventDefault()}
+        className="sm:max-w-[425px] bg-background dark:bg-dialog border-border text-foreground [&>button]:hidden"
+        onInteractOutside={e => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle className="text-gray-900 dark:text-white text-xl font-medium">
+          <DialogTitle className="text-foreground text-xl font-medium">
             {title}
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 py-4">
-          {steps.map((step) => (
-            <div
-              key={step.id}
-              className="bg-gray-50 dark:bg-[#1a1527] rounded-lg p-4"
-            >
+          {steps.map(step => (
+            <div key={step.id} className="bg-secondary dark:bg-muted rounded-lg p-4">
               <div className="flex items-start gap-3">
                 <div className="mt-1">{getStatusIcon(step.status)}</div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-900 dark:text-white text-base">
+                  <h4 className="font-medium text-foreground text-base">
                     {step.title}
                   </h4>
                   {step.description && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {step.description}
                     </p>
                   )}
                   {step.details && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {step.details}
-                    </p>
+                    <p className="text-sm text-muted-foreground">{step.details}</p>
                   )}
                 </div>
               </div>

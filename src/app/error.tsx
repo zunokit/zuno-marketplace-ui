@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/shared/components/ui/button";
+import { logger } from "@/shared/lib/logger";
 
 export default function Error({
   error,
@@ -12,7 +13,9 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
+    logger.error("Page Error", error, {
+      digest: error.digest,
+    });
   }, [error]);
 
   return (
@@ -22,7 +25,7 @@ export default function Error({
           <h1 className="text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
             Something went wrong
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-os-gray-300">
             We encountered an error while processing your request.
           </p>
         </div>
@@ -35,9 +38,7 @@ export default function Error({
           </Button>
         </div>
         {error.digest && (
-          <p className="text-xs text-muted-foreground pt-4">
-            Error ID: {error.digest}
-          </p>
+          <p className="text-xs text-os-gray-300 pt-4">Error ID: {error.digest}</p>
         )}
       </div>
     </div>

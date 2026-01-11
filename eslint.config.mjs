@@ -11,6 +11,10 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    // Override to prevent circular structure serialization
+    rules: {},
+  },
 ];
 
 export default eslintConfig;

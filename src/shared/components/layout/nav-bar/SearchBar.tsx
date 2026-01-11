@@ -4,7 +4,8 @@ import { Search } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import SearchModal from "@/shared/components/layout/search/SearchModal";
 
 type SearchBarProps = {
   isMobile: boolean;
@@ -12,52 +13,52 @@ type SearchBarProps = {
 
 export default function SearchBar({ isMobile }: SearchBarProps) {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Handle keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setIsModalOpen(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
-    <div
-      ref={searchRef}
-      className={cn(
-        "relative transition-all duration-300",
-        isMobile && isSearchFocused
-          ? "fixed top-0 left-0 right-0 p-4 z-50 bg-white dark:bg-[#1A1F2C]"
-          : "flex-grow max-w-md mx-4"
-      )}
-    >
-      <div className="relative">
-        <Search
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-muted-foreground"
-          onClick={() => isMobile && setIsSearchFocused(true)}
-        />
-        <Input
-          type="search"
-          placeholder="Search collections on Magic Eden"
-          className={cn(
-            "pl-10 h-9 rounded-md bg-gray-50/80 border border-gray-200 focus:border-gray-300 text-gray-900 placeholder-gray-500",
-            "dark:bg-[#232836]/80 dark:border-white/10 dark:focus:border-white/20 dark:text-white dark:placeholder-gray-400",
-            isMobile &&
-              !isSearchFocused &&
-              "w-8 pl-8 pr-0 opacity-0 pointer-events-none",
-            isMobile && isSearchFocused && "w-full opacity-100 shadow-sm"
+    <>
+      <div ref={searchRef} className="relative w-full min-w-0">
+        <div className="relative">
+          <Search className="absolute left-2 sm:left-2.5 md:left-3 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 sm:h-4 sm:w-4 text-os-gray-300 pointer-events-none" />
+          <Input
+            type="search"
+            placeholder={isMobile ? "Search..." : "Search collections"}
+            className={cn(
+              "w-full pl-7 sm:pl-9 md:pl-10 pr-2 md:pr-16 lg:pr-20 h-8 sm:h-9 rounded-[6px] bg-secondary/80 border border-border-subtle focus:border-border-subtle text-foreground placeholder-muted-foreground cursor-pointer text-xs sm:text-sm",
+              "dark:bg-card/80 dark:border-border-subtle dark:focus:border-border-subtle dark:text-foreground dark:placeholder-muted-foreground",
+              "transition-all duration-200 truncate"
+            )}
+            onClick={() => setIsModalOpen(true)}
+            onFocus={e => {
+              e.target.blur();
+              setIsModalOpen(true);
+            }}
+            readOnly
+          />
+          {!isMobile && (
+            <kbd className="absolute right-2 md:right-2.5 top-1/2 transform -translate-y-1/2 hidden md:inline-flex h-5 select-none items-center gap-0.5 md:gap-1 rounded border border-border-subtle bg-muted px-1 md:px-1.5 font-mono text-[9px] md:text-[10px] font-medium text-os-gray-300 opacity-100">
+              <span className="text-[10px] md:text-xs">⌘</span>K
+            </kbd>
           )}
-          onFocus={() => setIsSearchFocused(true)}
-        />
-        {!isMobile && (
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-400 dark:text-muted-foreground">
-            Ctrl K
-          </span>
-        )}
-        {isMobile && isSearchFocused && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-white/5"
-            onClick={() => setIsSearchFocused(false)}
-          >
-            Cancel
-          </Button>
-        )}
+        </div>
       </div>
-    </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }

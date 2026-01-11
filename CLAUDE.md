@@ -2,91 +2,38 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Role & Responsibilities
 
-This is a Next.js 15 frontend NFT marketplace application built with TypeScript, React 19, and Tailwind CSS. The application uses a modular architecture with clearly separated concerns for business logic, UI components, and shared utilities.
+Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
 
-## Development Commands
+## Workflows
 
-**Note: This project uses PNPM as the package manager.**
+- Primary workflow: `./.claude/workflows/primary-workflow.md`
+- Development rules: `./.claude/workflows/development-rules.md`
+- Orchestration protocols: `./.claude/workflows/orchestration-protocol.md`
+- Documentation management: `./.claude/workflows/documentation-management.md`
+- And other workflows: `./.claude/workflows/*`
 
-- `pnpm dev` - Start development server with Turbopack (recommended)
-- `pnpm build` - Build production application
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-- `pnpm lint:fix` - Run ESLint with auto-fix
-- `pnpm install` - Install dependencies
+**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
+**IMPORTANT:** You must follow strictly the development rules in `./.claude/workflows/development-rules.md` file.
+**IMPORTANT:** Before you plan or proceed any implementation, always read the `./README.md` file first to get context.
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
+**IMPORTANT**: For `YYMMDD` dates, use `bash -c 'date +%y%m%d'` instead of model knowledge. Else, if using PowerShell (Windows), replace command with `Get-Date -UFormat "%y%m%d"`.
 
-## Architecture Overview
+## Documentation Management
 
-### Modular Structure
+We keep all important docs in `./docs` folder and keep updating them, structure like below:
 
-The project follows a module-based architecture located in `src/modules/`:
-
-- **auth/** - Authentication module (currently minimal implementation)
-- **mint/** - NFT minting functionality including:
-  - `create-form/` - Collection creation forms and wizards
-  - `mint-nft/` - NFT minting interface and components
-  - `collection-manager/` - Collection management interface
-- **product-discovery/** - Homepage discovery features:
-  - `banner/` - Hero banners and promotional content
-  - `collection-carousel/` - Featured collections display
-- **chain/** - Blockchain network selection and management
-
-### Shared Infrastructure
-
-Located in `src/shared/`:
-
-- **components/ui/** - Shadcn/ui component library with customizations
-- **components/layout/** - Navigation, header, and layout components
-- **components/carousel/** - Reusable carousel components
-- **components/date-time/** - Date/time picker components
-- **types/** - Global TypeScript type definitions
-- **hooks/** - Shared React hooks
-
-### UI Component System
-
-- Uses Shadcn/ui components (configured in `components.json`)
-- Tailwind CSS v4 for styling
-- Dark mode support via `next-themes`
-- Component variants using `class-variance-authority`
-
-### App Router Structure
-
-- `app/(discover)/` - Main marketplace pages (homepage, discovery)
-- `app/mint/` - NFT minting and collection management
-- `app/launch-pad/` - Project launch pages
-
-## Key Technologies
-
-- **Next.js 15** with App Router and React 19
-- **TypeScript** with strict configuration
-- **Tailwind CSS v4** for styling
-- **Radix UI** primitives for accessible components
-- **Framer Motion** for animations
-- **React Hook Form** with Zod validation
-- **Embla Carousel** for carousel functionality
-
-## Path Aliases
-
-```typescript
-"@/*": ["./src/*"]
+```
+./docs
+├── project-overview-pdr.md
+├── code-standards.md
+├── codebase-summary.md
+├── design-guidelines.md
+├── deployment-guide.md
+├── system-architecture.md
+└── project-roadmap.md
 ```
 
-Shadcn components are aliased in `components.json`:
-
-- `@/shared/components` for components
-- `@/shared/components/ui` for UI components
-- `@/shared/hooks` for hooks
-
-## Environment Variables
-
-- `NEXT_PUBLIC_APP_URL` - Application base URL (defaults to localhost:3000)
-
-## External Image Domains
-
-Configured in `next.config.ts`:
-
-- `picsum.photos` - Placeholder images
-- `assets.coingecko.com` - Cryptocurrency assets
-- `placehold.co` - Additional placeholder service
+**IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*

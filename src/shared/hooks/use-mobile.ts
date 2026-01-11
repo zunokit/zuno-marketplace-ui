@@ -1,11 +1,11 @@
 import * as React from "react";
 
-const MOBILE_BREAKPOINT = 768;
+// Changed from 768 to 1024 to match desktop menu breakpoint (lg)
+// This ensures mobile menu shows when desktop menu is hidden
+const MOBILE_BREAKPOINT = 1024;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
-    undefined
-  );
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);

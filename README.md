@@ -1,6 +1,6 @@
 <div align="center">
   <h1>🎨 Zuno NFT Marketplace</h1>
-  <p><strong>A next-generation multi-chain NFT marketplace built with cutting-edge web technologies</strong></p>
+  <p><strong>A modern multi-chain NFT marketplace built with Next.js 15, React 19, and TypeScript</strong></p>
 
   <div>
     <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
@@ -12,254 +12,183 @@
   <br />
 
   <div>
-    <img src="https://img.shields.io/github/license/anthropics/claude-code?style=flat-square" alt="License" />
-    <img src="https://img.shields.io/github/stars/anthropics/claude-code?style=flat-square" alt="Stars" />
-    <img src="https://img.shields.io/github/forks/anthropics/claude-code?style=flat-square" alt="Forks" />
-    <img src="https://img.shields.io/github/issues/anthropics/claude-code?style=flat-square" alt="Issues" />
+    <img src="https://img.shields.io/badge/Status-Active-brightgreen" alt="Status" />
+    <img src="https://img.shields.io/badge/Build-Passing-brightgreen" alt="Build" />
+    <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="Version" />
   </div>
 </div>
 
 ## ✨ Features
 
-### 🏪 **Marketplace Core**
-
-- **Multi-chain Support** - Trade NFTs across multiple blockchain networks
-- **Collection Discovery** - Explore featured collections with interactive carousels
-- **Advanced Search & Filtering** - Find specific NFTs and collections quickly
-- **Real-time Price Updates** - Live market data and pricing information
-
-### 🎨 **NFT Creation & Management**
-
-- **Collection Builder** - Create and deploy NFT collections with ease
-- **Batch Minting** - Efficient bulk NFT creation tools
-- **Edition Management** - Handle multiple editions and variants
-- **Metadata Management** - Rich metadata support with IPFS integration
-
-### 🚀 **Launch Pad**
-
-- **Project Launches** - Showcase upcoming NFT drops
-- **Countdown Timers** - Build anticipation for upcoming releases
-- **Allowlist Management** - Exclusive access control for early supporters
-- **Multi-stage Launches** - Support for complex launch strategies
-
-### 🎯 **User Experience**
-
-- **Dark/Light Theme** - Seamless theme switching
-- **Responsive Design** - Perfect experience across all devices
-- **Accessibility First** - Built with WCAG guidelines in mind
-- **Progressive Web App** - App-like experience in the browser
+- 🏪 **Multi-chain NFT Trading** - Buy, sell, and trade across Ethereum, Polygon, and more
+- 🎨 **NFT Minting** - Create collections and mint NFTs with batch minting support
+- 🔍 **Advanced Discovery** - Search, filter, and explore collections with smart recommendations
+- 🚀 **Launch Pad** - Showcase upcoming NFT drops with countdown timers and allowlists
+- 🌓 **Modern UI** - Dark/light themes with responsive design
+- 🔐 **Secure Auth** - SIWE (Sign-In with Ethereum) authentication
+- 📊 **Analytics** - Track market trends and collection performance
 
 ## 🛠️ Tech Stack
 
-### **Frontend Framework**
-
+### Frontend
 - **Next.js 15** - React framework with App Router
 - **React 19** - Latest React with concurrent features
-- **TypeScript 5** - Type-safe development
-
-### **Styling & UI**
-
-- **Tailwind CSS v4** - Utility-first CSS framework
+- **TypeScript 5** - Strict type safety
+- **Tailwind CSS v4** - Utility-first styling
 - **Shadcn/ui** - High-quality component library
-- **Radix UI** - Unstyled, accessible UI primitives
-- **Framer Motion** - Production-ready motion library
 
-### **Development Tools**
+### Web3
+- **Wagmi 2.19.4** - Ethereum React hooks
+- **Viem 2.39.0** - TypeScript interface for Ethereum
+- **RainbowKit** - Wallet connection UI
+- **SIWE** - Ethereum authentication
 
-- **ESLint** - Code linting and formatting
-- **Turbopack** - Ultra-fast bundler for development
-- **PNPM** - Fast, disk space efficient package manager
+### State & Data
+- **Apollo Client** - GraphQL client with caching
+- **React Hook Form** - Form management with Zod validation
+- **Zustand** - Lightweight state management
+
+### Testing
+- **Jest** - Unit testing
+- **React Testing Library** - Component testing
+- **Playwright** - E2E testing
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-
-- **Node.js** 18.17 or later
-- **PNPM** 8.0 or later (recommended) or npm/yarn
+- Node.js 18.17+
+- PNPM 8.0+ (recommended)
 
 ### Installation
 
-1. **Clone the repository**
+```bash
+# Clone repository
+git clone https://github.com/ZunoKit/zuno-marketplace-ui.git
+cd zuno-marketplace-ui
 
-   ```bash
-   https://github.com/ZunoKit/zuno-marketplace-ui.git
-   cd zuno-marketplace-ui
-   ```
+# Install dependencies
+pnpm install
 
-2. **Install dependencies**
+# Copy environment variables
+cp .env.example .env.local
 
-   ```bash
-   pnpm install
-   ```
+# Start development server
+pnpm dev
+```
 
-3. **Set up environment variables**
+Visit `http://localhost:3000` to view the application.
 
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   Edit `.env.local` with your configuration:
-
-   ```env
-   NEXT_PUBLIC_APP_URL=http://localhost:3000
-   ```
-
-4. **Start the development server**
-
-   ```bash
-   pnpm dev
-   ```
-
-5. **Open your browser** and navigate to `http://localhost:3000`
-
-## 📚 Available Scripts
+## 📚 Scripts
 
 | Command         | Description                             |
 | --------------- | --------------------------------------- |
-| `pnpm dev`      | Start development server with Turbopack |
+| `pnpm dev`      | Start dev server with Turbopack         |
 | `pnpm build`    | Build production application            |
 | `pnpm start`    | Start production server                 |
 | `pnpm lint`     | Run ESLint                              |
 | `pnpm lint:fix` | Run ESLint with auto-fix                |
+| `pnpm test`     | Run unit tests                          |
+| `pnpm test:e2e` | Run E2E tests                           |
 
 ## 🏗️ Project Structure
 
 ```
-zuno-marketplace-ui/
-├── 📁 public/                 # Static assets
-├── 📁 src/
-│   ├── 📁 app/                # Next.js App Router
-│   │   ├── 📁 (discover)/     # Discovery pages
-│   │   ├── 📁 mint/           # NFT minting pages
-│   │   └── 📁 launch-pad/     # Project launch pages
-│   │
-│   ├── 📁 modules/            # Business logic modules
-│   │   ├── 📁 auth/           # Authentication
-│   │   ├── 📁 mint/           # NFT creation & minting
-│   │   ├── 📁 product-discovery/ # Marketplace discovery
-│   │   └── 📁 chain/          # Blockchain integration
-│   │
-│   └── 📁 shared/             # Shared resources
-│       ├── 📁 components/     # Reusable UI components
-│       ├── 📁 hooks/          # Custom React hooks
-│       ├── 📁 types/          # TypeScript type definitions
-│       └── 📁 utils/          # Utility functions
-│
-├── 📄 components.json         # Shadcn/ui configuration
-├── 📄 tailwind.config.js      # Tailwind CSS configuration
-└── 📄 next.config.ts          # Next.js configuration
+src/
+├── app/                 # Next.js App Router
+│   ├── (discover)/     # Discovery pages
+│   ├── mint/           # Minting workflows
+│   └── launch-pad/     # Launch features
+├── modules/            # Business logic modules
+│   ├── product-discovery/  # Marketplace discovery
+│   ├── mint/             # NFT creation
+│   ├── profile/          # User profiles
+│   └── auctions/         # Live auctions
+└── shared/             # Shared resources
+    ├── components/ui/   # Shadcn/ui components
+    ├── graphql/         # GraphQL setup
+    ├── types/          # TypeScript types
+    └── hooks/          # Custom hooks
 ```
 
-### **Module Architecture**
+## 🎨 Component System
 
-Each module follows a consistent structure:
+We use Shadcn/ui with Radix UI primitives:
 
-```
-module-name/
-├── index.ts              # Public API exports
-├── components/           # Module-specific components
-├── hooks/               # Module-specific hooks
-├── services/            # API and business logic
-├── types/               # Module type definitions
-└── utils/               # Module utilities
-```
+- Accessible components with ARIA support
+- Dark/light mode support
+- TypeScript-first development
+- Customizable with Tailwind CSS
 
-## 🎨 Component Library
-
-We use a custom implementation of [Shadcn/ui](https://ui.shadcn.com/) components:
-
-- **Accessible** - Built on Radix UI primitives
-- **Customizable** - Easy to modify and extend
-- **Type-safe** - Full TypeScript support
-- **Theme-aware** - Dark/light mode support
-
-### Adding New Components
+## 🧪 Testing
 
 ```bash
-npx shadcn-ui@latest add [component-name]
+# Run all tests
+pnpm test
+
+# Run E2E tests
+pnpm test:e2e
+
+# Generate coverage
+pnpm test:coverage
 ```
 
 ## 🌐 Multi-chain Support
 
-The platform is designed to support multiple blockchain networks:
+Supported networks:
+- Ethereum Mainnet
+- Polygon
+- Sepolia Testnet
+- Local Anvil (development)
 
-- **Ethereum** - ERC-721, ERC-1155
-- **Solana** - SPL tokens
-- **Polygon** - Layer 2 scaling
-- **And more...** - Extensible architecture
+## 🔧 Configuration
 
-## 🧪 Testing
+### Environment Variables
 
-_Testing framework setup in progress..._
-
-```bash
-# Run tests (when implemented)
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Generate coverage report
-pnpm test:coverage
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_GRAPHQL_URL=http://localhost:4000/graphql
+NEXT_PUBLIC_CHAIN_ID=1
 ```
 
-## 📦 Deployment
+### GraphQL Schema
 
-### **Vercel (Recommended)**
+Schema files in `src/shared/graphql/schemas/`:
+- `auth.graphql` - Authentication operations
+- `user.graphql` - User management
+- `nft.graphql` - NFT operations
+- `collection.graphql` - Collection management
 
-1. Connect your repository to Vercel
-2. Configure environment variables
-3. Deploy automatically on every push
+Run `pnpm codegen` to generate TypeScript types and hooks.
 
-### **Manual Deployment**
+## 📖 Documentation
 
-```bash
-# Build the application
-pnpm build
-
-# Start production server
-pnpm start
-```
+- [Project Overview PDR](docs/project-overview-pdr.md) - Product Development Requirements
+- [Codebase Summary](docs/codebase-summary.md) - Complete overview of codebase structure
+- [Code Standards](docs/code-standards.md) - Development guidelines and best practices
+- [System Architecture](docs/system-architecture.md) - Technical architecture documentation
+- [Design Guidelines](docs/design-guidelines.md) - Design system and UI patterns
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### **Development Workflow**
-
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Run linting: `pnpm lint:fix`
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
+2. Create a feature branch
+3. Follow the RED-GREEN-REFACTOR methodology
+4. Write tests for new features
+5. Run `pnpm lint:fix` before committing
+6. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🆘 Support
 
-- 📧 **Email**: support@zuno-marketplace.com
-- 💬 **Discord**: [Join our community](https://discord.gg/zuno)
-- 📖 **Documentation**: [docs.zuno-marketplace.com](https://docs.zuno-marketplace.com)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/your-username/zuno-marketplace-ui/issues)
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) for the incredible React framework
-- [Shadcn/ui](https://ui.shadcn.com/) for the beautiful component library
-- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
-- [Radix UI](https://www.radix-ui.com/) for accessible UI primitives
+- Documentation: [docs.zuno-marketplace.com](https://docs.zuno-marketplace.com)
+- Issues: [GitHub Issues](https://github.com/ZunoKit/zuno-marketplace-ui/issues)
+- Discord: [Join community](https://discord.gg/zuno)
 
 ---
 
 <div align="center">
   <p>Made with ❤️ by the Zuno team</p>
-  <p>
-    <a href="https://github.com/your-username/zuno-marketplace-ui">⭐ Star us on GitHub</a> •
-    <a href="https://twitter.com/zuno_marketplace">🐦 Follow on Twitter</a> •
-    <a href="https://zuno-marketplace.com">🌐 Visit our website</a>
-  </p>
 </div>

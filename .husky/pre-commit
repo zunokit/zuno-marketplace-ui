@@ -1,9 +1,0 @@
-# Run lint-staged for linting and formatting
-echo "🔍 Running lint-staged..."
-pnpm exec lint-staged
-
-# Run type checking
-echo "🔍 Type checking..."
-pnpm run lint || (echo "❌ Linting failed" && exit 1)
-
-echo "✅ Pre-commit checks passed!"

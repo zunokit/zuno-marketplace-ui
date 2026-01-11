@@ -5,7 +5,22 @@
       "Bash(pnpm exec:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(gh repo view:*)"
+      "Bash(gh repo view:*)",
+      "Bash(tree:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm test:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(git mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(gh api:*)",
+      "Bash(for repo in zunokit-builder zuno-marketplace-ui zuno-marketplace-api zuno-marketplace-contracts zuno-marketplace-mini zuno-marketplace-abis zuno-marketplace-scripts)",
+      "Bash(do echo \"=== $repo ===\")",
+      "Bash(done)",
+      "Bash(pnpm build:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(pnpm install:*)",
+      "Skill(frontend-design:frontend-design)"
     ],
     "deny": [],
     "ask": []

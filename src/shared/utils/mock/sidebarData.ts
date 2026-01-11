@@ -1,0 +1,78 @@
+import { makeMockCollections } from "./mockCollection";
+
+export const mockSidebarCollections = makeMockCollections(15, "ethereum");
+
+export const mockTrendingTokens = [
+  {
+    id: "1",
+    name: "Ethereum",
+    symbol: "ETH",
+    icon: "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    price: 2450.32,
+    priceChange: 5.2,
+    verified: true,
+  },
+  {
+    id: "2",
+    name: "Wrapped Bitcoin",
+    symbol: "WBTC",
+    icon: "https://assets.coingecko.com/coins/images/7598/small/wrapped_bitcoin_wbtc.png",
+    price: 43250.87,
+    priceChange: 3.8,
+    verified: true,
+  },
+  {
+    id: "3",
+    name: "USD Coin",
+    symbol: "USDC",
+    icon: "https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png",
+    price: 1.0,
+    priceChange: 0.02,
+    verified: true,
+  },
+  {
+    id: "4",
+    name: "Tether",
+    symbol: "USDT",
+    icon: "https://assets.coingecko.com/coins/images/325/small/Tether.png",
+    price: 0.9998,
+    priceChange: -0.01,
+    verified: true,
+  },
+  {
+    id: "5",
+    name: "Polygon",
+    symbol: "MATIC",
+    icon: "https://assets.coingecko.com/coins/images/4713/small/matic-token-icon.png",
+    price: 0.85,
+    priceChange: 12.5,
+    verified: true,
+  },
+  {
+    id: "6",
+    name: "Chainlink",
+    symbol: "LINK",
+    icon: "https://assets.coingecko.com/coins/images/877/small/chainlink-new-logo.png",
+    price: 15.32,
+    priceChange: -2.3,
+    verified: true,
+  },
+  {
+    id: "7",
+    name: "Uniswap",
+    symbol: "UNI",
+    icon: "https://assets.coingecko.com/coins/images/12504/small/uniswap-uni.png",
+    price: 8.45,
+    priceChange: 7.8,
+    verified: true,
+  },
+  {
+    id: "8",
+    name: "Aave",
+    symbol: "AAVE",
+    icon: "https://assets.coingecko.com/coins/images/12645/small/AAVE.png",
+    price: 95.23,
+    priceChange: -4.2,
+    verified: true,
+  },
+];

@@ -1,19 +1,12 @@
 "use client";
 
-import {
-  Carousel,
-  CarouselApi,
-  CarouselNext,
-} from "@/shared/components/ui/carousel";
-import {
-  CarouselContent,
-  CarouselPrevious,
-} from "@/shared/components/ui/carousel";
+import { Carousel, CarouselApi, CarouselNext } from "@/shared/components/ui/carousel";
+import { CarouselContent, CarouselPrevious } from "@/shared/components/ui/carousel";
 import { CarouselItem } from "@/shared/components/ui/carousel";
 import { mockBanner } from "@/shared/utils/mock/mockBanner";
 import { useEffect, useState } from "react";
-import BannerItem from "@/modules/product-discovery/banner/BannerItem";
-import BannerPagination from "@/modules/product-discovery/banner/BannerPagination";
+import BannerItem from "@/modules/product-discovery/banner/components/BannerItem";
+import BannerPagination from "@/modules/product-discovery/banner/components/BannerPagination";
 import { Banner } from "@/shared/types/banner";
 
 export function HomeBanner() {
@@ -41,15 +34,15 @@ export function HomeBanner() {
   // Show loading state while slides are being generated
   if (slides.length === 0) {
     return (
-      <div className="w-full h-[400px] rounded-xl overflow-hidden mb-5 bg-gray-50 dark:bg-[#1A1F2C] border border-gray-200 dark:border-white/10 animate-pulse" />
+      <div className="w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px] rounded-[8px] md:rounded-[12px] overflow-hidden mb-3 md:mb-5 bg-secondary dark:bg-card border border-border-subtle animate-pulse" />
     );
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full px-2 md:px-0">
       <Carousel
         setApi={setApi}
-        className="w-full h-[400px] rounded-xl overflow-hidden mb-5 group bg-gray-50 dark:bg-[#1A1F2C] border border-gray-200 dark:border-white/10"
+        className="w-full h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px] rounded-[8px] md:rounded-[12px] overflow-hidden mb-3 md:mb-5 group bg-secondary dark:bg-card border border-border-subtle"
         plugins={
           [
             // Autoplay({
@@ -62,15 +55,15 @@ export function HomeBanner() {
           loop: true,
         }}
       >
-        <CarouselContent className="h-[400px]">
+        <CarouselContent className="h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px]">
           {slides.map((slide, index) => (
-            <CarouselItem key={index} className="h-[400px]">
+            <CarouselItem key={index} className="h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] xl:h-[400px]">
               <BannerItem {...slide} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="hidden group-hover:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-white hover:text-white w-12 h-12 rounded-full items-center justify-center shadow-lg hover:shadow-xl" />
-        <CarouselNext className="hidden group-hover:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-white hover:text-white w-12 h-12 rounded-full items-center justify-center shadow-lg hover:shadow-xl" />
+        <CarouselPrevious className="hidden md:group-hover:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-foreground hover:text-foreground w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
+        <CarouselNext className="hidden md:group-hover:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/50 hover:bg-black/70 border-white/30 hover:border-white/50 text-foreground hover:text-foreground w-8 h-8 md:w-12 md:h-12 rounded-full items-center justify-center shadow-os-focus hover:shadow-xl" />
       </Carousel>
 
       <BannerPagination count={count} current={current} api={api} />
