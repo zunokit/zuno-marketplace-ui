@@ -21,8 +21,12 @@ interface NFTSelectionStore {
   sliderValue: number;
   /** Current action mode (buy/sell) */
   actionMode: ActionMode;
+  /** Cart popover/drawer open state */
+  cartOpen: boolean;
 
   // Actions
+  /** Set cart (popover/drawer) open state */
+  setCartOpen: (open: boolean) => void;
   /** Add an NFT ID to selection */
   add: (id: string) => void;
   /** Remove an NFT ID from selection */
@@ -69,8 +73,10 @@ export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
   maxItems: 0,
   sliderValue: 0,
   actionMode: 'buy',
+  cartOpen: false,
 
   // Actions
+  setCartOpen: (open) => set({ cartOpen: open }),
   add: (id) =>
     set((state) => {
       // Prevent duplicates and enforce max items

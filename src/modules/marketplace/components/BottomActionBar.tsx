@@ -3,7 +3,10 @@
 import { cn } from "@/shared/utils/tailwind-utils";
 import { Button } from "@/shared/components/ui/button";
 import { Slider } from "@/shared/components/ui/slider";
-import { Minus, Plus, Info } from "lucide-react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { ResponsivePopoverDrawer } from "@/shared/components/responsive-popover-drawer";
+import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
+import CartModal from "@/modules/marketplace/components/CartModal";
 
 type ActionMode = "buy" | "sell";
 
@@ -32,6 +35,7 @@ export default function BottomActionBar({
   onMakeOffer,
   className,
 }: BottomActionBarProps) {
+  const { cartOpen, setCartOpen } = useNFTSelectionStore();
   const handleSliderChange = (value: number[]) => {
     onSliderChange(value[0]);
   };
@@ -48,8 +52,10 @@ export default function BottomActionBar({
         "scrollbar-hide overflow-y-auto"
       )}
     >
-        <div className="mx-auto min-h-0 w-full min-w-0  px-4 lg:px-6 flex items-center">
-          <div className="flex items-center gap-4">
+        <div className="mx-auto min-h-0 w-full min-w-0 px-4 lg:px-6 flex items-center">
+          <div className="flex items-center justify-between gap-4 w-full min-w-0">
+            {/* Left: mode, slider, count, selected */}
+            <div className="flex items-center gap-4 min-w-0 shrink-0">
             {/* Buy/Sell Toggle */}
             <div className="inline-flex rounded-md gap-1 overflow-hidden bg-muted p-0.5" role="group">
               <button
@@ -127,11 +133,11 @@ export default function BottomActionBar({
             <span className="text-sm text-muted-foreground">
               {itemCount} selected
             </span>
+              <div className="shrink-0 bg-border w-px h-6" />
+            </div>
 
-            <div className="shrink-0 bg-border w-px h-6" />
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-3">
+            {/* Right: actions + cart */}
+            <div className="flex items-center gap-3 shrink-0">
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -149,6 +155,37 @@ export default function BottomActionBar({
               >
                 {mode === "buy" ? "Buy floor" : "List selected"}
               </Button>
+              {itemCount > 0 && (
+                <>
+                  <div className="shrink-0 bg-border w-px h-6" />
+                  <ResponsivePopoverDrawer
+                    open={cartOpen}
+                    onOpenChange={setCartOpen}
+                    title={`Cart (${itemCount})`}
+                    closeOnInteractOutside={false}
+                    renderTrigger={(p) => (
+                      <button
+                        {...p}
+                        type="button"
+                        className="flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 relative whitespace-nowrap shrink-0 h-8 px-3 rounded-md border border-border bg-card hover:border-border hover:bg-muted/50 shadow-sm"
+                      >
+                        <div className="relative">
+                          <ShoppingCart className="w-4 h-4" />
+                          <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                            {itemCount}
+                          </span>
+                        </div>
+                        <span className="text-xs sm:text-sm">Cart</span>
+                      </button>
+                    )}
+                  >
+                    <CartModal
+                      onPrimaryAction={onBuyFloor}
+                      primaryLabel={mode === "buy" ? "Buy floor" : "List selected"}
+                    />
+                  </ResponsivePopoverDrawer>
+                </>
+              )}
             </div>
           </div>
         </div>

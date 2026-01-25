@@ -1,15 +1,10 @@
 "use client";
 
-import { Zap, Radio, Info, Sun, Moon, Volume2, ShoppingCart } from "lucide-react";
+import { Zap, Radio, Info, Sun, Moon, Volume2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
-interface AppFooterProps {
-  itemCount?: number;
-  openCart?: () => void;
-}
-
-export function AppFooter({ itemCount, openCart }: AppFooterProps) {
+export function AppFooter() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, systemTheme } = useTheme();
 
@@ -118,23 +113,6 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
           <button className="hidden lg:block text-os-gray-300 hover:text-foreground transition-all duration-150 shrink-0">
             <Volume2 className="w-4 h-4" />
           </button>
-          {itemCount !== undefined && itemCount > 0 && openCart && (
-            <>
-              <div className="w-px h-3 sm:h-4 bg-border shrink-0"></div>
-              <button
-                onClick={openCart}
-                className="flex items-center gap-1 sm:gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 relative whitespace-nowrap shrink-0"
-              >
-                <div className="relative">
-                  <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[9px] sm:text-[10px] rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 flex items-center justify-center font-medium">
-                    {itemCount}
-                  </span>
-                </div>
-                <span className="hidden sm:inline text-xs md:text-sm">Cart</span>
-              </button>
-            </>
-          )}
         </div>
       </div>
     </nav>
