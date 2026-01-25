@@ -40,18 +40,15 @@ export default function BottomActionBar({
   const incrementCount = () => onItemCountChange(Math.min(maxItems, itemCount + 1));
 
   return (
-    <div className={cn(className)}>
-      <div
-        className={cn(
-          "flex items-center",
-          "right-0 left-0 z-[60] h-14 w-full",
-          "border-t border-border bg-background/95 backdrop-blur-sm",
-          "scrollbar-hide overflow-y-auto",
-          "fixed bottom-0",
-          "lg:left-[52px] lg:w-[calc(100%-52px)]"
-        )}
-      >
-        <div className="mx-auto min-h-0 w-full min-w-0 max-w-[calc(1536px+48px)] px-4 lg:px-6 flex items-center">
+    <div
+      className={cn(
+        className,
+        "flex items-center shrink-0 w-full h-14",
+        "border-t border-border bg-background/95 backdrop-blur-sm",
+        "scrollbar-hide overflow-y-auto"
+      )}
+    >
+        <div className="mx-auto min-h-0 w-full min-w-0  px-4 lg:px-6 flex items-center">
           <div className="flex items-center gap-4">
             {/* Buy/Sell Toggle */}
             <div className="inline-flex rounded-md gap-1 overflow-hidden bg-muted p-0.5" role="group">
@@ -156,6 +153,5 @@ export default function BottomActionBar({
           </div>
         </div>
       </div>
-    </div>
   );
 }

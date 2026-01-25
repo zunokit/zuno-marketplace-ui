@@ -10,6 +10,7 @@ import { ApolloProvider } from "@apollo/client/react";
 import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/utils/tailwind-utils";
+import BottomActionBarWrapper from "@/modules/marketplace/components/BottomActionBarWrapper";
 
 export default function Wrapper({ children }: { children: ReactNode }) {
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -51,31 +52,31 @@ export default function Wrapper({ children }: { children: ReactNode }) {
             {/* Fixed Top Navigation - full width */}
             <TopNav />
 
-            {/* Main: h-screen+overflow-hidden on marketplace collection so when Hero is closed, no body scroll */}
+            {/* Content: grow min-h-0 để Bar+Footer global nằm dưới cùng viewport */}
             <div
               className={cn(
-                "lg:ml-[52px] flex flex-col pt-10 sm:pt-11 lg:pt-12",
-                isMarketplaceCollection ? "h-screen overflow-hidden" : "min-h-screen"
+                "lg:ml-[52px] flex flex-col grow min-h-0 pt-10 sm:pt-11 lg:pt-12",
+                isMarketplaceCollection && "overflow-hidden"
               )}
             >
-              {/* Main content */}
               <main
                 className={cn(
-                  "max-w-screen w-full mx-auto flex-grow",
-                  isMarketplaceCollection ? "pb-0 min-h-0 overflow-hidden" : "pb-24"
+                  "max-w-screen w-full mx-auto grow",
+                  isMarketplaceCollection ? "pb-0 min-h-0 overflow-hidden" : "pb-0"
                 )}
               >
                 {children}
               </main>
-
-              {/* Fixed footer */}
-              <AppFooter
-                itemCount={cartItemCount}
-                openCart={() => {
-                  // Cart open functionality can be implemented later
-                }}
-              />
             </div>
+
+            {/* Global: Bottom Action Bar + Footer — cùng cấp LeftSidebar/TopNav, căn content lg:ml-[52px] */}
+            <BottomActionBarWrapper />
+            <AppFooter
+              itemCount={cartItemCount}
+              openCart={() => {
+                // Cart open functionality can be implemented later
+              }}
+            />
           </div>
         </Web3Provider>
       </ThemeProvider>

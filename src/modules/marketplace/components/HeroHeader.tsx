@@ -161,7 +161,7 @@ export default function HeroHeader({
   bannerUrl,
   useMockData = true 
 }: HeroHeaderProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
 
   // Use mock data or real collection data

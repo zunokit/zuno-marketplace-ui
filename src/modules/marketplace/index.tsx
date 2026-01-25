@@ -3,17 +3,15 @@
 import { useState, useMemo, useCallback, Component, ReactNode, useEffect } from "react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import ControlBar from "@/modules/marketplace/components/ControlBar";
+import { MobileTabNav } from "@/modules/marketplace/components/MobileTabNav";
 import NFTListView from "@/modules/marketplace/components/NFTListView";
 import NFTGrid from "@/modules/marketplace/components/NFTGrid";
 import FilterSidebar from "@/modules/marketplace/components/FilterSidebar";
 import SellerModal from "@/modules/marketplace/components/SellerModal";
-import { useNFTSelection } from "@/modules/marketplace/hooks/useNFTSelection";
-// DEPRECATED: useMyItems replaced with useInfiniteMarketplaceItems
-// import { useMyItems } from "@/modules/marketplace/hooks/useMyItems";
 import { useInfiniteMarketplaceItems, type MarketplaceFilters } from "@/modules/marketplace/queries";
+import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
 import HeroHeader from "@/modules/marketplace/components/HeroHeader";
 import CollectionNav from "@/modules/marketplace/components/CollectionNav";
-import BottomActionBar from "@/modules/marketplace/components/BottomActionBar";
 import type { Collection } from "@/shared/utils/mock/collection";
 import type { Nft } from "@/modules/marketplace/types";
 import { NftStatus } from "@/modules/marketplace/types";
@@ -58,7 +56,6 @@ interface ShopNFTsProps {
 
 export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFTsProps) {
   const [collection] = useState(initialCollection);
-  const [selectedNFTs, setSelectedNFTs] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("items");
   const [view, setView] = useState<"grid" | "list" | "compact">("grid");
   const [showFilters, setShowFilters] = useState(false);
@@ -71,6 +68,9 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   const [showSellerModal, setShowSellerModal] = useState(false);
   const [sorting, setSorting] = useState<SortingState[]>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
+
+  // Zustand store for NFT selection
+  const { selectedNFTs, toggle, setMaxItems, setAvailableNFTs } = useNFTSelectionStore();
 
   const isConnected = true;
   const address = "0x1234567890123456789012345678901234567890";
@@ -102,6 +102,21 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   // Safe NFTs for compatibility with existing code
   const safeNFTs = useMemo(() => nfts, [nfts]);
 
+  // Update max items and available NFTs in store when NFTs change
+  useEffect(() => {
+    setMaxItems(nfts.length);
+    setAvailableNFTs(nfts.map((nft) => nft.id));
+  }, [nfts, setMaxItems, setAvailableNFTs]);
+
+  // Dispatch cart update event when selection changes
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("cartUpdate", {
+        detail: { itemCount: selectedNFTs.length },
+      })
+    );
+  }, [selectedNFTs]);
+
   const searchValue = searchQuery;
 
   const sortValue = sortBy;
@@ -115,44 +130,12 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     setPriceRange(validPriceRange);
   }, []);
 
-  // REMOVED: Client-side filtering/sorting - now handled server-side via query params
-  // const filterAndSortNFTs = useCallback(...)
-  // useEffect(() => { const filtered = filterAndSortNFTs(safeNFTs); ... })
-
-  useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent("cartUpdate", {
-        detail: { itemCount: selectedNFTs.length },
-      })
-    );
-  }, [selectedNFTs]);
-
-  const onSelectedNFTsChange = useCallback(
-    (ids: Set<string>) => {
-      setSelectedNFTs(Array.from(ids));
-    },
-    []
-  );
-
-  const {
-    sliderValue,
-    isSliding,
-    handleSliderChange,
-    handleItemCountChange,
-    handleIndividualSelection,
-  } = useNFTSelection({
-    initialNFTs: nfts,
-    onVisibleNFTsChange: () => {},
-    onSelectedNFTsChange,
-  });
-
-  const [actionMode, setActionMode] = useState<"buy" | "sell">("buy");
-
+  // Handle NFT selection using store
   const handleNFTSelection = useCallback(
     (id: string) => {
-      handleIndividualSelection(id, !selectedNFTs.includes(id));
+      toggle(id);
     },
-    [handleIndividualSelection, selectedNFTs]
+    [toggle]
   );
 
   const handleNFTCardClick = useCallback((nft: Nft) => {
@@ -267,7 +250,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                     nfts={nfts}
                     view={view === "compact" ? "compact" : "grid"}
                     showFilters={showFilters}
-                    isSliding={isSliding}
+                    isSliding={false}
                     onSelect={handleNFTSelection}
                     onCardClick={handleNFTCardClick}
                     selectedNFTs={selectedNFTs}
@@ -343,109 +326,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       </div>
 
       {/* Mobile Bottom Navigation - Tabs */}
-      <div className="md:hidden shrink-0 fixed bottom-6 left-4 right-4 z-50 rounded-2xl bg-background/98 backdrop-blur-xl backdrop-saturate-150 border border-border/80 shadow-[0_10px_35px_rgba(0,0,0,0.28)] ring-1 ring-primary/5 safe-area-bottom">
-        <div className="flex items-center justify-around h-[4.25rem] px-2 py-1.5 gap-1">
-          <button
-            onClick={() => setActiveTab("items")}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
-              activeTab === "items"
-                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-            )}
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-            <span className="text-[12px] font-semibold leading-none">Items</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("offers")}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
-              activeTab === "offers"
-                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-            )}
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-              />
-            </svg>
-            <span className="text-[12px] font-semibold leading-none">Offers</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("activity")}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
-              activeTab === "activity"
-                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-            )}
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
-            <span className="text-[12px] font-semibold leading-none">Activity</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("holders")}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 h-full gap-1.5 transition-all rounded-xl",
-              activeTab === "holders"
-                ? "text-primary bg-primary/12 shadow-inner shadow-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-            )}
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            <span className="text-[12px] font-semibold leading-none">More</span>
-          </button>
-        </div>
-      </div>
+      <MobileTabNav activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 }

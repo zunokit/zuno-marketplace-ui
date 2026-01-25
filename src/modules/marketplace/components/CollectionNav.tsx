@@ -52,7 +52,7 @@ export default function CollectionNav({
       )}
     >
       <nav
-        className="flex gap-6 mx-auto min-h-0 w-full min-w-0 max-w-[calc(1536px+48px)] px-4 lg:px-6"
+        className="flex gap-6 mx-auto min-h-0 w-full min-w-0  px-4 lg:px-6"
         aria-label="Collection"
       >
         {NAV_ITEMS.map((item) => {

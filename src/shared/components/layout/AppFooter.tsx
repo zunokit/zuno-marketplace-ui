@@ -25,7 +25,7 @@ export function AppFooter({ itemCount, openCart }: AppFooterProps) {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 bg-card border-t border-border-subtle px-2 sm:px-3 md:px-4 lg:px-6 py-2 md:py-2.5 z-50"
+      className="w-full shrink-0 bg-background/95 backdrop-blur-sm border-t border-border px-2 sm:px-3 md:px-4 lg:px-6 py-2 md:py-2.5 lg:ml-[52px] lg:w-[calc(100%-52px)]"
       role="navigation"
     >
       <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs md:text-sm max-w-[1920px] mx-auto">
