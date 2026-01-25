@@ -152,7 +152,7 @@ export default function FilterSidebar({
   };
 
   const filterContent = (
-    <div className="overflow-y-auto scrollbar-hide relative pt-12 h-full flex-1">
+    <div className="overflow-y-auto scrollbar-hide relative pt-12 h-full flex-1 min-h-0">
       <Accordion type="multiple" defaultValue={["status", "price", "traits"]} className="w-full">
         {/* Status Accordion */}
         <AccordionItem value="status" className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b">

@@ -213,8 +213,8 @@ export default function HeroHeader({
           className={cn(
             "pointer-events-auto right-0 flex w-full z-10 absolute transition-all duration-500 ease-out",
             isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-270px))] xl:min-w-full" 
-              : "h-32"
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" 
+              : "h-24"
           )}
         >
           {/* Content Overlay */}
@@ -391,8 +391,8 @@ export default function HeroHeader({
           className={cn(
             "absolute right-0 flex w-full pointer-events-none top-0 z-0 overflow-hidden transition-all duration-500 ease-out",
             isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-270px))] xl:min-w-full opacity-100" 
-              : "h-32 opacity-30"
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full opacity-100" 
+              : "h-24 opacity-30"
           )}
         >
           <div className="absolute inset-0 transition-opacity duration-1000 ease-out top-0 size-full overflow-hidden z-10">
@@ -434,8 +434,8 @@ export default function HeroHeader({
           className={cn(
             "pointer-events-none opacity-0 -mx-4 lg:-mx-6 relative w-full transition-all duration-500 ease-out",
             isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-270px))] xl:min-w-full" 
-              : "h-32"
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" 
+              : "h-24"
           )}
         />
       </div>
