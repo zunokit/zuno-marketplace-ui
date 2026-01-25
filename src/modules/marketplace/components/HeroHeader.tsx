@@ -155,11 +155,11 @@ interface HeroHeaderProps {
   useMockData?: boolean;
 }
 
-export default function HeroHeader({ 
-  collection, 
-  videoUrl, 
+export default function HeroHeader({
+  collection,
+  videoUrl,
   bannerUrl,
-  useMockData = true 
+  useMockData = true
 }: HeroHeaderProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
@@ -208,25 +208,25 @@ export default function HeroHeader({
   return (
     <div id="hero-header" className="relative">
       {/* Desktop Layout */}
-      <div className="hidden lg:block">
-        <div 
+      <div className="hidden md:block">
+        <div
           className={cn(
             "pointer-events-auto right-0 flex w-full z-10 absolute transition-all duration-500 ease-out",
-            isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" 
+            isExpanded
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full"
               : "h-24"
           )}
         >
           {/* Content Overlay */}
-          <div className="mx-auto min-h-0 min-w-0  px-4 lg:px-6 z-[1] flex w-full items-end dark">
+          <div className="mx-auto min-h-0 min-w-0  px-4 md:px-6 z-[1] flex w-full items-end dark">
             <div
               className={cn(
-                "flex w-full min-w-0 flex-col pb-4 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:justify-between xl:gap-4 xl:pb-5",
+                "flex w-full min-w-0 flex-col pb-4 md:grid md:grid-cols-[1fr_auto] md:items-end md:justify-between xl:gap-4 xl:pb-5",
                 "transition-all duration-300"
               )}
             >
               {/* Left Column: Collection Info */}
-              <div className="flex flex-col lg:grow">
+              <div className="flex flex-col md:grow">
                 <div className="flex w-full items-center gap-3 border-0 p-0 min-w-0 select-text">
                   {/* Avatar */}
                   <div className="flex group relative">
@@ -248,7 +248,7 @@ export default function HeroHeader({
                       {/* Title with Verified Badge */}
                       <div className="flex min-w-0 items-center gap-2">
                         <h1 className="flex items-center gap-4">
-                          <span className="leading-normal font-medium text-foreground text-xl lg:text-2xl line-clamp-1">
+                          <span className="leading-normal font-medium text-foreground text-xl md:text-2xl line-clamp-1">
                             {displayData.name}
                           </span>
                           {displayData.verified && <VerifiedBadge />}
@@ -346,17 +346,17 @@ export default function HeroHeader({
               </div>
 
               {/* Right Column: Stats */}
-              <div className="mt-4 flex min-w-0 flex-col overflow-x-visible md:mt-0 lg:flex-row lg:justify-end lg:pl-8 lg:[mask-image:linear-gradient(to_right,transparent,black_32px)]">
+              <div className="mt-4 flex min-w-0 flex-col overflow-x-visible md:mt-0 md:flex-row md:justify-end md:pl-8 md:[mask-image:linear-gradient(to_right,transparent,black_32px)]">
                 <div className="mt-6 gap-3">
-                  <div className="flex items-center overflow-hidden md:gap-8 lg:justify-end">
+                  <div className="flex items-center overflow-hidden md:gap-8 md:justify-end">
                     <div className="flex group/stat-display flex-none gap-4 overflow-hidden md:gap-8 w-full justify-between md:w-auto">
                       <StatItem label="Floor price" value={stats.floorPrice} suffix="ETH" />
                       <StatItem label="Top offer" value={stats.topOffer} suffix="WETH" />
                       <StatItem label="Total volume" value={stats.totalVolume} suffix="ETH" />
-                      <div className="hidden md:flex lg:hidden 3xl:flex">
+                      <div className="hidden md:flex md:hidden 3xl:flex">
                         <StatItem label="Listed" value={stats.listed} suffix="%" />
                       </div>
-                      <div className="hidden md:flex lg:hidden 2xl:flex">
+                      <div className="hidden md:flex md:hidden 2xl:flex">
                         <StatItem
                           label="Owners (Unique)"
                           value={stats.owners}
@@ -387,11 +387,11 @@ export default function HeroHeader({
         </div>
 
         {/* Background Media - Hide/Show based on isExpanded */}
-        <div 
+        <div
           className={cn(
             "absolute right-0 flex w-full pointer-events-none top-0 z-0 overflow-hidden transition-all duration-500 ease-out",
-            isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full opacity-100" 
+            isExpanded
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full opacity-100"
               : "h-24 opacity-30"
           )}
         >
@@ -432,114 +432,81 @@ export default function HeroHeader({
         {/* Spacer for layout */}
         <div
           className={cn(
-            "pointer-events-none opacity-0 -mx-4 lg:-mx-6 relative w-full transition-all duration-500 ease-out",
-            isExpanded 
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" 
+            "pointer-events-none opacity-0 -mx-4 md:-mx-6 relative w-full transition-all duration-500 ease-out",
+            isExpanded
+              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full"
               : "h-24"
           )}
         />
       </div>
 
       {/* Mobile Layout */}
-      <div className="lg:hidden">
-        <div className="relative w-full aspect-[16/9] overflow-hidden">
-          {isVideo ? (
-            <video
-              className="size-full object-cover object-center"
-              loop
-              playsInline
-              autoPlay
-              muted
-            >
-              <source src={mediaUrl} type="video/mp4" />
-            </video>
-          ) : (
+      <div className="md:hidden p-4 md:p-6">
+        <div className="flex items-center gap-3">
+          {/* Avatar */}
+          <div className="relative shrink-0" style={{ width: 48, height: 48 }}>
             <Image
-              src={mediaUrl}
               alt={displayData.name}
-              fill
-              className="object-cover object-center"
-              priority
+              width={48}
+              height={48}
+              className="object-cover aspect-square overflow-hidden rounded"
+              src={displayData.image}
             />
-          )}
-          {/* Gradient Overlay */}
-          <div
-            className="absolute inset-0 z-10"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.9) 100%)",
-            }}
-          />
+          </div>
 
-          {/* Mobile Content */}
-          <div className="absolute bottom-0 left-0 right-0 z-20 p-4">
-            <div className="flex items-center gap-3">
-              {/* Avatar */}
-              <div className="relative shrink-0" style={{ width: 48, height: 48 }}>
-                <Image
-                  alt={displayData.name}
-                  width={48}
-                  height={48}
-                  className="object-cover aspect-square overflow-hidden rounded"
-                  src={displayData.image}
-                />
-              </div>
-
-              {/* Title */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <h1 className="text-lg font-medium text-foreground truncate">
-                    {displayData.name}
-                  </h1>
-                  {displayData.verified && <VerifiedBadge className="size-5" />}
-                </div>
-                <div className="flex items-center gap-2 mt-1">
-                  <TagBadge icon={<EthereumIcon />}>{MOCK_COLLECTION_DATA.chain}</TagBadge>
-                  <TagBadge>{displayData.totalSupply} items</TagBadge>
-                </div>
-              </div>
+          {/* Title */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg font-medium text-foreground truncate">
+                {displayData.name}
+              </h1>
+              {displayData.verified && <VerifiedBadge className="size-5" />}
             </div>
-
-            {/* Mobile Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-frosted-6">
-              <div className="text-center">
-                <div className="text-xs text-os-gray-300 font-mono uppercase">Floor</div>
-                <div className="text-sm font-medium font-mono mt-1">{stats.floorPrice} ETH</div>
-              </div>
-              <div className="text-center">
-                <div className="text-xs text-os-gray-300 font-mono uppercase">Volume</div>
-                <div className="text-sm font-medium font-mono mt-1">{stats.totalVolume} ETH</div>
-              </div>
-              <div className="text-center">
-                <div className="text-xs text-os-gray-300 font-mono uppercase">Owners</div>
-                <div className="text-sm font-medium font-mono mt-1">{stats.owners}</div>
-              </div>
-            </div>
-
-            {/* Mobile Actions */}
-            <div className="flex items-center justify-between mt-4">
-              <div className="flex items-center gap-3">
-                <button onClick={() => setIsStarred(!isStarred)}>
-                  <Star
-                    className={cn(
-                      "size-5",
-                      isStarred ? "fill-warning text-warning" : "text-foreground"
-                    )}
-                  />
-                </button>
-                <button onClick={handleShare}>
-                  <Share2 className="size-5 text-foreground" />
-                </button>
-                <button onClick={handleCopyAddress}>
-                  <Copy className="size-5 text-foreground" />
-                </button>
-              </div>
-              <Button variant="ghost" size="sm" className="text-xs">
-                <MoreHorizontal className="size-4 mr-1" />
-                More
-              </Button>
+            <div className="flex items-center gap-2 mt-1">
+              <TagBadge icon={<EthereumIcon />}>{MOCK_COLLECTION_DATA.chain}</TagBadge>
+              <TagBadge>{displayData.totalSupply} items</TagBadge>
             </div>
           </div>
+        </div>
+
+        {/* Mobile Stats */}
+        <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-frosted-6">
+          <div className="text-center">
+            <div className="text-xs text-os-gray-300 font-mono uppercase">Floor</div>
+            <div className="text-sm font-medium font-mono mt-1">{stats.floorPrice} ETH</div>
+          </div>
+          <div className="text-center">
+            <div className="text-xs text-os-gray-300 font-mono uppercase">Volume</div>
+            <div className="text-sm font-medium font-mono mt-1">{stats.totalVolume} ETH</div>
+          </div>
+          <div className="text-center">
+            <div className="text-xs text-os-gray-300 font-mono uppercase">Owners</div>
+            <div className="text-sm font-medium font-mono mt-1">{stats.owners}</div>
+          </div>
+        </div>
+
+        {/* Mobile Actions */}
+        <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center gap-3">
+            <button onClick={() => setIsStarred(!isStarred)}>
+              <Star
+                className={cn(
+                  "size-5",
+                  isStarred ? "fill-warning text-warning" : "text-foreground"
+                )}
+              />
+            </button>
+            <button onClick={handleShare}>
+              <Share2 className="size-5 text-foreground" />
+            </button>
+            <button onClick={handleCopyAddress}>
+              <Copy className="size-5 text-foreground" />
+            </button>
+          </div>
+          <Button variant="ghost" size="sm" className="text-xs">
+            <MoreHorizontal className="size-4 mr-1" />
+            More
+          </Button>
         </div>
       </div>
     </div>

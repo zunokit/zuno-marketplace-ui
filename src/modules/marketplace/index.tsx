@@ -321,7 +321,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       </div>
 
       {/* Content - Takes remaining space */}
-      <div className="flex-1 min-h-0 overflow-hidden mb-28 md:mb-0 md:pb-12">
+      <div className="flex-1 min-h-0 overflow-hidden">
         <div className="h-full px-0 sm:px-4 md:px-6 lg:px-8">{renderContent()}</div>
       </div>
 
