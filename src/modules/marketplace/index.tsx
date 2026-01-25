@@ -8,14 +8,15 @@ import NFTGrid from "@/modules/marketplace/components/NFTGrid";
 import FilterSidebar from "@/modules/marketplace/components/FilterSidebar";
 import SellerModal from "@/modules/marketplace/components/SellerModal";
 import { useNFTSelection } from "@/modules/marketplace/hooks/useNFTSelection";
-import { useMyItems } from "@/modules/marketplace/hooks/useMyItems";
+// DEPRECATED: useMyItems replaced with useInfiniteMarketplaceItems
+// import { useMyItems } from "@/modules/marketplace/hooks/useMyItems";
+import { useInfiniteMarketplaceItems, type MarketplaceFilters } from "@/modules/marketplace/queries";
 import HeroHeader from "@/modules/marketplace/components/HeroHeader";
 import CollectionNav from "@/modules/marketplace/components/CollectionNav";
 import BottomActionBar from "@/modules/marketplace/components/BottomActionBar";
 import type { Collection } from "@/shared/utils/mock/collection";
 import type { Nft } from "@/modules/marketplace/types";
 import { NftStatus } from "@/modules/marketplace/types";
-import { debounce } from "lodash";
 
 interface SortingState {
   id: string;
@@ -65,44 +66,45 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("recent");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedNFT, setSelectedNFT] = useState<Nft | null>(null);
   const [showSellerModal, setShowSellerModal] = useState(false);
   const [sorting, setSorting] = useState<SortingState[]>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
-  const [filteredAndSortedNFTs, setFilteredAndSortedNFTs] = useState<Nft[]>([]);
 
   const isConnected = true;
   const address = "0x1234567890123456789012345678901234567890";
 
-  const { nfts: myItemsNFTs, isLoading: myItemsLoading } = useMyItems({
-    contractAddress,
-    address: address || "",
-    isConnected: isConnected || false,
+  // Create filters object for infinite query
+  const filters: MarketplaceFilters = useMemo(
+    () => ({
+      priceRange,
+      status: statusFilter,
+      sortBy,
+      selectedTraits,
+      search: searchQuery,
+    }),
+    [priceRange, statusFilter, sortBy, selectedTraits, searchQuery]
+  );
+
+  // Use infinite query hook instead of useMyItems
+  const {
+    items: nfts,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteMarketplaceItems(contractAddress, filters, {
+    enabled: isConnected && !!address,
   });
 
-  const safeNFTs = useMemo(
-    () =>
-      Array.isArray(myItemsNFTs)
-        ? myItemsNFTs.filter(
-            (nft): nft is Nft =>
-              nft != null && typeof nft === "object" && typeof nft.id === "string"
-          )
-        : [],
-    [myItemsNFTs]
-  );
+  // Safe NFTs for compatibility with existing code
+  const safeNFTs = useMemo(() => nfts, [nfts]);
 
-  const searchValue = useMemo(
-    () =>
-      typeof columnFilters.find((f: ColumnFilter) => f.id === "item")?.value === "string"
-        ? (columnFilters.find((f: ColumnFilter) => f.id === "item")?.value as string)
-        : "",
-    [columnFilters]
-  );
+  const searchValue = searchQuery;
 
-  const sortValue = useMemo(
-    () => (sorting[0]?.desc === false ? "low-to-high" : "high-to-low"),
-    [sorting]
-  );
+  const sortValue = sortBy;
 
   const handlePriceRangeChange = useCallback((range: [number, number]) => {
     const [min, max] = range;
@@ -113,49 +115,9 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     setPriceRange(validPriceRange);
   }, []);
 
-  const filterAndSortNFTs = useCallback(
-    (nfts: Nft[]) => {
-      return nfts
-        .filter(nft => {
-          if (statusFilter === "listed" && nft.status !== NftStatus.Listed) return false;
-          if (statusFilter === "not-listed" && nft.status === NftStatus.Listed) return false;
-
-          const price = nft.mintPrice ? Number(nft.mintPrice) : 0;
-          if (isNaN(price)) return false;
-          if (price < priceRange[0] || price > priceRange[1]) return false;
-
-          if (selectedTraits.length > 0) {
-            const hasMatch = nft.attributes?.some(
-              (a) => selectedTraits.includes(`${a.trait_type}:${String(a.value)}`)
-            );
-            if (!hasMatch) return false;
-          }
-
-          if (!searchValue) return true;
-          const name = typeof nft.name === "string" ? nft.name.toLowerCase() : "";
-          return name.includes(searchValue.toLowerCase());
-        })
-        .sort((a, b) => {
-          switch (sortBy) {
-            case "price-low":
-              return (Number(a.mintPrice) || 0) - (Number(b.mintPrice) || 0);
-            case "price-high":
-              return (Number(b.mintPrice) || 0) - (Number(a.mintPrice) || 0);
-            case "recent":
-            default:
-              if (a.status === NftStatus.Listed && b.status !== NftStatus.Listed) return -1;
-              if (a.status !== NftStatus.Listed && b.status === NftStatus.Listed) return 1;
-              return 0;
-          }
-        });
-    },
-    [searchValue, priceRange, statusFilter, sortBy, selectedTraits]
-  );
-
-  useEffect(() => {
-    const filtered = filterAndSortNFTs(safeNFTs);
-    setFilteredAndSortedNFTs(filtered);
-  }, [safeNFTs, statusFilter, sortBy, priceRange, searchValue, selectedTraits, filterAndSortNFTs]);
+  // REMOVED: Client-side filtering/sorting - now handled server-side via query params
+  // const filterAndSortNFTs = useCallback(...)
+  // useEffect(() => { const filtered = filterAndSortNFTs(safeNFTs); ... })
 
   useEffect(() => {
     window.dispatchEvent(
@@ -168,14 +130,8 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   const onSelectedNFTsChange = useCallback(
     (ids: Set<string>) => {
       setSelectedNFTs(Array.from(ids));
-      const visibleNFTs = safeNFTs.map(nft => ({
-        ...nft,
-        selected: ids.has(nft.id),
-      }));
-      const filtered = filterAndSortNFTs(visibleNFTs);
-      setFilteredAndSortedNFTs(filtered);
     },
-    [safeNFTs, filterAndSortNFTs]
+    []
   );
 
   const {
@@ -185,8 +141,8 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     handleItemCountChange,
     handleIndividualSelection,
   } = useNFTSelection({
-    initialNFTs: safeNFTs,
-    onVisibleNFTsChange: setFilteredAndSortedNFTs,
+    initialNFTs: nfts,
+    onVisibleNFTsChange: () => {},
     onSelectedNFTsChange,
   });
 
@@ -204,28 +160,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     setShowSellerModal(true);
   }, []);
 
-  const debouncedSetColumnFilters = useMemo(
-    () =>
-      debounce((value: string) => {
-        setColumnFilters([{ id: "item", value }]);
-      }, 500),
-    []
-  );
-
-  const debouncedSetSorting = useMemo(
-    () =>
-      debounce((value: string) => {
-        setSorting([{ id: "mintPrice", desc: value === "high-to-low" }]);
-      }, 500),
-    []
-  );
-
-  useEffect(() => {
-    return () => {
-      debouncedSetColumnFilters.cancel();
-      debouncedSetSorting.cancel();
-    };
-  }, [debouncedSetColumnFilters, debouncedSetSorting]);
+  // REMOVED: Debounced handlers - now using direct setters for query params
 
   if (!collection) {
     return (
@@ -287,18 +222,25 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 showFilters={showFilters}
                 setShowFilters={setShowFilters}
                 searchValue={searchValue}
-                onSearch={debouncedSetColumnFilters}
+                onSearch={setSearchQuery}
                 sortValue={sortValue}
-                onSort={debouncedSetSorting}
-                totalItems={filteredAndSortedNFTs.length}
+                onSort={setSortBy}
+                totalItems={nfts.length}
               />
 
               <div className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden scrollbar-hide pb-32 md:pb-6 relative">
-                {myItemsLoading ? (
+                {isLoading ? (
                   <div className="flex items-center justify-center h-64">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
-                ) : filteredAndSortedNFTs.length === 0 ? (
+                ) : isError ? (
+                  <div className="flex items-center justify-center h-64">
+                    <div className="text-center">
+                      <h3 className="text-lg font-medium">Error Loading Items</h3>
+                      <p className="text-os-gray-300">Please try refreshing the page.</p>
+                    </div>
+                  </div>
+                ) : nfts.length === 0 ? (
                   <div className="flex items-center justify-center h-64">
                     <div className="text-center">
                       <h3 className="text-lg font-medium">No Items Found</h3>
@@ -309,7 +251,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   <ErrorBoundary>
                     <NFTListView
                       type="seller"
-                      nfts={filteredAndSortedNFTs}
+                      nfts={nfts}
                       sorting={sorting}
                       setSorting={setSorting}
                       columnFilters={columnFilters}
@@ -322,13 +264,19 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 ) : (
                   <NFTGrid
                     type="seller"
-                    nfts={filteredAndSortedNFTs}
+                    nfts={nfts}
                     view={view === "compact" ? "compact" : "grid"}
                     showFilters={showFilters}
                     isSliding={isSliding}
                     onSelect={handleNFTSelection}
                     onCardClick={handleNFTCardClick}
                     selectedNFTs={selectedNFTs}
+                    infiniteScrollProps={{
+                      hasNextPage,
+                      isFetchingNextPage,
+                      fetchNextPage,
+                      isError,
+                    }}
                   />
                 )}
               </div>

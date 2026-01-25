@@ -4,7 +4,7 @@ import { Package } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import { type Nft } from "@/modules/marketplace/types";
 import NFTCardSeller from "@/modules/marketplace/components/NFTCardSeller";
-// import NFTCardBuyer from "@/modules/marketplace/components/NFTCardBuyer"; // Will add when needed
+import { InfiniteScrollTrigger } from "@/shared/components/InfiniteScrollTrigger";
 
 interface NFTGridProps {
   type: "buyer" | "seller";
@@ -15,6 +15,14 @@ interface NFTGridProps {
   onSelect: (id: string) => void;
   onCardClick?: (nft: Nft) => void;
   selectedNFTs: string[];
+
+  // Infinite scroll props
+  infiniteScrollProps?: {
+    hasNextPage: boolean | undefined;
+    isFetchingNextPage: boolean;
+    fetchNextPage: () => void;
+    isError?: boolean;
+  };
 }
 
 export default function NFTGrid({
@@ -26,6 +34,7 @@ export default function NFTGrid({
   onSelect,
   onCardClick,
   selectedNFTs,
+  infiniteScrollProps,
 }: NFTGridProps) {
   if (!nfts || nfts.length === 0) {
     return (
@@ -46,37 +55,69 @@ export default function NFTGrid({
   };
 
   return (
-    <div
-      className={cn(
-        "grid gap-3 transition-all duration-300 ease-in-out p-3",
-        view === "compact"
-          ? showFilters
-            ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
-            : "grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8"
-          : showFilters
-            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-            : "grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+    <div className="flex flex-col">
+      <div
+        className={cn(
+          "grid gap-3 transition-all duration-300 ease-in-out p-3",
+          view === "compact"
+            ? showFilters
+              ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+              : "grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8"
+            : showFilters
+              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+              : "grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+        )}
+      >
+        {nfts.map(nft =>
+          type === "buyer" ? (
+            <NFTCardSeller
+              key={nft.id}
+              {...commonProps}
+              nft={nft}
+              onSelect={() => onSelect(nft.id)}
+              isSelected={selectedNFTs.includes(nft.id)}
+            />
+          ) : (
+            <NFTCardSeller
+              key={nft.id}
+              {...commonProps}
+              nft={nft}
+              onSelect={() => onSelect(nft.id)}
+              isSelected={selectedNFTs.includes(nft.id)}
+            />
+          )
+        )}
+      </div>
+
+      {/* Loading indicator for next page */}
+      {infiniteScrollProps?.isFetchingNextPage && (
+        <div className="flex justify-center py-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
       )}
-    >
-      {nfts.map(nft =>
-        type === "buyer" ? (
-          // Will use NFTCardBuyer when implemented
-          <NFTCardSeller
-            key={nft.id}
-            {...commonProps}
-            nft={nft}
-            onSelect={() => onSelect(nft.id)}
-            isSelected={selectedNFTs.includes(nft.id)}
-          />
-        ) : (
-          <NFTCardSeller
-            key={nft.id}
-            {...commonProps}
-            nft={nft}
-            onSelect={() => onSelect(nft.id)}
-            isSelected={selectedNFTs.includes(nft.id)}
-          />
-        )
+
+      {/* Error message */}
+      {infiniteScrollProps?.isError && (
+        <div className="text-center py-4">
+          <p className="text-sm text-red-500">Failed to load more items. Please try again.</p>
+        </div>
+      )}
+
+      {/* End of list message */}
+      {!infiniteScrollProps?.hasNextPage && nfts.length > 0 && (
+        <div className="text-center py-8 text-muted-foreground">
+          <p className="text-sm">You've reached the end</p>
+        </div>
+      )}
+
+      {/* Infinite scroll trigger */}
+      {infiniteScrollProps && (
+        <InfiniteScrollTrigger
+          hasNextPage={infiniteScrollProps.hasNextPage}
+          isFetchingNextPage={infiniteScrollProps.isFetchingNextPage}
+          fetchNextPage={infiniteScrollProps.fetchNextPage}
+          isError={infiniteScrollProps.isError}
+        />
       )}
     </div>
   );
