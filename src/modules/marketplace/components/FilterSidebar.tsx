@@ -11,6 +11,8 @@ interface FilterSidebarProps {
   onPriceRangeChange: (range: [number, number]) => void;
   onStatusChange: (status: string) => void;
   onSortChange: (sort: string) => void;
+  selectedTraits?: string[];
+  onTraitsChange?: (traits: string[]) => void;
   isOpen?: boolean;
 }
 
@@ -115,13 +117,32 @@ export default function FilterSidebar({
   onPriceRangeChange,
   onStatusChange,
   onSortChange,
+  selectedTraits = [],
+  onTraitsChange,
   isOpen = true,
 }: FilterSidebarProps) {
+  const traitKey = (cat: string, name: string) => `${cat}:${name}`;
+  const isTraitSelected = (cat: string, name: string) => selectedTraits.includes(traitKey(cat, name));
+  const toggleTrait = (cat: string, name: string) => {
+    if (!onTraitsChange) return;
+    const key = traitKey(cat, name);
+    if (selectedTraits.includes(key)) {
+      onTraitsChange(selectedTraits.filter((t) => t !== key));
+    } else {
+      onTraitsChange([...selectedTraits, key]);
+    }
+  };
   const [isMobile, setIsMobile] = useState(false);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [traitsSearch, setTraitsSearch] = useState("");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  const [expandedTraitCategory, setExpandedTraitCategory] = useState<Record<string, boolean>>({});
+
+  const TRAIT_VISIBLE_INITIAL = 6;
+  const toggleTraitCategoryExpand = (name: string) => {
+    setExpandedTraitCategory((prev) => ({ ...prev, [name]: !prev[name] }));
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -363,8 +384,8 @@ export default function FilterSidebar({
                   </button>
                 </div>
 
-                {/* Nested Accordion for Traits */}
-                <Accordion type="multiple" defaultValue={TRAIT_CATEGORIES.map(cat => cat.name.toLowerCase())} className="w-full">
+                {/* Nested Accordion for Traits - collapsed by default to reduce scroll */}
+                <Accordion type="multiple" defaultValue={[]} className="w-full">
                   {TRAIT_CATEGORIES.map((category, categoryIndex) => (
                     <AccordionItem
                       key={category.name}
@@ -383,32 +404,48 @@ export default function FilterSidebar({
                         <div className="p-0">
                           {viewMode === "list" ? (
                             <div className="flex flex-col">
-                              {category.items.map((trait) => (
-                                <label key={trait.name} className="group inline-flex items-center gap-x-2 text-base cursor-pointer py-2.5 px-1">
-                                  <input
-                                    type="checkbox"
-                                    className="sr-only"
-                                    value=""
-                                  />
-                                  <span
-                                    aria-hidden="true"
-                                    className="transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active"
+                              {category.items
+                                .filter(
+                                  (t) =>
+                                    !traitsSearch ||
+                                    t.name.toLowerCase().includes(traitsSearch.toLowerCase().trim())
+                                )
+                                .map((trait) => (
+                                  <label
+                                    key={trait.name}
+                                    className="group inline-flex items-center gap-x-2 text-base cursor-pointer py-2.5 px-1"
+                                    onClick={() => toggleTrait(category.name, trait.name)}
                                   >
-                                    <svg
-                                      stroke="currentColor"
-                                      fill="none"
-                                      strokeWidth="2"
-                                      viewBox="0 0 24 24"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      className="transition scale-50 text-transparent"
-                                      width="16"
-                                      height="16"
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    <input
+                                      type="checkbox"
+                                      className="sr-only"
+                                      checked={isTraitSelected(category.name, trait.name)}
+                                      readOnly
+                                    />
+                                    <span
+                                      aria-hidden="true"
+                                      className="transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active"
                                     >
-                                      <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                  </span>
+                                      <svg
+                                        stroke="currentColor"
+                                        fill="none"
+                                        strokeWidth="2"
+                                        viewBox="0 0 24 24"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className={
+                                          "transition scale-50 " +
+                                          (isTraitSelected(category.name, trait.name)
+                                            ? "text-primary"
+                                            : "text-transparent")
+                                        }
+                                        width="16"
+                                        height="16"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <polyline points="20 6 9 17 4 12" />
+                                      </svg>
+                                    </span>
                                   <div className="empty:hidden w-full truncate">
                                     <div className="transition text-primary">
                                       <div className="select-none">
@@ -428,11 +465,24 @@ export default function FilterSidebar({
                             </div>
                           ) : (
                             <div className="grid grid-cols-2 gap-2 py-3">
-                              {category.items.map((trait, index) => (
-                                <button
-                                  key={trait.name}
-                                  className="flex flex-col relative w-full overflow-hidden transition bg-layer-01 border rounded-lg group hover:bg-layer-02 hover:border-interactive-hover"
-                                >
+                              {category.items
+                                .filter(
+                                  (t) =>
+                                    !traitsSearch ||
+                                    t.name.toLowerCase().includes(traitsSearch.toLowerCase().trim())
+                                )
+                                .map((trait, index) => (
+                                  <button
+                                    key={trait.name}
+                                    type="button"
+                                    onClick={() => toggleTrait(category.name, trait.name)}
+                                    className={
+                                      "flex flex-col relative w-full overflow-hidden transition bg-layer-01 border rounded-lg group hover:bg-layer-02 hover:border-interactive-hover " +
+                                      (isTraitSelected(category.name, trait.name)
+                                        ? "ring-2 ring-primary border-primary"
+                                        : "")
+                                    }
+                                  >
                                   <div className="w-full overflow-hidden">
                                     <div className="relative transition-transform duration-300 group-hover:scale-110 min-h-[98px] 3xl:min-h-[173px] w-full bg-layer-03">
                                       <img src={`${randomImage()}&id=${categoryIndex * 10 + index}`} alt={trait.name} className="overflow-hidden w-full" />

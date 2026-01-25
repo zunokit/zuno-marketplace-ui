@@ -24,14 +24,10 @@ const generateMockNFTs = (count: number, contractAddress: string): Nft[] => {
     mintPrice: (0.01 + Math.random() * 0.09).toFixed(3),
     listPrice: i % 3 === 0 ? (0.02 + Math.random() * 0.08).toFixed(3) : undefined,
     attributes: [
-      {
-        trait_type: "Background",
-        value: ["Blue", "Red", "Green", "Purple"][i % 4],
-      },
-      {
-        trait_type: "Rarity",
-        value: ["Common", "Uncommon", "Rare", "Epic"][i % 4],
-      },
+      { trait_type: "Background", value: ["Path", "Orchard", "Library", "Field"][i % 4] },
+      { trait_type: "Body", value: ["Blue", "Red", "Yellow", "Green", "Purple"][i % 5] },
+      { trait_type: "Clothes", value: ["T-Shirt Red", "T-Shirt Blue", "Hoodie Black", "Sweater Green", "Tank Top"][i % 5] },
+      { trait_type: "Rarity", value: ["Common", "Uncommon", "Rare", "Epic"][i % 4] },
       { trait_type: "Level", value: Math.floor(Math.random() * 100) },
     ],
     createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),

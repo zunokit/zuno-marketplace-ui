@@ -63,6 +63,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState<[number, number]>([0.001, 0.1]);
   const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("recent");
   const [selectedNFT, setSelectedNFT] = useState<Nft | null>(null);
   const [showSellerModal, setShowSellerModal] = useState(false);
@@ -123,6 +124,13 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
           if (isNaN(price)) return false;
           if (price < priceRange[0] || price > priceRange[1]) return false;
 
+          if (selectedTraits.length > 0) {
+            const hasMatch = nft.attributes?.some(
+              (a) => selectedTraits.includes(`${a.trait_type}:${String(a.value)}`)
+            );
+            if (!hasMatch) return false;
+          }
+
           if (!searchValue) return true;
           const name = typeof nft.name === "string" ? nft.name.toLowerCase() : "";
           return name.includes(searchValue.toLowerCase());
@@ -141,13 +149,13 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
           }
         });
     },
-    [searchValue, priceRange, statusFilter, sortBy]
+    [searchValue, priceRange, statusFilter, sortBy, selectedTraits]
   );
 
   useEffect(() => {
     const filtered = filterAndSortNFTs(safeNFTs);
     setFilteredAndSortedNFTs(filtered);
-  }, [safeNFTs, statusFilter, sortBy, priceRange, searchValue, filterAndSortNFTs]);
+  }, [safeNFTs, statusFilter, sortBy, priceRange, searchValue, selectedTraits, filterAndSortNFTs]);
 
   useEffect(() => {
     window.dispatchEvent(
@@ -249,6 +257,8 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   onPriceRangeChange={handlePriceRangeChange}
                   onStatusChange={setStatusFilter}
                   onSortChange={setSortBy}
+                  selectedTraits={selectedTraits}
+                  onTraitsChange={setSelectedTraits}
                   isOpen={true}
                 />
               )}
@@ -263,12 +273,14 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   onPriceRangeChange={handlePriceRangeChange}
                   onStatusChange={setStatusFilter}
                   onSortChange={setSortBy}
+                  selectedTraits={selectedTraits}
+                  onTraitsChange={setSelectedTraits}
                   isOpen={showFilters}
                 />
               </div>
             )}
 
-            <div className="flex-1 transition-all duration-300 ease-in-out min-w-0 flex flex-col h-full overflow-hidden">
+            <div className="flex-1 min-h-0 transition-all duration-300 ease-in-out min-w-0 flex flex-col h-full overflow-hidden">
               <ControlBar
                 view={view}
                 setView={setView}
@@ -281,7 +293,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 totalItems={filteredAndSortedNFTs.length}
               />
 
-              <div className="flex-1 min-h-0 overflow-y-auto scrollbar-hide pb-32 md:pb-6 relative">
+              <div className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden scrollbar-hide pb-32 md:pb-6 relative">
                 {myItemsLoading ? (
                   <div className="flex items-center justify-center h-64">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -360,7 +372,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   };
 
   return (
-    <div className="h-screen overflow-hidden text-foreground transition-all duration-150 flex flex-col">
+    <div className="h-full min-h-0 overflow-hidden text-foreground transition-all duration-150 flex flex-col">
       {/* Hero Header - Natural height */}
       <div className="w-full shrink-0">
         <HeroHeader collection={collection} videoUrl={collection.banner} useMockData={true} />
@@ -378,7 +390,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       </div>
 
       {/* Content - Takes remaining space */}
-      <div className="flex-1 overflow-hidden mb-28 md:mb-0">
+      <div className="flex-1 min-h-0 overflow-hidden mb-28 md:mb-0 md:pb-12">
         <div className="h-full px-0 sm:px-4 md:px-6 lg:px-8">{renderContent()}</div>
       </div>
 

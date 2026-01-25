@@ -8,9 +8,13 @@ import { ReactNode, useState, useEffect } from "react";
 import { AppFooter } from "@/shared/components/layout/AppFooter";
 import { ApolloProvider } from "@apollo/client/react";
 import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
+import { usePathname } from "next/navigation";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 export default function Wrapper({ children }: { children: ReactNode }) {
   const [cartItemCount, setCartItemCount] = useState(0);
+  const pathname = usePathname();
+  const isMarketplaceCollection = pathname?.startsWith("/marketplace/") ?? false;
 
   // Listen for cart updates from marketplace component
   useEffect(() => {
@@ -35,17 +39,32 @@ export default function Wrapper({ children }: { children: ReactNode }) {
     <ApolloProvider client={apolloWrapper.getClient()}>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <Web3Provider>
-          <div className="min-h-screen flex flex-col bg-background text-foreground transition-all duration-150">
+          <div
+            className={cn(
+              "flex flex-col bg-background text-foreground transition-all duration-150",
+              isMarketplaceCollection ? "h-screen overflow-hidden" : "min-h-screen"
+            )}
+          >
             {/* Fixed Left Sidebar */}
             <LeftSidebar />
 
             {/* Fixed Top Navigation - full width */}
             <TopNav />
 
-            {/* Main wrapper with left margin for sidebar (only on lg+) and top padding for fixed nav */}
-            <div className="lg:ml-[52px] flex flex-col min-h-screen pt-10 sm:pt-11 lg:pt-12">
+            {/* Main: h-screen+overflow-hidden on marketplace collection so when Hero is closed, no body scroll */}
+            <div
+              className={cn(
+                "lg:ml-[52px] flex flex-col pt-10 sm:pt-11 lg:pt-12",
+                isMarketplaceCollection ? "h-screen overflow-hidden" : "min-h-screen"
+              )}
+            >
               {/* Main content */}
-              <main className="max-w-screen w-full mx-auto pb-24 flex-grow">
+              <main
+                className={cn(
+                  "max-w-screen w-full mx-auto flex-grow",
+                  isMarketplaceCollection ? "pb-0 min-h-0 overflow-hidden" : "pb-24"
+                )}
+              >
                 {children}
               </main>
 

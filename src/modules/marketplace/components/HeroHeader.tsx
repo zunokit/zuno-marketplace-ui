@@ -218,7 +218,7 @@ export default function HeroHeader({
           )}
         >
           {/* Content Overlay */}
-          <div className="mx-auto min-h-0 min-w-0 max-w-[calc(1536px+48px)] px-4 lg:px-6 z-[1] flex w-full items-end dark">
+          <div className="mx-auto min-h-0 min-w-0  px-4 lg:px-6 z-[1] flex w-full items-end dark">
             <div
               className={cn(
                 "flex w-full min-w-0 flex-col pb-4 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:justify-between xl:gap-4 xl:pb-5",
