@@ -327,6 +327,18 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
 
       {/* Mobile Bottom Navigation - Tabs */}
       <MobileTabNav activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Card click: open SellerModal (list / edit listing) */}
+      {selectedNFT && (
+        <SellerModal
+          nft={selectedNFT}
+          open={showSellerModal}
+          onOpenChange={open => {
+            setShowSellerModal(open);
+            if (!open) setSelectedNFT(null);
+          }}
+        />
+      )}
     </div>
   );
 }

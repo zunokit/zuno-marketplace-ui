@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/shared/components/ui/dialog";
+import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
@@ -38,14 +31,18 @@ export function BuyerModal({ nft, open, onOpenChange }: BuyerModalProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle>Purchase NFT</DialogTitle>
-          <DialogDescription>Review details and complete your purchase</DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-4">
+    <ResponsiveDialogDrawer
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Purchase NFT"
+      description="Review details and complete your purchase"
+      footer={
+        <Button variant="outline" onClick={() => onOpenChange(false)}>
+          Close
+        </Button>
+      }
+    >
+      <div className="grid gap-4">
           {/* NFT Preview */}
           <div className="flex gap-4">
             <div className="relative h-24 w-24 rounded-[8px] overflow-hidden">
@@ -175,13 +172,6 @@ export function BuyerModal({ nft, open, onOpenChange }: BuyerModalProps) {
             </TabsContent>
           </Tabs>
         </div>
-
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Close
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    </ResponsiveDialogDrawer>
   );
 }

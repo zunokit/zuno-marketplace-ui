@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/shared/components/ui/dialog";
+import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
@@ -38,16 +31,21 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
-        <DialogHeader>
-          <DialogTitle>Manage NFT</DialogTitle>
-          <DialogDescription>
-            {nft.status === NftStatus.Listed ? "Manage your listed NFT" : "List your NFT for sale"}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-4">
+    <ResponsiveDialogDrawer
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Manage NFT"
+      description={nft.status === NftStatus.Listed ? "Manage your listed NFT" : "List your NFT for sale"}
+      footer={
+        <>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+          {nft.status !== NftStatus.Listed && <Button onClick={handleList}>List for Sale</Button>}
+        </>
+      }
+    >
+      <div className="grid gap-4">
           {/* NFT Preview */}
           <div className="flex gap-4">
             <div className="relative h-24 w-24 rounded-[8px] overflow-hidden">
@@ -146,14 +144,6 @@ export default function SellerModal({ nft, open, onOpenChange }: SellerModalProp
             </TabsContent>
           </Tabs>
         </div>
-
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
-          </Button>
-          {nft.status !== NftStatus.Listed && <Button onClick={handleList}>List for Sale</Button>}
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    </ResponsiveDialogDrawer>
   );
 }
