@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { ImageOff } from "lucide-react";
 import { Checkbox } from "@/shared/components/ui/checkbox";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
@@ -44,30 +45,28 @@ export default function NFTListView({
         <table className="w-full border-collapse min-w-[800px]">
           <thead className="sticky top-0 z-[15] bg-background border-b">
             <tr>
-              {/* Item column - sticky only on mobile */}
               <th
                 className={cn(
-                  "text-left p-2 md:p-3 font-medium min-w-[180px] w-[180px] sm:w-[220px] md:w-[280px] lg:w-[320px]",
+                  "text-left p-2 md:p-3 font-medium min-w-[180px] w-[180px] sm:w-[220px] md:w-[280px] lg:w-[320px] text-os-gray-300 uppercase tracking-wider text-xs",
                   isMobile &&
                     "sticky left-0 z-[16] bg-background border-r shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)]"
                 )}
               >
                 Item
               </th>
-              {/* Scrollable columns */}
-              <th className="text-left p-2 md:p-3 font-medium text-xs md:text-sm min-w-[80px] md:min-w-[100px]">
+              <th className="text-left p-2 md:p-3 font-medium text-os-gray-300 uppercase tracking-wider text-xs min-w-[80px] md:min-w-[100px]">
                 Token ID
               </th>
-              <th className="text-left p-2 md:p-3 font-medium text-xs md:text-sm min-w-[100px] md:min-w-[120px]">
+              <th className="text-left p-2 md:p-3 font-medium text-os-gray-300 uppercase tracking-wider text-xs min-w-[100px] md:min-w-[120px]">
                 Status
               </th>
-              <th className="text-left p-2 md:p-3 font-medium text-xs md:text-sm min-w-[80px] md:min-w-[100px]">
+              <th className="text-left p-2 md:p-3 font-medium text-os-gray-300 uppercase tracking-wider text-xs min-w-[80px] md:min-w-[100px]">
                 Price
               </th>
-              <th className="text-left p-2 md:p-3 font-medium text-xs md:text-sm min-w-[120px] md:min-w-[150px]">
+              <th className="text-left p-2 md:p-3 font-medium text-os-gray-300 uppercase tracking-wider text-xs min-w-[120px] md:min-w-[150px]">
                 Owner
               </th>
-              <th className="text-right p-2 md:p-3 font-medium text-xs md:text-sm min-w-[80px] md:min-w-[100px]">
+              <th className="text-right p-2 md:p-3 font-medium text-os-gray-300 uppercase tracking-wider text-xs min-w-[80px] md:min-w-[100px]">
                 Actions
               </th>
             </tr>
@@ -92,11 +91,16 @@ export default function NFTListView({
                         checked={selectedNFTs.includes(nft.id)}
                         onCheckedChange={() => onSelect(nft.id)}
                         className="h-4 w-4"
+                        aria-label={selectedNFTs.includes(nft.id) ? "Deselect" : "Select"}
                       />
                     </div>
-                    <div className="relative h-10 w-10 md:h-12 md:w-12 rounded overflow-hidden flex-shrink-0">
-                      {nft.image && (
-                        <Image src={nft.image} alt={nft.name} fill className="object-cover" />
+                    <div className="relative h-10 w-10 md:h-12 md:w-12 rounded overflow-hidden shrink-0 bg-muted">
+                      {nft.image ? (
+                        <Image src={nft.image} alt={nft.name} fill className="object-cover" sizes="48px" />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <ImageOff className="h-4 w-4 text-muted-foreground" aria-hidden />
+                        </div>
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -135,6 +139,7 @@ export default function NFTListView({
                     variant="ghost"
                     size="sm"
                     className="text-xs"
+                    aria-label={`View ${nft.name}`}
                     onClick={e => {
                       e.stopPropagation();
                       onCardClick(nft);
