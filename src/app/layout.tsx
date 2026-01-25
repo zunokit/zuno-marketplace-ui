@@ -4,6 +4,7 @@ import ClientWrapper from "./AppWrapper";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
+import { Agentation } from "agentation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -118,6 +119,7 @@ export default function RootLayout({
         <ClientWrapper>{children}</ClientWrapper>
         <Toaster />
         <SpeedInsights />
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   );
