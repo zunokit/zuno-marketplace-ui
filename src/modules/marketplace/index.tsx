@@ -211,7 +211,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 totalItems={nfts.length}
               />
 
-              <div className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden scrollbar-hide pb-32 md:pb-6 relative">
+              <div className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden scrollbar-hide relative">
                 {isLoading ? (
                   <div className="flex items-center justify-center h-64">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
