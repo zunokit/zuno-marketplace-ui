@@ -11,7 +11,7 @@ import { NftStatus } from "@/modules/marketplace/types";
 import { formatTokenId, formatPriceShort, ETH_SYMBOL } from "@/shared/utils/format";
 import { getPriceDisplay, getStatusMeta } from "@/modules/marketplace/utils";
 
-interface NFTCardProps {
+interface MarketplaceNFTCardProps {
   nft: Nft;
   view?: "compact" | "grid" | "list";
   isSliding?: boolean;
@@ -23,7 +23,7 @@ interface NFTCardProps {
 
 const IMAGE_FALLBACK = "/placeholder.svg";
 
-export default function NFTCardSeller({
+export default function MarketplaceNFTCard({
   nft,
   view = "grid",
   isSliding = false,
@@ -31,7 +31,7 @@ export default function NFTCardSeller({
   onClick,
   isSelected,
   disabled = false,
-}: NFTCardProps) {
+}: MarketplaceNFTCardProps) {
   const compact = view === "compact";
   const isListed = nft.status === NftStatus.Listed;
   const [imgError, setImgError] = useState(false);

@@ -7,7 +7,7 @@ import { X, Loader2 } from "lucide-react";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
 import { Nft } from "@/modules/marketplace/types";
 
-interface CartModalProps {
+interface MarketplaceSelectionCartProps {
   /** Optional: resolve IDs to full Nft for image, name, price. When missing, rows show #id… and "Item i". */
   nfts?: Nft[];
   /** e.g. Buy floor / List selected. If set, footer shows this button. */
@@ -21,12 +21,12 @@ interface CartModalProps {
  * Cart content only (no Dialog/Sheet). Use as children of ResponsivePopoverDrawer.
  * Reads selectedNFTs, remove, clear, setCartOpen from useNFTSelectionStore.
  */
-export default function CartModal({
+export default function MarketplaceSelectionCart({
   nfts,
   onPrimaryAction,
   primaryLabel,
   listingStep = 0,
-}: CartModalProps) {
+}: MarketplaceSelectionCartProps) {
   const { selectedNFTs, remove, clear, setCartOpen } = useNFTSelectionStore();
 
   const totalPrice =

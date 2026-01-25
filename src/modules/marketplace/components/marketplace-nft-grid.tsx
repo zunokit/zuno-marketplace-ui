@@ -3,10 +3,10 @@
 import { Package } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import { type Nft } from "@/modules/marketplace/types";
-import NFTCardSeller from "@/modules/marketplace/components/NFTCardSeller";
+import MarketplaceNFTCard from "@/modules/marketplace/components/marketplace-nft-card";
 import { InfiniteScrollTrigger } from "@/shared/components/InfiniteScrollTrigger";
 
-interface NFTGridProps {
+interface MarketplaceNFTGridProps {
   type: "buyer" | "seller";
   nfts: Nft[];
   view: "grid" | "compact";
@@ -25,7 +25,7 @@ interface NFTGridProps {
   };
 }
 
-export default function NFTGrid({
+export default function MarketplaceNFTGrid({
   type,
   nfts,
   view,
@@ -35,7 +35,7 @@ export default function NFTGrid({
   onCardClick,
   selectedNFTs,
   infiniteScrollProps,
-}: NFTGridProps) {
+}: MarketplaceNFTGridProps) {
   if (!nfts || nfts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
@@ -70,7 +70,7 @@ export default function NFTGrid({
       >
         {nfts.map(nft =>
           type === "buyer" ? (
-            <NFTCardSeller
+            <MarketplaceNFTCard
               key={nft.id}
               {...commonProps}
               nft={nft}
@@ -78,7 +78,7 @@ export default function NFTGrid({
               isSelected={selectedNFTs.includes(nft.id)}
             />
           ) : (
-            <NFTCardSeller
+            <MarketplaceNFTCard
               key={nft.id}
               {...commonProps}
               nft={nft}

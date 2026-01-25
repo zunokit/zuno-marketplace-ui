@@ -11,12 +11,12 @@ const MOBILE_TABS: { id: string; label: string; icon: LucideIcon }[] = [
   { id: "holders", label: "More", icon: Users },
 ];
 
-interface MobileTabNavProps {
+interface MarketplaceMobileTabsProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
 
-export function MobileTabNav({ activeTab, onTabChange }: MobileTabNavProps) {
+export function MarketplaceMobileTabs({ activeTab, onTabChange }: MarketplaceMobileTabsProps) {
   return (
     <div className="flex items-center justify-around h-17 px-2 py-1.5 gap-1 md:hidden">
       {MOBILE_TABS.map(({ id, label, icon: Icon }) => {

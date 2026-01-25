@@ -1,17 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
-import { ActivityList } from "@/modules/profile/components/ActivityList";
+import { ProfileHeader } from "@/modules/profile/components/profile-header";
+import { ActivityList } from "@/modules/profile/components/activity-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { type UserProfile } from "@/shared/types/profile";
 import { generateMockActivities } from "@/shared/utils/mock/profile";
 
-interface UserActivityProps {
+interface ProfileActivityProps {
   profile: UserProfile;
 }
 
-export function UserActivity({ profile }: UserActivityProps) {
+export function ProfileActivity({ profile }: ProfileActivityProps) {
   const [activityFilter, setActivityFilter] = useState("all");
 
   // Generate activities for this user

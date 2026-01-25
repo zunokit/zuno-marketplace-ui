@@ -1,6 +1,6 @@
 "use client";
 
-import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
+import { ProfileHeader } from "@/modules/profile/components/profile-header";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Badge } from "@/shared/components/ui/badge";
 import { type UserProfile } from "@/shared/types/profile";
@@ -9,11 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Package, Users, TrendingUp } from "lucide-react";
 
-interface UserCollectionsProps {
+interface ProfileCollectionsProps {
   profile: UserProfile;
 }
 
-export function UserCollections({ profile }: UserCollectionsProps) {
+export function ProfileCollections({ profile }: ProfileCollectionsProps) {
   // Mock user collections - in real app, fetch from API
   const userCollections = mockCollections.map((col, index) => ({
     ...col,

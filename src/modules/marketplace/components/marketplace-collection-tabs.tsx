@@ -10,7 +10,7 @@ interface NavItem {
   id: string;
 }
 
-interface CollectionNavProps {
+interface MarketplaceCollectionTabsProps {
   collectionSlug?: string;
   activeTab?: string;
   onTabChange?: (tabId: string) => void;
@@ -25,11 +25,11 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Activity", href: "/activity", id: "activity" },
 ];
 
-export default function CollectionNav({
+export default function MarketplaceCollectionTabs({
   collectionSlug = "collection",
   activeTab = "items",
   onTabChange,
-}: CollectionNavProps) {
+}: MarketplaceCollectionTabsProps) {
   const [currentTab, setCurrentTab] = useState(activeTab);
 
   const handleTabClick = (tabId: string) => {

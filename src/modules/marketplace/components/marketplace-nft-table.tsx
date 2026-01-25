@@ -18,7 +18,7 @@ interface ColumnFilter {
   value: string;
 }
 
-interface NFTListViewProps {
+interface MarketplaceNFTTableProps {
   type: "seller" | "buyer";
   nfts: Nft[];
   sorting: SortingState[];
@@ -30,12 +30,12 @@ interface NFTListViewProps {
   selectedNFTs: string[];
 }
 
-export default function NFTListView({
+export default function MarketplaceNFTTable({
   nfts,
   onSelect,
   onCardClick,
   selectedNFTs,
-}: NFTListViewProps) {
+}: MarketplaceNFTTableProps) {
   const isMobile = useIsMobile();
 
   // Table view with sticky columns only for mobile

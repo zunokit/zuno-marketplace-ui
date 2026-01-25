@@ -1,8 +1,8 @@
-// Mock hook for fetching user's NFT items
+// Mock hook for fetching the connected user's NFT items in a collection
 import { useState, useEffect } from "react";
 import { Nft, NftStatus } from "@/modules/marketplace/types";
 
-interface UseMyItemsProps {
+interface UseMarketplaceUserItemsProps {
   contractAddress: string;
   address: string;
   isConnected: boolean;
@@ -35,7 +35,7 @@ const generateMockNFTs = (count: number, contractAddress: string): Nft[] => {
   }));
 };
 
-export function useMyItems({ contractAddress, address, isConnected }: UseMyItemsProps) {
+export function useMarketplaceUserItems({ contractAddress, address, isConnected }: UseMarketplaceUserItemsProps) {
   const [nfts, setNfts] = useState<Nft[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 

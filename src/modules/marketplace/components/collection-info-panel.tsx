@@ -8,11 +8,11 @@ import { toast } from "sonner";
 import { Collection } from "@/shared/utils/mock/collection";
 import { randomImage } from "@/shared/utils/mock/randomImage";
 
-interface InformationNFTProps {
+interface CollectionInfoPanelProps {
   collection?: Collection;
 }
 
-export default function InformationNFT({ collection }: InformationNFTProps) {
+export default function CollectionInfoPanel({ collection }: CollectionInfoPanelProps) {
   const [showInfo, setShowInfo] = useState(true);
 
   return (

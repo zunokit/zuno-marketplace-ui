@@ -10,7 +10,7 @@ import { ApolloProvider } from "@apollo/client/react";
 import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/utils/tailwind-utils";
-import BottomActionBarWrapper from "@/modules/marketplace/components/BottomActionBarWrapper";
+import MarketplaceSelectionBarWrapper from "@/modules/marketplace/components/marketplace-selection-bar-wrapper";
 
 export default function Wrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -50,7 +50,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
             </div>
 
             {/* Global: Bottom Action Bar + Footer — cùng cấp LeftSidebar/TopNav, căn content lg:ml-[52px] */}
-            <BottomActionBarWrapper />
+            <MarketplaceSelectionBarWrapper />
             <AppFooter />
           </div>
         </Web3Provider>

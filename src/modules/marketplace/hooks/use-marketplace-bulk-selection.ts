@@ -1,18 +1,18 @@
-// Hook for managing NFT selection with slider
+// Hook for managing marketplace bulk NFT selection (slider + individual toggles)
 import { useState, useCallback, useEffect } from "react";
 import { Nft } from "@/modules/marketplace/types";
 
-interface UseNFTSelectionProps {
+interface UseMarketplaceBulkSelectionProps {
   initialNFTs: Nft[];
   onVisibleNFTsChange: (nfts: Nft[]) => void;
   onSelectedNFTsChange: (ids: Set<string>) => void;
 }
 
-export function useNFTSelection({
+export function useMarketplaceBulkSelection({
   initialNFTs,
   onVisibleNFTsChange,
   onSelectedNFTsChange,
-}: UseNFTSelectionProps) {
+}: UseMarketplaceBulkSelectionProps) {
   const [sliderValue, setSliderValue] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());

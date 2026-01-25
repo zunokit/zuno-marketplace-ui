@@ -148,19 +148,19 @@ const MOCK_COLLECTION_DATA = {
   },
 };
 
-interface HeroHeaderProps {
+interface MarketplaceCollectionHeroProps {
   collection?: Collection;
   videoUrl?: string;
   bannerUrl?: string;
   useMockData?: boolean;
 }
 
-export default function HeroHeader({
+export default function MarketplaceCollectionHero({
   collection,
   videoUrl,
   bannerUrl,
   useMockData = true
-}: HeroHeaderProps) {
+}: MarketplaceCollectionHeroProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
 

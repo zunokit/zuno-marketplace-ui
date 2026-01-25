@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
-import NFTGrid from "@/modules/marketplace/components/NFTGrid";
+import { ProfileHeader } from "@/modules/profile/components/profile-header";
+import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
 import {
   Select,
   SelectContent,
@@ -15,11 +15,11 @@ import { Search } from "lucide-react";
 import { type UserProfile } from "@/shared/types/profile";
 import { type Nft, NftStatus } from "@/modules/marketplace/types";
 
-interface UserNFTsProps {
+interface ProfileNFTsProps {
   profile: UserProfile;
 }
 
-export function UserNFTs({ profile }: UserNFTsProps) {
+export function ProfileNFTs({ profile }: ProfileNFTsProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("recent");
   const [filterCollection, setFilterCollection] = useState("all");
@@ -152,7 +152,7 @@ export function UserNFTs({ profile }: UserNFTsProps) {
             <p className="text-os-gray-300">No NFTs found</p>
           </div>
         ) : (
-          <NFTGrid
+          <MarketplaceNFTGrid
             type="seller"
             nfts={filteredNFTs}
             view="grid"

@@ -6,11 +6,11 @@ import { Slider } from "@/shared/components/ui/slider";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { ResponsivePopoverDrawer } from "@/shared/components/responsive-popover-drawer";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
-import CartModal from "@/modules/marketplace/components/CartModal";
+import MarketplaceSelectionCart from "@/modules/marketplace/components/marketplace-selection-cart";
 
 type ActionMode = "buy" | "sell";
 
-interface BottomActionBarProps {
+interface MarketplaceSelectionBarProps {
   mode?: ActionMode;
   onModeChange?: (mode: ActionMode) => void;
   itemCount: number;
@@ -23,7 +23,7 @@ interface BottomActionBarProps {
   className?: string;
 }
 
-export default function BottomActionBar({
+export default function MarketplaceSelectionBar({
   mode = "buy",
   onModeChange,
   itemCount,
@@ -34,7 +34,7 @@ export default function BottomActionBar({
   onBuyFloor,
   onMakeOffer,
   className,
-}: BottomActionBarProps) {
+}: MarketplaceSelectionBarProps) {
   const { cartOpen, setCartOpen } = useNFTSelectionStore();
   const handleSliderChange = (value: number[]) => {
     onSliderChange(value[0]);
@@ -179,7 +179,7 @@ export default function BottomActionBar({
                       </button>
                     )}
                   >
-                    <CartModal
+                    <MarketplaceSelectionCart
                       onPrimaryAction={onBuyFloor}
                       primaryLabel={mode === "buy" ? "Buy floor" : "List selected"}
                     />

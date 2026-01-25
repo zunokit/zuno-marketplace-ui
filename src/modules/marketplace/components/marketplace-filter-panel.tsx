@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { X } from "lucide-react";
 import { randomImage } from "@/shared/utils/mock/randomImage";
 
-interface FilterSidebarProps {
+interface MarketplaceFilterPanelProps {
   onClose: () => void;
   priceRange: [number, number];
   onPriceRangeChange: (range: [number, number]) => void;
@@ -120,7 +120,7 @@ export default function FilterSidebar({
   selectedTraits = [],
   onTraitsChange,
   isOpen = true,
-}: FilterSidebarProps) {
+}: MarketplaceFilterPanelProps) {
   const traitKey = (cat: string, name: string) => `${cat}:${name}`;
   const isTraitSelected = (cat: string, name: string) => selectedTraits.includes(traitKey(cat, name));
   const toggleTrait = (cat: string, name: string) => {

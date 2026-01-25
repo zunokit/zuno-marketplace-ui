@@ -11,7 +11,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/shared/components/ui/sheet";
 import { Grid3X3, LayoutGrid, List, Filter, Search, X, ArrowUpDown } from "lucide-react";
 
-interface ControlBarProps {
+interface MarketplaceToolbarProps {
   view: "grid" | "list" | "compact";
   setView: (view: "grid" | "list" | "compact") => void;
   showFilters: boolean;
@@ -23,7 +23,7 @@ interface ControlBarProps {
   totalItems?: number;
 }
 
-export default function ControlBar({
+export default function MarketplaceToolbar({
   view,
   setView,
   showFilters,
@@ -33,7 +33,7 @@ export default function ControlBar({
   sortValue,
   onSort,
   totalItems = 0,
-}: ControlBarProps) {
+}: MarketplaceToolbarProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
 

@@ -8,13 +8,13 @@ import { Badge } from "@/shared/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { Nft, NftStatus } from "@/modules/marketplace/types";
 
-interface SellerModalProps {
+interface MarketplaceListModalProps {
   nft: Nft;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export default function SellerModal({ nft, open, onOpenChange }: SellerModalProps) {
+export default function MarketplaceListModal({ nft, open, onOpenChange }: MarketplaceListModalProps) {
   const [listPrice, setListPrice] = useState(nft.listPrice || "0.1");
   const [duration, setDuration] = useState("7");
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { ProfileHeader } from "@/modules/profile/components/ProfileHeader";
-import NFTGrid from "@/modules/marketplace/components/NFTGrid";
+import { ProfileHeader } from "@/modules/profile/components/profile-header";
+import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
 import { type UserProfile } from "@/shared/types/profile";
 import { type Nft, NftStatus } from "@/modules/marketplace/types";
 
-interface UserFavoritesProps {
+interface ProfileFavoritesProps {
   profile: UserProfile;
 }
 
-export function UserFavorites({ profile }: UserFavoritesProps) {
+export function ProfileFavorites({ profile }: ProfileFavoritesProps) {
   // Mock favorite NFTs - in real app, fetch from API
   const generateMockNft = (index: number): Nft => ({
     id: `fav-nft-${index}`,
@@ -57,7 +57,7 @@ export function UserFavorites({ profile }: UserFavoritesProps) {
             <p className="text-os-gray-300">No favorites yet</p>
           </div>
         ) : (
-          <NFTGrid
+          <MarketplaceNFTGrid
             type="seller"
             nfts={favoriteNFTs}
             view="grid"

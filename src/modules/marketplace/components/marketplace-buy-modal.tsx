@@ -9,13 +9,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui
 import { ShoppingCart, Tag } from "lucide-react";
 import { Nft, NftStatus } from "@/modules/marketplace/types";
 
-interface BuyerModalProps {
+interface MarketplaceBuyModalProps {
   nft: Nft;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function BuyerModal({ nft, open, onOpenChange }: BuyerModalProps) {
+export function MarketplaceBuyModal({ nft, open, onOpenChange }: MarketplaceBuyModalProps) {
   const [offerAmount, setOfferAmount] = useState("");
 
   const handleBuyNow = () => {

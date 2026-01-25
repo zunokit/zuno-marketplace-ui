@@ -2,16 +2,16 @@
 
 import { useState, useMemo, useCallback, Component, ReactNode, useEffect } from "react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import ControlBar from "@/modules/marketplace/components/ControlBar";
-import { MobileTabNav } from "@/modules/marketplace/components/MobileTabNav";
-import NFTListView from "@/modules/marketplace/components/NFTListView";
-import NFTGrid from "@/modules/marketplace/components/NFTGrid";
-import FilterSidebar from "@/modules/marketplace/components/FilterSidebar";
-import SellerModal from "@/modules/marketplace/components/SellerModal";
+import MarketplaceToolbar from "@/modules/marketplace/components/marketplace-toolbar";
+import { MarketplaceMobileTabs } from "@/modules/marketplace/components/marketplace-mobile-tabs";
+import MarketplaceNFTTable from "@/modules/marketplace/components/marketplace-nft-table";
+import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
+import MarketplaceFilterPanel from "@/modules/marketplace/components/marketplace-filter-panel";
+import MarketplaceListModal from "@/modules/marketplace/components/marketplace-list-modal";
 import { useInfiniteMarketplaceItems, type MarketplaceFilters } from "@/modules/marketplace/queries";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
-import HeroHeader from "@/modules/marketplace/components/HeroHeader";
-import CollectionNav from "@/modules/marketplace/components/CollectionNav";
+import MarketplaceCollectionHero from "@/modules/marketplace/components/marketplace-collection-hero";
+import MarketplaceCollectionTabs from "@/modules/marketplace/components/marketplace-collection-tabs";
 import type { Collection } from "@/shared/utils/mock/collection";
 import type { Nft } from "@/modules/marketplace/types";
 import { NftStatus } from "@/modules/marketplace/types";
@@ -30,7 +30,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   state = { hasError: false };
 
   static getDerivedStateFromError(error: Error) {
-    console.error("Error in NFTListView:", error);
+    console.error("Error in MarketplaceNFTTable:", error);
     return { hasError: true };
   }
 
@@ -87,7 +87,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     [priceRange, statusFilter, sortBy, selectedTraits, searchQuery]
   );
 
-  // Use infinite query hook instead of useMyItems
+  // Use infinite query hook instead of useMarketplaceUserItems
   const {
     items: nfts,
     fetchNextPage,
@@ -169,7 +169,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
               )}
             >
               {showFilters && (
-                <FilterSidebar
+                <MarketplaceFilterPanel
                   onClose={() => setShowFilters(false)}
                   priceRange={priceRange}
                   onPriceRangeChange={handlePriceRangeChange}
@@ -185,7 +185,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             {/* Mobile Filter Sheet */}
             {showFilters && (
               <div className="md:hidden">
-                <FilterSidebar
+                <MarketplaceFilterPanel
                   onClose={() => setShowFilters(false)}
                   priceRange={priceRange}
                   onPriceRangeChange={handlePriceRangeChange}
@@ -199,7 +199,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             )}
 
             <div className="flex-1 min-h-0 transition-all duration-300 ease-in-out min-w-0 flex flex-col h-full overflow-hidden">
-              <ControlBar
+              <MarketplaceToolbar
                 view={view}
                 setView={setView}
                 showFilters={showFilters}
@@ -232,7 +232,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   </div>
                 ) : view === "list" ? (
                   <ErrorBoundary>
-                    <NFTListView
+                    <MarketplaceNFTTable
                       type="seller"
                       nfts={nfts}
                       sorting={sorting}
@@ -245,7 +245,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                     />
                   </ErrorBoundary>
                 ) : (
-                  <NFTGrid
+                  <MarketplaceNFTGrid
                     type="seller"
                     nfts={nfts}
                     view={view === "compact" ? "compact" : "grid"}
@@ -306,13 +306,13 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     <div className="h-full min-h-0 overflow-hidden text-foreground transition-all duration-150 flex flex-col">
       {/* Hero Header - Natural height */}
       <div className="w-full shrink-0">
-        <HeroHeader collection={collection} videoUrl={collection.banner} useMockData={true} />
+        <MarketplaceCollectionHero collection={collection} videoUrl={collection.banner} useMockData={true} />
       </div>
 
       {/* Collection Navigation - Hidden on mobile, visible on desktop */}
       <div className="hidden md:block shrink-0">
         <div className="px-0 sm:px-4 md:px-6 lg:px-8">
-          <CollectionNav
+          <MarketplaceCollectionTabs
             collectionSlug={contractAddress}
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -326,11 +326,11 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       </div>
 
       {/* Mobile Bottom Navigation - Tabs */}
-      <MobileTabNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <MarketplaceMobileTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-      {/* Card click: open SellerModal (list / edit listing) */}
+      {/* Card click: open MarketplaceListModal (list / edit listing) */}
       {selectedNFT && (
-        <SellerModal
+        <MarketplaceListModal
           nft={selectedNFT}
           open={showSellerModal}
           onOpenChange={open => {

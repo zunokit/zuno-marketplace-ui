@@ -2,15 +2,15 @@
 
 import { usePathname } from "next/navigation";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
-import BottomActionBar from "@/modules/marketplace/components/BottomActionBar";
+import MarketplaceSelectionBar from "@/modules/marketplace/components/marketplace-selection-bar";
 
 /**
- * BottomActionBarWrapper Component
+ * MarketplaceSelectionBarWrapper
  *
- * Wraps BottomActionBar with visibility logic. In document flow (không fixed/sticky).
+ * Wraps MarketplaceSelectionBar with visibility logic. In document flow (not fixed/sticky).
  * Renders the bar only on marketplace routes or when items are selected.
  */
-export default function BottomActionBarWrapper() {
+export default function MarketplaceSelectionBarWrapper() {
   const pathname = usePathname();
   const {
     selectedNFTs,
@@ -39,7 +39,7 @@ export default function BottomActionBarWrapper() {
 
   return (
     <div className="w-full shrink-0 lg:ml-[52px] lg:w-[calc(100%-52px)]">
-      <BottomActionBar
+      <MarketplaceSelectionBar
         mode={actionMode}
         onModeChange={setActionMode}
         itemCount={selectedNFTs.length}
