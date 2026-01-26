@@ -48,14 +48,9 @@ export function useCreateCollection() {
   const [createCollectionMutation] = useCreateCollectionMutation();
   const [addToAllowlistMutation] = useAddToAllowlistMutation();
   const [updateCollectionMutation] = useUpdateCollectionMutation();
-  
-  // SDK hooks for blockchain operations
-  const { 
-    createERC721, 
-    createERC1155, 
-    addToAllowlist: sdkAddToAllowlist, 
-    setAllowlistOnly 
-  } = useCollection();
+
+  // SDK hooks for blockchain operations - now SSR-safe
+  const sdkCollection = useCollection();
 
   const [state, setState] = useState<CreateCollectionState>({
     step1Status: 'pending',
@@ -234,9 +229,9 @@ export function useCreateCollection() {
       let deployResult;
 
       if (formData.artworkMode === 'ERC721') {
-        deployResult = await createERC721.mutateAsync(collectionParams);
+        deployResult = await sdkCollection.createERC721.mutateAsync(collectionParams);
       } else {
-        deployResult = await createERC1155.mutateAsync(collectionParams);
+        deployResult = await sdkCollection.createERC1155.mutateAsync(collectionParams);
       }
 
       const deployedAddress = deployResult.address;
@@ -244,15 +239,15 @@ export function useCreateCollection() {
 
       // Add addresses to allowlist on blockchain if provided
       if (allowlistAddresses.length > 0) {
-        await sdkAddToAllowlist.mutateAsync({ 
-          collectionAddress: deployedAddress, 
-          addresses: allowlistAddresses 
+        await sdkCollection.addToAllowlist.mutateAsync({
+          collectionAddress: deployedAddress,
+          addresses: allowlistAddresses
         });
-        
+
         // Enable allowlist-only mode
-        await setAllowlistOnly.mutateAsync({ 
-          collectionAddress: deployedAddress, 
-          enabled: true 
+        await sdkCollection.setAllowlistOnly.mutateAsync({
+          collectionAddress: deployedAddress,
+          enabled: true
         });
       }
 
@@ -307,10 +302,7 @@ export function useCreateCollection() {
     createCollectionMutation,
     addToAllowlistMutation,
     updateCollectionMutation,
-    createERC721,
-    createERC1155,
-    sdkAddToAllowlist,
-    setAllowlistOnly,
+    sdkCollection,
     router,
   ]);
 
