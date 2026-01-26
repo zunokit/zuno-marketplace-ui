@@ -3,6 +3,8 @@
  * Structured logging utility with namespace support
  */
 
+import * as Sentry from "@sentry/nextjs";
+
 type LogLevel = "debug" | "info" | "warn" | "error";
 
 interface LogContext {
@@ -89,10 +91,20 @@ class Logger {
         console.error(formatted);
       }
 
-      // TODO: Send to monitoring service in production
-      // if (!this.isDevelopment) {
-      //   Sentry.captureException(error, { extra: context });
-      // }
+      // Send to Sentry in production
+      if (!this.isDevelopment) {
+        Sentry.withScope((scope) => {
+          scope.setTag("namespace", this.namespace);
+          if (context) {
+            scope.setContext("logContext", context);
+          }
+          if (error instanceof Error) {
+            Sentry.captureException(error);
+          } else {
+            Sentry.captureMessage(message, "error");
+          }
+        });
+      }
     }
   }
 
