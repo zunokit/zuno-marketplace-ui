@@ -2,8 +2,8 @@
 
 import { Lock } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import CountdownTimer from "@/modules/mint/mint-nft/components/CountdownTimer";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import CountdownTimer from "@/modules/launch-pad/mint-nft/components/countdown-timer";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 const MintStages = () => {
   const { collection, mintCostData, activeStageData } = useMintState();

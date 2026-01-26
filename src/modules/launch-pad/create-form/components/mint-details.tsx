@@ -12,8 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import { HelpCircle, MoreVertical, Plus } from "lucide-react";
-import { AllowlistStage } from "@/modules/mint/create-form/components/AllowlistStage";
-import { PublicStage } from "@/modules/mint/create-form/components/PublicStage";
+import { AllowlistStage } from "@/modules/launch-pad/create-form/components/allowlist-stage";
+import { PublicStage } from "@/modules/launch-pad/create-form/components/public-stage";
 import { FormField, FormItem, FormControl, FormMessage } from "@/shared/components/ui/form";
 import { DateTimePicker24h } from "@/shared/components/date-time/DateTimePicker24h";
 import { useFormContext } from "react-hook-form";

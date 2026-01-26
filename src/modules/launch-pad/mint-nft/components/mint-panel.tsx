@@ -3,9 +3,11 @@
 import type React from "react";
 import Image from "next/image";
 
-import MintStages from "@/modules/mint/mint-nft/components/MintStages";
-import MintForm from "@/modules/mint/mint-nft/components/MintForm";
-import MintButton from "@/modules/mint/mint-nft/components/MintButton";
+import MintStatus from "@/modules/launch-pad/mint-nft/components/mint-status";
+import MintForm from "@/modules/launch-pad/mint-nft/components/mint-form";
+import MintSocialLinks from "@/modules/launch-pad/mint-nft/components/mint-social-links";
+import MintStagesList from "@/modules/launch-pad/mint-nft/components/mint-stages-list";
+import MintAccordions from "@/modules/launch-pad/mint-nft/components/mint-accordions";
 
 import {
   Dialog,
@@ -18,7 +20,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { Sparkles, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/shared/components/ui/scroll-area";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 interface MintPanelProps {
   currentGalleryImage?: string;
@@ -47,40 +49,45 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
   const shouldShowHistoryTab = isConnected && (hasHistoryData || activeTab === "history");
 
   return (
-    <div className="bg-secondary dark:bg-dialog h-full py-5">
-      <div className="max-w-4xl mx-auto p-4">
+    <div className="space-y-5 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-secondary dark:bg-dialog h-full p-4 rounded-xl">
         <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
-          <TabsList
-            className={`grid w-full max-w-md mx-auto bg-background border border-border-subtle dark:bg-muted dark:border-border-subtle ${
-              shouldShowHistoryTab ? "grid-cols-2" : "grid-cols-1"
-            }`}
-          >
-            <TabsTrigger
-              value="mint"
-              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
+          {shouldShowHistoryTab && (
+            <TabsList
+              className={`grid w-full mb-4 bg-background border border-border-subtle dark:bg-muted dark:border-border-subtle grid-cols-2`}
             >
-              Mint Your NFT
-            </TabsTrigger>
-            {shouldShowHistoryTab && (
+              <TabsTrigger
+                value="mint"
+                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
+              >
+                Mint
+              </TabsTrigger>
               <TabsTrigger
                 value="history"
                 className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
               >
                 History
               </TabsTrigger>
-            )}
-          </TabsList>
+            </TabsList>
+          )}
 
-          <TabsContent value="mint" className="space-y-3">
-            <div className="p-3 space-y-5">
-              <MintStages />
+          <TabsContent value="mint" className="space-y-5">
+            {/* Top Section: Social Links (Desktop only) */}
+            <MintSocialLinks />
 
-              <MintForm />
+            {/* Main Box: Status & Form */}
+            <div className="border-dark flex flex-col gap-y-4">
+              <MintStatus />
 
-              <div className="md:sticky md:bottom-4">
-                <MintButton />
+              <div className="bg-layer-03 p-4 rounded space-y-4">
+                 <MintForm />
               </div>
             </div>
+
+            {/* Previous Stages List */}
+            <MintStagesList />
+
+            {/* Accordions (Mobile only) */}
+            <MintAccordions />
           </TabsContent>
 
           {shouldShowHistoryTab && (
@@ -167,7 +174,6 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
             </TabsContent>
           )}
         </Tabs>
-      </div>
 
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
         <DialogContent

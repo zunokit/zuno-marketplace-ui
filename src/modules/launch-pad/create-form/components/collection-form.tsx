@@ -3,10 +3,10 @@
 import { Button } from "@/shared/components/ui/button";
 import { Form } from "@/shared/components/ui/form";
 import { RotateCcw } from "lucide-react";
-import { CollectionDetails } from "@/modules/mint/create-form/components/CollectionDetails";
-import { ArtSection } from "@/modules/mint/create-form/components/ArtSection";
-import { MintDetails } from "@/modules/mint/create-form/components/MintDetails";
-import { CollectionProcess } from "@/modules/mint/create-form/components/CollectionProcess";
+import { CollectionDetails } from "@/modules/launch-pad/create-form/components/collection-details";
+import { ArtSection } from "@/modules/launch-pad/create-form/components/art-section";
+import { MintDetails } from "@/modules/launch-pad/create-form/components/mint-details";
+import { CollectionProcess } from "@/modules/launch-pad/create-form/components/collection-process";
 import { useForm } from "react-hook-form";
 import { MintTerminalCreateForm, MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";

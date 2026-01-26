@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Loader2, AlertTriangle, Wallet, Sparkles, Package } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 type ButtonVariant = "default" | "destructive" | "secondary";
 type ButtonConfig = {

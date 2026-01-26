@@ -1,4 +1,4 @@
-import OverviewSection from "@/modules/mint/mint-nft/components/OverviewSection";
+import OverviewSection from "@/modules/launch-pad/mint-nft/components/overview-section";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import React from "react";
 
