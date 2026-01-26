@@ -1,4 +1,4 @@
-import { UserActivity } from "@/modules/profile";
+import { ProfileActivity } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserActivityPageProps {
@@ -21,5 +21,5 @@ export default async function UserActivityPage({ params }: UserActivityPageProps
   const { username } = await params;
   const profile = mockUserProfiles.find(p => p.username === username) || mockUserProfiles[1];
 
-  return <UserActivity profile={profile} />;
+  return <ProfileActivity profile={profile} />;
 }

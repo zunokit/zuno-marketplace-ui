@@ -9,6 +9,7 @@ export const mockBanner = (n: number): Banner[] => {
     name: `Banner ${index + 1}`,
     author: `Author ${index + 1}`,
     totalItems: index + 1,
+    floorPrice: (2 + Math.random() * 4).toFixed(1),
     thumbnailImages: [randomImage(), randomImage(), randomImage()],
     mainBackground: Math.random() > 0.5 ? randomImage() : video_url,
   }));
