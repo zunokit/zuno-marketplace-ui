@@ -11,42 +11,49 @@ export default function MintSocialLinks() {
   // In a real app, these should be dynamic.
   // The provided HTML has specific links. I will try to use collection.socialLinks if available, matching the design.
 
-  const contractUrl = `https://solscan.io/account/${collection.address || ""}?cluster=mainnet`;
-  const websiteUrl = collection.websiteUrl || collection.socialLinks?.website;
-  const twitterUrl = collection.twitterUrl || collection.socialLinks?.twitter;
-  const discordUrl = collection.discordUrl || collection.socialLinks?.discord;
+  // Note: Collection type doesn't have an address field. Contract address would typically come from CollectionContract.
+  // For now, we'll make the contract link conditional or use a type assertion if needed.
+  const contractAddress = (collection as any).address as string | undefined;
+  const contractUrl = contractAddress
+    ? `https://solscan.io/account/${contractAddress}?cluster=mainnet`
+    : undefined;
+  const websiteUrl = collection.websiteUrl;
+  const twitterUrl = collection.socialLinks?.twitter;
+  const discordUrl = collection.socialLinks?.discord;
 
   return (
     <div className="flex w-full empty:hidden max-lg:hidden">
       <div className="flex justify-between w-full">
         {/* Contract Link */}
-        <div className="flex flex-wrap gap-2 empty:hidden">
-          <div className="cursor-default">
-            <a
-              href={contractUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="w-fit py-2 px-3 flex items-center gap-2 transition-colors rounded bg-button-secondary hover:bg-button-secondary-hover active:bg-button-secondary-active text-sm text-foreground"
-            >
-              <span>Contract</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="none"
-                color="currentColor"
-                width="20"
-                height="20"
+        {contractUrl && (
+          <div className="flex flex-wrap gap-2 empty:hidden">
+            <div className="cursor-default">
+              <a
+                href={contractUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="w-fit py-2 px-3 flex items-center gap-2 transition-colors rounded bg-button-secondary hover:bg-button-secondary-hover active:bg-button-secondary-active text-sm text-foreground"
               >
-                <path
-                  d="M13.5 6.5L13.4994 2.50062L9.5 2.5M8.5 7.5L13.5 2.5M11.5 8.5V13C11.5 13.1326 11.4473 13.2598 11.3536 13.3536C11.2598 13.4473 11.1326 13.5 11 13.5H3C2.86739 13.5 2.74021 13.4473 2.64645 13.3536C2.55268 13.2598 2.5 13.1326 2.5 13V5C2.5 4.86739 2.55268 4.74021 2.64645 4.64645C2.74021 4.55268 2.86739 4.5 3 4.5H7.5"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+                <span>Contract</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  color="currentColor"
+                  width="20"
+                  height="20"
+                >
+                  <path
+                    d="M13.5 6.5L13.4994 2.50062L9.5 2.5M8.5 7.5L13.5 2.5M11.5 8.5V13C11.5 13.1326 11.4473 13.2598 11.3536 13.3536C11.2598 13.4473 11.1326 13.5 11 13.5H3C2.86739 13.5 2.74021 13.4473 2.64645 13.3536C2.55268 13.2598 2.5 13.1326 2.5 13V5C2.5 4.86739 2.55268 4.74021 2.64645 4.64645C2.74021 4.55268 2.86739 4.5 3 4.5H7.5"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Social Links */}
         <div className="flex flex-wrap gap-2 empty:hidden">
