@@ -83,11 +83,6 @@ export default withSentryConfig(nextConfig, {
   // Upload a larger set of source maps for prettier stack traces
   widenClientFileUpload: true,
 
-  // Automatically annotate React components with their display names
-  reactComponentAnnotation: {
-    enabled: true,
-  },
-
   // Use the SentryWebpackPlugin to inject release information
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
@@ -98,9 +93,20 @@ export default withSentryConfig(nextConfig, {
   // Options for `tunnel` package (used to send source maps to Sentry)
   tunnelRoute: "/__sentry__",
 
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
+  // Webpack-specific options (not supported with Turbopack)
+  // See: https://docs.sentry.io/platforms/javascript/guides/nextjs/
+  webpack: {
+    // Automatically annotate React components with their display names
+    reactComponentAnnotation: {
+      enabled: true,
+    },
 
-  // Enables automatic instrumentation of Vercel Cron Monitors
-  automaticVercelMonitors: true,
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    treeshake: {
+      removeDebugLogging: true,
+    },
+
+    // Enables automatic instrumentation of Vercel Cron Monitors
+    automaticVercelMonitors: true,
+  },
 });
