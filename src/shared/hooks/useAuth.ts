@@ -105,8 +105,19 @@ export function useAuth() {
     };
 
     const handleLogin = async () => {
-      hasCheckedAuth.current = false; // Reset to allow auth check
-      await checkAuth();
+      // After sign-in, token is already set by SignInButton
+      // Just fetch user data without trying to refresh session
+      try {
+        const { data } = await getMe();
+        if (data?.me) {
+          setUser(data.me as AuthUser);
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('[Auth] Failed to get user after login:', error);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
     };
 
     window.addEventListener('auth:logout', handleLogout);

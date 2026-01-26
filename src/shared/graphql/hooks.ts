@@ -525,8 +525,14 @@ export function useGetCollectionLazyQuery() {
   return useLazyQuery(GET_COLLECTION_DOCUMENT);
 }
 
-export function useMyCollectionsQuery(variables?: { page?: number; limit?: number }) {
-  return useQuery(MY_COLLECTIONS_DOCUMENT, { variables });
+export function useMyCollectionsQuery(
+  variables?: { page?: number; limit?: number },
+  options?: { enabled?: boolean }
+) {
+  return useQuery(MY_COLLECTIONS_DOCUMENT, {
+    variables,
+    skip: options?.enabled === false,
+  });
 }
 
 export function useListCollectionsQuery(variables?: {

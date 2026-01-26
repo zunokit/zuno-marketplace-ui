@@ -9,11 +9,30 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 
 export default function MyCollectionsPage() {
-  const { isAuthenticated } = useAuth();
-  const { data, loading, error } = useMyCollectionsQuery({
-    page: 1,
-    limit: 20
-  });
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const { data, loading, error } = useMyCollectionsQuery(
+    {
+      page: 1,
+      limit: 20,
+    },
+    { enabled: isAuthenticated } // Only query when authenticated
+  );
+
+  // Show loading while auth is being checked
+  if (authLoading) {
+    return (
+      <div className="container mx-auto py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">My Collections</h1>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <Skeleton key={i} className="h-64 rounded-lg" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
