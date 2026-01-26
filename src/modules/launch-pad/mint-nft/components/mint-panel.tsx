@@ -3,11 +3,11 @@
 import type React from "react";
 import Image from "next/image";
 
-import MintStatus from "@/modules/mint/mint-nft/components/MintStatus";
-import MintForm from "@/modules/mint/mint-nft/components/MintForm";
-import MintSocialLinks from "@/modules/mint/mint-nft/components/MintSocialLinks";
-import MintStagesList from "@/modules/mint/mint-nft/components/MintStagesList";
-import MintAccordions from "@/modules/mint/mint-nft/components/MintAccordions";
+import MintStatus from "@/modules/launch-pad/mint-nft/components/mint-status";
+import MintForm from "@/modules/launch-pad/mint-nft/components/mint-form";
+import MintSocialLinks from "@/modules/launch-pad/mint-nft/components/mint-social-links";
+import MintStagesList from "@/modules/launch-pad/mint-nft/components/mint-stages-list";
+import MintAccordions from "@/modules/launch-pad/mint-nft/components/mint-accordions";
 
 import {
   Dialog,
@@ -20,7 +20,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import { Sparkles, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/shared/components/ui/scroll-area";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 interface MintPanelProps {
   currentGalleryImage?: string;

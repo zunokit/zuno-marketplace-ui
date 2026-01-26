@@ -1,11 +1,11 @@
 "use client";
-import CollectionOverviewTabs from "@/modules/mint/mint-nft/components/CollectionOverviewTabs";
-import { CollectionMediaShowcase } from "@/modules/mint/mint-nft/components/CollectionMediaShowcase";
-import MintPanel from "@/modules/mint/mint-nft/components/MintPanel";
-import ExploreCollectionButton from "@/modules/mint/mint-nft/components/ExploreCollectionButton";
+import CollectionOverviewTabs from "@/modules/launch-pad/mint-nft/components/collection-overview-tabs";
+import { CollectionMediaShowcase } from "@/modules/launch-pad/mint-nft/components/collection-media-showcase";
+import MintPanel from "@/modules/launch-pad/mint-nft/components/mint-panel";
+import ExploreCollectionButton from "@/modules/launch-pad/mint-nft/components/explore-collection-button";
 import { useTheme } from "next-themes";
-import MintNFTSkeleton from "@/modules/mint/mint-nft/components/MintNFTSkeleton";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import MintNFTSkeleton from "@/modules/launch-pad/mint-nft/components/mint-nft-skeleton";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 type MintNFTProps = { slug: string };
 

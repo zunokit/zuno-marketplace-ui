@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState } from "react";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 import { Loader2, Wallet, Sparkles, Package, AlertTriangle } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 

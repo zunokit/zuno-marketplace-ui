@@ -2,7 +2,7 @@
 
 import { Loader2 } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 // const POLL_INTERVAL = 30000; // Fallback polling every 30s if subscription fails (future use)
 // const MAX_RECONNECT_ATTEMPTS = 5; // Max retry attempts (future use)

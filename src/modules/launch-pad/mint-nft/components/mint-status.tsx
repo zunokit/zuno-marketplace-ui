@@ -1,6 +1,6 @@
 "use client";
 
-import { useMintState } from "@/modules/mint/mint-nft/hooks/useMintState";
+import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
 
 export default function MintStatus() {
   const { collection, activeStageData } = useMintState();
