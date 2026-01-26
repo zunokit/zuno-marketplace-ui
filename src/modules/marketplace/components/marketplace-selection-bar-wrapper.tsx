@@ -38,7 +38,7 @@ export default function MarketplaceSelectionBarWrapper() {
   };
 
   return (
-    <div className="w-full shrink-0 lg:ml-[52px] lg:w-[calc(100%-52px)]">
+    <div className="relative z-60 w-full shrink-0">
       <MarketplaceSelectionBar
         mode={actionMode}
         onModeChange={setActionMode}
