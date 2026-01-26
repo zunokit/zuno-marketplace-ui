@@ -97,13 +97,12 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
 export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLeave }: AuctionCardProps) {
   return (
     <div
-      className="relative group cursor-pointer h-full"
+      className="relative group cursor-pointer h-full min-w-0"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0">
-        <div className="flex flex-col h-full">
-          {/* Image: aspect 4/3 giống CollectionCard */}
+      <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0 min-w-0">
+        <div className="flex flex-col h-full min-w-0">
           <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
               src={auction.image}
@@ -114,7 +113,6 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
               }`}
             />
 
-            {/* Top badges */}
             <div className="absolute top-2 left-2 right-2 flex items-start justify-between gap-2">
               <TimeRemaining endTime={auction.endTime} />
               <Badge
@@ -126,7 +124,6 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
               </Badge>
             </div>
 
-            {/* Live + Place Bid overlay (hover, giống Mint Now ở CollectionCard) */}
             <div
               className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 h-16 flex items-end transform transition-transform duration-300 ${
                 isHovered ? "translate-y-0" : "translate-y-full"
@@ -152,31 +149,30 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
             </div>
           </div>
 
-          {/* Content: h-[120px] đồng bộ với CollectionCard */}
-          <CardContent className="p-3 flex flex-col h-[120px] justify-between">
-            <h3 className="font-medium font-sans truncate text-base text-foreground dark:text-foreground mb-2">
+          <CardContent className="p-3 flex flex-col h-[120px] justify-between min-w-0 overflow-hidden">
+            <h3 className="font-medium font-sans truncate text-base text-foreground dark:text-foreground mb-2 min-w-0 shrink-0 w-full">
               {auction.name}
             </h3>
 
-            <div className="grid grid-cols-3 gap-1 mb-auto">
-              <div>
-                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+            <div className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-1 mb-auto min-w-0 shrink-0 overflow-hidden">
+              <div className="min-w-0 overflow-hidden">
+                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300 truncate">
                   CURRENT BID
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
                   {auction.currentBid} {auction.currency}
                 </p>
               </div>
-              <div>
-                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+              <div className="min-w-0 overflow-hidden">
+                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300 truncate">
                   BIDS
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
                   {auction.totalBids}
                 </p>
               </div>
-              <div>
-                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+              <div className="min-w-0 overflow-hidden">
+                <p className="text-[10px] uppercase font-medium text-os-gray-300 dark:text-os-gray-300 truncate">
                   RESERVE
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
@@ -189,9 +185,9 @@ export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLea
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-border-subtle dark:border-border-subtle">
-              <span className="w-2 h-2 rounded-full bg-red-500" />
-              <span className="text-xs text-foreground dark:text-foreground truncate">
+            <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-border-subtle dark:border-border-subtle min-w-0 shrink-0 overflow-hidden">
+              <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+              <span className="text-xs text-foreground dark:text-foreground truncate min-w-0">
                 {auction.collection}
               </span>
             </div>
