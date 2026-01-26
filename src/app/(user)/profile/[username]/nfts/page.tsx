@@ -1,4 +1,4 @@
-import { UserNFTs } from "@/modules/profile";
+import { ProfileNFTs } from "@/modules/profile";
 import { mockUserProfiles } from "@/shared/utils/mock/profile";
 
 interface UserNFTsPageProps {
@@ -21,5 +21,5 @@ export default async function UserNFTsPage({ params }: UserNFTsPageProps) {
   const { username } = await params;
   const profile = mockUserProfiles.find(p => p.username === username) || mockUserProfiles[1];
 
-  return <UserNFTs profile={profile} />;
+  return <ProfileNFTs profile={profile} />;
 }

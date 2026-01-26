@@ -260,7 +260,11 @@ export default function LiveAuctions() {
           showNavigation={true}
           loop={true}
           align="start"
-          itemClassName="pl-2 basis-full md:basis-1/2 lg:basis-1/4"
+          itemsPerView={{
+            mobile: 1,
+            tablet: 3,
+            desktop: 5,
+          }}
         />
       </div>
     </section>
