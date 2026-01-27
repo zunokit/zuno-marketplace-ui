@@ -77,7 +77,7 @@
     "viem": "~2.39.3",
     "wagmi": "^2.19.5",
     "zod": "^4.3.6",
-    "zuno-marketplace-sdk": "file:../zuno-marketplace-sdk",
+    "zuno-marketplace-sdk": "2.1.2",
     "zustand": "^5.0.10"
   },
   "devDependencies": {
