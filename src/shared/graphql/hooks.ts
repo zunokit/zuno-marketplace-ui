@@ -147,8 +147,8 @@ const VERIFY_SIWE_DOCUMENT = gql(`
 
 // Export as RefreshSessionDocument to match old generated name
 export const RefreshSessionDocument = gql(`
-  mutation RefreshSession {
-    refreshSession {
+  mutation RefreshSession($refreshToken: String, $userAgent: String, $ipAddress: String) {
+    refreshSession(refreshToken: $refreshToken, userAgent: $userAgent, ipAddress: $ipAddress) {
       userId
       accessToken
       expiresAt
@@ -162,7 +162,11 @@ export const RefreshSessionDocument = gql(`
       expiresAt: string;
     };
   },
-  {}
+  {
+    refreshToken?: string;
+    userAgent?: string;
+    ipAddress?: string;
+  }
 >;
 
 const REFRESH_SESSION_DOCUMENT = RefreshSessionDocument;
