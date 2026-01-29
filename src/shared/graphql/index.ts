@@ -4,3 +4,6 @@ export * from "./graphql";
 
 // Re-export all generated React hooks
 export * from "./hooks.generated";
+
+// Re-export schema types
+export * from "./schema.generated";

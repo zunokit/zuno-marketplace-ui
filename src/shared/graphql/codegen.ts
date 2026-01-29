@@ -1,7 +1,7 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
-const GRAPHQL_URL =
-  `${process.env.BACKEND_URL}/graphql` || `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`;
+const BACKEND_URL = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4080";
+const GRAPHQL_URL = `${BACKEND_URL}/graphql`;
 
 const config: CodegenConfig = {
   // ============================================
@@ -43,6 +43,7 @@ const config: CodegenConfig = {
           DateTime: "string",
           JSON: "Record<string, any>",
           BigInt: "string",
+          Time: "string",
         },
 
         // Avoid optional fields (use | null instead)
@@ -76,12 +77,16 @@ const config: CodegenConfig = {
         withHOC: false,
         withMutationFn: true,
 
+        // Import from @apollo/client/react for correct hook types
+        reactApolloImportFrom: "@apollo/client/react",
+
         // Scalars (same as above)
         strictScalars: true,
         scalars: {
           DateTime: "string",
           JSON: "Record<string, any>",
           BigInt: "string",
+          Time: "string",
         },
 
         // Avoid optionals
@@ -123,6 +128,7 @@ const config: CodegenConfig = {
           DateTime: "string",
           JSON: "Record<string, any>",
           BigInt: "string",
+          Time: "string",
         },
         avoidOptionals: {
           field: true,

@@ -1,176 +1,331 @@
-# Enums matching backend
-enum TokenStandard {
-  ERC721
-  ERC1155
+# Collection Queries & Mutations
+
+mutation CreateCollection($input: CreateCollectionInput!) {
+  createCollection(input: $input) {
+    id
+    slug
+    userId
+    name
+    symbol
+    description
+    category
+    contractAddress
+    chainId
+    tokenStandard
+    deployerAddress
+    deployedBlock
+    status
+    deployedAt
+    indexStatus
+    isVerified
+    isHidden
+    source
+    imageUrl
+    bannerUrl
+    featuredImageUrl
+    websiteUrl
+    baseUri
+    maxSupply
+    mintPriceAllowlist
+    mintPricePublic
+    mintStartTime
+    allowlistStageEnd
+    mintLimitPerWallet
+    royaltyFeeBps
+    royaltyRecipient
+    totalSupply
+    totalMinted
+    metadataStandard
+    createdAt
+    updatedAt
+    metadata {
+      id
+      collectionId
+      metadataUri
+      ipfsHash
+      ipfsUrl
+      discordUrl
+      twitterUrl
+      instagramUrl
+      mediumUrl
+      telegramUrl
+      backgroundColor
+    }
+    stats {
+      collectionId
+      totalItems
+      totalOwners
+      totalSales
+      floorPriceWei
+      totalVolumeWei
+      averagePriceWei
+      volume24hWei
+      sales24h
+      lastSaleAt
+      lastMintAt
+      updatedAt
+    }
+  }
 }
 
-enum CollectionStatus {
-  PENDING
-  DEPLOYED
-  FAILED
-  ARCHIVED
+mutation UpdateCollection($id: ID!, $input: UpdateCollectionInput!) {
+  updateCollection(id: $id, input: $input) {
+    id
+    slug
+    userId
+    name
+    symbol
+    description
+    category
+    contractAddress
+    chainId
+    tokenStandard
+    deployerAddress
+    deployedBlock
+    status
+    deployedAt
+    indexStatus
+    isVerified
+    isHidden
+    source
+    imageUrl
+    bannerUrl
+    featuredImageUrl
+    websiteUrl
+    baseUri
+    maxSupply
+    mintPriceAllowlist
+    mintPricePublic
+    mintStartTime
+    allowlistStageEnd
+    mintLimitPerWallet
+    royaltyFeeBps
+    royaltyRecipient
+    totalSupply
+    totalMinted
+    metadataStandard
+    createdAt
+    updatedAt
+    metadata {
+      id
+      collectionId
+      metadataUri
+      ipfsHash
+      ipfsUrl
+      discordUrl
+      twitterUrl
+      instagramUrl
+      mediumUrl
+      telegramUrl
+      backgroundColor
+    }
+    stats {
+      collectionId
+      totalItems
+      totalOwners
+      totalSales
+      floorPriceWei
+      totalVolumeWei
+      averagePriceWei
+      volume24hWei
+      sales24h
+      lastSaleAt
+      lastMintAt
+      updatedAt
+    }
+  }
 }
 
-enum IndexStatus {
-  NOT_INDEXED
-  INDEXING
-  INDEXED
-  FAILED
+mutation DeleteCollection($id: ID!) {
+  deleteCollection(id: $id)
 }
 
-# Types
-type Collection {
-  id: ID!
-  userId: ID!
-  name: String!
-  symbol: String!
-  slug: String
-  description: String
-  contractAddress: String
-  chainId: String!
-  tokenStandard: TokenStandard!
-  status: CollectionStatus!
-  indexStatus: IndexStatus!
-  creatorAddress: String!
-  deployerAddress: String!
-
-  # Images
-  imageUrl: String!
-  bannerImageUrl: String
-  featuredImageUrl: String
-
-  # Mint settings
-  baseUri: String
-  maxSupply: Int
-  mintPrice: String
-  mintPriceAllowlist: String
-  mintPricePublic: String
-  mintStartTime: String
-  allowlistStageEnd: String
-
-  # Royalty
-  royaltyFeeBps: Int
-  royaltyRecipient: String
-
-  # Relations
-  metadata: CollectionMetadata
-  stats: CollectionStats
-
-  # Timestamps
-  createdAt: String!
-  updatedAt: String!
-  deployedAt: String
+mutation AddToAllowlist($input: AddToAllowlistInput!) {
+  addToAllowlist(input: $input)
 }
 
-type CollectionMetadata {
-  websiteUrl: String
-  discordUrl: String
-  twitterUrl: String
-  instagramUrl: String
-  mediumUrl: String
-  telegramUrl: String
-  ipfsHash: String
-  ipfsUrl: String
+query GetCollection($id: ID, $slug: String, $contractAddress: String, $chainId: String) {
+  collection(id: $id, slug: $slug, contractAddress: $contractAddress, chainId: $chainId) {
+    id
+    slug
+    userId
+    name
+    symbol
+    description
+    category
+    contractAddress
+    chainId
+    tokenStandard
+    deployerAddress
+    deployedBlock
+    status
+    deployedAt
+    indexStatus
+    isVerified
+    isHidden
+    source
+    imageUrl
+    bannerUrl
+    featuredImageUrl
+    websiteUrl
+    baseUri
+    maxSupply
+    mintPriceAllowlist
+    mintPricePublic
+    mintStartTime
+    allowlistStageEnd
+    mintLimitPerWallet
+    royaltyFeeBps
+    royaltyRecipient
+    totalSupply
+    totalMinted
+    metadataStandard
+    createdAt
+    updatedAt
+    metadata {
+      id
+      collectionId
+      metadataUri
+      ipfsHash
+      ipfsUrl
+      discordUrl
+      twitterUrl
+      instagramUrl
+      mediumUrl
+      telegramUrl
+      backgroundColor
+    }
+    stats {
+      collectionId
+      totalItems
+      totalOwners
+      totalSales
+      floorPriceWei
+      totalVolumeWei
+      averagePriceWei
+      volume24hWei
+      sales24h
+      lastSaleAt
+      lastMintAt
+      updatedAt
+    }
+  }
 }
 
-type CollectionStats {
-  collectionId: ID!
-  totalItems: Int!
-  totalOwners: Int!
-  totalSales: Int!
-  floorPriceWei: String!
-  totalVolumeWei: String!
-  averagePriceWei: String!
-  volume24hWei: String!
-  sales24h: Int!
-  lastSaleAt: String
-  lastMintAt: String
-  updatedAt: String!
+query GetMyCollections($page: Int, $limit: Int) {
+  myCollections(page: $page, limit: $limit) {
+    items {
+      id
+      slug
+      userId
+      name
+      symbol
+      description
+      category
+      contractAddress
+      chainId
+      tokenStandard
+      deployerAddress
+      deployedBlock
+      status
+      deployedAt
+      indexStatus
+      isVerified
+      isHidden
+      source
+      imageUrl
+      bannerUrl
+      featuredImageUrl
+      websiteUrl
+      baseUri
+      maxSupply
+      mintPriceAllowlist
+      mintPricePublic
+      mintStartTime
+      allowlistStageEnd
+      mintLimitPerWallet
+      royaltyFeeBps
+      royaltyRecipient
+      totalSupply
+      totalMinted
+      metadataStandard
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      totalCount
+      page
+      limit
+      hasNext
+      hasPrevious
+    }
+  }
 }
 
-type CollectionConnection {
-  items: [Collection!]!
-  pageInfo: PageInfo!
-}
-
-type PageInfo {
-  totalCount: Int!
-  page: Int!
-  limit: Int!
-  hasNext: Boolean!
-  hasPrevious: Boolean!
-}
-
-# Inputs - mapped from backend CreateCollectionInput
-input CreateCollectionInput {
-  # Required
-  name: String!
-  symbol: String!
-  tokenStandard: TokenStandard!
-  deployerAddress: String!
-
-  # Optional
-  description: String
-  category: String
-  chainId: String
-  imageUrl: String
-  bannerUrl: String
-  featuredImageUrl: String
-
-  # Mint settings
-  baseUri: String
-  maxSupply: Int
-  mintPriceAllowlist: String
-  mintPricePublic: String
-  mintStartTime: String
-  allowlistStageEnd: String
-  mintLimitPerWallet: Int
-
-  # Royalty
-  royaltyFeeBps: Int
-  royaltyRecipient: String
-
-  # Metadata links
-  websiteUrl: String
-}
-
-input UpdateCollectionInput {
-  contractAddress: String
-  status: CollectionStatus
-  deployedAt: String
-  description: String
-  bannerImageUrl: String
-  websiteUrl: String
-  discordUrl: String
-  twitterUrl: String
-}
-
-input AddToAllowlistInput {
-  collectionId: ID!
-  walletAddresses: [String!]!
-  maxMintAmount: Int!
-}
-
-# Queries
-extend type Query {
-  collection(id: ID, slug: String, contractAddress: String, chainId: String): Collection
-  myCollections(page: Int, limit: Int): CollectionConnection!
+query GetCollections(
+  $page: Int
+  $limit: Int
+  $sortBy: String
+  $sortOrder: String
+  $category: String
+  $chainId: String
+  $isVerified: Boolean
+  $searchQuery: String
+) {
   collections(
-    page: Int
-    limit: Int
-    sortBy: String
-    sortOrder: String
-    category: String
-    chainId: String
-    isVerified: Boolean
-    searchQuery: String
-  ): CollectionConnection!
-}
-
-# Mutations
-extend type Mutation {
-  createCollection(input: CreateCollectionInput!): Collection!
-  updateCollection(id: ID!, input: UpdateCollectionInput!): Collection!
-  addToAllowlist(input: AddToAllowlistInput!): Boolean!
-  deleteCollection(id: ID!): Boolean!
+    page: $page
+    limit: $limit
+    sortBy: $sortBy
+    sortOrder: $sortOrder
+    category: $category
+    chainId: $chainId
+    isVerified: $isVerified
+    searchQuery: $searchQuery
+  ) {
+    items {
+      id
+      slug
+      userId
+      name
+      symbol
+      description
+      category
+      contractAddress
+      chainId
+      tokenStandard
+      deployerAddress
+      deployedBlock
+      status
+      deployedAt
+      indexStatus
+      isVerified
+      isHidden
+      source
+      imageUrl
+      bannerUrl
+      featuredImageUrl
+      websiteUrl
+      baseUri
+      maxSupply
+      mintPriceAllowlist
+      mintPricePublic
+      mintStartTime
+      allowlistStageEnd
+      mintLimitPerWallet
+      royaltyFeeBps
+      royaltyRecipient
+      totalSupply
+      totalMinted
+      metadataStandard
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      totalCount
+      page
+      limit
+      hasNext
+      hasPrevious
+    }
+  }
 }

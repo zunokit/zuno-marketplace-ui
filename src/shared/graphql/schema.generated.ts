@@ -1,6 +1,5 @@
-/* eslint-disable */
 export type Maybe<T> = T | null;
-export type InputMaybe<T> = T | null | undefined;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -128,12 +127,7 @@ export type CollectionStats = {
   volume24hWei: Scalars["String"]["output"];
 };
 
-export type CollectionStatus =
-  | "ARCHIVED"
-  | "DEPLOYED"
-  | "FAILED"
-  | "PENDING"
-  | "%future added value";
+export type CollectionStatus = "ARCHIVED" | "DEPLOYED" | "FAILED" | "PENDING";
 
 export type CreateCollectionInput = {
   allowlistStageEnd?: InputMaybe<Scalars["Time"]["input"]>;
@@ -165,7 +159,7 @@ export type CreateCollectionInput = {
   websiteUrl?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type IndexStatus = "FAILED" | "NOT_STARTED" | "SYNCED" | "SYNCING" | "%future added value";
+export type IndexStatus = "FAILED" | "NOT_STARTED" | "SYNCED" | "SYNCING";
 
 export type LinkWalletInput = {
   accountId: Scalars["String"]["input"];
@@ -452,7 +446,7 @@ export type RefreshResponse = {
   userId: Scalars["String"]["output"];
 };
 
-export type TokenStandard = "ERC721" | "ERC1155" | "%future added value";
+export type TokenStandard = "ERC721" | "ERC1155";
 
 export type UpdateCollectionInput = {
   allowlistStageEnd?: InputMaybe<Scalars["Time"]["input"]>;
@@ -508,4 +502,511 @@ export type WalletLink = {
   updatedAt: Scalars["String"]["output"];
   userId: Scalars["ID"]["output"];
   verifiedAt: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GetNonceQueryVariables = Exact<{
+  accountId: Scalars["String"]["input"];
+  chainId: Scalars["String"]["input"];
+  domain: Scalars["String"]["input"];
+}>;
+
+export type GetNonceQuery = {
+  __typename?: "Query";
+  getNonce: { __typename?: "Nonce"; nonce: string; expiresAt: string };
+};
+
+export type VerifySiweMutationVariables = Exact<{
+  accountId: Scalars["String"]["input"];
+  message: Scalars["String"]["input"];
+  signature: Scalars["String"]["input"];
+}>;
+
+export type VerifySiweMutation = {
+  __typename?: "Mutation";
+  verifySiwe: {
+    __typename?: "AuthResponse";
+    accessToken: string;
+    expiresAt: string;
+    userId: string;
+    address: string;
+    chainId: string;
+  };
+};
+
+export type RefreshSessionMutationVariables = Exact<{
+  refreshToken?: InputMaybe<Scalars["String"]["input"]>;
+  userAgent?: InputMaybe<Scalars["String"]["input"]>;
+  ipAddress?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type RefreshSessionMutation = {
+  __typename?: "Mutation";
+  refreshSession: {
+    __typename?: "RefreshResponse";
+    accessToken: string;
+    expiresAt: string;
+    userId: string;
+  };
+};
+
+export type RevokeSessionMutationVariables = Exact<{
+  sessionId: Scalars["ID"]["input"];
+}>;
+
+export type RevokeSessionMutation = { __typename?: "Mutation"; revokeSession: boolean };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
+
+export type LogoutMutation = { __typename?: "Mutation"; logout: boolean };
+
+export type CreateCollectionMutationVariables = Exact<{
+  input: CreateCollectionInput;
+}>;
+
+export type CreateCollectionMutation = {
+  __typename?: "Mutation";
+  createCollection: {
+    __typename?: "Collection";
+    id: string;
+    slug: string | null;
+    userId: string;
+    name: string;
+    symbol: string;
+    description: string | null;
+    category: string | null;
+    contractAddress: string | null;
+    chainId: string | null;
+    tokenStandard: TokenStandard;
+    deployerAddress: string;
+    deployedBlock: number | null;
+    status: CollectionStatus;
+    deployedAt: string | null;
+    indexStatus: IndexStatus | null;
+    isVerified: boolean;
+    isHidden: boolean;
+    source: string | null;
+    imageUrl: string | null;
+    bannerUrl: string | null;
+    featuredImageUrl: string | null;
+    websiteUrl: string | null;
+    baseUri: string | null;
+    maxSupply: number | null;
+    mintPriceAllowlist: string | null;
+    mintPricePublic: string | null;
+    mintStartTime: string | null;
+    allowlistStageEnd: string | null;
+    mintLimitPerWallet: number | null;
+    royaltyFeeBps: number | null;
+    royaltyRecipient: string | null;
+    totalSupply: number;
+    totalMinted: number;
+    metadataStandard: string | null;
+    createdAt: string;
+    updatedAt: string;
+    metadata: {
+      __typename?: "CollectionMetadata";
+      id: string;
+      collectionId: string;
+      metadataUri: string | null;
+      ipfsHash: string | null;
+      ipfsUrl: string | null;
+      discordUrl: string | null;
+      twitterUrl: string | null;
+      instagramUrl: string | null;
+      mediumUrl: string | null;
+      telegramUrl: string | null;
+      backgroundColor: string | null;
+    } | null;
+    stats: {
+      __typename?: "CollectionStats";
+      collectionId: string;
+      totalItems: number;
+      totalOwners: number;
+      totalSales: number;
+      floorPriceWei: string;
+      totalVolumeWei: string;
+      averagePriceWei: string;
+      volume24hWei: string;
+      sales24h: number;
+      lastSaleAt: string | null;
+      lastMintAt: string | null;
+      updatedAt: string;
+    } | null;
+  };
+};
+
+export type UpdateCollectionMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+  input: UpdateCollectionInput;
+}>;
+
+export type UpdateCollectionMutation = {
+  __typename?: "Mutation";
+  updateCollection: {
+    __typename?: "Collection";
+    id: string;
+    slug: string | null;
+    userId: string;
+    name: string;
+    symbol: string;
+    description: string | null;
+    category: string | null;
+    contractAddress: string | null;
+    chainId: string | null;
+    tokenStandard: TokenStandard;
+    deployerAddress: string;
+    deployedBlock: number | null;
+    status: CollectionStatus;
+    deployedAt: string | null;
+    indexStatus: IndexStatus | null;
+    isVerified: boolean;
+    isHidden: boolean;
+    source: string | null;
+    imageUrl: string | null;
+    bannerUrl: string | null;
+    featuredImageUrl: string | null;
+    websiteUrl: string | null;
+    baseUri: string | null;
+    maxSupply: number | null;
+    mintPriceAllowlist: string | null;
+    mintPricePublic: string | null;
+    mintStartTime: string | null;
+    allowlistStageEnd: string | null;
+    mintLimitPerWallet: number | null;
+    royaltyFeeBps: number | null;
+    royaltyRecipient: string | null;
+    totalSupply: number;
+    totalMinted: number;
+    metadataStandard: string | null;
+    createdAt: string;
+    updatedAt: string;
+    metadata: {
+      __typename?: "CollectionMetadata";
+      id: string;
+      collectionId: string;
+      metadataUri: string | null;
+      ipfsHash: string | null;
+      ipfsUrl: string | null;
+      discordUrl: string | null;
+      twitterUrl: string | null;
+      instagramUrl: string | null;
+      mediumUrl: string | null;
+      telegramUrl: string | null;
+      backgroundColor: string | null;
+    } | null;
+    stats: {
+      __typename?: "CollectionStats";
+      collectionId: string;
+      totalItems: number;
+      totalOwners: number;
+      totalSales: number;
+      floorPriceWei: string;
+      totalVolumeWei: string;
+      averagePriceWei: string;
+      volume24hWei: string;
+      sales24h: number;
+      lastSaleAt: string | null;
+      lastMintAt: string | null;
+      updatedAt: string;
+    } | null;
+  };
+};
+
+export type DeleteCollectionMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+}>;
+
+export type DeleteCollectionMutation = { __typename?: "Mutation"; deleteCollection: boolean };
+
+export type AddToAllowlistMutationVariables = Exact<{
+  input: AddToAllowlistInput;
+}>;
+
+export type AddToAllowlistMutation = { __typename?: "Mutation"; addToAllowlist: boolean };
+
+export type GetCollectionQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  slug?: InputMaybe<Scalars["String"]["input"]>;
+  contractAddress?: InputMaybe<Scalars["String"]["input"]>;
+  chainId?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type GetCollectionQuery = {
+  __typename?: "Query";
+  collection: {
+    __typename?: "Collection";
+    id: string;
+    slug: string | null;
+    userId: string;
+    name: string;
+    symbol: string;
+    description: string | null;
+    category: string | null;
+    contractAddress: string | null;
+    chainId: string | null;
+    tokenStandard: TokenStandard;
+    deployerAddress: string;
+    deployedBlock: number | null;
+    status: CollectionStatus;
+    deployedAt: string | null;
+    indexStatus: IndexStatus | null;
+    isVerified: boolean;
+    isHidden: boolean;
+    source: string | null;
+    imageUrl: string | null;
+    bannerUrl: string | null;
+    featuredImageUrl: string | null;
+    websiteUrl: string | null;
+    baseUri: string | null;
+    maxSupply: number | null;
+    mintPriceAllowlist: string | null;
+    mintPricePublic: string | null;
+    mintStartTime: string | null;
+    allowlistStageEnd: string | null;
+    mintLimitPerWallet: number | null;
+    royaltyFeeBps: number | null;
+    royaltyRecipient: string | null;
+    totalSupply: number;
+    totalMinted: number;
+    metadataStandard: string | null;
+    createdAt: string;
+    updatedAt: string;
+    metadata: {
+      __typename?: "CollectionMetadata";
+      id: string;
+      collectionId: string;
+      metadataUri: string | null;
+      ipfsHash: string | null;
+      ipfsUrl: string | null;
+      discordUrl: string | null;
+      twitterUrl: string | null;
+      instagramUrl: string | null;
+      mediumUrl: string | null;
+      telegramUrl: string | null;
+      backgroundColor: string | null;
+    } | null;
+    stats: {
+      __typename?: "CollectionStats";
+      collectionId: string;
+      totalItems: number;
+      totalOwners: number;
+      totalSales: number;
+      floorPriceWei: string;
+      totalVolumeWei: string;
+      averagePriceWei: string;
+      volume24hWei: string;
+      sales24h: number;
+      lastSaleAt: string | null;
+      lastMintAt: string | null;
+      updatedAt: string;
+    } | null;
+  } | null;
+};
+
+export type GetMyCollectionsQueryVariables = Exact<{
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type GetMyCollectionsQuery = {
+  __typename?: "Query";
+  myCollections: {
+    __typename?: "CollectionConnection";
+    items: Array<{
+      __typename?: "Collection";
+      id: string;
+      slug: string | null;
+      userId: string;
+      name: string;
+      symbol: string;
+      description: string | null;
+      category: string | null;
+      contractAddress: string | null;
+      chainId: string | null;
+      tokenStandard: TokenStandard;
+      deployerAddress: string;
+      deployedBlock: number | null;
+      status: CollectionStatus;
+      deployedAt: string | null;
+      indexStatus: IndexStatus | null;
+      isVerified: boolean;
+      isHidden: boolean;
+      source: string | null;
+      imageUrl: string | null;
+      bannerUrl: string | null;
+      featuredImageUrl: string | null;
+      websiteUrl: string | null;
+      baseUri: string | null;
+      maxSupply: number | null;
+      mintPriceAllowlist: string | null;
+      mintPricePublic: string | null;
+      mintStartTime: string | null;
+      allowlistStageEnd: string | null;
+      mintLimitPerWallet: number | null;
+      royaltyFeeBps: number | null;
+      royaltyRecipient: string | null;
+      totalSupply: number;
+      totalMinted: number;
+      metadataStandard: string | null;
+      createdAt: string;
+      updatedAt: string;
+    }>;
+    pageInfo: {
+      __typename?: "PageInfo";
+      totalCount: number;
+      page: number;
+      limit: number;
+      hasNext: boolean;
+      hasPrevious: boolean;
+    };
+  };
+};
+
+export type GetCollectionsQueryVariables = Exact<{
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  sortBy?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+  category?: InputMaybe<Scalars["String"]["input"]>;
+  chainId?: InputMaybe<Scalars["String"]["input"]>;
+  isVerified?: InputMaybe<Scalars["Boolean"]["input"]>;
+  searchQuery?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type GetCollectionsQuery = {
+  __typename?: "Query";
+  collections: {
+    __typename?: "CollectionConnection";
+    items: Array<{
+      __typename?: "Collection";
+      id: string;
+      slug: string | null;
+      userId: string;
+      name: string;
+      symbol: string;
+      description: string | null;
+      category: string | null;
+      contractAddress: string | null;
+      chainId: string | null;
+      tokenStandard: TokenStandard;
+      deployerAddress: string;
+      deployedBlock: number | null;
+      status: CollectionStatus;
+      deployedAt: string | null;
+      indexStatus: IndexStatus | null;
+      isVerified: boolean;
+      isHidden: boolean;
+      source: string | null;
+      imageUrl: string | null;
+      bannerUrl: string | null;
+      featuredImageUrl: string | null;
+      websiteUrl: string | null;
+      baseUri: string | null;
+      maxSupply: number | null;
+      mintPriceAllowlist: string | null;
+      mintPricePublic: string | null;
+      mintStartTime: string | null;
+      allowlistStageEnd: string | null;
+      mintLimitPerWallet: number | null;
+      royaltyFeeBps: number | null;
+      royaltyRecipient: string | null;
+      totalSupply: number;
+      totalMinted: number;
+      metadataStandard: string | null;
+      createdAt: string;
+      updatedAt: string;
+    }>;
+    pageInfo: {
+      __typename?: "PageInfo";
+      totalCount: number;
+      page: number;
+      limit: number;
+      hasNext: boolean;
+      hasPrevious: boolean;
+    };
+  };
+};
+
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MeQuery = {
+  __typename?: "Query";
+  me: {
+    __typename?: "User";
+    id: string;
+    status: string;
+    createdAt: string;
+    profile: {
+      __typename?: "Profile";
+      userId: string;
+      username: string | null;
+      displayName: string | null;
+      avatarUrl: string | null;
+      bannerUrl: string | null;
+      bio: string | null;
+      locale: string | null;
+      timezone: string | null;
+      socialsJson: string | null;
+      updatedAt: string | null;
+    } | null;
+  } | null;
+};
+
+export type UpdateProfileMutationVariables = Exact<{
+  input: UpdateProfileInput;
+}>;
+
+export type UpdateProfileMutation = {
+  __typename?: "Mutation";
+  updateProfile: {
+    __typename?: "Profile";
+    userId: string;
+    username: string | null;
+    displayName: string | null;
+    avatarUrl: string | null;
+    bannerUrl: string | null;
+    bio: string | null;
+    locale: string | null;
+    timezone: string | null;
+    socialsJson: string | null;
+    updatedAt: string | null;
+  };
+};
+
+export type MyWalletsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MyWalletsQuery = {
+  __typename?: "Query";
+  myWallets: Array<{
+    __typename?: "WalletLink";
+    id: string;
+    userId: string;
+    accountId: string;
+    address: string;
+    chainId: string;
+    isPrimary: boolean;
+    verifiedAt: string | null;
+    createdAt: string;
+    updatedAt: string;
+  }>;
+};
+
+export type LinkWalletMutationVariables = Exact<{
+  input: LinkWalletInput;
+}>;
+
+export type LinkWalletMutation = {
+  __typename?: "Mutation";
+  linkWallet: {
+    __typename?: "WalletLink";
+    id: string;
+    userId: string;
+    accountId: string;
+    address: string;
+    chainId: string;
+    isPrimary: boolean;
+    verifiedAt: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 };
