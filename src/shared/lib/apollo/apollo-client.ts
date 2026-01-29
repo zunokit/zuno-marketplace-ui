@@ -13,9 +13,7 @@ import { ApolloClient, InMemoryCache, createHttpLink, from, Observable } from "@
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { CombinedGraphQLErrors } from "@apollo/client/errors";
-
-const GRAPHQL_URL =
-  `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql` || `${process.env.BACKEND_URL}/graphql`;
+import { GRAPHQL_URL } from "@/shared/config/api-endpoints.config";
 
 /**
  * Callback for token refresh

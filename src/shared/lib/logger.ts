@@ -93,7 +93,7 @@ class Logger {
 
       // Send to Sentry in production
       if (!this.isDevelopment) {
-        Sentry.withScope((scope) => {
+        Sentry.withScope(scope => {
           scope.setTag("namespace", this.namespace);
           if (context) {
             scope.setContext("logContext", context);

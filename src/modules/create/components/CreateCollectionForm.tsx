@@ -201,9 +201,7 @@ export function CreateCollectionForm() {
                   <Label>Logo Image</Label>
                   <div className="border-2 border-dashed rounded-[8px] p-6 text-center hover:bg-muted/50 cursor-pointer">
                     <Upload className="h-8 w-8 mx-auto mb-2 text-os-gray-300" />
-                    <p className="text-sm text-os-gray-300">
-                      Click to upload or drag and drop
-                    </p>
+                    <p className="text-sm text-os-gray-300">Click to upload or drag and drop</p>
                     <p className="text-xs text-os-gray-300 mt-1">Recommended: 350x350px</p>
                   </div>
                 </div>
@@ -212,9 +210,7 @@ export function CreateCollectionForm() {
                   <Label>Banner Image</Label>
                   <div className="border-2 border-dashed rounded-[8px] p-6 text-center hover:bg-muted/50 cursor-pointer">
                     <Upload className="h-8 w-8 mx-auto mb-2 text-os-gray-300" />
-                    <p className="text-sm text-os-gray-300">
-                      Click to upload or drag and drop
-                    </p>
+                    <p className="text-sm text-os-gray-300">Click to upload or drag and drop</p>
                     <p className="text-xs text-os-gray-300 mt-1">Recommended: 1400x400px</p>
                   </div>
                 </div>

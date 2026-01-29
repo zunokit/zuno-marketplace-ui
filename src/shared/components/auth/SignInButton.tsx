@@ -1,16 +1,12 @@
 "use client";
 
-import { useAccount, useSignMessage } from 'wagmi';
-import { SiweMessage } from 'siwe';
-import { Button } from '@/shared/components/ui/button';
-import { useAuth } from '@/shared/hooks/useAuth';
-import { authLogger } from '@/shared/lib/logger';
-import {
-  useGetNonceLazyQuery,
-  useVerifySiweMutation,
-  useLogoutMutation,
-} from '@/shared/graphql';
-import { graphqlClient } from '@/shared/lib/graphql-client';
+import { useAccount, useSignMessage } from "wagmi";
+import { SiweMessage } from "siwe";
+import { Button } from "@/shared/components/ui/button";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { authLogger } from "@/shared/lib/logger";
+import { useGetNonceLazyQuery, useVerifySiweMutation, useLogoutMutation } from "@/shared/graphql";
+import { graphqlClient } from "@/shared/lib/graphql-client";
 
 export function SignInButton() {
   const { address, chainId } = useAccount();
@@ -26,12 +22,12 @@ export function SignInButton() {
 
   const handleSignIn = async () => {
     if (!address || !chainId) {
-      authLogger.error('No wallet connected');
+      authLogger.error("No wallet connected");
       return;
     }
 
     try {
-      authLogger.info('Starting SIWE authentication', { address });
+      authLogger.info("Starting SIWE authentication", { address });
 
       const domain = window.location.host;
       const accountId = address;
@@ -43,16 +39,16 @@ export function SignInButton() {
       });
 
       if (!nonceData?.getNonce) {
-        throw new Error('Failed to get nonce');
+        throw new Error("Failed to get nonce");
       }
 
       // Create SIWE message
       const message = new SiweMessage({
         domain,
         address,
-        statement: 'Sign in to Zuno Marketplace',
+        statement: "Sign in to Zuno Marketplace",
         uri: window.location.origin,
-        version: '1',
+        version: "1",
         chainId,
         nonce: nonceData.getNonce.nonce,
       });
@@ -74,26 +70,26 @@ export function SignInButton() {
       });
 
       if (!authData?.verifySiwe) {
-        throw new Error('Failed to verify signature');
+        throw new Error("Failed to verify signature");
       }
 
       // Store access token
       graphqlClient.setAccessToken(authData.verifySiwe.accessToken);
 
       // Dispatch login event
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:login'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:login"));
       }
 
-      authLogger.info('Sign in successful');
+      authLogger.info("Sign in successful");
     } catch (error) {
-      authLogger.error('Sign in failed', error);
+      authLogger.error("Sign in failed", error);
     }
   };
 
   const handleSignOut = async () => {
     try {
-      authLogger.info('User signing out');
+      authLogger.info("User signing out");
 
       // Call logout mutation
       await logout();
@@ -102,11 +98,11 @@ export function SignInButton() {
       graphqlClient.setAccessToken(null);
 
       // Dispatch logout event
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:logout'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     } catch (error) {
-      authLogger.error('Logout failed', error);
+      authLogger.error("Logout failed", error);
     }
   };
 
@@ -135,7 +131,7 @@ export function SignInButton() {
       disabled={isLoading}
       className="h-7 sm:h-8 px-2 sm:px-3 text-xs whitespace-nowrap"
     >
-      {isLoading ? 'Signing...' : 'Sign In'}
+      {isLoading ? "Signing..." : "Sign In"}
     </Button>
   );
 }

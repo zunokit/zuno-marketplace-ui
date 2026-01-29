@@ -59,6 +59,7 @@ src/modules/[module-name]/
 ## Naming Conventions
 
 ### General Rules
+
 - Use descriptive, meaningful names
 - Follow TypeScript conventions for type names
 - Use kebab-case for file names
@@ -66,6 +67,7 @@ src/modules/[module-name]/
 - Use camelCase for variables and functions
 
 ### Files
+
 - Components: `ComponentName.tsx`
 - Styles: `ComponentName.styles.ts` or use inline styles with Tailwind
 - Hooks: `useComponentName.ts`
@@ -74,6 +76,7 @@ src/modules/[module-name]/
 - Services: `service.ts`
 
 ### Variables and Functions
+
 ```typescript
 // Good
 const userProfile = useUserProfile();
@@ -87,63 +90,67 @@ const calcRoyalty = (price) => { ... };
 ```
 
 ### Components
+
 ```typescript
 // Good
-UserProfile
-NFTCardCollection
-MarketplaceHeader
-SearchFilterModal
+UserProfile;
+NFTCardCollection;
+MarketplaceHeader;
+SearchFilterModal;
 
 // Bad
-Userprofile
-NftCardCollection
-Marketplaceheader
-SearchFilter
+Userprofile;
+NftCardCollection;
+Marketplaceheader;
+SearchFilter;
 ```
 
 ### Hooks
+
 ```typescript
 // Good
-useUserProfile
-useNFTCollection
-useMarketplaceData
-useWalletBalance
+useUserProfile;
+useNFTCollection;
+useMarketplaceData;
+useWalletBalance;
 
 // Bad
-useUser
-useNFTs
-useData
-useBalance
+useUser;
+useNFTs;
+useData;
+useBalance;
 ```
 
 ### Types and Interfaces
+
 ```typescript
 // Good
-UserProfile
-NFTCollection
-MarketplaceStats
-TransactionDetails
+UserProfile;
+NFTCollection;
+MarketplaceStats;
+TransactionDetails;
 
 // Bad
-User
-NFT
-Stats
-Tx
+User;
+NFT;
+Stats;
+Tx;
 ```
 
 ### Constants
+
 ```typescript
 // Good
-MAX_SUPPLY
-DEFAULT_CHAIN_ID
-API_BASE_URL
-TIMEOUT_DURATION
+MAX_SUPPLY;
+DEFAULT_CHAIN_ID;
+API_BASE_URL;
+TIMEOUT_DURATION;
 
 // Bad
-max
-def
-api
-time
+max;
+def;
+api;
+time;
 ```
 
 ## TypeScript Standards
@@ -151,6 +158,7 @@ time
 ### Type Definitions
 
 #### Use Interfaces for Objects
+
 ```typescript
 // Good
 interface UserProfile {
@@ -170,14 +178,15 @@ type UserProfile = {
 ```
 
 #### Use Types for Unions and Primitives
+
 ```typescript
 // Good
-type ChainId = 'ethereum' | 'polygon' | 'solana';
-type NFTStatus = 'listed' | 'sold' | 'minted' | 'cancelled';
+type ChainId = "ethereum" | "polygon" | "solana";
+type NFTStatus = "listed" | "sold" | "minted" | "cancelled";
 
 // Good
-const chainId: ChainId = 'ethereum';
-const status: NFTStatus = 'listed';
+const chainId: ChainId = "ethereum";
+const status: NFTStatus = "listed";
 ```
 
 ### Strict Mode Requirements
@@ -209,6 +218,7 @@ Always enable TypeScript strict mode:
 ### Type Safety Best Practices
 
 #### Avoid `any` Type
+
 ```typescript
 // Good
 interface ApiResponse<T> {
@@ -222,6 +232,7 @@ const response: any = fetchData();
 ```
 
 #### Use Generic Types When Appropriate
+
 ```typescript
 // Good
 function useAsyncData<T>(query: string): UseAsyncDataResult<T> {
@@ -235,6 +246,7 @@ function useAsyncData(query: string) {
 ```
 
 #### Proper Error Handling
+
 ```typescript
 // Good
 interface Result<T> {
@@ -263,6 +275,7 @@ try {
 ### Functional Components
 
 #### Use Arrow Functions
+
 ```typescript
 // Good
 const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
@@ -278,6 +291,7 @@ function UserProfile({ user }) {
 ### Props Destructuring
 
 #### Destructure Props for Clarity
+
 ```typescript
 // Good
 const UserProfile: React.FC<UserProfileProps> = ({ user, isVerified }) => {
@@ -285,7 +299,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, isVerified }) => {
 };
 
 // Bad
-const UserProfile: React.FC<UserProfileProps> = (props) => {
+const UserProfile: React.FC<UserProfileProps> = props => {
   const { user, isVerified } = props;
   // ...
 };
@@ -294,6 +308,7 @@ const UserProfile: React.FC<UserProfileProps> = (props) => {
 ### Component Organization
 
 #### Single Responsibility Principle
+
 Each component should have one clear purpose:
 
 ```typescript
@@ -327,6 +342,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 ### Hook Usage
 
 #### Custom Hooks
+
 ```typescript
 // Good
 export const useUserProfile = (userId: string) => {
@@ -334,7 +350,9 @@ export const useUserProfile = (userId: string) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUser(userId).then(setUser).finally(() => setLoading(false));
+    fetchUser(userId)
+      .then(setUser)
+      .finally(() => setLoading(false));
   }, [userId]);
 
   return { user, loading };
@@ -346,7 +364,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUser(userId).then(setUser).finally(() => setLoading(false));
+    fetchUser(userId)
+      .then(setUser)
+      .finally(() => setLoading(false));
   }, [userId]);
 
   // ... rest of component
@@ -354,6 +374,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 ```
 
 #### Hook Rules
+
 - Only call hooks at the top level
 - Only call hooks from React functions
 - Use dependency arrays correctly
@@ -362,6 +383,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 ### Performance Optimization
 
 #### Use React.memo for Pure Components
+
 ```typescript
 // Good
 const NFTCard: React.FC<NFTCardProps> = React.memo(({ nft, onClick }) => {
@@ -383,6 +405,7 @@ const NFTCard = ({ nft, onClick }) => {
 ```
 
 #### Use useCallback for Event Handlers
+
 ```typescript
 // Good
 const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
@@ -421,6 +444,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 ### Tailwind CSS Guidelines
 
 #### Use Tailwind Utility Classes
+
 ```typescript
 // Good
 <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
@@ -440,6 +464,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 ```
 
 #### Consistent Spacing and Sizing
+
 Use the default Tailwind spacing scale:
 
 ```typescript
@@ -459,6 +484,7 @@ Use the default Tailwind spacing scale:
 ### Responsive Design
 
 #### Use Tailwind Responsive Classes
+
 ```typescript
 // Good
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -504,12 +530,13 @@ const cardStyles = {
 ### Query Structure
 
 #### Use GraphQL Codegen
+
 Always use generated types for GraphQL operations:
 
 ```typescript
 // Good
-import { useQuery, gql } from '@apollo/client';
-import { GetCollectionsDocument, GetCollectionsQuery } from '@/graphql/types';
+import { useQuery, gql } from "@apollo/client";
+import { GetCollectionsDocument, GetCollectionsQuery } from "@/graphql/types";
 
 const GET_COLLECTIONS = gql`
   query GetCollections($first: Int = 10) {
@@ -525,10 +552,9 @@ const GET_COLLECTIONS = gql`
 `;
 
 export const useCollections = (first = 10) => {
-  const { data, loading, error } = useQuery<GetCollectionsQuery>(
-    GetCollectionsDocument,
-    { variables: { first } }
-  );
+  const { data, loading, error } = useQuery<GetCollectionsQuery>(GetCollectionsDocument, {
+    variables: { first },
+  });
 
   return { collections: data?.collections, loading, error };
 };
@@ -556,6 +582,7 @@ export const useCollections = () => {
 ### Query Optimization
 
 #### Use Fragments for Repeated Fields
+
 ```typescript
 // Good
 const COLLECTION_FRAGMENT = gql`
@@ -596,16 +623,16 @@ const GET_COLLECTIONS = gql`
 ### Error Handling
 
 #### Implement GraphQL Error Handling
+
 ```typescript
 // Good
 export const useCollections = (first = 10) => {
-  const { data, loading, error } = useQuery<GetCollectionsQuery>(
-    GetCollectionsDocument,
-    { variables: { first } }
-  );
+  const { data, loading, error } = useQuery<GetCollectionsQuery>(GetCollectionsDocument, {
+    variables: { first },
+  });
 
   if (error) {
-    console.error('Error fetching collections:', error);
+    console.error("Error fetching collections:", error);
     // Show user-friendly error message
   }
 
@@ -628,10 +655,11 @@ export const useCollections = () => {
 ### Wagmi Hooks
 
 #### Use Typed Wagmi Hooks
+
 ```typescript
 // Good
-import { useAccount, useBalance, useWriteContract } from 'wagmi';
-import { parseEther } from 'viem';
+import { useAccount, useBalance, useWriteContract } from "wagmi";
+import { parseEther } from "viem";
 
 export const useWalletBalance = () => {
   const { address } = useAccount();
@@ -654,13 +682,13 @@ export const useNFTPurchase = () => {
       const hash = await writeContract({
         address: contractAddress as `0x${string}`,
         abi: nftABI,
-        functionName: 'mint',
+        functionName: "mint",
         args: [tokenId],
         value: parseEther(price),
       });
       return hash;
     } catch (error) {
-      console.error('Purchase failed:', error);
+      console.error("Purchase failed:", error);
       throw error;
     }
   };
@@ -676,7 +704,7 @@ const useNFTPurchase = () => {
     const hash = await writeContract({
       address: contract,
       abi: nftABI,
-      functionName: 'mint',
+      functionName: "mint",
       args: [tokenId],
       value: parseEther(price),
     });
@@ -690,9 +718,10 @@ const useNFTPurchase = () => {
 ### Contract Interaction
 
 #### Use Proper Type Safety
+
 ```typescript
 // Good
-import { nftABI } from '@/abi/nft';
+import { nftABI } from "@/abi/nft";
 
 interface PurchaseParams {
   contractAddress: `0x${string}`;
@@ -716,7 +745,7 @@ export const useNFTPurchase = () => {
       const hash = await writeContract({
         address: contractAddress,
         abi: nftABI,
-        functionName: 'mint',
+        functionName: "mint",
         args: [tokenId],
         value: parseEther(price),
       });
@@ -738,7 +767,7 @@ const purchaseNFT = async (contract, tokenId, price, callback) => {
     const hash = await writeContract({
       address: contract,
       abi: nftABI,
-      functionName: 'mint',
+      functionName: "mint",
       args: [tokenId],
       value: parseEther(price),
     });
@@ -752,32 +781,33 @@ const purchaseNFT = async (contract, tokenId, price, callback) => {
 ### SIWE Authentication
 
 #### Proper SIWE Implementation
+
 ```typescript
 // Good
-import { useSignMessage } from 'wagmi';
-import { SIWEMessage } from 'siwe';
+import { useSignMessage } from "wagmi";
+import { SIWEMessage } from "siwe";
 
 export const useSIWE = () => {
   const { signMessage, data: signature, isError, isLoading } = useSignMessage();
   const { address } = useAccount();
 
   const signIn = async () => {
-    if (!address) throw new Error('Wallet not connected');
+    if (!address) throw new Error("Wallet not connected");
 
     const message = new SIWEMessage({
       domain: window.location.host,
       address,
-      statement: 'Sign in with Ethereum to the app.',
+      statement: "Sign in with Ethereum to the app.",
       uri: window.location.origin,
-      version: '1',
-      chainId: '1',
+      version: "1",
+      chainId: "1",
     });
 
     try {
       await signMessage({ message: message.prepareMessage() });
       return signature;
     } catch (error) {
-      console.error('Sign in failed:', error);
+      console.error("Sign in failed:", error);
       throw error;
     }
   };
@@ -800,7 +830,7 @@ const useSIWE = () => {
   const { signMessage } = useSignMessage();
 
   const signIn = async () => {
-    await signMessage({ message: 'Sign in to app' });
+    await signMessage({ message: "Sign in to app" });
   };
 
   return { signIn };
@@ -812,6 +842,7 @@ const useSIWE = () => {
 ### Unit Testing
 
 #### Jest + React Testing Library
+
 ```typescript
 // Good
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -865,15 +896,16 @@ describe('NFTCard', () => {
 ### Hook Testing
 
 #### Use React Hook Testing Library
+
 ```typescript
 // Good
-import { renderHook, act } from '@testing-library/react';
-import { useUserProfile } from './useUserProfile';
-import { mockUser } from '../../__mocks__/user.mock';
+import { renderHook, act } from "@testing-library/react";
+import { useUserProfile } from "./useUserProfile";
+import { mockUser } from "../../__mocks__/user.mock";
 
-describe('useUserProfile', () => {
-  it('fetches user data successfully', async () => {
-    const { result } = renderHook(() => useUserProfile('1'));
+describe("useUserProfile", () => {
+  it("fetches user data successfully", async () => {
+    const { result } = renderHook(() => useUserProfile("1"));
 
     expect(result.current.loading).toBe(true);
     expect(result.current.user).toBeNull();
@@ -887,8 +919,8 @@ describe('useUserProfile', () => {
     expect(result.current.user).toEqual(mockUser);
   });
 
-  it('handles error when user not found', async () => {
-    const { result } = renderHook(() => useUserProfile('999'));
+  it("handles error when user not found", async () => {
+    const { result } = renderHook(() => useUserProfile("999"));
 
     await act(async () => {
       // Simulate API error
@@ -901,9 +933,9 @@ describe('useUserProfile', () => {
 });
 
 // Bad
-describe('useUserProfile', () => {
-  it('should return user data', () => {
-    const result = renderHook(() => useUserProfile('1'));
+describe("useUserProfile", () => {
+  it("should return user data", () => {
+    const result = renderHook(() => useUserProfile("1"));
     expect(result.current.user).toBeDefined();
   });
 });
@@ -912,44 +944,45 @@ describe('useUserProfile', () => {
 ### E2E Testing
 
 #### Playwright Tests
+
 ```typescript
 // Good
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('NFT Marketplace', () => {
+test.describe("NFT Marketplace", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto("/");
   });
 
-  test('should display marketplace header', async ({ page }) => {
-    await expect(page.getByRole('banner')).toContainText('Zuno NFT Marketplace');
-    await expect(page.getByRole('navigation')).toBeVisible();
+  test("should display marketplace header", async ({ page }) => {
+    await expect(page.getByRole("banner")).toContainText("Zuno NFT Marketplace");
+    await expect(page.getByRole("navigation")).toBeVisible();
   });
 
-  test('should allow user to connect wallet', async ({ page }) => {
-    await page.getByRole('button', { name: 'Connect Wallet' }).click();
-    await page.getByRole('button', { name: 'MetaMask' }).click();
+  test("should allow user to connect wallet", async ({ page }) => {
+    await page.getByRole("button", { name: "Connect Wallet" }).click();
+    await page.getByRole("button", { name: "MetaMask" }).click();
 
     // Wait for wallet connection
-    await expect(page.getByText('0x...')).toBeVisible();
+    await expect(page.getByText("0x...")).toBeVisible();
   });
 
-  test('should search for NFTs', async ({ page }) => {
-    await page.getByPlaceholder('Search NFTs...').fill('CryptoPunks');
-    await page.getByRole('button', { name: 'Search' }).click();
+  test("should search for NFTs", async ({ page }) => {
+    await page.getByPlaceholder("Search NFTs...").fill("CryptoPunks");
+    await page.getByRole("button", { name: "Search" }).click();
 
     await expect(page.getByText('Search results for "CryptoPunks"')).toBeVisible();
-    await expect(page.getByRole('img', { name: 'NFT Card' })).toHaveCount(10);
+    await expect(page.getByRole("img", { name: "NFT Card" })).toHaveCount(10);
   });
 });
 
 // Bad
-test('marketplace works', async ({ page }) => {
-  await page.goto('/');
-  await page.click('text=Connect Wallet');
-  await page.fill('input', 'test');
-  await page.click('button');
-  await expect(page.locator('div')).toContainText('results');
+test("marketplace works", async ({ page }) => {
+  await page.goto("/");
+  await page.click("text=Connect Wallet");
+  await page.fill("input", "test");
+  await page.click("button");
+  await expect(page.locator("div")).toContainText("results");
 });
 ```
 
@@ -958,6 +991,7 @@ test('marketplace works', async ({ page }) => {
 ### Branch Naming
 
 #### Use Descriptive Branch Names
+
 ```bash
 # Good
 feature/add-nft-minting
@@ -977,6 +1011,7 @@ work
 ### Commit Messages
 
 #### Follow Conventional Commits
+
 ```bash
 # Good
 feat: add NFT minting functionality
@@ -1005,6 +1040,7 @@ work on marketplace
 ```
 
 #### Types
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -1017,22 +1053,27 @@ work on marketplace
 ### Pull Request Process
 
 #### PR Template
+
 ```markdown
 ## Description
+
 Brief description of the changes and why they are needed.
 
 ## Changes Made
+
 - [ ] Added new feature
 - [ ] Fixed bug
 - [ ] Updated documentation
 - [ ] Added tests
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] E2E tests pass
 - [ ] Manual testing completed
 
 ## Checklist
+
 - [ ] Code follows project standards
 - [ ] Self-review completed
 - [ ] Tests included
@@ -1040,12 +1081,14 @@ Brief description of the changes and why they are needed.
 - [ ] No breaking changes
 
 ## Screenshots (if applicable)
+
 ![Screenshot description](screenshot-url)
 ```
 
 ## Code Review Checklist
 
 ### General Requirements
+
 - [ ] Code follows project coding standards
 - [ ] TypeScript strict mode compliance
 - [ ] All tests pass (unit, E2E)
@@ -1053,6 +1096,7 @@ Brief description of the changes and why they are needed.
 - [ ] No security vulnerabilities detected
 
 ### Code Quality
+
 - [ ] Clear and descriptive variable/function names
 - [ ] Proper error handling
 - [ ] Appropriate use of TypeScript types
@@ -1060,6 +1104,7 @@ Brief description of the changes and why they are needed.
 - [ ] No hardcoded values (use constants)
 
 ### Performance
+
 - [ ] No unnecessary re-renders
 - [ ] Proper use of React.memo
 - [ ] Efficient data fetching
@@ -1067,6 +1112,7 @@ Brief description of the changes and why they are needed.
 - [ ] Optimized bundle size
 
 ### Security
+
 - [ ] Input validation
 - [ ] Safe handling of user data
 - [ ] Proper error messages (no sensitive info)
@@ -1074,6 +1120,7 @@ Brief description of the changes and why they are needed.
 - [ ] Wallet security best practices
 
 ### Testing
+
 - [ ] Unit tests for new features
 - [ ] E2E tests for user flows
 - [ ] Mock data used correctly
@@ -1083,6 +1130,7 @@ Brief description of the changes and why they are needed.
 ## Performance Guidelines
 
 ### Component Performance
+
 - Use React.memo for expensive components
 - Implement proper key prop in lists
 - Avoid inline functions in render when possible
@@ -1090,6 +1138,7 @@ Brief description of the changes and why they are needed.
 - Use useMemo for expensive calculations
 
 ### Data Fetching
+
 - Implement proper loading states
 - Use SWR or React Query for caching
 - Implement retry mechanisms
@@ -1097,6 +1146,7 @@ Brief description of the changes and why they are needed.
 - Handle error states gracefully
 
 ### Bundle Size
+
 - Lazy load routes and components
 - Use dynamic imports
 - Monitor bundle size with webpack-bundle-analyzer
@@ -1106,6 +1156,7 @@ Brief description of the changes and why they are needed.
 ## Security Guidelines
 
 ### Data Validation
+
 - Validate all user inputs
 - Use TypeScript for type safety
 - Sanitize user-generated content
@@ -1113,6 +1164,7 @@ Brief description of the changes and why they are needed.
 - Use proper error boundaries
 
 ### Wallet Security
+
 - Never store private keys
 - Use secure wallet connections
 - Implement proper SIWE authentication
@@ -1120,6 +1172,7 @@ Brief description of the changes and why they are needed.
 - Warn users about transaction risks
 
 ### API Security
+
 - Use HTTPS for all API calls
 - Implement proper CORS policies
 - Use environment variables for secrets
@@ -1127,6 +1180,7 @@ Brief description of the changes and why they are needed.
 - Input sanitization on server side
 
 ### Best Practices
+
 - Keep dependencies updated
 - Regular security audits
 - Use dependency scanning tools

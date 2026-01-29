@@ -13,36 +13,28 @@ const badgeVariants = cva(
         default: "bg-frosted-2 text-os-gray-300 border-border-subtle",
 
         // Secondary (same as default for OpenSea)
-        secondary:
-          "bg-frosted-2 text-os-gray-300 border-border-subtle",
+        secondary: "bg-frosted-2 text-os-gray-300 border-border-subtle",
 
         // Success/Verified badge
-        success:
-          "bg-success-bg-medium text-os-success border-success-border",
+        success: "bg-success-bg-medium text-os-success border-success-border",
 
         // Destructive/Error badge
-        destructive:
-          "bg-error-bg-medium text-os-error border-error-border",
+        destructive: "bg-error-bg-medium text-os-error border-error-border",
 
         // Info badge
-        info:
-          "bg-info-bg-light text-os-info border-info-border",
+        info: "bg-info-bg-light text-os-info border-info-border",
 
         // Warning badge
-        warning:
-          "bg-warning-bg-medium text-os-warning border-warning-border",
+        warning: "bg-warning-bg-medium text-os-warning border-warning-border",
 
         // NFT Rarity: Legendary
-        legendary:
-          "bg-legendary-bg text-os-legendary border-legendary-border font-medium",
+        legendary: "bg-legendary-bg text-os-legendary border-legendary-border font-medium",
 
         // NFT Rarity: Epic
-        epic:
-          "bg-epic-bg text-os-epic border-epic-border font-medium",
+        epic: "bg-epic-bg text-os-epic border-epic-border font-medium",
 
         // NFT Rarity: Rare
-        rare:
-          "bg-rare-bg text-os-rare border-rare-border font-medium",
+        rare: "bg-rare-bg text-os-rare border-rare-border font-medium",
 
         // Outline (subtle border only)
         outline: "text-os-gray-300 border-border-subtle bg-transparent [a&]:hover:bg-frosted-2",

@@ -38,9 +38,7 @@ export function ProcessDialog({
         return <CheckCircle2 className="h-5 w-5 text-success" />;
       case "pending":
       default:
-        return (
-          <div className="h-5 w-5 rounded-full border-2 border-border" />
-        );
+        return <div className="h-5 w-5 rounded-full border-2 border-border" />;
     }
   };
 
@@ -51,9 +49,7 @@ export function ProcessDialog({
         onInteractOutside={e => e.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle className="text-foreground text-xl font-medium">
-            {title}
-          </DialogTitle>
+          <DialogTitle className="text-foreground text-xl font-medium">{title}</DialogTitle>
         </DialogHeader>
         <div className="space-y-6 py-4">
           {steps.map(step => (
@@ -61,17 +57,11 @@ export function ProcessDialog({
               <div className="flex items-start gap-3">
                 <div className="mt-1">{getStatusIcon(step.status)}</div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-foreground text-base">
-                    {step.title}
-                  </h4>
+                  <h4 className="font-medium text-foreground text-base">{step.title}</h4>
                   {step.description && (
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {step.description}
-                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
                   )}
-                  {step.details && (
-                    <p className="text-sm text-muted-foreground">{step.details}</p>
-                  )}
+                  {step.details && <p className="text-sm text-muted-foreground">{step.details}</p>}
                 </div>
               </div>
             </div>

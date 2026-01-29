@@ -68,12 +68,14 @@ export default function Header() {
 
         {/* Center Section - Search Bar */}
         <div className="flex-1 flex justify-center min-w-0 px-1 sm:px-2 md:px-4">
-          <div className={cn(
-            "w-full",
-            isMobile
-              ? "max-w-[160px] sm:max-w-[200px] md:max-w-[280px]"
-              : "max-w-[240px] lg:max-w-[280px] xl:max-w-md"
-          )}>
+          <div
+            className={cn(
+              "w-full",
+              isMobile
+                ? "max-w-[160px] sm:max-w-[200px] md:max-w-[280px]"
+                : "max-w-[240px] lg:max-w-[280px] xl:max-w-md"
+            )}
+          >
             <SearchBar isMobile={isMobile} />
           </div>
         </div>

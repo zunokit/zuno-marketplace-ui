@@ -146,7 +146,9 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground dark:text-foreground">{edition.name}</h4>
+                  <h4 className="font-medium text-foreground dark:text-foreground">
+                    {edition.name}
+                  </h4>
                   <div className="mt-1 space-y-1">
                     <div className="flex justify-between text-sm">
                       <span className="text-os-gray-300">Price</span>
@@ -175,7 +177,9 @@ export default function EditionSelector() {
                   <Image src={edition.imageUrl} alt={edition.name} fill className="object-cover" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-foreground dark:text-foreground">{edition.name}</h4>
+                  <h4 className="font-medium text-foreground dark:text-foreground">
+                    {edition.name}
+                  </h4>
                   <div className="mt-1 flex items-center gap-4 text-sm text-os-gray-300">
                     <span>{edition.price} ETH</span>
                     <span>

@@ -5,8 +5,8 @@
 
 "use client";
 
-import { useEffect, useRef } from 'react';
-import { cn } from '@/shared/utils/tailwind-utils';
+import { useEffect, useRef } from "react";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 /**
  * Props for InfiniteScrollTrigger
@@ -85,7 +85,7 @@ export function InfiniteScrollTrigger({
   isFetchingNextPage,
   fetchNextPage,
   enabled = true,
-  rootMargin = '200px',
+  rootMargin = "200px",
   threshold = 0.1,
   className,
   isError = false,
@@ -111,15 +111,11 @@ export function InfiniteScrollTrigger({
 
     // Create new observer
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         const [entry] = entries;
 
         // Guard against race conditions
-        if (
-          entry.isIntersecting &&
-          hasNextPage &&
-          !isFetchingNextPage
-        ) {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
           fetchNextPage();
         }
       },
@@ -142,16 +138,12 @@ export function InfiniteScrollTrigger({
   return (
     <>
       {/* Invisible trigger element */}
-      <div
-        ref={triggerRef}
-        aria-hidden="true"
-        className={cn('h-4 w-full', className)}
-      />
+      <div ref={triggerRef} aria-hidden="true" className={cn("h-4 w-full", className)} />
 
       {/* ARIA live region for screen readers */}
       <div role="status" aria-live="polite" className="sr-only">
-        {isFetchingNextPage && 'Loading more items...'}
-        {!hasNextPage && 'You have reached the end of the list'}
+        {isFetchingNextPage && "Loading more items..."}
+        {!hasNextPage && "You have reached the end of the list"}
       </div>
     </>
   );
@@ -160,4 +152,4 @@ export function InfiniteScrollTrigger({
 /**
  * Display name for debugging
  */
-InfiniteScrollTrigger.displayName = 'InfiniteScrollTrigger';
+InfiniteScrollTrigger.displayName = "InfiniteScrollTrigger";

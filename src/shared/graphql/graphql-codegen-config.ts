@@ -1,9 +1,7 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import { CodegenConfig } from "@graphql-codegen/cli";
 
 const GRAPHQL_URL =
-  process.env.NEXT_PUBLIC_GRAPHQL_URL ||
-  process.env.NEXT_PUBLIC_BACKEND_URL ||
-  'http://localhost:8081/graphql';
+  `${process.env.BACKEND_URL}/graphql` || `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`;
 
 const config: CodegenConfig = {
   // ============================================
@@ -17,8 +15,8 @@ const config: CodegenConfig = {
   // OPERATION DOCUMENTS (.graphql files)
   // ============================================
   documents: [
-    'src/shared/graphql/schemas/**/*.graphql',
-    'src/**/*.graphql', // Support co-located queries
+    "src/shared/graphql/schemas/**/*.graphql",
+    "src/**/*.graphql", // Support co-located queries
   ],
   ignoreNoDocuments: true,
 
@@ -29,22 +27,22 @@ const config: CodegenConfig = {
     // --------------------------------------------
     // 1. Client Preset (Types + gql function)
     // --------------------------------------------
-    './src/shared/graphql/': {
-      preset: 'client',
+    "./src/shared/graphql/": {
+      preset: "client",
       presetConfig: {
         // Disable fragment masking for easier use
         fragmentMasking: false,
 
         // Custom gql tag name
-        gqlTagName: 'gql',
+        gqlTagName: "gql",
       },
       config: {
         // Scalar types
         strictScalars: true,
         scalars: {
-          DateTime: 'string',
-          JSON: 'Record<string, any>',
-          BigInt: 'string',
+          DateTime: "string",
+          JSON: "Record<string, any>",
+          BigInt: "string",
         },
 
         // Avoid optional fields (use | null instead)
@@ -69,12 +67,8 @@ const config: CodegenConfig = {
     // --------------------------------------------
     // 2. React Apollo Hooks (Separate file)
     // --------------------------------------------
-    './src/shared/graphql/hooks.generated.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
+    "./src/shared/graphql/hooks.generated.ts": {
+      plugins: ["typescript", "typescript-operations", "typescript-react-apollo"],
       config: {
         // React hooks generation
         withHooks: true,
@@ -85,9 +79,9 @@ const config: CodegenConfig = {
         // Scalars (same as above)
         strictScalars: true,
         scalars: {
-          DateTime: 'string',
-          JSON: 'Record<string, any>',
-          BigInt: 'string',
+          DateTime: "string",
+          JSON: "Record<string, any>",
+          BigInt: "string",
         },
 
         // Avoid optionals
@@ -121,14 +115,14 @@ const config: CodegenConfig = {
     // --------------------------------------------
     // 3. Schema Types (introspection)
     // --------------------------------------------
-    './src/shared/graphql/schema.generated.ts': {
-      plugins: ['typescript', 'typescript-operations'],
+    "./src/shared/graphql/schema.generated.ts": {
+      plugins: ["typescript", "typescript-operations"],
       config: {
         strictScalars: true,
         scalars: {
-          DateTime: 'string',
-          JSON: 'Record<string, any>',
-          BigInt: 'string',
+          DateTime: "string",
+          JSON: "Record<string, any>",
+          BigInt: "string",
         },
         avoidOptionals: {
           field: true,
@@ -148,7 +142,7 @@ const config: CodegenConfig = {
   hooks: {
     afterAllFileWrite: [
       // Format generated files
-      'prettier --write',
+      "prettier --write",
     ],
   },
 };

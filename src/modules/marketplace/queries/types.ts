@@ -3,7 +3,7 @@
  * Follows project TypeScript strict mode standards
  */
 
-import { type Nft } from '@/modules/marketplace/types';
+import { type Nft } from "@/modules/marketplace/types";
 
 /**
  * API Response shape for paginated marketplace items

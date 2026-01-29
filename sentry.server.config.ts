@@ -38,10 +38,7 @@ if (isSentryEnabled()) {
     environment: getSentryEnvironment(),
 
     // Set release from git SHA (Vercel provides this)
-    release:
-      process.env.VERCEL_GIT_COMMIT_SHA ||
-      process.env.NEXT_PUBLIC_APP_VERSION ||
-      "local",
+    release: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_APP_VERSION || "local",
 
     // Smart sampling for distributed tracing
     tracesSampleRate: getTracesSampleRate(),

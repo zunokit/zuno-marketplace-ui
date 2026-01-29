@@ -18,20 +18,22 @@ TanStack Query v5 introduces significant improvements for infinite queries with 
 ### 1.1 Core Pattern - Cursor-Based Pagination
 
 **Type Signature** (from source):
+
 ```typescript
 declare function useInfiniteQuery<
   TQueryFnData,
   TError = DefaultError,
   TData = InfiniteData<TQueryFnData>,
   TQueryKey extends QueryKey = QueryKey,
-  TPageParam = unknown
+  TPageParam = unknown,
 >(
   options: UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam>,
   queryClient?: QueryClient
-): UseInfiniteQueryResult<TData, TError>
+): UseInfiniteQueryResult<TData, TError>;
 ```
 
 **Key v5 Changes**:
+
 - **`initialPageParam` is now REQUIRED** (breaking change from v4)
 - Generic `TPageParam` for type-safe cursor management
 - `InfiniteData<TQueryFnData, TPageParam>` structure includes page params
@@ -39,37 +41,37 @@ declare function useInfiniteQuery<
 ### 1.2 Proper Implementation Pattern
 
 ```typescript
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface NFTPage {
-  items: Nft[]
-  nextCursor: string | null
-  hasMore: boolean
+  items: Nft[];
+  nextCursor: string | null;
+  hasMore: boolean;
 }
 
 interface NFTQueryParams {
-  contractAddress: string
-  limit: number
-  cursor: string | null
+  contractAddress: string;
+  limit: number;
+  cursor: string | null;
 }
 
 const fetchNFTs = async ({
   queryKey,
   pageParam,
 }: {
-  queryKey: readonly ['nfts', string, NFTQueryParams]
-  pageParam: string | null
+  queryKey: readonly ["nfts", string, NFTQueryParams];
+  pageParam: string | null;
 }): Promise<NFTPage> => {
-  const [, contractAddress, params] = queryKey
+  const [, contractAddress, params] = queryKey;
   const response = await fetch(`/api/nfts/${contractAddress}`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       ...params,
       cursor: pageParam,
     }),
-  })
-  return response.json()
-}
+  });
+  return response.json();
+};
 
 export function useInfiniteNFTs(
   contractAddress: string,
@@ -80,25 +82,25 @@ export function useInfiniteNFTs(
     // Required v5: initialPageParam
     initialPageParam: null as string | null,
 
-    queryKey: ['nfts', contractAddress, filters] as const,
+    queryKey: ["nfts", contractAddress, filters] as const,
 
     queryFn: fetchNFTs,
 
     // Extract next cursor from response
-    getNextPageParam: (lastPage) => {
-      return lastPage.hasMore ? lastPage.nextCursor : undefined
+    getNextPageParam: lastPage => {
+      return lastPage.hasMore ? lastPage.nextCursor : undefined;
     },
 
     // Optional: for bi-directional pagination
-    getPreviousPageParam: (firstPage) => {
-      return firstPage.prevCursor
+    getPreviousPageParam: firstPage => {
+      return firstPage.prevCursor;
     },
 
     // Optional: limit cached pages (memory management)
     maxPages: 10,
 
     ...options,
-  })
+  });
 }
 ```
 
@@ -107,6 +109,7 @@ export function useInfiniteNFTs(
 **Problem**: Multiple rapid fetchNextPage() calls can cause race conditions.
 
 **Solution 1 - Track fetching state**:
+
 ```typescript
 const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({...})
 
@@ -118,30 +121,35 @@ const handleLoadMore = useCallback(() => {
 ```
 
 **Solution 2 - Use fetchNextPage's return Promise**:
+
 ```typescript
-const [isLoadingMore, setIsLoadingMore] = useState(false)
+const [isLoadingMore, setIsLoadingMore] = useState(false);
 
 const loadMore = async () => {
-  if (isLoadingMore || !hasNextPage) return
+  if (isLoadingMore || !hasNextPage) return;
 
-  setIsLoadingMore(true)
+  setIsLoadingMore(true);
   try {
-    await fetchNextPage()
+    await fetchNextPage();
   } finally {
-    setIsLoadingMore(false)
+    setIsLoadingMore(false);
   }
-}
+};
 ```
 
 **Solution 3 - Debounce intersection callbacks**:
+
 ```typescript
-const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
-  const [entry] = entries
-  if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-    // Add small delay to prevent rapid triggers
-    setTimeout(() => fetchNextPage(), 100)
-  }
-}, [hasNextPage, isFetchingNextPage, fetchNextPage])
+const observerCallback = useCallback(
+  (entries: IntersectionObserverEntry[]) => {
+    const [entry] = entries;
+    if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+      // Add small delay to prevent rapid triggers
+      setTimeout(() => fetchNextPage(), 100);
+    }
+  },
+  [hasNextPage, isFetchingNextPage, fetchNextPage]
+);
 ```
 
 ---
@@ -151,6 +159,7 @@ const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
 ### 2.1 Type-Safe Query Definition
 
 **Using `queryOptions()` helper** (from source):
+
 ```typescript
 type UndefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey> =
   UseQueryOptions<TQueryFnData, TError, TData, TQueryKey> & {
@@ -170,12 +179,12 @@ declare function queryOptions<TQueryFnData, TError, TData, TQueryKey>(
 
 ```typescript
 // src/modules/marketplace/queries/use-infinite-nfts.ts
-import { infiniteQueryOptions } from '@tanstack/react-query'
+import { infiniteQueryOptions } from "@tanstack/react-query";
 
 interface InfiniteNFTsOptions {
-  contractAddress: string
-  filters: MarketplaceFilter
-  enabled?: boolean
+  contractAddress: string;
+  filters: MarketplaceFilter;
+  enabled?: boolean;
 }
 
 export const infiniteNFTsOptions = ({
@@ -186,41 +195,42 @@ export const infiniteNFTsOptions = ({
   infiniteQueryOptions({
     initialPageParam: null as string | null,
 
-    queryKey: ['nfts', 'infinite', contractAddress, filters] as const,
+    queryKey: ["nfts", "infinite", contractAddress, filters] as const,
 
     queryFn: async ({ queryKey, pageParam }) => {
-      const [, , address, params] = queryKey
+      const [, , address, params] = queryKey;
       const response = await fetch(`/api/nfts/${address}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...params,
           cursor: pageParam,
           limit: 20,
         }),
-      })
-      if (!response.ok) throw new Error('Failed to fetch NFTs')
-      return response.json()
+      });
+      if (!response.ok) throw new Error("Failed to fetch NFTs");
+      return response.json();
     },
 
     getNextPageParam: (lastPage: NFTPage) => {
-      return lastPage.hasMore ? lastPage.nextCursor : undefined
+      return lastPage.hasMore ? lastPage.nextCursor : undefined;
     },
 
     maxPages: 10,
     enabled,
     staleTime: 30_000, // 30 seconds
-  })
+  });
 
 // Usage in component
 export function useNFTList(contractAddress: string, filters: MarketplaceFilter) {
-  return useInfiniteQuery(infiniteNFTsOptions({ contractAddress, filters }))
+  return useInfiniteQuery(infiniteNFTsOptions({ contractAddress, filters }));
 }
 ```
 
 ### 2.3 Type Safety Benefits
 
 **Query result types are automatically inferred**:
+
 ```typescript
 const { data } = useInfiniteQuery(infiniteNFTsOptions({...}))
 
@@ -243,6 +253,7 @@ const { data: flatNFTs } = useInfiniteQuery({
 ### 2.4 Testing with Mock Adapters
 
 **Pattern 1 - Mock queryClient**:
+
 ```typescript
 // __tests__/queries/use-infinite-nfts.test.tsx
 import { renderHook, waitFor } from '@testing-library/react'
@@ -296,20 +307,21 @@ describe('infiniteNFTsOptions', () => {
 ```
 
 **Pattern 2 - MSW integration**:
+
 ```typescript
 // __tests__/mocks/handlers.ts
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from "msw";
 
 export const handlers = [
-  http.post('/api/nfts/:contractAddress', async ({ params, request }) => {
-    const { cursor } = await request.json()
+  http.post("/api/nfts/:contractAddress", async ({ params, request }) => {
+    const { cursor } = await request.json();
     return HttpResponse.json<NFTPage>({
       items: generateMockNFTs(20),
-      nextCursor: cursor ? `${cursor}-next` : 'first-cursor',
+      nextCursor: cursor ? `${cursor}-next` : "first-cursor",
       hasMore: true,
-    })
+    });
   }),
-]
+];
 ```
 
 ---
@@ -320,15 +332,15 @@ export const handlers = [
 
 ```typescript
 // src/modules/marketplace/hooks/use-infinite-scroll.ts
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
 interface UseInfiniteScrollOptions {
-  hasNextPage: boolean | undefined
-  isFetchingNextPage: boolean
-  fetchNextPage: () => void
-  threshold?: number
-  rootMargin?: string
-  enabled?: boolean
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
+  fetchNextPage: () => void;
+  threshold?: number;
+  rootMargin?: string;
+  enabled?: boolean;
 }
 
 export function useInfiniteScroll({
@@ -336,46 +348,42 @@ export function useInfiniteScroll({
   isFetchingNextPage,
   fetchNextPage,
   threshold = 0.1,
-  rootMargin = '200px', // Start loading before reaching bottom
+  rootMargin = "200px", // Start loading before reaching bottom
   enabled = true,
 }: UseInfiniteScrollOptions) {
-  const observerRef = useRef<IntersectionObserver | null>(null)
-  const triggerRef = useRef<HTMLDivElement>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!enabled || !triggerRef.current) return
+    if (!enabled || !triggerRef.current) return;
 
     // Cleanup previous observer
     if (observerRef.current) {
-      observerRef.current.disconnect()
+      observerRef.current.disconnect();
     }
 
     // Create new observer
     observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        if (
-          entry.isIntersecting &&
-          hasNextPage &&
-          !isFetchingNextPage
-        ) {
-          fetchNextPage()
+      entries => {
+        const [entry] = entries;
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
         }
       },
       {
         threshold,
         rootMargin,
       }
-    )
+    );
 
-    observerRef.current.observe(triggerRef.current)
+    observerRef.current.observe(triggerRef.current);
 
     return () => {
-      observerRef.current?.disconnect()
-    }
-  }, [enabled, hasNextPage, isFetchingNextPage, fetchNextPage, threshold, rootMargin])
+      observerRef.current?.disconnect();
+    };
+  }, [enabled, hasNextPage, isFetchingNextPage, fetchNextPage, threshold, rootMargin]);
 
-  return triggerRef
+  return triggerRef;
 }
 ```
 
@@ -426,47 +434,52 @@ export function NFTGrid({ contractAddress, filters }: NFTGridProps) {
 ### 3.3 Performance Optimizations
 
 **1. Throttle scroll events**:
+
 ```typescript
-const THROTTLE_DELAY = 200
-const lastFetchTime = useRef(0)
+const THROTTLE_DELAY = 200;
+const lastFetchTime = useRef(0);
 
 useEffect(() => {
-  const observer = new IntersectionObserver((entries) => {
-    const [entry] = entries
-    if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-      const now = Date.now()
-      if (now - lastFetchTime.current > THROTTLE_DELAY) {
-        lastFetchTime.current = now
-        fetchNextPage()
+  const observer = new IntersectionObserver(
+    entries => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        const now = Date.now();
+        if (now - lastFetchTime.current > THROTTLE_DELAY) {
+          lastFetchTime.current = now;
+          fetchNextPage();
+        }
       }
-    }
-  }, { rootMargin: '200px' })
+    },
+    { rootMargin: "200px" }
+  );
   // ...
-}, [hasNextPage, isFetchingNextPage, fetchNextPage])
+}, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 ```
 
 **2. Virtual scrolling for large lists**:
 Consider `@tanstack/virtual` for 1000+ items:
+
 ```typescript
-import { useVirtualizer } from '@tanstack/virtual'
+import { useVirtualizer } from "@tanstack/virtual";
 
 const virtualizer = useVirtualizer({
   count: allNFTs.length,
   getScrollElement: () => parentRef.current,
   estimateSize: () => 300, // Estimated NFT card height
   overscan: 5, // Render 5 extra items
-})
+});
 ```
 
 **3. Memory management**:
+
 ```typescript
 // Limit cached pages to prevent memory bloat
-maxPages: 10, // Keep only last 10 pages
-
-// Cleanup old data when filters change
-useEffect(() => {
-  queryClient.removeQueries({ queryKey: ['nfts', 'infinite'] })
-}, [filters])
+maxPages: (10, // Keep only last 10 pages
+  // Cleanup old data when filters change
+  useEffect(() => {
+    queryClient.removeQueries({ queryKey: ["nfts", "infinite"] });
+  }, [filters]));
 ```
 
 ---
@@ -479,40 +492,38 @@ useEffect(() => {
 
 ```typescript
 interface MarketplaceFilter {
-  priceRange?: [number, number]
-  status?: string
-  sortBy?: string
-  search?: string
-  selectedTraits?: string[]
+  priceRange?: [number, number];
+  status?: string;
+  sortBy?: string;
+  search?: string;
+  selectedTraits?: string[];
 }
 
-export function useInfiniteNFTs(
-  contractAddress: string,
-  filters: MarketplaceFilter
-) {
+export function useInfiniteNFTs(contractAddress: string, filters: MarketplaceFilter) {
   return useInfiniteQuery({
     // ✅ Filters in queryKey - triggers refetch on change
-    queryKey: ['nfts', 'infinite', contractAddress, filters] as const,
+    queryKey: ["nfts", "infinite", contractAddress, filters] as const,
 
     queryFn: async ({ queryKey, pageParam }) => {
-      const [, , , params] = queryKey
+      const [, , , params] = queryKey;
       // Filters are available in queryKey, no need to pass separately
       const response = await fetchNFTsFromAPI(contractAddress, {
         ...params,
         cursor: pageParam,
-      })
-      return response
+      });
+      return response;
     },
 
     initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
-  })
+    getNextPageParam: lastPage => lastPage.nextCursor ?? undefined,
+  });
 }
 ```
 
 ### 4.2 Filter Change Behavior
 
 **Automatic reset behavior** (recommended):
+
 ```typescript
 // When filters change, query automatically:
 // 1. Invalidates cache (queryKey changed)
@@ -520,73 +531,73 @@ export function useInfiniteNFTs(
 // 3. Fetches fresh data
 
 function Marketplace() {
-  const [filters, setFilters] = useState<MarketplaceFilter>({})
+  const [filters, setFilters] = useState<MarketplaceFilter>({});
 
-  const { data, fetchNextPage } = useInfiniteNFTs(contractAddress, filters)
+  const { data, fetchNextPage } = useInfiniteNFTs(contractAddress, filters);
 
   // ✅ This triggers fresh fetch from page 1
   const handlePriceChange = (range: [number, number]) => {
-    setFilters(prev => ({ ...prev, priceRange: range }))
-  }
+    setFilters(prev => ({ ...prev, priceRange: range }));
+  };
 }
 ```
 
 **Manual reset** (if needed):
+
 ```typescript
-const queryClient = useQueryClient()
+const queryClient = useQueryClient();
 
 useEffect(() => {
   // Manually reset when filters change
   queryClient.resetQueries({
-    queryKey: ['nfts', 'infinite', contractAddress],
-  })
-}, [filters, contractAddress, queryClient])
+    queryKey: ["nfts", "infinite", contractAddress],
+  });
+}, [filters, contractAddress, queryClient]);
 ```
 
 ### 4.3 Server-Side Filter Construction
 
 **Query parameter serialization**:
+
 ```typescript
 // src/shared/utils/serialize-filters.ts
 export function serializeFilters(filters: MarketplaceFilter): URLSearchParams {
-  const params = new URLSearchParams()
+  const params = new URLSearchParams();
 
   if (filters.priceRange) {
-    params.set('minPrice', filters.priceRange[0].toString())
-    params.set('maxPrice', filters.priceRange[1].toString())
+    params.set("minPrice", filters.priceRange[0].toString());
+    params.set("maxPrice", filters.priceRange[1].toString());
   }
 
   if (filters.status) {
-    params.set('status', filters.status)
+    params.set("status", filters.status);
   }
 
   if (filters.sortBy) {
-    params.set('sort', filters.sortBy)
+    params.set("sort", filters.sortBy);
   }
 
   if (filters.search) {
-    params.set('search', filters.search)
+    params.set("search", filters.search);
   }
 
   if (filters.selectedTraits?.length) {
-    params.set('traits', filters.selectedTraits.join(','))
+    params.set("traits", filters.selectedTraits.join(","));
   }
 
-  return params
+  return params;
 }
 
 // Usage in queryFn
 queryFn: async ({ queryKey, pageParam }) => {
-  const [, , contractAddress, filters] = queryKey
-  const params = serializeFilters(filters)
-  params.set('cursor', pageParam ?? '')
-  params.set('limit', '20')
+  const [, , contractAddress, filters] = queryKey;
+  const params = serializeFilters(filters);
+  params.set("cursor", pageParam ?? "");
+  params.set("limit", "20");
 
-  const response = await fetch(
-    `/api/nfts/${contractAddress}?${params.toString()}`
-  )
-  return response.json()
-}
+  const response = await fetch(`/api/nfts/${contractAddress}?${params.toString()}`);
+  return response.json();
+};
 ```
 
 ### 4.4 Preserve Scroll Position on Filter Change
@@ -631,11 +642,13 @@ function Marketplace() {
 ### 5.1 Existing Implementation
 
 **File**: `src/modules/marketplace/hooks/useMyItems.ts`
+
 - **Status**: Mock implementation using useState + useEffect
 - **Issue**: Not using TanStack Query, no pagination
 - **Action Required**: Migrate to useInfiniteQuery pattern
 
 **File**: `src/modules/marketplace/components/FilterSidebar.tsx`
+
 - **Filters**: priceRange, status, traits, sort (not integrated with query)
 - **Issue**: Filter changes don't trigger data refetch
 - **Action Required**: Move filter state to parent component, include in queryKey
@@ -643,11 +656,12 @@ function Marketplace() {
 ### 5.2 Migration Path
 
 **Phase 1**: Replace useMyItems with infinite query
+
 ```typescript
 // Before (current)
 export function useMyItems({ contractAddress, address, isConnected }) {
-  const [nfts, setNfts] = useState<Nft[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [nfts, setNfts] = useState<Nft[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   // ... mock implementation
 }
 
@@ -657,27 +671,32 @@ export function useInfiniteMyItems(
   filters: MarketplaceFilter,
   options: { enabled?: boolean }
 ) {
-  return useInfiniteQuery(infiniteNFTsOptions({ contractAddress, filters, ...options }))
+  return useInfiniteQuery(infiniteNFTsOptions({ contractAddress, filters, ...options }));
 }
 ```
 
 **Phase 2**: Integrate filter state in parent
+
 ```typescript
 // src/modules/marketplace/index.tsx
 const [filters, setFilters] = useState<MarketplaceFilter>({
   priceRange: [0.001, 0.1],
-  status: 'all',
-  sortBy: 'recent',
+  status: "all",
+  sortBy: "recent",
   selectedTraits: [],
-})
+});
 
-const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-  useInfiniteMyItems(contractAddress, filters, {
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteMyItems(
+  contractAddress,
+  filters,
+  {
     enabled: isConnected && !!address,
-  })
+  }
+);
 ```
 
 **Phase 3**: Add infinite scroll trigger
+
 ```typescript
 const scrollTriggerRef = useInfiniteScroll({
   hasNextPage,
@@ -718,6 +737,7 @@ const scrollTriggerRef = useInfiniteScroll({
 ### 6.2 Best Practices
 
 ✅ **DO**:
+
 - Always provide `initialPageParam` in v5
 - Include filters in queryKey for cache invalidation
 - Limit `maxPages` to prevent memory bloat
@@ -726,6 +746,7 @@ const scrollTriggerRef = useInfiniteScroll({
 - Set `staleTime` to reduce unnecessary refetches
 
 ❌ **DON'T**:
+
 - Call fetchNextPage() without checking hasNextPage
 - Put filter state inside the query hook (should be external)
 - Forget to disconnect IntersectionObserver in cleanup
@@ -761,17 +782,20 @@ const scrollTriggerRef = useInfiniteScroll({
 ## 8. References
 
 **TanStack Query v5 Documentation** (web access limited - see type definitions):
+
 - `node_modules/@tanstack/react-query/build/modern/useInfiniteQuery.d.ts`
 - `node_modules/@tanstack/react-query/build/modern/queryOptions.d.ts`
 - `node_modules/@tanstack/react-query/build/modern/infiniteQueryOptions.d.ts`
 
 **Related Source Files**:
+
 - `src/modules/marketplace/hooks/useMyItems.ts` - Current mock implementation
 - `src/modules/marketplace/components/FilterSidebar.tsx` - Filter UI
 - `src/modules/marketplace/index.tsx` - Parent component (needs migration)
 - `src/modules/marketplace/types/index.ts` - Type definitions
 
 **External Resources** (reviewed during research):
+
 - TanStack Query v5 migration guide
 - Cursor-based pagination best practices
 - Intersection Observer API documentation
@@ -781,37 +805,43 @@ const scrollTriggerRef = useInfiniteScroll({
 ## Appendix: Type Definitions Reference
 
 ### A. InfiniteData Structure
+
 ```typescript
 interface InfiniteData<TData, TPageParam = unknown> {
-  pages: TData[]
-  pageParams: TPageParam[]
+  pages: TData[];
+  pageParams: TPageParam[];
 }
 ```
 
 ### B. UseInfiniteQueryResult
+
 ```typescript
 interface UseInfiniteQueryResult<TData, TError> {
-  data: InfiniteData<TData> | undefined
-  error: TError | null
-  isLoading: boolean
-  isFetchingNextPage: boolean
-  hasNextPage: boolean | undefined
-  hasPreviousPage: boolean | undefined
-  fetchNextPage: (options?: { cancelRefetch?: boolean }) => void
-  fetchPreviousPage: (options?: { cancelRefetch?: boolean }) => void
+  data: InfiniteData<TData> | undefined;
+  error: TError | null;
+  isLoading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean | undefined;
+  hasPreviousPage: boolean | undefined;
+  fetchNextPage: (options?: { cancelRefetch?: boolean }) => void;
+  fetchPreviousPage: (options?: { cancelRefetch?: boolean }) => void;
   // ... other properties
 }
 ```
 
 ### C. InfiniteQueryOptions
+
 ```typescript
 interface UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryKey, TPageParam> {
-  queryKey: TQueryKey
-  queryFn: QueryFunction<TQueryFnData, TQueryKey, TPageParam>
-  initialPageParam: TPageParam
-  getNextPageParam: (lastPage: TQueryFnData, allPages: TQueryFnData[]) => TPageParam | undefined
-  getPreviousPageParam?: (firstPage: TQueryFnData, allPages: TQueryFnData[]) => TPageParam | undefined
-  maxPages?: number
+  queryKey: TQueryKey;
+  queryFn: QueryFunction<TQueryFnData, TQueryKey, TPageParam>;
+  initialPageParam: TPageParam;
+  getNextPageParam: (lastPage: TQueryFnData, allPages: TQueryFnData[]) => TPageParam | undefined;
+  getPreviousPageParam?: (
+    firstPage: TQueryFnData,
+    allPages: TQueryFnData[]
+  ) => TPageParam | undefined;
+  maxPages?: number;
   // ... other query options
 }
 ```

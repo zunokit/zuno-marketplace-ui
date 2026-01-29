@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 import {
   useQuery,
   useLazyQuery,
@@ -7,8 +7,8 @@ import {
   type QueryHookOptions,
   type LazyQueryHookOptions,
   type MutationHookOptions,
-} from '@apollo/client/react';
-import type { Exact } from './graphql';
+} from "@apollo/client/react";
+import type { Exact } from "./graphql";
 
 export type GetNonceQueryVariables = Exact<{
   accountId: string;
@@ -17,9 +17,9 @@ export type GetNonceQueryVariables = Exact<{
 }>;
 
 export type GetNonceQuery = {
-  __typename?: 'Query';
+  __typename?: "Query";
   getNonce: {
-    __typename?: 'Nonce';
+    __typename?: "Nonce";
     nonce: string;
     expiresAt: string;
   };
@@ -28,14 +28,14 @@ export type GetNonceQuery = {
 export type MeQueryVariables = Exact<Record<string, unknown>>;
 
 export type MeQuery = {
-  __typename?: 'Query';
+  __typename?: "Query";
   me?: {
-    __typename?: 'User';
+    __typename?: "User";
     id: string;
     status: string;
     createdAt: string;
     profile?: {
-      __typename?: 'Profile';
+      __typename?: "Profile";
       userId: string;
       username: string | null;
       displayName: string | null;
@@ -53,9 +53,9 @@ export type MeQuery = {
 export type MyWalletsQueryVariables = Exact<Record<string, unknown>>;
 
 export type MyWalletsQuery = {
-  __typename?: 'Query';
+  __typename?: "Query";
   myWallets: Array<{
-    __typename?: 'WalletLink';
+    __typename?: "WalletLink";
     id: string;
     userId: string;
     accountId: string;
@@ -75,9 +75,9 @@ export type VerifySiweMutationVariables = Exact<{
 }>;
 
 export type VerifySiweMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   verifySiwe: {
-    __typename?: 'AuthResponse';
+    __typename?: "AuthResponse";
     userId: string;
     accessToken: string;
     expiresAt: string;
@@ -93,9 +93,9 @@ export type RefreshSessionMutationVariables = Exact<{
 }>;
 
 export type RefreshSessionMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   refreshSession: {
-    __typename?: 'RefreshResponse';
+    __typename?: "RefreshResponse";
     userId: string;
     accessToken: string;
     expiresAt: string;
@@ -107,14 +107,14 @@ export type RevokeSessionMutationVariables = Exact<{
 }>;
 
 export type RevokeSessionMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   revokeSession: boolean;
 };
 
 export type LogoutMutationVariables = Exact<Record<string, unknown>>;
 
 export type LogoutMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   logout: boolean;
 };
 
@@ -132,9 +132,9 @@ export type UpdateProfileMutationVariables = Exact<{
 }>;
 
 export type UpdateProfileMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   updateProfile: {
-    __typename?: 'Profile';
+    __typename?: "Profile";
     userId: string;
     username: string | null;
     displayName: string | null;
@@ -161,9 +161,9 @@ export type LinkWalletMutationVariables = Exact<{
 }>;
 
 export type LinkWalletMutation = {
-  __typename?: 'Mutation';
+  __typename?: "Mutation";
   linkWallet: {
-    __typename?: 'WalletLink';
+    __typename?: "WalletLink";
     id: string;
     userId: string;
     accountId: string;
@@ -303,46 +303,27 @@ export function useGetNonceQuery(
 export function useGetNonceLazyQuery(
   baseOptions?: LazyQueryHookOptions<GetNonceQuery, GetNonceQueryVariables>
 ) {
-  return useLazyQuery<GetNonceQuery, GetNonceQueryVariables>(
-    GetNonceDocument,
-    baseOptions
-  );
+  return useLazyQuery<GetNonceQuery, GetNonceQueryVariables>(GetNonceDocument, baseOptions);
 }
 
-export function useMeQuery(
-  options?: QueryHookOptions<MeQuery, MeQueryVariables>
-) {
-  return useQuery<MeQuery, MeQueryVariables>(
-    MeDocument,
-    options
-  );
+export function useMeQuery(options?: QueryHookOptions<MeQuery, MeQueryVariables>) {
+  return useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 
-export function useMeLazyQuery(
-  options?: LazyQueryHookOptions<MeQuery, MeQueryVariables>
-) {
-  return useLazyQuery<MeQuery, MeQueryVariables>(
-    MeDocument,
-    options
-  );
+export function useMeLazyQuery(options?: LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+  return useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
 }
 
 export function useMyWalletsQuery(
   options?: QueryHookOptions<MyWalletsQuery, MyWalletsQueryVariables>
 ) {
-  return useQuery<MyWalletsQuery, MyWalletsQueryVariables>(
-    MyWalletsDocument,
-    options
-  );
+  return useQuery<MyWalletsQuery, MyWalletsQueryVariables>(MyWalletsDocument, options);
 }
 
 export function useMyWalletsLazyQuery(
   options?: LazyQueryHookOptions<MyWalletsQuery, MyWalletsQueryVariables>
 ) {
-  return useLazyQuery<MyWalletsQuery, MyWalletsQueryVariables>(
-    MyWalletsDocument,
-    options
-  );
+  return useLazyQuery<MyWalletsQuery, MyWalletsQueryVariables>(MyWalletsDocument, options);
 }
 
 export function useVerifySiweMutation(
@@ -375,10 +356,7 @@ export function useRevokeSessionMutation(
 export function useLogoutMutation(
   options?: MutationHookOptions<LogoutMutation, LogoutMutationVariables>
 ) {
-  return useMutation<LogoutMutation, LogoutMutationVariables>(
-    LogoutDocument,
-    options
-  );
+  return useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
 }
 
 export function useUpdateProfileMutation(
@@ -393,8 +371,5 @@ export function useUpdateProfileMutation(
 export function useLinkWalletMutation(
   options?: MutationHookOptions<LinkWalletMutation, LinkWalletMutationVariables>
 ) {
-  return useMutation<LinkWalletMutation, LinkWalletMutationVariables>(
-    LinkWalletDocument,
-    options
-  );
+  return useMutation<LinkWalletMutation, LinkWalletMutationVariables>(LinkWalletDocument, options);
 }

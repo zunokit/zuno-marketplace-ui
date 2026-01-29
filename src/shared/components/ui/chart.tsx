@@ -212,9 +212,7 @@ function ChartTooltipContent({
                     >
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
-                        <span className="text-os-gray-300">
-                          {itemConfig?.label || item.name}
-                        </span>
+                        <span className="text-os-gray-300">{itemConfig?.label || item.name}</span>
                       </div>
                       {item.value && (
                         <span className="text-foreground font-mono font-medium tabular-nums">

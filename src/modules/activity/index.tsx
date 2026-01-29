@@ -304,9 +304,7 @@ export default function MarketplaceActivity() {
     <div className="mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4">Activity Feed</h1>
-        <p className="text-os-gray-300">
-          Real-time marketplace activity across all collections
-        </p>
+        <p className="text-os-gray-300">Real-time marketplace activity across all collections</p>
       </div>
 
       {/* Stats Cards */}

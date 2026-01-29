@@ -8,14 +8,18 @@ dependencies: [Phase 1, Phase 2]
 ---
 
 ## Context
+
 - **Plan**: [Zustand NFT Selection Store & BottomActionBar Layout Refactor](./plan.md)
 - **Prerequisites**: [Phase 1](./phase-01-setup-and-store-creation.md), [Phase 2](./phase-02-marketplace-refactor.md)
 
 ## Overview
+
 Create a marketplace-specific layout that renders BottomActionBar with fixed positioning for full viewport width. The bar will consume the Zustand store directly and be visible across all marketplace routes.
 
 ## Requirements
+
 ### Functional
+
 - Create layout file at `src/app/(marketplace)/layout.tsx`
 - Move BottomActionBar to layout
 - Use fixed positioning: `bottom-0 left-0 right-0`
@@ -24,12 +28,14 @@ Create a marketplace-specific layout that renders BottomActionBar with fixed pos
 - Consume Zustand store for state
 
 ### Non-Functional
+
 - Maintain z-index hierarchy (BottomActionBar: 60)
 - No overlap with mobile tab navigation (z-index 50)
 - Responsive design maintained
 - Full viewport width achieved
 
 ## Key Insights
+
 - Current layout structure: No group layout exists
 - BottomActionBar currently constrained by marketplace container
 - Fixed positioning breaks out of container flow
@@ -38,6 +44,7 @@ Create a marketplace-specific layout that renders BottomActionBar with fixed pos
 ## Architecture
 
 ### Layout Structure
+
 ```typescript
 // src/app/(marketplace)/layout.tsx
 export default function MarketplaceLayout({
@@ -55,6 +62,7 @@ export default function MarketplaceLayout({
 ```
 
 ### BottomActionBarWrapper Component
+
 ```typescript
 // Uses Zustand store for all state
 // Renders BottomActionBar with fixed positioning
@@ -77,6 +85,7 @@ const BottomActionBarWrapper = () => {
 ```
 
 ### Positioning Classes
+
 ```css
 /* Full viewport width */
 fixed bottom-0 left-0 right-0
@@ -92,14 +101,18 @@ z-50  /* Lower than BottomActionBar */
 ```
 
 ## Related Code Files
+
 ### Files to Create
+
 - `src/app/(marketplace)/layout.tsx` - Marketplace group layout
 - `src/modules/marketplace/components/BottomActionBarWrapper.tsx` - Wrapper component
 
 ### Files to Modify
+
 - `src/modules/marketplace/components/BottomActionBar.tsx` - Update to consume store directly
 
 ### Files to Read
+
 - `src/modules/marketplace/components/BottomActionBar.tsx` - Current implementation
 - `src/app/(marketplace)/marketplace/[slug]/page.tsx` - Marketplace page structure
 
@@ -135,6 +148,7 @@ z-50  /* Lower than BottomActionBar */
    - Persist selection across navigation
 
 ## Todo List
+
 - [ ] Create `BottomActionBarWrapper.tsx`
 - [ ] Implement visibility logic (pathname-based)
 - [ ] Update BottomActionBar to consume store
@@ -147,6 +161,7 @@ z-50  /* Lower than BottomActionBar */
 - [ ] Test route visibility (show/hide logic)
 
 ## Success Criteria
+
 - [ ] BottomActionBar spans full viewport width
 - [ ] Fixed positioning works on mobile
 - [ ] Desktop sidebar offset correct
@@ -157,19 +172,23 @@ z-50  /* Lower than BottomActionBar */
 - [ ] No TypeScript errors
 
 ## Risk Assessment
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Z-index conflict with mobile nav | Medium | High | Use z-[60] (nav is z-50) |
-| Sidebar offset incorrect | Low | Medium | Test on desktop viewport |
-| Layout file not picked up | Low | High | Verify Next.js route group structure |
-| State not persisting | Low | Medium | Zustand persists by default |
+
+| Risk                             | Probability | Impact | Mitigation                           |
+| -------------------------------- | ----------- | ------ | ------------------------------------ |
+| Z-index conflict with mobile nav | Medium      | High   | Use z-[60] (nav is z-50)             |
+| Sidebar offset incorrect         | Low         | Medium | Test on desktop viewport             |
+| Layout file not picked up        | Low         | High   | Verify Next.js route group structure |
+| State not persisting             | Low         | Medium | Zustand persists by default          |
 
 ## Security Considerations
+
 - No new security concerns (layout change only)
 - Store remains client-side
 
 ## Next Steps
+
 After completing this phase:
+
 1. Proceed to [Phase 4: Testing & Validation](./phase-04-testing-and-validation.md)
 2. Manual testing of all scenarios
 3. Consider persist middleware if needed

@@ -24,12 +24,14 @@ Infinite scroll requires careful coordination between Intersection Observer API,
 ### 1. Intersection Observer API Best Practices
 
 #### **Threshold Configuration**
+
 - **Recommended values:** `0.1` to `0.5`
 - **Lower threshold (0.1-0.2):** Triggers earlier, provides buffer zone for smooth loading
 - **Higher threshold (0.5-1.0):** Waits until more element visible, reduces premature fetches
 - **Typical pattern:** `threshold: 0.1` for most infinite scroll scenarios
 
 #### **rootMargin Settings**
+
 - **Purpose:** Creates buffer zone before actual viewport edge
 - **Recommended values:** `"200px"` or `"300px"` (negative top margin)
 - **Format:** `"200px 0px 0px 0px"` (top, right, bottom, left)
@@ -39,12 +41,14 @@ Infinite scroll requires careful coordination between Intersection Observer API,
 #### **Performance Considerations**
 
 **Debouncing/Throttling:**
+
 ```typescript
 // NOT needed with Intersection Observer - built-in efficiency
 // Only use if additional scroll event listeners exist
 ```
 
 **Memory Leak Prevention:**
+
 ```typescript
 useEffect(() => {
   const observer = new IntersectionObserver(callback, options);
@@ -57,15 +61,17 @@ useEffect(() => {
 ```
 
 **Mobile vs Desktop:**
+
 - **Desktop:** `rootMargin: "300px"` for faster networks
 - **Mobile:** `rootMargin: "150px"` to conserve bandwidth/data
 - **Detection:** Use media queries or window width checks
 - **Performance:** Reduce page size on mobile (10-15 items vs 20-30 desktop)
 
 #### **Cleanup Patterns**
+
 ```typescript
 // Unobserve after triggering (prevents duplicate calls)
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       loadMore();
@@ -82,26 +88,22 @@ const observer = new IntersectionObserver((entries) => {
 #### **useInfiniteQuery Core Pattern**
 
 ```typescript
-const {
-  data,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  isLoading,
-  isError,
-} = useInfiniteQuery({
-  queryKey: ['items'],
-  queryFn: fetchItems,
-  initialPageParam: null,
-  getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
-});
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+  useInfiniteQuery({
+    queryKey: ["items"],
+    queryFn: fetchItems,
+    initialPageParam: null,
+    getNextPageParam: lastPage => lastPage.nextCursor ?? undefined,
+  });
 ```
 
 #### **Common Pitfalls & Solutions**
 
 **1. Duplicate Requests**
+
 - **Cause:** Multiple observer triggers before fetch completes
 - **Solution:** Check `isFetchingNextPage` before calling `fetchNextPage`
+
 ```typescript
 const loadMore = useCallback(() => {
   if (hasNextPage && !isFetchingNextPage) {
@@ -111,11 +113,13 @@ const loadMore = useCallback(() => {
 ```
 
 **2. Memory Issues**
+
 - **Cause:** Unbounded page accumulation in cache
 - **Solutions:**
   - Set `maxPages: 3` in query config
   - Implement virtual scrolling for large lists
   - Use `refetchOnMount: false` to prevent cache rebuilds
+
 ```typescript
 useInfiniteQuery({
   // ... other options
@@ -125,13 +129,16 @@ useInfiniteQuery({
 ```
 
 **3. Cursor Management Edge Cases**
+
 - **Problem:** `getNextPageParam` returning `null` vs `undefined`
 - **Rule:** Return `undefined` to stop, return cursor to continue
 - **Anti-pattern:** Returning `null` incorrectly disables pagination
 
 **4. Stale Data**
+
 - **Cause:** Users navigating back and seeing old data
 - **Solution:** Configure `staleTime` appropriately
+
 ```typescript
 staleTime: 5 * 60 * 1000, // 5 minutes
 gcTime: 10 * 60 * 1000, // 10 minutes cache retention
@@ -140,6 +147,7 @@ gcTime: 10 * 60 * 1000, // 10 minutes cache retention
 #### **Loading State Patterns**
 
 **Skeleton Loading (Recommended):**
+
 ```typescript
 {isFetchingNextPage && (
   <div className="grid grid-cols-4 gap-4">
@@ -151,6 +159,7 @@ gcTime: 10 * 60 * 1000, // 10 minutes cache retention
 ```
 
 **Spinner (Simpler):**
+
 ```typescript
 {isFetchingNextPage && (
   <div className="flex justify-center py-4">
@@ -160,6 +169,7 @@ gcTime: 10 * 60 * 1000, // 10 minutes cache retention
 ```
 
 **Hybrid Approach:**
+
 - Use skeleton for initial load
 - Use spinner for subsequent pages
 - Better perceived performance
@@ -200,6 +210,7 @@ const showEndMessage = !hasNextPage && data?.pages.length > 0;
 ```
 
 **Visual indicator patterns:**
+
 - Simple text message
 - Icon-based indicator (checkmark, flag)
 - CTA for related content ("Explore more categories")
@@ -211,6 +222,7 @@ const showEndMessage = !hasNextPage && data?.pages.length > 0;
 #### **REST API Response Shape**
 
 **Standard Format:**
+
 ```json
 {
   "data": [
@@ -226,6 +238,7 @@ const showEndMessage = !hasNextPage && data?.pages.length > 0;
 ```
 
 **Minimal Format:**
+
 ```json
 {
   "items": [...],
@@ -237,18 +250,22 @@ const showEndMessage = !hasNextPage && data?.pages.length > 0;
 #### **Cursor Structure**
 
 **Encoded JSON (Recommended):**
+
 ```typescript
 // Backend: Create cursor
-const cursor = Buffer.from(JSON.stringify({
-  id: lastItem.id,
-  createdAt: lastItem.createdAt,
-})).toString('base64');
+const cursor = Buffer.from(
+  JSON.stringify({
+    id: lastItem.id,
+    createdAt: lastItem.createdAt,
+  })
+).toString("base64");
 
 // Frontend: Decode cursor
-const decoded = JSON.parse(Buffer.from(cursor, 'base64').toString());
+const decoded = JSON.parse(Buffer.from(cursor, "base64").toString());
 ```
 
 **Composite Key Cursor:**
+
 ```typescript
 // Ensures stable sorting
 interface Cursor {
@@ -263,6 +280,7 @@ interface Cursor {
 **Challenge:** Cursors must encode sort order
 
 **Solution:**
+
 ```typescript
 // Request
 GET /items?sort=price&order=desc&cursor=eyJwcmljZSI6OTkuOTksImlkIjoiMTIzIn0=
@@ -275,6 +293,7 @@ const cursor = {
 ```
 
 **Best Practices:**
+
 - Always include unique ID as tiebreaker
 - Encode all sort fields in cursor
 - Validate sort fields server-side
@@ -283,6 +302,7 @@ const cursor = {
 #### **Filtering Integration**
 
 **Approach 1: Filters in Query String**
+
 ```typescript
 GET /items?category=electronics&priceRange=0-100&cursor=...
 
@@ -291,6 +311,7 @@ GET /items?category=electronics&priceRange=0-100&cursor=...
 ```
 
 **Approach 2: Complex Filters in Cursor**
+
 ```typescript
 // For expensive filter computations
 const cursor = {
@@ -313,10 +334,12 @@ function generateMockItems(count: number, cursor?: string) {
   }));
 
   const lastItem = items[items.length - 1];
-  const nextCursor = Buffer.from(JSON.stringify({
-    id: lastItem.id,
-    createdAt: lastItem.createdAt,
-  })).toString('base64');
+  const nextCursor = Buffer.from(
+    JSON.stringify({
+      id: lastItem.id,
+      createdAt: lastItem.createdAt,
+    })
+  ).toString("base64");
 
   return {
     items,
@@ -329,25 +352,28 @@ function generateMockItems(count: number, cursor?: string) {
 #### **Security Considerations**
 
 **Cursor Encryption:**
+
 ```typescript
 // Encrypt sensitive cursor data
 const encryptedCursor = encrypt(JSON.stringify(cursorData));
 ```
 
 **Cursor Validation:**
+
 ```typescript
 // Verify cursor integrity
 try {
-  const decoded = JSON.parse(Buffer.from(cursor, 'base64').toString());
+  const decoded = JSON.parse(Buffer.from(cursor, "base64").toString());
   if (!decoded.id || !decoded.createdAt) {
-    throw new Error('Invalid cursor');
+    throw new Error("Invalid cursor");
   }
 } catch {
-  throw new Error('Invalid cursor format');
+  throw new Error("Invalid cursor format");
 }
 ```
 
 **Rate Limiting:**
+
 - Apply per-user rate limits
 - Monitor for excessive page fetching
 - Implement exponential backoff
@@ -361,6 +387,7 @@ try {
 **Problem:** Infinite scroll breaks keyboard navigation
 
 **Solution 1: "Load More" Button (Recommended)**
+
 ```typescript
 <button
   onClick={fetchNextPage}
@@ -372,22 +399,24 @@ try {
 ```
 
 **Solution 2: Keyboard-Aware Infinite Scroll**
+
 ```typescript
 const handleKeyPress = (e: KeyboardEvent) => {
-  if (e.key === 'End' && hasNextPage && !isFetchingNextPage) {
+  if (e.key === "End" && hasNextPage && !isFetchingNextPage) {
     fetchNextPage();
   }
 };
 
 useEffect(() => {
-  window.addEventListener('keydown', handleKeyPress);
-  return () => window.removeEventListener('keydown', handleKeyPress);
+  window.addEventListener("keydown", handleKeyPress);
+  return () => window.removeEventListener("keydown", handleKeyPress);
 }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 ```
 
 #### **Screen Reader Announcements**
 
 **ARIA Live Region:**
+
 ```typescript
 <div
   role="status"
@@ -401,6 +430,7 @@ useEffect(() => {
 ```
 
 **New Content Announcement:**
+
 ```typescript
 // Announce number of new items loaded
 useEffect(() => {
@@ -414,18 +444,20 @@ useEffect(() => {
 #### **Focus Management**
 
 **Maintain Focus Position:**
+
 ```typescript
 const lastItemRef = useRef<HTMLElement>(null);
 
 const loadMore = () => {
   if (lastItemRef.current) {
-    lastItemRef.current.scrollIntoView({ behavior: 'smooth' });
+    lastItemRef.current.scrollIntoView({ behavior: "smooth" });
   }
   fetchNextPage();
 };
 ```
 
 **Restore Focus After Load:**
+
 ```typescript
 const [focusedElement, setFocusedElement] = useState<HTMLElement | null>(null);
 
@@ -439,6 +471,7 @@ focusedElement?.focus();
 #### **"Load More" Button as Fallback**
 
 **Hybrid Approach (Best Practice):**
+
 ```typescript
 const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
 
@@ -456,6 +489,7 @@ const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
 ```
 
 **Progressive Enhancement:**
+
 ```typescript
 // Detect reduced motion preference
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -470,6 +504,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 #### **Loading Indicators Placement**
 
 **Best Practices:**
+
 - Place at bottom of list (where new content appears)
 - Use consistent position (don't jump around)
 - Include with content (not separate modal/toast)
@@ -491,6 +526,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 #### **Error State Accessibility**
 
 **Screen Reader Friendly:**
+
 ```typescript
 {isError && (
   <div role="alert" aria-live="assertive">
@@ -501,6 +537,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 ```
 
 **Keyboard Accessible:**
+
 - Ensure error message is focusable
 - Provide keyboard shortcut for retry (e.g., "Press R to retry")
 
@@ -511,18 +548,19 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 ### Quick Start Guide
 
 **1. Setup Intersection Observer Hook**
+
 ```typescript
 function useInfiniteScroll(callback: () => void, hasNextPage: boolean) {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting && hasNextPage) {
           callback();
         }
       },
-      { threshold: 0.1, rootMargin: '200px' }
+      { threshold: 0.1, rootMargin: "200px" }
     );
 
     if (sentinelRef.current) {
@@ -537,24 +575,20 @@ function useInfiniteScroll(callback: () => void, hasNextPage: boolean) {
 ```
 
 **2. Configure useInfiniteQuery**
+
 ```typescript
-const {
-  data,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  isError,
-} = useInfiniteQuery({
-  queryKey: ['marketplace-items'],
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } = useInfiniteQuery({
+  queryKey: ["marketplace-items"],
   queryFn: ({ pageParam }) => fetchItems(pageParam),
   initialPageParam: null,
-  getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+  getNextPageParam: lastPage => lastPage.nextCursor ?? undefined,
   maxPages: 3,
   staleTime: 5 * 60 * 1000,
 });
 ```
 
 **3. Integrate in Component**
+
 ```typescript
 function MarketplaceGrid() {
   const sentinelRef = useInfiniteScroll(() => {
@@ -583,6 +617,7 @@ function MarketplaceGrid() {
 ### Code Examples
 
 **Complete Intersection Observer Component:**
+
 ```typescript
 import { useRef, useEffect } from 'react';
 
@@ -640,6 +675,7 @@ export function InfiniteScrollSentinel({
 ### Common Pitfalls
 
 **1. Forgetting Cleanup**
+
 ```typescript
 // WRONG: No cleanup
 useEffect(() => {
@@ -656,6 +692,7 @@ useEffect(() => {
 ```
 
 **2. Missing Dependencies**
+
 ```typescript
 // WRONG: Missing fetchNextPage dependency
 useEffect(() => {
@@ -669,6 +706,7 @@ useEffect(() => {
 ```
 
 **3. Duplicate API Calls**
+
 ```typescript
 // WRONG: No guard clause
 const loadMore = () => fetchNextPage();
@@ -682,6 +720,7 @@ const loadMore = () => {
 ```
 
 **4. Ignoring Accessibility**
+
 ```typescript
 // WRONG: No ARIA attributes
 <div>Loading...</div>
@@ -697,16 +736,19 @@ const loadMore = () => {
 ## Resources & References
 
 ### Official Documentation
+
 - [React Query useInfiniteQuery](https://tanstack.com/query/latest/docs/react/guides/infinite-queries)
 - [Intersection Observer API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
 - [WAI-ARIA Live Regions](https://www.w3.org/WAI/ARIA/apg/example-index/feed/live-region-pattern.html)
 
 ### Recommended Tutorials
+
 - TanStack Query Infinite Scroll Guide
 - Building Accessible Infinite Scroll (web.dev)
 - Cursor Pagination Best Practices
 
 ### Community Resources
+
 - React Query Discord
 - Stack Overflow: [react-query] [infinite-scroll]
 - GitHub: tanstack/query discussions
@@ -736,11 +778,11 @@ const loadMore = () => {
 
 ### Version Compatibility Matrix
 
-| Library/Feature | Version | Notes |
-|----------------|---------|-------|
-| React Query | v5+ | Required for useInfiniteQuery |
-| Intersection Observer | All modern browsers | IE11 requires polyfill |
-| TypeScript | 5.0+ | For proper type inference |
+| Library/Feature       | Version             | Notes                         |
+| --------------------- | ------------------- | ----------------------------- |
+| React Query           | v5+                 | Required for useInfiniteQuery |
+| Intersection Observer | All modern browsers | IE11 requires polyfill        |
+| TypeScript            | 5.0+                | For proper type inference     |
 
 ---
 

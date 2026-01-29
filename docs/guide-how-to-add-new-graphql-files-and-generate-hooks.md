@@ -9,13 +9,14 @@ This project uses `graphql-codegen` to auto-generate TypeScript types and React 
 Place your `.graphql` files in either:
 
 1. **`src/shared/graphql/schemas/`** - Shared queries/mutations (recommended)
-2. **`src/**/*.graphql`** - Co-located with components (if component-specific)
+2. **`src/**/\*.graphql`\*\* - Co-located with components (if component-specific)
 
 ## Step-by-Step
 
 ### 1. Create `.graphql` File
 
 **Example - Query:**
+
 ```graphql
 # src/shared/graphql/schemas/queries/get-user.graphql
 query GetUser($id: ID!) {
@@ -31,6 +32,7 @@ query GetUser($id: ID!) {
 ```
 
 **Example - Mutation:**
+
 ```graphql
 # src/shared/graphql/schemas/mutations/update-user.graphql
 mutation UpdateUser($input: UpdateUserInput!) {
@@ -52,6 +54,7 @@ pnpm codegen
 ```
 
 This generates:
+
 - `src/shared/graphql/hooks.generated.ts` - React hooks
 - `src/shared/graphql/schema.generated.ts` - Types
 - `src/shared/graphql/graphql.ts` - gql functions
@@ -59,7 +62,7 @@ This generates:
 ### 3. Use Generated Hook
 
 ```tsx
-import { useGetUserQuery } from '@/shared/graphql';
+import { useGetUserQuery } from "@/shared/graphql";
 
 export function UserProfile({ userId }: { userId: string }) {
   const { data, loading, error } = useGetUserQuery({
@@ -76,7 +79,7 @@ export function UserProfile({ userId }: { userId: string }) {
 ### 4. Use with Mutation
 
 ```tsx
-import { useUpdateUserMutation } from '@/shared/graphql';
+import { useUpdateUserMutation } from "@/shared/graphql";
 
 export function UpdateUserForm() {
   const [updateUser, { loading, error }] = useUpdateUserMutation();
@@ -93,11 +96,11 @@ export function UpdateUserForm() {
 
 Generated hooks follow this pattern:
 
-| Operation Type | File/Operation Name | Generated Hook |
-|----------------|---------------------|----------------|
-| Query | `GetUser` | `useGetUserQuery` |
-| Mutation | `UpdateUser` | `useUpdateUserMutation` |
-| Subscription | `OnUserUpdate` | `useOnUserUpdateSubscription` |
+| Operation Type | File/Operation Name | Generated Hook                |
+| -------------- | ------------------- | ----------------------------- |
+| Query          | `GetUser`           | `useGetUserQuery`             |
+| Mutation       | `UpdateUser`        | `useUpdateUserMutation`       |
+| Subscription   | `OnUserUpdate`      | `useOnUserUpdateSubscription` |
 
 ## Tips
 
@@ -109,9 +112,11 @@ Generated hooks follow this pattern:
 ## Troubleshooting
 
 **Error: Cannot connect to GraphQL server**
+
 - Ensure `NEXT_PUBLIC_GRAPHQL_URL` is set in `.env`
 - Or ensure backend is running at `http://localhost:8081/graphql`
 
 **Hooks not found**
+
 - Run `pnpm codegen` to regenerate
 - Check `.graphql` file is in correct directory

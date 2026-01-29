@@ -17,12 +17,13 @@ const MintStages = () => {
 
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-medium font-sans text-foreground dark:text-foreground">Mint Stages</h4>
+      <h4 className="text-lg font-medium font-sans text-foreground dark:text-foreground">
+        Mint Stages
+      </h4>
       <div
         className={cn(
           "rounded-[8px] py-4 px-5 transition-all duration-200 border-2 border-border-subtle",
-          status === "live" &&
-            "border border-primary bg-primary/10"
+          status === "live" && "border border-primary bg-primary/10"
         )}
       >
         <div className="flex justify-between items-center mb-2">
@@ -40,9 +41,7 @@ const MintStages = () => {
               <CountdownTimer endTime={endDate} onEnd={() => {}} isLive={true} />
             </div>
           )}
-          {status === "ended" && (
-            <span className="text-os-gray-300 text-sm">ENDED</span>
-          )}
+          {status === "ended" && <span className="text-os-gray-300 text-sm">ENDED</span>}
           {status === "upcoming" && startDate && (
             <div className="flex items-center gap-2">
               <span className="text-os-gray-300 text-sm">STARTS IN</span>

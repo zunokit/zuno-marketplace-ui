@@ -70,10 +70,10 @@ src/modules/marketplace/
 
 ```typescript
 // Clean imports from barrel file
-import { useInfiniteMarketplaceItems } from '@/modules/marketplace/queries';
+import { useInfiniteMarketplaceItems } from "@/modules/marketplace/queries";
 
 // Direct imports also available
-import { infiniteMarketplaceItemsOptions } from '@/modules/marketplace/queries/infinite-marketplace-items.query';
+import { infiniteMarketplaceItemsOptions } from "@/modules/marketplace/queries/infinite-marketplace-items.query";
 ```
 
 ## Related Code Files
@@ -105,6 +105,7 @@ pnpm add react-intersection-observer
 ```
 
 **Expected Versions**:
+
 - `@tanstack/react-query`: ^5.0.0
 - `react-intersection-observer`: ^10.0.0
 
@@ -124,7 +125,7 @@ Create `src/modules/marketplace/queries/types.ts`:
  * Follows project TypeScript strict mode standards
  */
 
-import { type Nft } from '@/modules/marketplace/types';
+import { type Nft } from "@/modules/marketplace/types";
 
 /**
  * API Response shape for paginated marketplace items
@@ -183,11 +184,8 @@ Create `src/modules/marketplace/queries/mock-adapter.ts`:
  * Simulates cursor-based pagination with consistent data
  */
 
-import type {
-  MarketplaceItemsPage,
-  MarketplaceItemsQueryParams,
-} from './types';
-import { NftStatus } from '@/modules/marketplace/types';
+import type { MarketplaceItemsPage, MarketplaceItemsQueryParams } from "./types";
+import { NftStatus } from "@/modules/marketplace/types";
 
 // Track mock data state in memory
 const MOCK_STATE = new Map<string, { items: any[]; nextId: number }>();
@@ -195,11 +193,7 @@ const MOCK_STATE = new Map<string, { items: any[]; nextId: number }>();
 /**
  * Generate consistent mock NFTs
  */
-function generateMockNFTs(
-  count: number,
-  contractAddress: string,
-  startId: number
-): any[] {
+function generateMockNFTs(count: number, contractAddress: string, startId: number): any[] {
   return Array.from({ length: count }, (_, i) => {
     const id = startId + i;
     return {
@@ -209,16 +203,16 @@ function generateMockNFTs(
       description: `Mock NFT ${id}`,
       image: `https://picsum.photos/400/400?random=${id}`,
       contractAddress,
-      chainId: '1',
-      owner: '0x1234567890123456789012345678901234567890',
-      creator: '0x0987654321098765432109876543210987654321',
+      chainId: "1",
+      owner: "0x1234567890123456789012345678901234567890",
+      creator: "0x0987654321098765432109876543210987654321",
       status: id % 3 === 0 ? NftStatus.Listed : NftStatus.NotListed,
       mintPrice: (0.01 + Math.random() * 0.09).toFixed(3),
       listPrice: id % 3 === 0 ? (0.02 + Math.random() * 0.08).toFixed(3) : undefined,
       attributes: [
-        { trait_type: 'Background', value: ['Path', 'Orchard', 'Library'][id % 3] },
-        { trait_type: 'Body', value: ['Blue', 'Red', 'Yellow'][id % 3] },
-        { trait_type: 'Rarity', value: ['Common', 'Rare', 'Epic'][id % 3] },
+        { trait_type: "Background", value: ["Path", "Orchard", "Library"][id % 3] },
+        { trait_type: "Body", value: ["Blue", "Red", "Yellow"][id % 3] },
+        { trait_type: "Rarity", value: ["Common", "Rare", "Epic"][id % 3] },
       ],
       createdAt: new Date(Date.now() - id * 1000 * 60).toISOString(),
       updatedAt: new Date(Date.now() - id * 1000 * 30).toISOString(),
@@ -233,12 +227,7 @@ function generateMockNFTs(
 export async function mockFetchMarketplaceItems({
   queryKey,
 }: {
-  queryKey: readonly [
-    'marketplace',
-    'infinite',
-    string,
-    MarketplaceItemsQueryParams
-  ];
+  queryKey: readonly ["marketplace", "infinite", string, MarketplaceItemsQueryParams];
 }): Promise<MarketplaceItemsPage> {
   const [, , contractAddress, params] = queryKey;
   const { cursor, limit = 16 } = params;
@@ -257,16 +246,15 @@ export async function mockFetchMarketplaceItems({
   const state = MOCK_STATE.get(contractAddress)!;
 
   // Parse cursor to get start index
-  const startIndex = cursor ? parseInt(Buffer.from(cursor, 'base64').toString(), 10) : 0;
+  const startIndex = cursor ? parseInt(Buffer.from(cursor, "base64").toString(), 10) : 0;
 
   // Get page of items
   const items = state.items.slice(startIndex, startIndex + limit);
   const nextIndex = startIndex + items.length;
 
   // Create next cursor
-  const nextCursor = nextIndex < state.items.length
-    ? Buffer.from(nextIndex.toString()).toString('base64')
-    : null;
+  const nextCursor =
+    nextIndex < state.items.length ? Buffer.from(nextIndex.toString()).toString("base64") : null;
 
   return {
     items,
@@ -293,10 +281,10 @@ Create `src/modules/marketplace/queries/index.ts`:
  */
 
 // Query options
-export { infiniteMarketplaceItemsOptions } from './infinite-marketplace-items.query';
+export { infiniteMarketplaceItemsOptions } from "./infinite-marketplace-items.query";
 
 // Hooks
-export { useInfiniteMarketplaceItems } from './use-infinite-marketplace-items';
+export { useInfiniteMarketplaceItems } from "./use-infinite-marketplace-items";
 
 // Types
 export type {
@@ -304,10 +292,10 @@ export type {
   MarketplaceItemsQueryParams,
   InfiniteMarketplaceItemsOptions,
   MarketplaceFilters,
-} from './types';
+} from "./types";
 
 // Mock adapter (dev only)
-export { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from './mock-adapter';
+export { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from "./mock-adapter";
 ```
 
 ### Step 6: Verify TypeScript Compilation
@@ -339,11 +327,11 @@ pnpm tsc --noEmit
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| TanStack Query not installed | Low | High | Check package.json before starting |
-| TypeScript type errors | Medium | Medium | Use strict mode compiler |
-| Circular dependencies | Low | Low | Barrel export prevents this |
+| Risk                         | Probability | Impact | Mitigation                         |
+| ---------------------------- | ----------- | ------ | ---------------------------------- |
+| TanStack Query not installed | Low         | High   | Check package.json before starting |
+| TypeScript type errors       | Medium      | Medium | Use strict mode compiler           |
+| Circular dependencies        | Low         | Low    | Barrel export prevents this        |
 
 ## Security Considerations
 
@@ -354,6 +342,7 @@ pnpm tsc --noEmit
 ## Next Steps
 
 Once this phase is complete:
+
 1. Move to **Phase 02: Query Options** to implement `infiniteMarketplaceItemsOptions`
 2. Query folder structure is ready for query options pattern
 3. Mock adapter provides development data backend

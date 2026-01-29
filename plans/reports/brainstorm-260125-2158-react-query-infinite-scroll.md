@@ -3,6 +3,7 @@
 ## Problem Statement
 
 Implement infinite scroll for `NFTGrid.tsx` using:
+
 - **TanStack Query v5** infinite queries with query options pattern
 - **Cursor-based pagination** (12-20 items per page)
 - **Server-side filtering/sorting**
@@ -14,12 +15,15 @@ Implement infinite scroll for `NFTGrid.tsx` using:
 ## Evaluated Approaches
 
 ### Approach 1: Direct useInfiniteQuery in NFTGrid
+
 ❌ **REJECTED** - Violates separation of concerns, hard to test, can't use queryOptions pattern
 
 ### Approach 2: Custom Hook with useInfiniteQuery
+
 ⚠️ **ACCEPTABLE** - Better separation but query config still tied to hook, not optimal for query folder
 
 ### Approach 3: Query Options Pattern with Split Folder
+
 ✅ **RECOMMENDED** - Full queryOptions pattern, clean separation, testable, scalable
 
 ## Final Solution Architecture
@@ -69,6 +73,7 @@ src/modules/marketplace/
 ## Time Estimate
 
 6-9 hours total:
+
 - Setup & query options: 2-3 hours
 - Components & integration: 2-3 hours
 - Testing & refinement: 2-3 hours

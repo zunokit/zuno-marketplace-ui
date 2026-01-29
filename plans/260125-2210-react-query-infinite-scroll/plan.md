@@ -17,15 +17,15 @@ Implement production-ready infinite scroll for NFTGrid component using TanStack 
 
 ## Phase Summary
 
-| Phase | Status | Duration | Description |
-|-------|--------|----------|-------------|
-| [Phase 01: Setup Structure](./phase-01-setup-structure.md) | pending | 1h | Create query folder & install deps |
-| [Phase 02: Query Options](./phase-02-query-options.md) | pending | 1.5h | Implement queryOptions with mock adapter |
-| [Phase 03: Hook Wrapper](./phase-03-hook-wrapper.md) | pending | 1h | Create useInfiniteMarketplaceItems hook |
-| [Phase 04: Scroll Trigger](./phase-04-scroll-trigger.md) | pending | 1h | Build InfiniteScrollTrigger component |
-| [Phase 05: Integration](./phase-05-integration.md) | pending | 2h | Integrate with NFTGrid & marketplace |
-| [Phase 06: Testing](./phase-06-testing.md) | pending | 1h | Test implementation & fix issues |
-| [Phase 07: Documentation](./phase-07-documentation.md) | pending | 0.5h | Update docs if needed |
+| Phase                                                      | Status  | Duration | Description                              |
+| ---------------------------------------------------------- | ------- | -------- | ---------------------------------------- |
+| [Phase 01: Setup Structure](./phase-01-setup-structure.md) | pending | 1h       | Create query folder & install deps       |
+| [Phase 02: Query Options](./phase-02-query-options.md)     | pending | 1.5h     | Implement queryOptions with mock adapter |
+| [Phase 03: Hook Wrapper](./phase-03-hook-wrapper.md)       | pending | 1h       | Create useInfiniteMarketplaceItems hook  |
+| [Phase 04: Scroll Trigger](./phase-04-scroll-trigger.md)   | pending | 1h       | Build InfiniteScrollTrigger component    |
+| [Phase 05: Integration](./phase-05-integration.md)         | pending | 2h       | Integrate with NFTGrid & marketplace     |
+| [Phase 06: Testing](./phase-06-testing.md)                 | pending | 1h       | Test implementation & fix issues         |
+| [Phase 07: Documentation](./phase-07-documentation.md)     | pending | 0.5h     | Update docs if needed                    |
 
 ## Key Requirements
 
@@ -116,12 +116,12 @@ src/modules/marketplace/components/
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Backend API not ready | High | Mock adapter pattern for seamless swap |
-| Race condition on scroll | Medium | `isFetchingNextPage` guard + throttling |
-| Memory bloat (many pages) | Medium | `maxPages: 10` limit in query config |
-| Filter sync issues | Low | Filters in queryKey for auto-reset |
+| Risk                      | Impact | Mitigation                              |
+| ------------------------- | ------ | --------------------------------------- |
+| Backend API not ready     | High   | Mock adapter pattern for seamless swap  |
+| Race condition on scroll  | Medium | `isFetchingNextPage` guard + throttling |
+| Memory bloat (many pages) | Medium | `maxPages: 10` limit in query config    |
+| Filter sync issues        | Low    | Filters in queryKey for auto-reset      |
 
 ## Next Steps
 
@@ -137,13 +137,13 @@ src/modules/marketplace/components/
 
 ### Confirmed Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| **Cursor Format** | ID-based cursor | Most stable, works with any sorting method |
-| **Filter Strategy** | Full server-side | Required for infinite scroll with pagination |
-| **List View Support** | Include in Phase 05 | Consistent UX across both view modes |
+| Decision                | Choice               | Rationale                                            |
+| ----------------------- | -------------------- | ---------------------------------------------------- |
+| **Cursor Format**       | ID-based cursor      | Most stable, works with any sorting method           |
+| **Filter Strategy**     | Full server-side     | Required for infinite scroll with pagination         |
+| **List View Support**   | Include in Phase 05  | Consistent UX across both view modes                 |
 | **Total Items Display** | Total count from API | Shows full count, requires API to provide totalCount |
-| **Real-time Updates** | No real-time needed | 15s cache is acceptable, keep it simple |
+| **Real-time Updates**   | No real-time needed  | 15s cache is acceptable, keep it simple              |
 
 ### Action Items Based on Validation
 
@@ -158,9 +158,9 @@ src/modules/marketplace/components/
 ```typescript
 interface MarketplaceItemsPage {
   items: Nft[];
-  nextCursor: string | null;  // ID of last item for next page
+  nextCursor: string | null; // ID of last item for next page
   hasMore: boolean;
-  totalCount: number;  // NEW: Total items matching filters
+  totalCount: number; // NEW: Total items matching filters
 }
 ```
 

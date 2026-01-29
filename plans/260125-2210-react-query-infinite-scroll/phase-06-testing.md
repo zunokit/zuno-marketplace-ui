@@ -55,12 +55,14 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 1: Initial Page Load
 
 **Steps**:
+
 1. Load marketplace page
 2. Verify 16 items displayed
 3. Verify no console errors
 4. Verify loading state clears
 
 **Expected**:
+
 - 16 mock NFTs visible
 - No errors in console
 - Loading spinner disappears
@@ -68,6 +70,7 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 2: Infinite Scroll
 
 **Steps**:
+
 1. Load initial page
 2. Scroll to near bottom (within 200px)
 3. Verify next page loads automatically
@@ -75,6 +78,7 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 5. Verify items accumulate correctly
 
 **Expected**:
+
 - Next page fetches automatically
 - Items append to list (no duplicates)
 - Loading spinner shows during fetch
@@ -83,6 +87,7 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 3: Filter Changes
 
 **Steps**:
+
 1. Load initial page
 2. Scroll to load 2-3 pages
 3. Change price range filter
@@ -90,6 +95,7 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 5. Verify new filtered items display
 
 **Expected**:
+
 - Old items cleared
 - New page 1 loads with filters
 - Scroll position may change (acceptable)
@@ -98,12 +104,14 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 4: Error Handling
 
 **Steps**:
+
 1. Simulate network error (dev tools)
 2. Scroll to trigger fetch
 3. Verify error message displays
 4. Verify retry mechanism works
 
 **Expected**:
+
 - Error message shown
 - "Retry" option available
 - Can recover from error
@@ -111,12 +119,14 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 5: End of List
 
 **Steps**:
+
 1. Keep scrolling until `hasNextPage: false`
 2. Verify "End of list" message
 3. Verify scroll trigger disabled
 4. Verify no more fetch attempts
 
 **Expected**:
+
 - Message: "You've reached the end"
 - No more loading spinners
 - Intersection Observer disconnected
@@ -124,12 +134,14 @@ Test the infinite scroll implementation comprehensively, identify bugs, performa
 ### Scenario 6: Memory Management
 
 **Steps**:
+
 1. Load 10+ pages
 2. Check memory usage (Chrome DevTools)
 3. Verify `maxPages: 10` working
 4. Navigate away and back
 
 **Expected**:
+
 - Memory usage reasonable (<100MB)
 - Old pages garbage collected
 - No memory leaks
@@ -198,7 +210,7 @@ if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
 
 ```typescript
 // Mock adapter should encode start index in cursor
-const nextCursor = Buffer.from(nextIndex.toString()).toString('base64');
+const nextCursor = Buffer.from(nextIndex.toString()).toString("base64");
 ```
 
 #### Issue: Memory Leak
@@ -224,7 +236,7 @@ useEffect(() => {
 **Fix**: Ensure filters in queryKey
 
 ```typescript
-queryKey: ['marketplace', 'infinite', contractAddress, filters]
+queryKey: ["marketplace", "infinite", contractAddress, filters];
 //                                                 ^^^^^^^ Must be included
 ```
 
@@ -412,9 +424,9 @@ Test in multiple browsers:
 
 Document and fix any issues found:
 
-| Issue | Severity | Fix |
-|-------|----------|-----|
-| (Document issues found) | | |
+| Issue                   | Severity | Fix |
+| ----------------------- | -------- | --- |
+| (Document issues found) |          |     |
 
 ## Todo List
 
@@ -445,12 +457,12 @@ Document and fix any issues found:
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Memory leak | Medium | High | Verify observer cleanup |
-| Race condition | Low | Medium | Test rapid scrolling |
-| Browser incompatibility | Very Low | Low | Test multiple browsers |
-| Performance regression | Low | Medium | Profile before/after |
+| Risk                    | Probability | Impact | Mitigation              |
+| ----------------------- | ----------- | ------ | ----------------------- |
+| Memory leak             | Medium      | High   | Verify observer cleanup |
+| Race condition          | Low         | Medium | Test rapid scrolling    |
+| Browser incompatibility | Very Low    | Low    | Test multiple browsers  |
+| Performance regression  | Low         | Medium | Profile before/after    |
 
 ## Security Considerations
 
@@ -461,6 +473,7 @@ Document and fix any issues found:
 ## Next Steps
 
 After completing this phase:
+
 1. Move to **Phase 07: Documentation** if needed
 2. Create pull request for review
 3. Deploy to staging for final testing

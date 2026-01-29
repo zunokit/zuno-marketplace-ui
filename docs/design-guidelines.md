@@ -30,18 +30,21 @@ This document outlines the design guidelines and component system for the Zuno N
 ### Design Principles in Action
 
 #### 1. Clarity First
+
 - Clear visual hierarchy to guide user attention
 - Simple, readable typography
 - Intuitive navigation and information architecture
 - Meaningful micro-interactions that provide feedback
 
 #### 2. Consistency & Standards
+
 - Reusable components with predictable behavior
 - Consistent spacing and sizing
 - Unified color palette and typography scale
 - Standardized interaction patterns
 
 #### 3. Accessibility by Default
+
 - WCAG 2.1 AA compliant color contrast
 - Keyboard navigation support
 - Screen reader compatibility
@@ -52,21 +55,22 @@ This document outlines the design guidelines and component system for the Zuno N
 ### Color System
 
 #### Primary Colors
+
 ```typescript
 // src/shared/theme/colors.ts
 const colors = {
   primary: {
-    50: '#F0F9FF',
-    100: '#E0F2FE',
-    200: '#7DD3FC',
-    300: '#38BDF8',
-    400: '#0EA5E9',
-    500: '#0284C7',
-    600: '#0369A1',
-    700: '#075985',
-    800: '#0C4A6E',
-    900: '#082F49',
-    950: '#0E1F3A',
+    50: "#F0F9FF",
+    100: "#E0F2FE",
+    200: "#7DD3FC",
+    300: "#38BDF8",
+    400: "#0EA5E9",
+    500: "#0284C7",
+    600: "#0369A1",
+    700: "#075985",
+    800: "#0C4A6E",
+    900: "#082F49",
+    950: "#0E1F3A",
   },
   secondary: {
     // ... secondary colors
@@ -114,24 +118,25 @@ const colors = {
 ### Typography System
 
 #### Font Scale
+
 ```typescript
 // src/shared/theme/typography.ts
 const typography = {
   fontFamily: {
-    sans: ['Inter', 'system-ui', 'sans-serif'],
-    mono: ['JetBrains Mono', 'monospace'],
+    sans: ["Inter", "system-ui", "sans-serif"],
+    mono: ["JetBrains Mono", "monospace"],
   },
   fontSize: {
-    xs: '0.75rem',      // 12px
-    sm: '0.875rem',     // 14px
-    base: '1rem',       // 16px
-    lg: '1.125rem',     // 18px
-    xl: '1.25rem',      // 20px
-    '2xl': '1.5rem',    // 24px
-    '3xl': '1.875rem',  // 30px
-    '4xl': '2.25rem',   // 36px
-    '5xl': '3rem',      // 48px
-    '6xl': '3.75rem',   // 60px
+    xs: "0.75rem", // 12px
+    sm: "0.875rem", // 14px
+    base: "1rem", // 16px
+    lg: "1.125rem", // 18px
+    xl: "1.25rem", // 20px
+    "2xl": "1.5rem", // 24px
+    "3xl": "1.875rem", // 30px
+    "4xl": "2.25rem", // 36px
+    "5xl": "3rem", // 48px
+    "6xl": "3.75rem", // 60px
   },
   fontWeight: {
     light: 300,
@@ -173,25 +178,26 @@ const typography = {
 ### Spacing System
 
 #### Spacing Scale
+
 ```typescript
 // src/shared/theme/spacing.ts
 const spacing = {
-  px: '1px',
-  0: '0',
-  0.5: '0.125rem',   // 2px
-  1: '0.25rem',      // 4px
-  2: '0.5rem',       // 8px
-  3: '0.75rem',      // 12px
-  4: '1rem',         // 16px
-  5: '1.25rem',      // 20px
-  6: '1.5rem',       // 24px
-  8: '2rem',         // 32px
-  10: '2.5rem',      // 40px
-  12: '3rem',        // 48px
-  16: '4rem',        // 64px
-  20: '5rem',        // 80px
-  24: '6rem',        // 96px
-  32: '8rem',        // 128px
+  px: "1px",
+  0: "0",
+  0.5: "0.125rem", // 2px
+  1: "0.25rem", // 4px
+  2: "0.5rem", // 8px
+  3: "0.75rem", // 12px
+  4: "1rem", // 16px
+  5: "1.25rem", // 20px
+  6: "1.5rem", // 24px
+  8: "2rem", // 32px
+  10: "2.5rem", // 40px
+  12: "3rem", // 48px
+  16: "4rem", // 64px
+  20: "5rem", // 80px
+  24: "6rem", // 96px
+  32: "8rem", // 128px
 };
 ```
 
@@ -218,15 +224,15 @@ const Card = () => (
 
 ```typescript
 const borderRadius = {
-  none: '0',
-  sm: '0.125rem',   // 2px
-  DEFAULT: '0.25rem', // 4px
-  md: '0.375rem',   // 6px
-  lg: '0.5rem',     // 8px
-  xl: '0.75rem',    // 12px
-  '2xl': '1rem',    // 16px
-  '3xl': '1.5rem',  // 24px
-  full: '9999px',
+  none: "0",
+  sm: "0.125rem", // 2px
+  DEFAULT: "0.25rem", // 4px
+  md: "0.375rem", // 6px
+  lg: "0.5rem", // 8px
+  xl: "0.75rem", // 12px
+  "2xl": "1rem", // 16px
+  "3xl": "1.5rem", // 24px
+  full: "9999px",
 };
 ```
 
@@ -370,6 +376,7 @@ export const NFTCard: React.FC<NFTCardProps> = ({
 ### Form Components
 
 #### Form Component Pattern
+
 ```typescript
 // src/shared/components/forms/Input.tsx
 import * as React from "react"
@@ -400,6 +407,7 @@ export { Input }
 ```
 
 #### Form Integration
+
 ```typescript
 // src/shared/components/forms/NFTMintForm.tsx
 import { useForm } from "react-hook-form"
@@ -477,6 +485,7 @@ export const NFTMintForm = () => {
 ### 1. Layout Components
 
 #### Container Component
+
 ```typescript
 // src/shared/components/layout/Container.tsx
 interface ContainerProps {
@@ -512,6 +521,7 @@ export const Container: React.FC<ContainerProps> = ({
 ```
 
 #### Grid Component
+
 ```typescript
 // src/shared/components/layout/Grid.tsx
 interface GridProps {
@@ -563,6 +573,7 @@ export const Grid: React.FC<GridProps> = ({
 ### 2. Data Display Components
 
 #### Table Component
+
 ```typescript
 // src/shared/components/Table.tsx
 interface TableColumn<T> {
@@ -623,6 +634,7 @@ export const Table = <T extends Record<string, any>>({
 ### 3. Feedback Components
 
 #### Loading Spinner
+
 ```typescript
 // src/shared/components/LoadingSpinner.tsx
 interface LoadingSpinnerProps {
@@ -653,6 +665,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 ```
 
 #### Toast Notifications
+
 ```typescript
 // src/shared/components/Toast.tsx
 interface ToastProps {
@@ -753,18 +766,20 @@ export const Toast: React.FC<ToastProps> = ({
 ## Responsive Design
 
 ### Breakpoint System
+
 ```typescript
 // src/shared/theme/breakpoints.ts
 const breakpoints = {
-  sm: '640px',    // Mobile landscape
-  md: '768px',    // Tablet
-  lg: '1024px',   // Desktop
-  xl: '1280px',   // Large desktop
-  '2xl': '1536px', // Extra large desktop
-}
+  sm: "640px", // Mobile landscape
+  md: "768px", // Tablet
+  lg: "1024px", // Desktop
+  xl: "1280px", // Large desktop
+  "2xl": "1536px", // Extra large desktop
+};
 ```
 
 ### Responsive Component Example
+
 ```typescript
 // src/shared/components/ResponsiveGrid.tsx
 interface ResponsiveGridProps {
@@ -810,6 +825,7 @@ export const ResponsiveGrid: React.FC<ResponsiveGridProps> = ({
 ```
 
 ### Responsive Images
+
 ```typescript
 // src/shared/components/ResponsiveImage.tsx
 interface ResponsiveImageProps {
@@ -845,6 +861,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
 ## Interaction Design
 
 ### Hover States
+
 ```typescript
 // src/shared/components/HoverCard.tsx
 export const HoverCard = () => {
@@ -866,6 +883,7 @@ export const HoverCard = () => {
 ```
 
 ### Focus States
+
 ```typescript
 // src/shared/components/FocusableCard.tsx
 export const FocusableCard: React.FC<FocusableCardProps> = ({ children, onClick }) => {
@@ -892,6 +910,7 @@ export const FocusableCard: React.FC<FocusableCardProps> = ({ children, onClick 
 ```
 
 ### Loading States
+
 ```typescript
 // src/shared/components/SkeletonLoader.tsx
 export const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
@@ -925,6 +944,7 @@ export const NFTCardSkeleton = () => (
 ## Accessibility Guidelines
 
 ### ARIA Implementation
+
 ```typescript
 // src/shared/components/AccessibleModal.tsx
 export const AccessibleModal: React.FC<ModalProps> = ({
@@ -1013,109 +1033,112 @@ export const AccessibleModal: React.FC<ModalProps> = ({
 ```
 
 ### Keyboard Navigation
+
 ```typescript
 // src/shared/components/KeyboardNavigation.tsx
 export const useKeyboardNavigation = (
   items: any[],
   options: {
-    onSelect?: (item: any) => void
-    orientation?: 'horizontal' | 'vertical'
-    loop?: boolean
+    onSelect?: (item: any) => void;
+    orientation?: "horizontal" | "vertical";
+    loop?: boolean;
   } = {}
 ) => {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const { onSelect, orientation = 'vertical', loop = true } = options
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const { onSelect, orientation = "vertical", loop = true } = options;
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    const itemCount = items.length
-    let newIndex = selectedIndex
+    const itemCount = items.length;
+    let newIndex = selectedIndex;
 
     switch (e.key) {
-      case 'ArrowDown':
-      case 'ArrowRight':
-        newIndex = selectedIndex + 1
-        if (newIndex >= itemCount && loop) newIndex = 0
-        break
-      case 'ArrowUp':
-      case 'ArrowLeft':
-        newIndex = selectedIndex - 1
-        if (newIndex < 0 && loop) newIndex = itemCount - 1
-        break
-      case 'Enter':
-      case ' ':
+      case "ArrowDown":
+      case "ArrowRight":
+        newIndex = selectedIndex + 1;
+        if (newIndex >= itemCount && loop) newIndex = 0;
+        break;
+      case "ArrowUp":
+      case "ArrowLeft":
+        newIndex = selectedIndex - 1;
+        if (newIndex < 0 && loop) newIndex = itemCount - 1;
+        break;
+      case "Enter":
+      case " ":
         if (onSelect && items[selectedIndex]) {
-          onSelect(items[selectedIndex])
+          onSelect(items[selectedIndex]);
         }
-        break
-      case 'Home':
-        newIndex = 0
-        break
-      case 'End':
-        newIndex = itemCount - 1
-        break
+        break;
+      case "Home":
+        newIndex = 0;
+        break;
+      case "End":
+        newIndex = itemCount - 1;
+        break;
       default:
-        return
+        return;
     }
 
     if (newIndex !== selectedIndex && newIndex >= 0 && newIndex < itemCount) {
-      setSelectedIndex(newIndex)
+      setSelectedIndex(newIndex);
     }
-  }
+  };
 
   return {
     selectedIndex,
     setIndex: setSelectedIndex,
     handleKeyDown,
-  }
-}
+  };
+};
 ```
 
 ### Focus Management
+
 ```typescript
 // src/shared/hooks/useFocusTrap.tsx
 export const useFocusTrap = (containerRef: React.RefObject<HTMLElement>) => {
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    const container = containerRef.current;
+    if (!container) return;
 
     const focusableElements = container.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    ) as NodeListOf<HTMLElement>
+    ) as NodeListOf<HTMLElement>;
 
-    if (focusableElements.length === 0) return
+    if (focusableElements.length === 0) return;
 
-    const firstElement = focusableElements[0]
-    const lastElement = focusableElements[focusableElements.length - 1]
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return
+      if (e.key !== "Tab") return;
 
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {
-          e.preventDefault()
-          lastElement.focus()
+          e.preventDefault();
+          lastElement.focus();
         }
       } else {
         if (document.activeElement === lastElement) {
-          e.preventDefault()
-          firstElement.focus()
+          e.preventDefault();
+          firstElement.focus();
         }
       }
-    }
+    };
 
-    container.addEventListener('keydown', handleKeyDown)
-    firstElement.focus()
+    container.addEventListener("keydown", handleKeyDown);
+    firstElement.focus();
 
     return () => {
-      container.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [containerRef])
-}
+      container.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [containerRef]);
+};
 ```
 
 ## Animation Guidelines
 
 ### Framer Motion Integration
+
 ```typescript
 // src/shared/components/animations/AnimatedCard.tsx
 import { motion } from 'framer-motion'
@@ -1149,6 +1172,7 @@ export const AnimatedCard = ({ children, ...props }: AnimatedCardProps) => {
 ```
 
 ### Page Transitions
+
 ```typescript
 // src/shared/components//PageTransition.tsx
 import { AnimatePresence, motion } from 'framer-motion'
@@ -1178,6 +1202,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
 ```
 
 ### Micro-interactions
+
 ```typescript
 // src/shared/components/Button.tsx
 export const AnimatedButton = ({ children, ...props }: ButtonProps) => {
@@ -1201,57 +1226,59 @@ export const AnimatedButton = ({ children, ...props }: ButtonProps) => {
 ## Dark Mode Guidelines
 
 ### Theme Configuration
+
 ```typescript
 // src/shared/theme/theme.ts
 const theme = {
   light: {
-    background: 'white',
-    foreground: '#0f172a',
+    background: "white",
+    foreground: "#0f172a",
     card: {
-      DEFAULT: 'white',
-      foreground: '#0f172a',
+      DEFAULT: "white",
+      foreground: "#0f172a",
     },
     popover: {
-      DEFAULT: 'white',
-      foreground: '#0f172a',
+      DEFAULT: "white",
+      foreground: "#0f172a",
     },
     primary: {
-      DEFAULT: '#0284c7',
-      foreground: 'white',
+      DEFAULT: "#0284c7",
+      foreground: "white",
     },
     // ... more light theme colors
   },
   dark: {
-    background: '#0f172a',
-    foreground: '#f8fafc',
+    background: "#0f172a",
+    foreground: "#f8fafc",
     card: {
-      DEFAULT: '#1e293b',
-      foreground: '#f8fafc',
+      DEFAULT: "#1e293b",
+      foreground: "#f8fafc",
     },
     popover: {
-      DEFAULT: '#1e293b',
-      foreground: '#f8fafc',
+      DEFAULT: "#1e293b",
+      foreground: "#f8fafc",
     },
     primary: {
-      DEFAULT: '#0ea5e9',
-      foreground: 'white',
+      DEFAULT: "#0ea5e9",
+      foreground: "white",
     },
     // ... more dark theme colors
   },
-}
+};
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
-  }
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
+  };
 
-  return { theme, toggleTheme }
-}
+  return { theme, toggleTheme };
+};
 ```
 
 ### Theme-aware Components
+
 ```typescript
 // src/shared/components/ThemeAwareCard.tsx
 export const ThemeAwareCard: React.FC<ThemeAwareCardProps> = ({ children, ...props }) => {
@@ -1276,6 +1303,7 @@ export const ThemeAwareCard: React.FC<ThemeAwareCardProps> = ({ children, ...pro
 ## Brand Guidelines
 
 ### Logo Usage
+
 ```typescript
 // src/shared/components/Logo.tsx
 export const Logo: React.FC<LogoProps> = ({ size = 'md', className }) => {
@@ -1306,45 +1334,47 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', className }) => {
 ```
 
 ### Color Usage for Brand Elements
+
 ```typescript
 // Brand colors for consistent application
 const brandColors = {
   primary: {
-    light: '#0284c7',
-    dark: '#0ea5e9',
+    light: "#0284c7",
+    dark: "#0ea5e9",
   },
   secondary: {
-    light: '#7c3aed',
-    dark: '#8b5cf6',
+    light: "#7c3aed",
+    dark: "#8b5cf6",
   },
   accent: {
-    light: '#dc2626',
-    dark: '#ef4444',
+    light: "#dc2626",
+    dark: "#ef4444",
   },
-}
+};
 ```
 
 ### Typography for Brand Voice
+
 ```typescript
 // Brand typography guide
 const brandTypography = {
   headings: {
     // Bold, clean, modern
-    h1: 'text-5xl font-bold',
-    h2: 'text-3xl font-bold',
-    h3: 'text-2xl font-semibold',
+    h1: "text-5xl font-bold",
+    h2: "text-3xl font-bold",
+    h3: "text-2xl font-semibold",
   },
   body: {
     // Clean and readable
-    large: 'text-lg text-gray-700',
-    normal: 'text-base text-gray-700',
-    small: 'text-sm text-gray-600',
+    large: "text-lg text-gray-700",
+    normal: "text-base text-gray-700",
+    small: "text-sm text-gray-600",
   },
   captions: {
     // Subtle and informative
-    regular: 'text-xs text-gray-500',
+    regular: "text-xs text-gray-500",
   },
-}
+};
 ```
 
 This comprehensive design guidelines document establishes the foundation for creating a cohesive, accessible, and visually appealing user experience across the Zuno NFT Marketplace. All design decisions should reference and adhere to these guidelines while maintaining flexibility for creative solutions.
