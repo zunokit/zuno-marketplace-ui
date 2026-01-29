@@ -473,7 +473,10 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
 Check that all imports are correct:
 
 ```typescript
-import { useInfiniteMarketplaceItems, type MarketplaceFilters } from "@/modules/marketplace/queries";
+import {
+  useInfiniteMarketplaceItems,
+  type MarketplaceFilters,
+} from "@/modules/marketplace/queries";
 import { InfiniteScrollTrigger } from "@/modules/marketplace/components/InfiniteScrollTrigger";
 ```
 
@@ -545,12 +548,12 @@ pnpm build
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Breaking existing functionality | Medium | High | Keep backward compatibility |
-| Filter state sync issues | Medium | Medium | Filters in queryKey handle this |
-| List view not updated | Low | Low | Keep existing implementation |
-| Performance regression | Low | Medium | Test with 100+ items |
+| Risk                            | Probability | Impact | Mitigation                      |
+| ------------------------------- | ----------- | ------ | ------------------------------- |
+| Breaking existing functionality | Medium      | High   | Keep backward compatibility     |
+| Filter state sync issues        | Medium      | Medium | Filters in queryKey handle this |
+| List view not updated           | Low         | Low    | Keep existing implementation    |
+| Performance regression          | Low         | Medium | Test with 100+ items            |
 
 ## Security Considerations
 
@@ -561,6 +564,7 @@ pnpm build
 ## Next Steps
 
 After completing this phase:
+
 1. Move to **Phase 06: Testing** to verify implementation
 2. Test infinite scroll behavior
 3. Verify filter changes reset query

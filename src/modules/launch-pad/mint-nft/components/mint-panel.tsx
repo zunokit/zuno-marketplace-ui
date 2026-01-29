@@ -50,130 +50,130 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
 
   return (
     <div className="space-y-5 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-secondary dark:bg-dialog h-full p-4 rounded-xl">
-        <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
-          {shouldShowHistoryTab && (
-            <TabsList
-              className={`grid w-full mb-4 bg-background border border-border-subtle dark:bg-muted dark:border-border-subtle grid-cols-2`}
+      <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
+        {shouldShowHistoryTab && (
+          <TabsList
+            className={`grid w-full mb-4 bg-background border border-border-subtle dark:bg-muted dark:border-border-subtle grid-cols-2`}
+          >
+            <TabsTrigger
+              value="mint"
+              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
             >
-              <TabsTrigger
-                value="mint"
-                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
-              >
-                Mint
-              </TabsTrigger>
-              <TabsTrigger
-                value="history"
-                className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
-              >
-                History
-              </TabsTrigger>
-            </TabsList>
-          )}
+              Mint
+            </TabsTrigger>
+            <TabsTrigger
+              value="history"
+              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
+            >
+              History
+            </TabsTrigger>
+          </TabsList>
+        )}
 
-          <TabsContent value="mint" className="space-y-5">
-            {/* Top Section: Social Links (Desktop only) */}
-            <MintSocialLinks />
+        <TabsContent value="mint" className="space-y-5">
+          {/* Top Section: Social Links (Desktop only) */}
+          <MintSocialLinks />
 
-            {/* Main Box: Status & Form */}
-            <div className="border-dark flex flex-col gap-y-4">
-              <MintStatus />
+          {/* Main Box: Status & Form */}
+          <div className="border-dark flex flex-col gap-y-4">
+            <MintStatus />
 
-              <div className="bg-layer-03 p-4 rounded space-y-4">
-                 <MintForm />
-              </div>
+            <div className="bg-layer-03 p-4 rounded space-y-4">
+              <MintForm />
             </div>
+          </div>
 
-            {/* Previous Stages List */}
-            <MintStagesList />
+          {/* Previous Stages List */}
+          <MintStagesList />
 
-            {/* Accordions (Mobile only) */}
-            <MintAccordions />
-          </TabsContent>
+          {/* Accordions (Mobile only) */}
+          <MintAccordions />
+        </TabsContent>
 
-          {shouldShowHistoryTab && (
-            <TabsContent value="history" className="space-y-4">
-              <div className="bg-background border-border-subtle dark:bg-muted rounded-[8px] p-6 border dark:border-border-subtle shadow-os-sm">
-                <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground mb-4">
-                  Mint History
-                </h2>
+        {shouldShowHistoryTab && (
+          <TabsContent value="history" className="space-y-4">
+            <div className="bg-background border-border-subtle dark:bg-muted rounded-[8px] p-6 border dark:border-border-subtle shadow-os-sm">
+              <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground mb-4">
+                Mint History
+              </h2>
 
-                <ScrollArea className="h-[600px]">
-                  <div className="text-center py-12">
-                    {!hasHistoryData ? (
-                      <>
-                        <p className="text-os-gray-300 dark:text-os-gray-300 text-sm">
-                          No minted NFTs found
-                        </p>
-                        <Button
-                          variant="outline"
-                          className="mt-4 h-10 text-sm border-border-subtle dark:border-border-subtle"
-                          onClick={() => setActiveTab("mint")}
-                        >
-                          Mint Your First NFT
-                        </Button>
-                      </>
-                    ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {nftsData?.getNfts?.nfts?.map(
-                          (nft: {
-                            id: string;
-                            image?: string;
-                            name?: string;
-                            tokenId: string | number;
-                            description?: string;
-                            status?: string;
-                          }) => (
-                            <div
-                              key={nft.id}
-                              className="bg-secondary dark:bg-dialog rounded-[8px] border border-border-subtle dark:border-border-subtle overflow-hidden flex flex-col"
-                            >
-                              <div className="relative aspect-square w-full bg-muted dark:bg-muted">
-                                {nft.image && (
-                                  <Image
-                                    src={nft.image || "/placeholder.svg"}
-                                    alt={nft.name || `NFT #${nft.tokenId}`}
-                                    fill
-                                    className="object-cover"
-                                  />
-                                )}
-                                <div className="absolute top-2 right-2">
-                                  <span
-                                    className={`px-2 py-1 text-xs rounded-full font-medium ${
-                                      nft.status === "COMPLETED"
-                                        ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
-                                        : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
-                                    }`}
-                                  >
-                                    {nft.status}
-                                  </span>
-                                </div>
-                              </div>
-                              <div className="p-3 flex-1">
-                                <div className="flex justify-between items-start mb-1">
-                                  <h3 className="font-medium text-foreground dark:text-foreground text-sm truncate">
-                                    {nft.name || `NFT #${nft.tokenId}`}
-                                  </h3>
-                                  <span className="text-xs text-os-gray-300 dark:text-os-gray-300 ml-1 whitespace-nowrap">
-                                    #{nft.tokenId}
-                                  </span>
-                                </div>
-                                {nft.description && (
-                                  <p className="text-xs text-os-gray-300 dark:text-os-gray-300 line-clamp-2 mb-2">
-                                    {nft.description}
-                                  </p>
-                                )}
+              <ScrollArea className="h-[600px]">
+                <div className="text-center py-12">
+                  {!hasHistoryData ? (
+                    <>
+                      <p className="text-os-gray-300 dark:text-os-gray-300 text-sm">
+                        No minted NFTs found
+                      </p>
+                      <Button
+                        variant="outline"
+                        className="mt-4 h-10 text-sm border-border-subtle dark:border-border-subtle"
+                        onClick={() => setActiveTab("mint")}
+                      >
+                        Mint Your First NFT
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {nftsData?.getNfts?.nfts?.map(
+                        (nft: {
+                          id: string;
+                          image?: string;
+                          name?: string;
+                          tokenId: string | number;
+                          description?: string;
+                          status?: string;
+                        }) => (
+                          <div
+                            key={nft.id}
+                            className="bg-secondary dark:bg-dialog rounded-[8px] border border-border-subtle dark:border-border-subtle overflow-hidden flex flex-col"
+                          >
+                            <div className="relative aspect-square w-full bg-muted dark:bg-muted">
+                              {nft.image && (
+                                <Image
+                                  src={nft.image || "/placeholder.svg"}
+                                  alt={nft.name || `NFT #${nft.tokenId}`}
+                                  fill
+                                  className="object-cover"
+                                />
+                              )}
+                              <div className="absolute top-2 right-2">
+                                <span
+                                  className={`px-2 py-1 text-xs rounded-full font-medium ${
+                                    nft.status === "COMPLETED"
+                                      ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
+                                      : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
+                                  }`}
+                                >
+                                  {nft.status}
+                                </span>
                               </div>
                             </div>
-                          )
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </ScrollArea>
-              </div>
-            </TabsContent>
-          )}
-        </Tabs>
+                            <div className="p-3 flex-1">
+                              <div className="flex justify-between items-start mb-1">
+                                <h3 className="font-medium text-foreground dark:text-foreground text-sm truncate">
+                                  {nft.name || `NFT #${nft.tokenId}`}
+                                </h3>
+                                <span className="text-xs text-os-gray-300 dark:text-os-gray-300 ml-1 whitespace-nowrap">
+                                  #{nft.tokenId}
+                                </span>
+                              </div>
+                              {nft.description && (
+                                <p className="text-xs text-os-gray-300 dark:text-os-gray-300 line-clamp-2 mb-2">
+                                  {nft.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+          </TabsContent>
+        )}
+      </Tabs>
 
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
         <DialogContent

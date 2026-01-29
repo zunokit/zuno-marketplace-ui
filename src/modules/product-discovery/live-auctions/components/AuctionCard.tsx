@@ -85,16 +85,19 @@ function TimeRemaining({ endTime }: { endTime: Date }) {
   };
 
   return (
-    <Badge
-      className={`flex items-center gap-1.5 font-bold backdrop-blur-xl ${getBadgeStyles()}`}
-    >
+    <Badge className={`flex items-center gap-1.5 font-bold backdrop-blur-xl ${getBadgeStyles()}`}>
       <Clock className="h-3 w-3" />
       <span className="tracking-tight text-xs">{timeLeft}</span>
     </Badge>
   );
 }
 
-export function AuctionCard({ item: auction, isHovered, onMouseEnter, onMouseLeave }: AuctionCardProps) {
+export function AuctionCard({
+  item: auction,
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+}: AuctionCardProps) {
   return (
     <div
       className="relative group cursor-pointer h-full min-w-0"

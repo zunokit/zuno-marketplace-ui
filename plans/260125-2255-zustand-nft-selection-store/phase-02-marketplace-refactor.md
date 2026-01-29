@@ -8,14 +8,18 @@ dependencies: [Phase 1]
 ---
 
 ## Context
+
 - **Plan**: [Zustand NFT Selection Store & BottomActionBar Layout Refactor](./plan.md)
 - **Prerequisite**: [Phase 1: Setup & Store Creation](./phase-01-setup-and-store-creation.md)
 
 ## Overview
+
 Refactor the marketplace component (`src/modules/marketplace/index.tsx`) to consume the Zustand store instead of managing local `selectedNFTs` state. Remove the local state and hook usage, replacing with store actions.
 
 ## Requirements
+
 ### Functional
+
 - Remove local `selectedNFTs` useState
 - Remove `useNFTSelection` hook usage
 - Import and use `useNFTSelectionStore`
@@ -23,11 +27,13 @@ Refactor the marketplace component (`src/modules/marketplace/index.tsx`) to cons
 - Remove BottomActionBar from component return
 
 ### Non-Functional
+
 - Maintain component behavior
 - No breaking changes to UI
 - Clean code, no dead code left behind
 
 ## Key Insights
+
 - Current hook: `useNFTSelection` manages slider + selection
 - Store now handles selection, slider comes from store
 - BottomActionBar props will change in Phase 3
@@ -36,6 +42,7 @@ Refactor the marketplace component (`src/modules/marketplace/index.tsx`) to cons
 ## Architecture
 
 ### Before (Current)
+
 ```typescript
 const [selectedNFTs, setSelectedNFTs] = useState<string[]>([])
 const { sliderValue, handleSliderChange, ... } = useNFTSelection({...})
@@ -50,23 +57,27 @@ const { sliderValue, handleSliderChange, ... } = useNFTSelection({...})
 ```
 
 ### After (Target)
+
 ```typescript
-const { selectedNFTs, add, remove, clear } = useNFTSelectionStore()
+const { selectedNFTs, add, remove, clear } = useNFTSelectionStore();
 
 const handleNFTSelection = (id: string) => {
-  const isSelected = selectedNFTs.includes(id)
-  isSelected ? remove(id) : add(id)
-}
+  const isSelected = selectedNFTs.includes(id);
+  isSelected ? remove(id) : add(id);
+};
 
 // BottomActionBar removed from here (moved to layout)
 ```
 
 ## Related Code Files
+
 ### Files to Modify
+
 - `src/modules/marketplace/index.tsx` - Main marketplace component
 - `src/modules/marketplace/hooks/useNFTSelection.ts` - May deprecate (keep for now)
 
 ### Files to Read First
+
 - `src/modules/marketplace/index.tsx` - Current implementation
 - `src/modules/marketplace/components/NFTGrid.tsx` - Selection handler
 - `src/modules/marketplace/components/NFTListView.tsx` - Selection handler
@@ -78,22 +89,28 @@ const handleNFTSelection = (id: string) => {
    - Map `useNFTSelection` hook outputs to store actions
 
 2. **Update imports**
+
    ```typescript
-   import { useNFTSelectionStore } from '@/shared/stores/use-nft-selection-store'
+   import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
    ```
 
 3. **Replace state initialization**
+
    ```typescript
    // Remove: const [selectedNFTs, setSelectedNFTs] = useState<string[]>([])
    // Add:
-   const { selectedNFTs, add, remove, toggle, clear } = useNFTSelectionStore()
+   const { selectedNFTs, add, remove, toggle, clear } = useNFTSelectionStore();
    ```
 
 4. **Update selection handler**
+
    ```typescript
-   const handleNFTSelection = useCallback((id: string) => {
-     toggle(id)  // or: selectedNFTs.includes(id) ? remove(id) : add(id)
-   }, [toggle, selectedNFTs])
+   const handleNFTSelection = useCallback(
+     (id: string) => {
+       toggle(id); // or: selectedNFTs.includes(id) ? remove(id) : add(id)
+     },
+     [toggle, selectedNFTs]
+   );
    ```
 
 5. **Remove useNFTSelection hook**
@@ -107,12 +124,15 @@ const handleNFTSelection = (id: string) => {
    - Remove related props
 
 7. **Keep cart event dispatch**
+
    ```typescript
    useEffect(() => {
-     window.dispatchEvent(new CustomEvent("cartUpdate", {
-       detail: { itemCount: selectedNFTs.length }
-     }))
-   }, [selectedNFTs])
+     window.dispatchEvent(
+       new CustomEvent("cartUpdate", {
+         detail: { itemCount: selectedNFTs.length },
+       })
+     );
+   }, [selectedNFTs]);
    ```
 
 8. **Test compilation**
@@ -121,6 +141,7 @@ const handleNFTSelection = (id: string) => {
    ```
 
 ## Todo List
+
 - [ ] Import `useNFTSelectionStore`
 - [ ] Remove `useState` for selectedNFTs
 - [ ] Remove `useNFTSelection` hook import
@@ -134,6 +155,7 @@ const handleNFTSelection = (id: string) => {
 - [ ] Check for TypeScript errors
 
 ## Success Criteria
+
 - [ ] No local `selectedNFTs` state
 - [ ] Store actions used for selection
 - [ ] BottomActionBar removed from component
@@ -142,18 +164,22 @@ const handleNFTSelection = (id: string) => {
 - [ ] Cart events still dispatch
 
 ## Risk Assessment
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Missing selection functionality | Medium | High | Test selection in NFTGrid/ListView |
-| Cart events broken | Low | Medium | Keep useEffect for cart events |
-| Props mismatch in child components | Low | Medium | Verify NFTGrid/ListView props |
+
+| Risk                               | Probability | Impact | Mitigation                         |
+| ---------------------------------- | ----------- | ------ | ---------------------------------- |
+| Missing selection functionality    | Medium      | High   | Test selection in NFTGrid/ListView |
+| Cart events broken                 | Low         | Medium | Keep useEffect for cart events     |
+| Props mismatch in child components | Low         | Medium | Verify NFTGrid/ListView props      |
 
 ## Security Considerations
+
 - State remains client-side only
 - No new API calls introduced
 - Input validation handled by store
 
 ## Next Steps
+
 After completing this phase:
+
 1. Proceed to [Phase 3: Layout Integration](./phase-03-layout-integration.md)
 2. BottomActionBar will be re-added in layout context

@@ -112,7 +112,9 @@ export default function MintInfo() {
                 <CheckCircle2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-success" />
               )}
             </div>
-            <p className="text-sm text-os-gray-300">65-byte hex signature provided by the allowlist</p>
+            <p className="text-sm text-os-gray-300">
+              65-byte hex signature provided by the allowlist
+            </p>
           </div>
           <div className="space-y-2">
             <div className="relative">

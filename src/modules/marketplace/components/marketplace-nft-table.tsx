@@ -96,7 +96,13 @@ export default function MarketplaceNFTTable({
                     </div>
                     <div className="relative h-10 w-10 md:h-12 md:w-12 rounded overflow-hidden shrink-0 bg-muted">
                       {nft.image ? (
-                        <Image src={nft.image} alt={nft.name} fill className="object-cover" sizes="48px" />
+                        <Image
+                          src={nft.image}
+                          alt={nft.name}
+                          fill
+                          className="object-cover"
+                          sizes="48px"
+                        />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
                           <ImageOff className="h-4 w-4 text-muted-foreground" aria-hidden />

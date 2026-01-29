@@ -72,22 +72,23 @@ Add query folder pattern to `docs/codebase-summary.md`:
 ### Module Structure
 
 Each module in `src/modules/` should follow this structure:
-
 ```
+
 src/modules/[module-name]/
-├── components/             # Module-specific components
-│   └── [ComponentName].tsx
-├── hooks/                  # Module-specific hooks
-│   └── use[ModuleName]Hook.ts
-├── queries/                # NEW: TanStack Query definitions
-│   ├── [feature].query.ts  # Query options
-│   ├── use-[feature].ts    # Hook wrappers
-│   ├── types.ts            # Query-specific types
-│   └── index.ts            # Barrel export
-├── types/                  # Module-specific types
-│   └── index.ts
-├── utils/                  # Module utilities
-└── index.ts                # Module exports
+├── components/ # Module-specific components
+│ └── [ComponentName].tsx
+├── hooks/ # Module-specific hooks
+│ └── use[ModuleName]Hook.ts
+├── queries/ # NEW: TanStack Query definitions
+│ ├── [feature].query.ts # Query options
+│ ├── use-[feature].ts # Hook wrappers
+│ ├── types.ts # Query-specific types
+│ └── index.ts # Barrel export
+├── types/ # Module-specific types
+│ └── index.ts
+├── utils/ # Module utilities
+└── index.ts # Module exports
+
 ```
 
 ## Key Modules Architecture
@@ -105,17 +106,19 @@ The marketplace now features production-ready infinite scroll using TanStack Que
 
 **Architecture**:
 ```
+
 ShopNFTs (Parent)
-  │
-  ├─ Filter State
-  │
-  ├─ useInfiniteMarketplaceItems
-  │   └─ useInfiniteQuery(infiniteMarketplaceItemsOptions)
-  │
-  └─ NFTGrid
-      ├─ NFT Cards (data.pages.flatMap)
-      └─ InfiniteScrollTrigger
-          └─ Intersection Observer (200px rootMargin)
+│
+├─ Filter State
+│
+├─ useInfiniteMarketplaceItems
+│ └─ useInfiniteQuery(infiniteMarketplaceItemsOptions)
+│
+└─ NFTGrid
+├─ NFT Cards (data.pages.flatMap)
+└─ InfiniteScrollTrigger
+└─ Intersection Observer (200px rootMargin)
+
 ```
 
 **Key Files**:
@@ -139,15 +142,16 @@ The marketplace uses TanStack Query v5 infinite queries with cursor-based pagina
 ## Architecture
 
 ### Query Folder Pattern
+```
 
-```
 src/modules/marketplace/queries/
-├── infinite-marketplace-items.query.ts  # Query options
-├── use-infinite-marketplace-items.ts    # Hook wrapper
-├── types.ts                             # Query types
-├── mock-adapter.ts                      # Mock fetcher
-└── index.ts                             # Barrel export
-```
+├── infinite-marketplace-items.query.ts # Query options
+├── use-infinite-marketplace-items.ts # Hook wrapper
+├── types.ts # Query types
+├── mock-adapter.ts # Mock fetcher
+└── index.ts # Barrel export
+
+````
 
 ### Usage Example
 
@@ -176,7 +180,7 @@ function Marketplace() {
     />
   );
 }
-```
+````
 
 ## Migration from Old Pattern
 
@@ -193,10 +197,13 @@ const { nfts, isLoading } = useMyItems({
 ### After (useInfiniteMarketplaceItems)
 
 ```typescript
-const { items, isLoading, fetchNextPage, hasNextPage } =
-  useInfiniteMarketplaceItems(contractAddress, filters, {
+const { items, isLoading, fetchNextPage, hasNextPage } = useInfiniteMarketplaceItems(
+  contractAddress,
+  filters,
+  {
     enabled: isConnected,
-  });
+  }
+);
 ```
 
 ## Key Configuration
@@ -215,7 +222,8 @@ The mock adapter (`USE_MOCK_ADAPTER` flag) enables development before backend is
 // src/modules/marketplace/queries/mock-adapter.ts
 export const USE_MOCK_ADAPTER = true; // Set to false for production
 ```
-```
+
+````
 
 ### Step 3: Update Changelog
 
@@ -239,7 +247,7 @@ Add entry to `docs/project-changelog.md` (if exists):
 ### Fixed
 - Memory leak issues with proper observer cleanup
 - Race condition prevention in scroll trigger
-```
+````
 
 ### Step 4: Verify Documentation Links
 
@@ -284,11 +292,11 @@ If there's a marketplace section in README.md:
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Documentation drift | Medium | Low | Keep docs in sync with code |
-| Missing details | Low | Low | Include code examples |
-| Broken links | Low | Low | Verify all links |
+| Risk                | Probability | Impact | Mitigation                  |
+| ------------------- | ----------- | ------ | --------------------------- |
+| Documentation drift | Medium      | Low    | Keep docs in sync with code |
+| Missing details     | Low         | Low    | Include code examples       |
+| Broken links        | Low         | Low    | Verify all links            |
 
 ## Security Considerations
 

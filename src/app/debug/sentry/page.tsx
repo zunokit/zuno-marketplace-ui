@@ -11,10 +11,24 @@ import {
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/shared/components/ui/alert";
 import { Badge } from "@/shared/components/ui/badge";
-import { CheckCircle2, AlertCircle, Info, Bug, MessageSquare, Footprints, User } from "lucide-react";
+import {
+  CheckCircle2,
+  AlertCircle,
+  Info,
+  Bug,
+  MessageSquare,
+  Footprints,
+  User,
+} from "lucide-react";
 
 export default function SentryDebugPage() {
   const [status, setStatus] = useState(getSentryStatus());
@@ -30,7 +44,10 @@ export default function SentryDebugPage() {
       const response = await triggerSentryError();
       setResult({ type: "success", message: response.message });
     } catch (error) {
-      setResult({ type: "error", message: error instanceof Error ? error.message : "Unknown error" });
+      setResult({
+        type: "error",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -43,7 +60,10 @@ export default function SentryDebugPage() {
       const response = await triggerSentryMessage();
       setResult({ type: "success", message: response.message });
     } catch (error) {
-      setResult({ type: "error", message: error instanceof Error ? error.message : "Unknown error" });
+      setResult({
+        type: "error",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +76,10 @@ export default function SentryDebugPage() {
       const response = await addSentryBreadcrumb(breadcrumbMessage);
       setResult({ type: "success", message: response.message });
     } catch (error) {
-      setResult({ type: "error", message: error instanceof Error ? error.message : "Unknown error" });
+      setResult({
+        type: "error",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +92,10 @@ export default function SentryDebugPage() {
       const response = await setSentryUser(userId);
       setResult({ type: "success", message: response.message });
     } catch (error) {
-      setResult({ type: "error", message: error instanceof Error ? error.message : "Unknown error" });
+      setResult({
+        type: "error",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -83,9 +109,7 @@ export default function SentryDebugPage() {
     <div className="container mx-auto py-8 px-4 max-w-4xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Sentry Debug Panel</h1>
-        <p className="text-muted-foreground">
-          Test Sentry integration and monitor error tracking
-        </p>
+        <p className="text-muted-foreground">Test Sentry integration and monitor error tracking</p>
       </div>
 
       {/* Status Card */}
@@ -97,9 +121,7 @@ export default function SentryDebugPage() {
               Refresh
             </Button>
           </div>
-          <CardDescription>
-            Current Sentry configuration and status
-          </CardDescription>
+          <CardDescription>Current Sentry configuration and status</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center gap-2">
@@ -112,9 +134,7 @@ export default function SentryDebugPage() {
           {status.dsn && (
             <div className="space-y-1">
               <Label className="text-sm text-muted-foreground">DSN</Label>
-              <code className="text-xs bg-muted px-2 py-1 rounded block">
-                {status.dsn}
-              </code>
+              <code className="text-xs bg-muted px-2 py-1 rounded block">{status.dsn}</code>
             </div>
           )}
 
@@ -135,9 +155,7 @@ export default function SentryDebugPage() {
           ) : (
             <AlertCircle className="h-4 w-4" />
           )}
-          <AlertTitle>
-            {result.type === "success" ? "Success" : "Error"}
-          </AlertTitle>
+          <AlertTitle>{result.type === "success" ? "Success" : "Error"}</AlertTitle>
           <AlertDescription>{result.message}</AlertDescription>
         </Alert>
       )}
@@ -151,9 +169,7 @@ export default function SentryDebugPage() {
               <Bug className="h-5 w-5" />
               Trigger Error
             </CardTitle>
-            <CardDescription>
-              Send a test error to Sentry to verify error tracking
-            </CardDescription>
+            <CardDescription>Send a test error to Sentry to verify error tracking</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -179,9 +195,7 @@ export default function SentryDebugPage() {
               <MessageSquare className="h-5 w-5" />
               Send Message
             </CardTitle>
-            <CardDescription>
-              Send a test message (breadcrumb level) to Sentry
-            </CardDescription>
+            <CardDescription>Send a test message (breadcrumb level) to Sentry</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -201,14 +215,12 @@ export default function SentryDebugPage() {
               <Footprints className="h-5 w-5" />
               Add Breadcrumb
             </CardTitle>
-            <CardDescription>
-              Add a breadcrumb for context tracking
-            </CardDescription>
+            <CardDescription>Add a breadcrumb for context tracking</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Input
               value={breadcrumbMessage}
-              onChange={(e) => setBreadcrumbMessage(e.target.value)}
+              onChange={e => setBreadcrumbMessage(e.target.value)}
               placeholder="Enter breadcrumb message"
               disabled={!status.enabled}
             />
@@ -230,14 +242,12 @@ export default function SentryDebugPage() {
               <User className="h-5 w-5" />
               Set User Context
             </CardTitle>
-            <CardDescription>
-              Set user context for better error tracking
-            </CardDescription>
+            <CardDescription>Set user context for better error tracking</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Input
               value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={e => setUserId(e.target.value)}
               placeholder="Enter user ID"
               disabled={!status.enabled}
             />

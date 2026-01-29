@@ -7,24 +7,28 @@ Zuno NFT Marketplace is a modern, feature-rich NFT trading platform built with c
 ## Technology Stack
 
 ### Core Framework
+
 - **Next.js 16** - React framework with App Router
 - **React 19** - Latest React with concurrent features
 - **TypeScript 5** - Strict type safety enabled
 - **Tailwind CSS v4** - Utility-first CSS framework
 
 ### Web3 Integration
+
 - **Wagmi 2.19.4** - Ethereum React hooks and utilities
 - **Viem 2.39.0** - TypeScript interface for Ethereum
 - **RainbowKit** - Wallet connection UI and components
 - **SIWE** - Sign-In with Ethereum authentication
 
 ### State Management & Data
+
 - **Apollo Client 4** - GraphQL client with caching
 - **React Hook Form** - Form management with Zod validation
 - **Zustand** - Lightweight state management
 - **TanStack React Query** - Server state management
 
 ### UI Components & Styling
+
 - **Shadcn/ui** - High-quality component library
 - **Radix UI** - Low-level primitives for accessible components
 - **Lucide React** - Beautiful & consistent icon library
@@ -32,6 +36,7 @@ Zuno NFT Marketplace is a modern, feature-rich NFT trading platform built with c
 - **Tailwind Merge** - Merge Tailwind CSS classes safely
 
 ### Testing & Development Tools
+
 - **Jest** - Unit testing framework
 - **React Testing Library** - Testing utilities for React components
 - **Playwright** - E2E testing framework
@@ -87,35 +92,45 @@ src/
 ## Key Modules Architecture
 
 ### 1. Marketplace Module (`src/modules/marketplace/`)
+
 Core trading functionality including:
+
 - NFT buying and selling
 - Order book management
 - Price charts and analytics
 - Transaction processing
 
 ### 2. Launch Pad Module (`src/modules/launch-pad/`)
+
 NFT creation and minting:
+
 - Single and batch minting
 - Collection creation wizard
 - Royalty configuration
 - IPFS integration
 
 ### 3. Product Discovery (`src/modules/product-discovery/`)
+
 Advanced discovery features:
+
 - Search and filtering
 - Recommendation engine
 - Trending collections
 - Smart categorization
 
 ### 4. Profile Module (`src/modules/profile/`)
+
 User management:
+
 - Profile creation and editing
 - Collection showcase
 - Activity history
 - Favorites and watchlists
 
 ### 5. Auctions Module (`src/modules/auctions/`)
+
 Auction functionality:
+
 - Live auction rooms
 - Bidding system
 - Timer management
@@ -124,7 +139,9 @@ Auction functionality:
 ## Data Flow Architecture
 
 ### GraphQL Schema Organization
+
 The GraphQL API is organized into domain-specific schemas:
+
 - `auth.graphql` - Authentication operations
 - `user.graphql` - User management
 - `nft.graphql` - NFT operations
@@ -132,12 +149,14 @@ The GraphQL API is organized into domain-specific schemas:
 - `marketplace.graphql` - Trading operations
 
 ### State Management Pattern
+
 - **Global State**: Zustand stores for application-wide state
 - **Server State**: TanStack Query for server data caching
 - **Local State**: React hooks for component-level state
 - **Form State**: React Hook Form with Zod validation
 
 ### Component Architecture
+
 - **Layout Components**: Page layouts and structure
 - **UI Components**: Shadcn/ui primitives with customization
 - **Feature Components**: Domain-specific business logic
@@ -146,13 +165,16 @@ The GraphQL API is organized into domain-specific schemas:
 ## Multi-Chain Support
 
 ### Supported Networks
+
 - Ethereum Mainnet (Chain ID: 1)
 - Polygon (Chain ID: 137)
 - Sepolia Testnet (Chain ID: 11155111)
 - Local Anvil (Development)
 
 ### Chain Configuration
+
 Chain-specific configurations are stored in:
+
 - `src/shared/config/chains.ts`
 - Environment variables for network settings
 - Dynamic network switching capabilities
@@ -160,18 +182,21 @@ Chain-specific configurations are stored in:
 ## Testing Strategy
 
 ### Unit Testing
+
 - Jest with React Testing Library
 - Component testing with user interactions
 - Utility function testing
 - Hook testing with custom renderers
 
 ### E2E Testing
+
 - Playwright for end-to-end scenarios
 - Cross-browser testing
 - Wallet integration testing
 - Transaction flow validation
 
 ### Coverage Targets
+
 - Minimum 80% line coverage
 - 100% critical path coverage
 - Security-sensitive feature coverage
@@ -179,6 +204,7 @@ Chain-specific configurations are stored in:
 ## Build & Development
 
 ### Scripts
+
 - `pnpm dev` - Development server with Turbopack
 - `pnpm build` - Production build
 - `pnpm start` - Production server
@@ -189,7 +215,9 @@ Chain-specific configurations are stored in:
 - `pnpm format` - Code formatting
 
 ### Environment Configuration
+
 Environment variables are required for:
+
 - GraphQL API endpoints
 - Network configuration
 - Wallet provider settings
@@ -199,17 +227,20 @@ Environment variables are required for:
 ## Security Considerations
 
 ### Authentication
+
 - SIWE (Sign-In with Ethereum) for Web3 authentication
 - Session management with RainbowKit
 - Secure token handling
 
 ### Data Validation
+
 - Zod schemas for runtime validation
 - TypeScript compile-time checks
 - GraphQL schema validation
 - Input sanitization
 
 ### Security Best Practices
+
 - Environment variable protection
 - Secure error handling
 - Rate limiting considerations
@@ -218,18 +249,21 @@ Environment variables are required for:
 ## Performance Optimization
 
 ### Rendering Strategy
+
 - Next.js static generation where possible
 - Dynamic imports for heavy components
 - Image optimization with Next.js Image
 - Code splitting at route level
 
 ### Caching Strategy
+
 - TanStack Query for server state caching
 - GraphQL client caching with Apollo
 - Browser storage for user preferences
 - CDN integration for static assets
 
 ### Bundle Optimization
+
 - Tree shaking for unused code
 - Dynamic imports for third-party libraries
 - Code splitting by route
@@ -238,18 +272,21 @@ Environment variables are required for:
 ## Development Workflow
 
 ### Code Quality
+
 - ESLint with Next.js rules
 - Prettier for code formatting
 - TypeScript strict mode
 - Pre-commit hooks
 
 ### Git Workflow
+
 - Feature branches from main
 - Pull request reviews
 - Automated testing on CI
 - Semantic versioning
 
 ### Documentation
+
 - JSDoc for TypeScript interfaces
 - Component documentation
 - API documentation with GraphQL

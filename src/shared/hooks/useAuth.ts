@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useAccount } from 'wagmi';
-import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from '@/shared/graphql/hooks';
-import { graphqlClient } from '@/shared/lib/graphql-client';
-import type { AuthUser } from '@/shared/types/auth';
+import { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from "@/shared/graphql";
+import { graphqlClient } from "@/shared/lib/graphql-client";
+import type { AuthUser } from "@/shared/types/auth";
 
 /**
  * Client-side authentication hook
@@ -22,7 +22,7 @@ export function useAuth() {
 
   // Use generated lazy query hook
   const [getMe] = useMeLazyQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   const [logoutMutation] = useLogoutMutation();
   const [refreshSession] = useRefreshSessionMutation();
@@ -38,12 +38,12 @@ export function useAuth() {
           if (refreshData?.refreshSession?.accessToken) {
             // Store the new access token
             graphqlClient.setAccessToken(refreshData.refreshSession.accessToken);
-            console.log('[Auth] Session refreshed successfully');
+            console.log("[Auth] Session refreshed successfully");
           }
         } catch (refreshError) {
           // Refresh failed - this is okay, user might not have a valid session
           // Continue to check with getMe() anyway
-          console.log('[Auth] No valid refresh token, user needs to sign in');
+          console.log("[Auth] No valid refresh token, user needs to sign in");
         }
 
         // Now try to get user data
@@ -77,12 +77,12 @@ export function useAuth() {
       await checkAuth();
     };
 
-    window.addEventListener('auth:logout', handleLogout);
-    window.addEventListener('auth:login', handleLogin);
+    window.addEventListener("auth:logout", handleLogout);
+    window.addEventListener("auth:login", handleLogin);
 
     return () => {
-      window.removeEventListener('auth:logout', handleLogout);
-      window.removeEventListener('auth:login', handleLogin);
+      window.removeEventListener("auth:logout", handleLogout);
+      window.removeEventListener("auth:login", handleLogin);
     };
   }, [isConnected, address]);
 
@@ -97,18 +97,18 @@ export function useAuth() {
       setUser(null);
       setIsAuthenticated(false);
 
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:logout'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
       // Still clear local state even if logout call fails
       graphqlClient.setAccessToken(null);
       setUser(null);
       setIsAuthenticated(false);
 
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:logout'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     }
   };

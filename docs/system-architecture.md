@@ -58,6 +58,7 @@ The Zuno NFT Marketplace follows a **modular monorepo architecture** with clear 
 #### 1. Next.js Application Layer
 
 **Structure:**
+
 - **App Router**: Modern routing with route groups and layouts
 - **Server Components**: Server-side rendering for SEO
 - **Client Components**: Interactive features and state management
@@ -104,6 +105,7 @@ export const MarketplaceModule = () => {
 ```
 
 **Module Structure:**
+
 ```
 src/modules/[module-name]/
 ├── components/          # Feature-specific components
@@ -117,11 +119,13 @@ src/modules/[module-name]/
 #### 3. Shared Resources
 
 **Reusable Components:**
+
 - **UI Components**: Shadcn/ui primitives
 - **Layout Components**: Reusable layouts and containers
 - **Utility Components**: Common functionality across modules
 
 **Shared Services:**
+
 - **GraphQL Client**: Apollo Client configuration
 - **Web3 Integration**: Wagmi and Viem setup
 - **State Management**: Zustand stores
@@ -132,6 +136,7 @@ src/modules/[module-name]/
 #### 1. GraphQL API
 
 **Architecture:**
+
 - **Apollo Client**: Frontend GraphQL client
 - **Schema Federation**: Modular schema design
 - **Caching**: Built-in caching with Apollo Cache
@@ -140,10 +145,7 @@ src/modules/[module-name]/
 ```typescript
 // src/shared/graphql/client.ts
 const apolloClient = new ApolloClient({
-  link: ApolloLink.from([
-    authLink,
-    httpLink,
-  ]),
+  link: ApolloLink.from([authLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
@@ -161,6 +163,7 @@ const apolloClient = new ApolloClient({
 #### 2. Search Service
 
 **Elasticsearch Integration:**
+
 - Full-text search capabilities
 - Advanced filtering and faceting
 - Real-time indexing
@@ -183,7 +186,7 @@ export class SearchService {
 
   async searchNFTs(query: SearchQuery): Promise<SearchResults> {
     const response = await this.elasticsearchClient.search({
-      index: 'nfts',
+      index: "nfts",
       body: {
         query: {
           bool: {
@@ -196,10 +199,10 @@ export class SearchService {
         },
         aggs: {
           categories: {
-            terms: { field: 'category' },
+            terms: { field: "category" },
           },
           chains: {
-            terms: { field: 'chain' },
+            terms: { field: "chain" },
           },
         },
       },
@@ -213,6 +216,7 @@ export class SearchService {
 #### 3. Analytics Service
 
 **Real-time Analytics:**
+
 - User behavior tracking
 - Performance metrics
 - Business intelligence
@@ -223,7 +227,7 @@ export class SearchService {
 export class AnalyticsService {
   async trackPageView(page: string, userId?: string) {
     await this.track({
-      event: 'page_view',
+      event: "page_view",
       properties: {
         page,
         userId,
@@ -234,7 +238,7 @@ export class AnalyticsService {
 
   async trackTransaction(transaction: Transaction) {
     await this.track({
-      event: 'transaction',
+      event: "transaction",
       properties: {
         type: transaction.type,
         amount: transaction.amount,
@@ -318,6 +322,7 @@ const GlobalStateProvider = () => {
 ### 1. Global State (Zustand)
 
 **Store Structure:**
+
 ```typescript
 // src/shared/stores/user.store.ts
 interface UserState {
@@ -329,17 +334,18 @@ interface UserState {
   setLoading: (loading: boolean) => void;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>(set => ({
   user: null,
   isAuthenticated: false,
   isLoading: false,
-  setUser: (user) => set({ user, isAuthenticated: true }),
+  setUser: user => set({ user, isAuthenticated: true }),
   clearUser: () => set({ user: null, isAuthenticated: false }),
-  setLoading: (loading) => set({ loading }),
+  setLoading: loading => set({ loading }),
 }));
 ```
 
 **Common Stores:**
+
 - `useUserStore`: User authentication and profile
 - `useNFTStore`: NFT collections and items
 - `useMarketStore`: Market data and statistics
@@ -349,11 +355,12 @@ export const useUserStore = create<UserState>((set) => ({
 ### 2. Server State (TanStack Query)
 
 **Query Structure:**
+
 ```typescript
 // src/shared/hooks/useNFTCollection.ts
 export const useNFTCollection = (collectionId: string) => {
   return useQuery({
-    queryKey: ['nft-collection', collectionId],
+    queryKey: ["nft-collection", collectionId],
     queryFn: () => fetchNFTCollection(collectionId),
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
@@ -363,19 +370,17 @@ export const useNFTCollection = (collectionId: string) => {
 ```
 
 **Mutation Structure:**
+
 ```typescript
 export const useCreateCollection = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: createCollection,
-    onSuccess: (newCollection) => {
+    onSuccess: newCollection => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['collections'] });
-      queryClient.setQueryData(
-        ['collection', newCollection.id],
-        newCollection
-      );
+      queryClient.invalidateQueries({ queryKey: ["collections"] });
+      queryClient.setQueryData(["collection", newCollection.id], newCollection);
     },
   });
 };
@@ -384,6 +389,7 @@ export const useCreateCollection = () => {
 ### 3. Local State
 
 **Component State:**
+
 ```typescript
 const NFTCard = ({ nft }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -429,6 +435,7 @@ App
 ### 2. Component Patterns
 
 **Presentational Component:**
+
 ```typescript
 // Pure UI component
 const NFTCard = ({ nft, onClick, className }) => {
@@ -443,6 +450,7 @@ const NFTCard = ({ nft, onClick, className }) => {
 ```
 
 **Container Component:**
+
 ```typescript
 // Business logic container
 const NFTCardContainer = ({ nft }) => {
@@ -471,6 +479,7 @@ const NFTCardContainer = ({ nft }) => {
 ### 3. Error Boundaries
 
 **Error Boundary Pattern:**
+
 ```typescript
 class NFTErrorBoundary extends React.Component {
   state = { hasError: false };
@@ -497,6 +506,7 @@ class NFTErrorBoundary extends React.Component {
 ### 1. GraphQL Schema
 
 **Schema Design:**
+
 ```graphql
 # src/shared/graphql/schemas/
 type Query {
@@ -522,6 +532,7 @@ type Subscription {
 ### 2. Data Fetching Strategy
 
 **Optimized Data Fetching:**
+
 ```typescript
 // src/shared/services/api.service.ts
 export class APIService {
@@ -533,13 +544,9 @@ export class APIService {
 
   // Batch multiple queries
   async batchQueries(queries: Query[]) {
-    const results = await Promise.allSettled(
-      queries.map(query => this.apolloClient.query(query))
-    );
+    const results = await Promise.allSettled(queries.map(query => this.apolloClient.query(query)));
 
-    return results.map(result =>
-      result.status === 'fulfilled' ? result.value : null
-    );
+    return results.map(result => (result.status === "fulfilled" ? result.value : null));
   }
 
   // Optimistic updates
@@ -562,6 +569,7 @@ export class APIService {
 ### 3. Caching Strategy
 
 **Multi-level Caching:**
+
 ```typescript
 // src/shared/cache/cache.strategy.ts
 export class CacheStrategy {
@@ -579,7 +587,7 @@ export class CacheStrategy {
   static getServerSideCache() {
     return {
       ttl: 3600, // 1 hour
-      key: (params) => JSON.stringify(params),
+      key: params => JSON.stringify(params),
     };
   }
 }
@@ -590,22 +598,23 @@ export class CacheStrategy {
 ### 1. Chain Configuration
 
 **Chain Registry:**
+
 ```typescript
 // src/shared/config/chains.ts
 export const CHAINS = {
   ETHEREUM: {
-    id: '1',
-    name: 'Ethereum',
-    symbol: 'ETH',
-    blockExplorer: 'https://etherscan.io',
+    id: "1",
+    name: "Ethereum",
+    symbol: "ETH",
+    blockExplorer: "https://etherscan.io",
     rpcUrl: process.env.ETHEREUM_RPC_URL,
     isTestnet: false,
   },
   POLYGON: {
-    id: '137',
-    name: 'Polygon',
-    symbol: 'MATIC',
-    blockExplorer: 'https://polygonscan.com',
+    id: "137",
+    name: "Polygon",
+    symbol: "MATIC",
+    blockExplorer: "https://polygonscan.com",
     rpcUrl: process.env.POLYGON_RPC_URL,
     isTestnet: false,
   },
@@ -616,13 +625,14 @@ export const CHAINS = {
 ### 2. Multi-Chain Contracts
 
 **Contract Interface:**
+
 ```typescript
 // src/shared/contracts/contract.interface.ts
 interface NFTContract {
   address: `0x${string}`;
   abi: any[];
   chainId: string;
-  standard: 'ERC721' | 'ERC1155';
+  standard: "ERC721" | "ERC1155";
 }
 
 interface MarketplaceContract {
@@ -636,6 +646,7 @@ interface MarketplaceContract {
 ### 3. Chain-Aware Components
 
 **Multi-Chain Component:**
+
 ```typescript
 // src/shared/components/ChainSwitcher.tsx
 export const ChainSwitcher = () => {
@@ -659,6 +670,7 @@ export const ChainSwitcher = () => {
 ### 1. Authentication Flow
 
 **SIWE Authentication:**
+
 ```typescript
 // src/shared/auth/siwe.service.ts
 export class SIWEService {
@@ -667,14 +679,14 @@ export class SIWEService {
     const isValid = await verifySignature(message, signature);
 
     if (!isValid) {
-      throw new Error('Invalid signature');
+      throw new Error("Invalid signature");
     }
 
     // Check nonce
     const nonceValid = await verifyNonce(message.nonce);
 
     if (!nonceValid) {
-      throw new Error('Invalid or expired nonce');
+      throw new Error("Invalid or expired nonce");
     }
 
     // Create session
@@ -692,17 +704,18 @@ export class SIWEService {
 ### 2. Wallet Security
 
 **Secure Wallet Connection:**
+
 ```typescript
 // src/shared/wallet/wallet.service.ts
 export class WalletService {
   async connectWallet(provider: WalletProvider) {
     // Validate provider
     if (!isValidProvider(provider)) {
-      throw new Error('Invalid wallet provider');
+      throw new Error("Invalid wallet provider");
     }
 
     // Request accounts
-    const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    const accounts = await provider.request({ method: "eth_requestAccounts" });
 
     // Verify user is on correct chain
     await this.switchToCorrectChain();
@@ -722,6 +735,7 @@ export class WalletService {
 ### 3. Input Validation
 
 **Validation Pipeline:**
+
 ```typescript
 // src/shared/validation/validation.service.ts
 export class ValidationService {
@@ -746,7 +760,7 @@ export class ValidationService {
 
     // Sanitize strings
     Object.keys(sanitized).forEach(key => {
-      if (typeof sanitized[key] === 'string') {
+      if (typeof sanitized[key] === "string") {
         sanitized[key] = this.sanitizeString(sanitized[key]);
       }
     });
@@ -761,6 +775,7 @@ export class ValidationService {
 ### 1. Frontend Optimization
 
 **Code Splitting:**
+
 ```typescript
 // Dynamic imports for heavy components
 const NFTDetailPage = dynamic(
@@ -781,6 +796,7 @@ const CollectionGrid = dynamic(
 ```
 
 **Image Optimization:**
+
 ```typescript
 // Next.js Image component
 import Image from 'next/image';
@@ -802,16 +818,17 @@ const OptimizedImage = ({ src, alt, ...props }) => {
 ### 2. Backend Optimization
 
 **Database Optimization:**
+
 ```typescript
 // src/shared/database/optimization.ts
 export class DatabaseOptimization {
   // Indexing strategy
   static getIndexes() {
     return [
-      { name: 'collections_created_at', fields: ['createdAt'] },
-      { name: 'nfts_price', fields: ['price'] },
-      { name: 'users_address', fields: ['address'] },
-      { name: 'market_stats_chain_date', fields: ['chainId', 'date'] },
+      { name: "collections_created_at", fields: ["createdAt"] },
+      { name: "nfts_price", fields: ["price"] },
+      { name: "users_address", fields: ["address"] },
+      { name: "market_stats_chain_date", fields: ["chainId", "date"] },
     ];
   }
 
@@ -819,7 +836,7 @@ export class DatabaseOptimization {
   static optimizeQuery(query: Query) {
     // Add indexes for common query patterns
     if (query.filters?.chainId) {
-      query.indexHint = 'market_stats_chain_date';
+      query.indexHint = "market_stats_chain_date";
     }
 
     return query;
@@ -830,6 +847,7 @@ export class DatabaseOptimization {
 ### 3. Caching Strategy
 
 **Multi-level Caching:**
+
 ```typescript
 // src/shared/cache/cache.service.ts
 export class CacheService {
@@ -865,14 +883,14 @@ export class CacheService {
   async set(key: string, value: any, ttl: number = 3600) {
     const entry = {
       value,
-      expiresAt: Date.now() + (ttl * 1000),
+      expiresAt: Date.now() + ttl * 1000,
     };
 
     // Set in memory cache
     this.memoryCache.set(key, entry);
 
     // Set in Redis
-    await this.client.set(key, JSON.stringify(entry), 'EX', ttl);
+    await this.client.set(key, JSON.stringify(entry), "EX", ttl);
   }
 }
 ```
@@ -882,6 +900,7 @@ export class CacheService {
 ### 1. Infrastructure as Code
 
 **Terraform Configuration:**
+
 ```hcl
 # terraform/main.tf
 resource "aws_s3_bucket" "nft_storage" {
@@ -910,6 +929,7 @@ resource "aws_ecs_cluster" "marketplace" {
 ### 2. CI/CD Pipeline
 
 **GitHub Actions:**
+
 ```yaml
 # .github/workflows/deploy.yml
 name: Deploy to Production
@@ -925,7 +945,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - run: pnpm install
       - run: pnpm test
       - run: pnpm test:e2e
@@ -952,15 +972,16 @@ jobs:
 ### 1. Application Monitoring
 
 **Performance Monitoring:**
+
 ```typescript
 // src/shared/monitoring/performance.ts
 export class PerformanceMonitor {
   static trackPageLoad() {
-    if (typeof window !== 'undefined') {
-      const navigation = window.performance.getEntriesByType('navigation')[0];
+    if (typeof window !== "undefined") {
+      const navigation = window.performance.getEntriesByType("navigation")[0];
 
       if (navigation) {
-        track('page_load', {
+        track("page_load", {
           domComplete: navigation.domComplete,
           loadEventEnd: navigation.loadEventEnd,
           responseEnd: navigation.responseEnd,
@@ -970,7 +991,7 @@ export class PerformanceMonitor {
   }
 
   static trackComponentRender(component: string, duration: number) {
-    track('component_render', {
+    track("component_render", {
       component,
       duration,
       timestamp: Date.now(),
@@ -982,6 +1003,7 @@ export class PerformanceMonitor {
 ### 2. Error Tracking
 
 **Error Monitoring:**
+
 ```typescript
 // src/shared/monitoring/errors.ts
 export class ErrorTracker {
@@ -996,7 +1018,7 @@ export class ErrorTracker {
     });
 
     // Custom tracking
-    track('error', {
+    track("error", {
       message: error.message,
       stack: error.stack,
       context,
@@ -1015,12 +1037,13 @@ export class ErrorTracker {
 ### 3. Business Metrics
 
 **Metric Tracking:**
+
 ```typescript
 // src/shared/monitoring/metrics.ts
 export class MetricsTracker {
   static trackPurchase(purchase: Purchase) {
     // Track to analytics service
-    track('purchase', {
+    track("purchase", {
       amount: purchase.amount,
       currency: purchase.currency,
       nftId: purchase.nftId,
@@ -1033,7 +1056,7 @@ export class MetricsTracker {
   }
 
   static trackUserAction(action: string, data: any) {
-    track('user_action', {
+    track("user_action", {
       action,
       data,
       userId: getCurrentUserId(),

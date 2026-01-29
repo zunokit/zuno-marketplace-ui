@@ -285,11 +285,11 @@ html:not(.dark) {
   --overlay-bg: rgba(0, 0, 0, 0.5);
 
   /* Base colors - High contrast for visibility */
-  --background: #ffffff;          /* Pure white background */
-  --foreground: #0d1117;          /* Very dark text - maximum contrast */
+  --background: #ffffff; /* Pure white background */
+  --foreground: #0d1117; /* Very dark text - maximum contrast */
 
   /* UI Elements - Clear hierarchy with shadows */
-  --card: #f9fafb;                /* Light gray cards - stand out from white */
+  --card: #f9fafb; /* Light gray cards - stand out from white */
   --card-foreground: #0d1117;
   --popover: #ffffff;
   --popover-foreground: #0d1117;
@@ -297,27 +297,27 @@ html:not(.dark) {
   --dialog-foreground: #0d1117;
 
   /* Semantic colors - Strong contrast */
-  --primary: #1a1a1a;             /* Dark for visibility */
+  --primary: #1a1a1a; /* Dark for visibility */
   --primary-foreground: #ffffff;
   --secondary: #f3f4f6;
   --secondary-foreground: #0d1117;
   --muted: #f9fafb;
-  --muted-foreground: #374151;    /* Darker gray - better visibility */
-  --accent: #ddf4ff;              /* Light blue tint */
+  --muted-foreground: #374151; /* Darker gray - better visibility */
+  --accent: #ddf4ff; /* Light blue tint */
   --accent-foreground: #0969da;
 
   /* Status colors - WCAG AA compliant */
-  --destructive: #cf222e;         /* GitHub red - 5.01:1 */
+  --destructive: #cf222e; /* GitHub red - 5.01:1 */
   --destructive-foreground: #ffffff;
-  --success: #1a7f37;             /* GitHub green - 4.84:1 */
+  --success: #1a7f37; /* GitHub green - 4.84:1 */
   --success-foreground: #ffffff;
-  --warning: #9a6700;             /* Dark yellow - readable */
+  --warning: #9a6700; /* Dark yellow - readable */
   --warning-foreground: #ffffff;
-  --info: #0969da;                /* GitHub blue - 5.88:1 */
+  --info: #0969da; /* GitHub blue - 5.88:1 */
   --info-foreground: #ffffff;
 
   /* Borders - Visible but not harsh */
-  --border: #d1d5db;              /* Darker borders for visibility */
+  --border: #d1d5db; /* Darker borders for visibility */
   --border-muted: #e5e7eb;
   --input: #d1d5db;
   --ring: #0969da;
@@ -348,16 +348,16 @@ html:not(.dark) {
   --sidebar-ring: #0969da;
 
   /* OpenSea variables - High contrast for light mode */
-  --color-border-subtle: #d1d5db;     /* Darker borders - more visible */
+  --color-border-subtle: #d1d5db; /* Darker borders - more visible */
   --color-border-medium: #9ca3af;
   --color-border-strong: #6b7280;
-  --color-frosted-1: #f3f4f6;         /* Light gray inputs - visible against white */
-  --color-frosted-2: #e5e7eb;         /* Slightly darker bg */
-  --color-frosted-6: #d1d5db;         /* Hover states - even darker */
+  --color-frosted-1: #f3f4f6; /* Light gray inputs - visible against white */
+  --color-frosted-2: #e5e7eb; /* Slightly darker bg */
+  --color-frosted-6: #d1d5db; /* Hover states - even darker */
   --color-hover-bg: #f3f4f6;
   --color-active-bg: #e5e7eb;
   --color-overlay: rgba(0, 0, 0, 0.75);
-  --color-os-gray-300: #374151;       /* Dark gray - clearly visible secondary text */
+  --color-os-gray-300: #374151; /* Dark gray - clearly visible secondary text */
 
   /* Success - Light mode */
   --color-success-bg-light: #dafbe1;
@@ -678,7 +678,9 @@ html:not(.dark) {
 }
 
 .shadow-os-focus {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px, rgba(0, 0, 0, 0.2) 0px 0px 0px 2px;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 4px 12px,
+    rgba(0, 0, 0, 0.2) 0px 0px 0px 2px;
 }
 
 /* OpenSea Badge Styles */

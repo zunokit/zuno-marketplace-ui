@@ -46,7 +46,10 @@ export default function BannerItem(banner: Banner) {
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 to-transparent" aria-hidden="true" />
+      <div
+        className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 to-transparent"
+        aria-hidden="true"
+      />
 
       <div className="relative z-20 flex flex-col justify-end h-full p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 gap-1.5 sm:gap-2 md:gap-3 xl:gap-4">
         <div className="flex items-center justify-between">

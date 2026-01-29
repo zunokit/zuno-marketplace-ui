@@ -32,7 +32,9 @@ export default function DiscoverLayout({ children }: { children: React.ReactNode
   return (
     <SidebarContext.Provider value={{ isCollapsed, toggleSidebar }}>
       <div className="relative">
-        <div className={cn("transition-all duration-700", isCollapsed ? "lg:mr-0" : "lg:mr-[420px]")}>
+        <div
+          className={cn("transition-all duration-700", isCollapsed ? "lg:mr-0" : "lg:mr-[420px]")}
+        >
           <Suspense fallback={<ChainTabsSkeleton />}>
             <ChainMenu onToggleSidebar={toggleSidebar} isSidebarCollapsed={isCollapsed} />
           </Suspense>

@@ -10,11 +10,13 @@
 Implementing Zustand-based state management for NFT selection and refactoring BottomActionBar to achieve full viewport width positioning through layout integration.
 
 ### Problem Statement
+
 1. BottomActionBar constrained by marketplace container width
 2. Local `selectedNFTs` state not shareable across components
 3. Limited reusability due to prop drilling
 
 ### Proposed Solution
+
 - Install Zustand for global state management
 - Create shared store at `src/shared/stores/use-nft-selection-store.ts`
 - Move BottomActionBar to layout with fixed positioning
@@ -22,16 +24,17 @@ Implementing Zustand-based state management for NFT selection and refactoring Bo
 
 ## Implementation Phases
 
-| Phase | Description | Effort | Status |
-|-------|-------------|--------|--------|
-| **1** | Setup & Store Creation | 30m | Pending |
-| **2** | Marketplace Refactor | 1h | Pending |
-| **3** | Layout Integration | 1.5h | Pending |
-| **4** | Testing & Validation | 1h | Pending |
+| Phase | Description            | Effort | Status  |
+| ----- | ---------------------- | ------ | ------- |
+| **1** | Setup & Store Creation | 30m    | Pending |
+| **2** | Marketplace Refactor   | 1h     | Pending |
+| **3** | Layout Integration     | 1.5h   | Pending |
+| **4** | Testing & Validation   | 1h     | Pending |
 
 ## Architecture Overview
 
 ### Current State
+
 ```
 Marketplace Component
 ├── Local State (selectedNFTs)
@@ -40,6 +43,7 @@ Marketplace Component
 ```
 
 ### Target State
+
 ```
 App Layout
 ├── Marketplace Component
@@ -51,36 +55,40 @@ App Layout
 ## Key Technical Decisions
 
 ### Zustand vs Alternatives
+
 **Chosen: Zustand**
 
 **Rationale:**
+
 - Simpler API than Jotai (no atoms, no providers)
 - Smaller bundle size (~1KB vs ~3KB)
 - Better fit for simple array state
 - No provider wrapping required
 
 ### Store Interface
+
 ```typescript
 interface NFTSelectionStore {
   // State
-  selectedNFTs: string[]
-  maxItems: number
-  sliderValue: number
-  actionMode: 'buy' | 'sell'
+  selectedNFTs: string[];
+  maxItems: number;
+  sliderValue: number;
+  actionMode: "buy" | "sell";
 
   // Actions
-  add: (id: string) => void
-  remove: (id: string) => void
-  toggle: (id: string) => void
-  set: (ids: string[]) => void
-  clear: () => void
-  setSliderValue: (value: number) => void
-  setActionMode: (mode: 'buy' | 'sell') => void
-  setMaxItems: (max: number) => void
+  add: (id: string) => void;
+  remove: (id: string) => void;
+  toggle: (id: string) => void;
+  set: (ids: string[]) => void;
+  clear: () => void;
+  setSliderValue: (value: number) => void;
+  setActionMode: (mode: "buy" | "sell") => void;
+  setMaxItems: (max: number) => void;
 }
 ```
 
 ### Positioning Strategy
+
 ```css
 /* Mobile & Tablet */
 fixed bottom-0 left-0 right-0 z-[60]
@@ -92,6 +100,7 @@ lg:left-[52px] lg:w-[calc(100%-52px)]
 ## File Structure
 
 ### Files to Create
+
 ```
 src/shared/stores/
 └── use-nft-selection-store.ts          # Zustand store
@@ -104,6 +113,7 @@ src/modules/marketplace/components/
 ```
 
 ### Files to Modify
+
 ```
 src/modules/marketplace/index.tsx       # Remove local state
 src/modules/marketplace/components/
@@ -113,6 +123,7 @@ src/modules/marketplace/components/
 ## Success Criteria
 
 ### Functional
+
 - [x] Zustand store created with TypeScript types
 - [x] Selection state shared across components
 - [x] BottomActionBar spans full viewport width
@@ -120,6 +131,7 @@ src/modules/marketplace/components/
 - [x] State persists across navigation
 
 ### Non-Functional
+
 - [x] No TypeScript errors
 - [x] No console warnings
 - [x] Mobile compatibility maintained
@@ -128,12 +140,12 @@ src/modules/marketplace/components/
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Zustand learning curve | Low | Low | Simple CRUD, well-documented |
-| State persistence issues | Low | Medium | Add persist middleware if needed |
-| Z-index conflicts | Low | High | BottomActionBar z-60, nav z-50 |
-| Layout file not picked up | Low | High | Verify Next.js route group structure |
+| Risk                      | Probability | Impact | Mitigation                           |
+| ------------------------- | ----------- | ------ | ------------------------------------ |
+| Zustand learning curve    | Low         | Low    | Simple CRUD, well-documented         |
+| State persistence issues  | Low         | Medium | Add persist middleware if needed     |
+| Z-index conflicts         | Low         | High   | BottomActionBar z-60, nav z-50       |
+| Layout file not picked up | Low         | High   | Verify Next.js route group structure |
 
 ## Testing Strategy
 
@@ -145,11 +157,11 @@ src/modules/marketplace/components/
 
 ## Unresolved Questions (Addressed)
 
-| Question | Resolution |
-|----------|------------|
+| Question                    | Resolution                                 |
+| --------------------------- | ------------------------------------------ |
 | Always show or conditional? | Show on marketplace routes, hide elsewhere |
-| Persist across navigation? | Yes, Zustand persists by default |
-| Dynamic or fixed maxItems? | Dynamic, set by current view's NFT count |
+| Persist across navigation?  | Yes, Zustand persists by default           |
+| Dynamic or fixed maxItems?  | Dynamic, set by current view's NFT count   |
 
 ## Next Steps
 

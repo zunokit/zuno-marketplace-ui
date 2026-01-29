@@ -52,7 +52,11 @@ export default function MintForm() {
   // Logic for button text and state (adapted from MintButton)
   const getButtonState = () => {
     if (!collection) {
-      return { text: "Loading...", disabled: true, icon: <Loader2 className="mr-2 h-4 w-4 animate-spin" /> };
+      return {
+        text: "Loading...",
+        disabled: true,
+        icon: <Loader2 className="mr-2 h-4 w-4 animate-spin" />,
+      };
     }
     if (!isConnected) {
       return { text: "Connect Wallet to mint", disabled: false, icon: null }; // HTML says "Connect Wallet to mint"
@@ -60,8 +64,14 @@ export default function MintForm() {
     if (isERC1155) {
       if (!selectedEdition) return { text: "Select an edition to continue", disabled: true };
       if (!selectedEditionData) return { text: "Invalid edition selected", disabled: true };
-      if (selectedEditionData.remaining === 0) return { text: "Edition sold out", disabled: true, icon: <AlertTriangle className="mr-2 h-4 w-4" /> };
-      if (amount > selectedEditionData.remaining) return { text: `Only ${selectedEditionData.remaining} remaining`, disabled: true };
+      if (selectedEditionData.remaining === 0)
+        return {
+          text: "Edition sold out",
+          disabled: true,
+          icon: <AlertTriangle className="mr-2 h-4 w-4" />,
+        };
+      if (amount > selectedEditionData.remaining)
+        return { text: `Only ${selectedEditionData.remaining} remaining`, disabled: true };
     }
     if (Number(collection.totalMinted) >= Number(collection.maxSupply)) {
       return { text: "Sold out", disabled: true, icon: <AlertTriangle className="mr-2 h-4 w-4" /> };
@@ -73,28 +83,29 @@ export default function MintForm() {
       return { text: "Accept terms of service", disabled: true }; // Enforce terms agreement via button disable or just check on click
     }
 
-    const unitPrice = isERC1155 && selectedEditionData
+    const unitPrice =
+      isERC1155 && selectedEditionData
         ? selectedEditionData.price
         : mintCostData?.getMintCost?.mintPrice || lastMintCost.mintPrice;
 
     // Simplification for button text to match design style mostly, but keeping info
     return {
-        text: "Mint Now", // Design says "Connect Wallet to mint", so when connected maybe "Mint Now"?
-        disabled: isLoading,
-        icon: isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null
+      text: "Mint Now", // Design says "Connect Wallet to mint", so when connected maybe "Mint Now"?
+      disabled: isLoading,
+      icon: isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null,
     };
   };
 
   const buttonState = getButtonState();
 
   const handleButtonClick = () => {
-      // If not connected, we should trigger connect wallet (mocked here or handled by wallet adapter)
-      if (!isConnected) {
-          // Trigger connect wallet logic
-          console.log("Connect wallet clicked");
-          return;
-      }
-      handleMintConfirm();
+    // If not connected, we should trigger connect wallet (mocked here or handled by wallet adapter)
+    if (!isConnected) {
+      // Trigger connect wallet logic
+      console.log("Connect wallet clicked");
+      return;
+    }
+    handleMintConfirm();
   };
 
   const mintPrice = mintCostData?.getMintCost?.mintPrice || lastMintCost.mintPrice || "0";
@@ -111,7 +122,9 @@ export default function MintForm() {
           <span className="md:text-[24px] font-bold text-wrap min-w-0 break-all text-foreground">
             {mintPrice} SOL
           </span>
-          <span className="text-xs md:text-sm text-secondary ml-1 md:ml-2">(${totalPriceInUsd})</span>
+          <span className="text-xs md:text-sm text-secondary ml-1 md:ml-2">
+            (${totalPriceInUsd})
+          </span>
         </div>
 
         {/* Amount Stepper */}
@@ -235,22 +248,22 @@ export default function MintForm() {
         <div className="flex gap-x-3 items-center mb-2">
           <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer">
             <div className="relative">
-                <input
+              <input
                 type="checkbox"
                 className="absolute size-px overflow-hidden whitespace-nowrap opacity-0"
                 checked={agreedToTerms}
-                onChange={(e) => setAgreedToTerms(e.target.checked)}
-                />
-                <span
+                onChange={e => setAgreedToTerms(e.target.checked)}
+              />
+              <span
                 aria-hidden="true"
                 className={cn(
-                    "transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active",
-                    !agreedToTerms && "bg-transparent border-input",
-                    agreedToTerms && "bg-button-secondary border-primary"
+                  "transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active",
+                  !agreedToTerms && "bg-transparent border-input",
+                  agreedToTerms && "bg-button-secondary border-primary"
                 )}
-                >
+              >
                 {agreedToTerms && (
-                    <svg
+                  <svg
                     stroke="currentColor"
                     fill="none"
                     strokeWidth="2"
@@ -261,11 +274,11 @@ export default function MintForm() {
                     width="16"
                     height="16"
                     xmlns="http://www.w3.org/2000/svg"
-                    >
+                  >
                     <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
+                  </svg>
                 )}
-                </span>
+              </span>
             </div>
 
             <div className="empty:hidden"></div>
@@ -298,32 +311,32 @@ export default function MintForm() {
         </div>
       </div>
 
-        {/* Trading Lock Notice - from HTML */}
-        <div className="overflow-hidden" style={{ height: "auto", opacity: 1 }}>
-            <div className="flex bg-layer-01 rounded-md p-2 text-xs gap-2 items-center mt-3">
-                <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                stroke="rgb(var(--brand))"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                className="shrink-0"
-                color="rgb(var(--brand))"
-                width="20"
-                height="20"
-                >
-                <path stroke="none" d="M0 0h24v24H0z"></path>
-                <rect width="14" height="10" x="5" y="11" rx="2"></rect>
-                <circle cx="12" cy="16" r="1"></circle>
-                <path d="M8 11V7a4 4 0 018 0v4"></path>
-                </svg>
-                <span className="text-xs text-foreground">
-                Collection is locked from trading until all items have been minted.
-                </span>
-            </div>
+      {/* Trading Lock Notice - from HTML */}
+      <div className="overflow-hidden" style={{ height: "auto", opacity: 1 }}>
+        <div className="flex bg-layer-01 rounded-md p-2 text-xs gap-2 items-center mt-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="rgb(var(--brand))"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            className="shrink-0"
+            color="rgb(var(--brand))"
+            width="20"
+            height="20"
+          >
+            <path stroke="none" d="M0 0h24v24H0z"></path>
+            <rect width="14" height="10" x="5" y="11" rx="2"></rect>
+            <circle cx="12" cy="16" r="1"></circle>
+            <path d="M8 11V7a4 4 0 018 0v4"></path>
+          </svg>
+          <span className="text-xs text-foreground">
+            Collection is locked from trading until all items have been minted.
+          </span>
         </div>
+      </div>
     </div>
   );
 }

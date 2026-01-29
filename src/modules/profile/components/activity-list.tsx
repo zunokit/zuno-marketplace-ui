@@ -103,9 +103,7 @@ export function ActivityList({ activities }: ActivityListProps) {
                   </div>
 
                   <h4 className="font-medium truncate">{activity.nft.name}</h4>
-                  <p className="text-sm text-os-gray-300 truncate">
-                    {activity.nft.collection}
-                  </p>
+                  <p className="text-sm text-os-gray-300 truncate">{activity.nft.collection}</p>
 
                   {/* Transfer Details */}
                   {(activity.from || activity.to) && (
@@ -119,9 +117,7 @@ export function ActivityList({ activities }: ActivityListProps) {
                         <ArrowRight className="h-3 w-3 text-os-gray-300" />
                       )}
                       {activity.to && (
-                        <span className="text-os-gray-300">
-                          To: {truncateAddress(activity.to)}
-                        </span>
+                        <span className="text-os-gray-300">To: {truncateAddress(activity.to)}</span>
                       )}
                     </div>
                   )}

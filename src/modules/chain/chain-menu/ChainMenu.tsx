@@ -13,7 +13,10 @@ interface ChainMenuProps {
   isSidebarCollapsed?: boolean;
 }
 
-export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false }: ChainMenuProps = {}) {
+export default function ChainMenu({
+  onToggleSidebar,
+  isSidebarCollapsed = false,
+}: ChainMenuProps = {}) {
   const pathname = usePathname();
   const [selectedChain, setSelectedChain] = useState<string>("all");
   const isScrolled = useScroll(10);
@@ -58,9 +61,7 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
     <div
       className={cn(
         "sticky top-0 z-30 border-b border-border-subtle transition-all duration-300",
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md"
-          : "bg-background"
+        isScrolled ? "bg-background/80 backdrop-blur-md" : "bg-background"
       )}
     >
       <div className="w-full mx-auto py-2 md:py-3 px-3 md:px-4 lg:px-6">
@@ -109,9 +110,7 @@ export default function ChainMenu({ onToggleSidebar, isSidebarCollapsed = false 
                       />
                     </div>
                     {/* Show name only on sm+ screens when active */}
-                    {isActive && (
-                      <span className="font-medium hidden sm:inline">{chain.name}</span>
-                    )}
+                    {isActive && <span className="font-medium hidden sm:inline">{chain.name}</span>}
                   </Link>
                 );
               })}

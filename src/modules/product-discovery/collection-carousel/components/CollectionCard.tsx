@@ -125,7 +125,10 @@ export function CollectionCard({
 
             <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-border-subtle dark:border-border-subtle">
               <span className={`w-2 h-2 rounded-full ${statusColor}`}></span>
-              <span className="text-xs text-foreground dark:text-foreground truncate" title={statusText}>
+              <span
+                className="text-xs text-foreground dark:text-foreground truncate"
+                title={statusText}
+              >
                 {statusText}
               </span>
             </div>

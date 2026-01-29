@@ -7,11 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
-    "check-lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "codegen": "graphql-codegen --config src/shared/graphql/codegen.ts",
     "codegen:watch": "graphql-codegen --config src/shared/graphql/codegen.ts --watch"
   },

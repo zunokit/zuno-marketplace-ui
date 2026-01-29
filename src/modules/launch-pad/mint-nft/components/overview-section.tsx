@@ -11,7 +11,9 @@ const OverviewSection = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">{collection.name}</h1>
+        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">
+          {collection.name}
+        </h1>
         <div className="space-y-3 text-sm text-foreground">
           <p>{collection.description}</p>
         </div>
@@ -25,9 +27,7 @@ const OverviewSection = () => {
             <p className="text-sm font-medium text-foreground dark:text-foreground flex items-center">
               🏆 Mint start date: {collection.mintStartDate}
             </p>
-            <p className="text-xs text-os-gray-300">
-              Max supply: {collection.maxSupply}
-            </p>
+            <p className="text-xs text-os-gray-300">Max supply: {collection.maxSupply}</p>
           </div>
 
           <div>

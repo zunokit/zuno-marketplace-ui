@@ -172,7 +172,9 @@ export function StatsPage() {
                       <TableCell>
                         <span
                           className={
-                            parseFloat(collection.change24h) > 0 ? "text-success" : "text-destructive"
+                            parseFloat(collection.change24h) > 0
+                              ? "text-success"
+                              : "text-destructive"
                           }
                         >
                           {parseFloat(collection.change24h) > 0 ? "+" : ""}
@@ -183,7 +185,9 @@ export function StatsPage() {
                       <TableCell>
                         <span
                           className={
-                            parseFloat(collection.change7d) > 0 ? "text-success" : "text-destructive"
+                            parseFloat(collection.change7d) > 0
+                              ? "text-success"
+                              : "text-destructive"
                           }
                         >
                           {parseFloat(collection.change7d) > 0 ? "+" : ""}
@@ -236,7 +240,9 @@ export function StatsPage() {
                       <TableCell>{nft.lastSale} ETH</TableCell>
                       <TableCell>
                         <span
-                          className={parseFloat(nft.change) > 0 ? "text-success" : "text-destructive"}
+                          className={
+                            parseFloat(nft.change) > 0 ? "text-success" : "text-destructive"
+                          }
                         >
                           {parseFloat(nft.change) > 0 ? "+" : ""}
                           {nft.change}%

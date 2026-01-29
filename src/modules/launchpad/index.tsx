@@ -327,27 +327,21 @@ export function LaunchpadPage() {
                 <span className="text-xl font-bold text-primary">2</span>
               </div>
               <h4 className="font-medium mb-1">Review</h4>
-              <p className="text-sm text-os-gray-300">
-                Our team reviews and verifies each project
-              </p>
+              <p className="text-sm text-os-gray-300">Our team reviews and verifies each project</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-xl font-bold text-primary">3</span>
               </div>
               <h4 className="font-medium mb-1">Launch</h4>
-              <p className="text-sm text-os-gray-300">
-                Approved projects launch on our platform
-              </p>
+              <p className="text-sm text-os-gray-300">Approved projects launch on our platform</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <span className="text-xl font-bold text-primary">4</span>
               </div>
               <h4 className="font-medium mb-1">Mint</h4>
-              <p className="text-sm text-os-gray-300">
-                Users can mint NFTs from verified projects
-              </p>
+              <p className="text-sm text-os-gray-300">Users can mint NFTs from verified projects</p>
             </div>
           </div>
         </CardContent>

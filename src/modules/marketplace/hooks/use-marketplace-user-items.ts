@@ -26,7 +26,10 @@ const generateMockNFTs = (count: number, contractAddress: string): Nft[] => {
     attributes: [
       { trait_type: "Background", value: ["Path", "Orchard", "Library", "Field"][i % 4] },
       { trait_type: "Body", value: ["Blue", "Red", "Yellow", "Green", "Purple"][i % 5] },
-      { trait_type: "Clothes", value: ["T-Shirt Red", "T-Shirt Blue", "Hoodie Black", "Sweater Green", "Tank Top"][i % 5] },
+      {
+        trait_type: "Clothes",
+        value: ["T-Shirt Red", "T-Shirt Blue", "Hoodie Black", "Sweater Green", "Tank Top"][i % 5],
+      },
       { trait_type: "Rarity", value: ["Common", "Uncommon", "Rare", "Epic"][i % 4] },
       { trait_type: "Level", value: Math.floor(Math.random() * 100) },
     ],
@@ -35,7 +38,11 @@ const generateMockNFTs = (count: number, contractAddress: string): Nft[] => {
   }));
 };
 
-export function useMarketplaceUserItems({ contractAddress, address, isConnected }: UseMarketplaceUserItemsProps) {
+export function useMarketplaceUserItems({
+  contractAddress,
+  address,
+  isConnected,
+}: UseMarketplaceUserItemsProps) {
   const [nfts, setNfts] = useState<Nft[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
