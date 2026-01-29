@@ -2,12 +2,7 @@
 
 import * as React from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/components/ui/popover";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/shared/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/shared/components/ui/drawer";
 import { ScrollArea } from "@/shared/components/ui/scroll-area";
 import { useIsMobile, MD_BREAKPOINT } from "@/shared/hooks/use-mobile";
 import { XIcon } from "lucide-react";
@@ -95,16 +90,14 @@ export function ResponsivePopoverDrawer({
         align={align}
         sideOffset={8}
         className={cn("w-72 p-0", contentClassName)}
-        onInteractOutside={!closeOnInteractOutside ? (e) => e.preventDefault() : undefined}
+        onInteractOutside={!closeOnInteractOutside ? e => e.preventDefault() : undefined}
       >
         {title != null && (
           <div className="border-b border-border-subtle px-4 py-3">
             <h3 className="font-medium font-sans text-sm">{title}</h3>
           </div>
         )}
-        <div className="p-4 max-h-[min(60vh,400px)] overflow-y-auto">
-          {children}
-        </div>
+        <div className="p-4 max-h-[min(60vh,400px)] overflow-y-auto">{children}</div>
       </PopoverContent>
     </Popover>
   );

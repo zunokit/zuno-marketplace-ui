@@ -52,7 +52,9 @@ export function AllowlistStage({ isOpen, onOpenChange }: AllowlistStageProps) {
         }}
       >
         <div className="p-6 pb-0 flex justify-between items-center">
-          <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground">Allowlist Stage</h2>
+          <h2 className="text-xl font-medium font-sans text-foreground dark:text-foreground">
+            Allowlist Stage
+          </h2>
         </div>
 
         <div className="p-6 space-y-4">

@@ -5,4 +5,4 @@
  * All existing code using `graphqlClient` will continue to work
  */
 
-export { apolloWrapper as graphqlClient } from './apollo/apollo-wrapper';
+export { apolloWrapper as graphqlClient } from "./apollo/apollo-wrapper";

@@ -166,9 +166,7 @@ export default function NavLink({
                           )}
                         </div>
                         {item.description && (
-                          <p className="text-xs text-os-gray-300 mt-0.5">
-                            {item.description}
-                          </p>
+                          <p className="text-xs text-os-gray-300 mt-0.5">{item.description}</p>
                         )}
                       </div>
                     </div>

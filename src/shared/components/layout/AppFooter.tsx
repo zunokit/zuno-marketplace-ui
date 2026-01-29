@@ -55,10 +55,16 @@ export function AppFooter() {
         {/* Right Section */}
         <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 shrink-0 overflow-x-auto scrollbar-hide">
           <div className="flex items-center gap-1 md:gap-1.5 text-foreground shrink-0">
-            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" viewBox="0 0 24 24" fill="currentColor">
+            <svg
+              className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            <span className="font-medium text-[10px] sm:text-xs md:text-sm whitespace-nowrap">$4,085.01</span>
+            <span className="font-medium text-[10px] sm:text-xs md:text-sm whitespace-nowrap">
+              $4,085.01
+            </span>
           </div>
           <div className="hidden sm:flex items-center gap-1 md:gap-1.5 text-os-gray-300 shrink-0">
             <svg className="w-3 h-3 md:w-4 md:h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -92,7 +98,9 @@ export function AppFooter() {
                 <Sun className="w-4 h-4" />
                 <Moon className="w-4 h-4" />
                 <div className="w-6 h-6 rounded-full border border-border-subtle flex items-center justify-center">
-                  <div className={`w-3 h-3 rounded-full ${currentTheme === "dark" ? "bg-background" : "bg-muted-foreground"}`}></div>
+                  <div
+                    className={`w-3 h-3 rounded-full ${currentTheme === "dark" ? "bg-background" : "bg-muted-foreground"}`}
+                  ></div>
                 </div>
               </div>
             </button>

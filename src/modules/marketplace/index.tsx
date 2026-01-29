@@ -8,7 +8,10 @@ import MarketplaceNFTTable from "@/modules/marketplace/components/marketplace-nf
 import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
 import MarketplaceFilterPanel from "@/modules/marketplace/components/marketplace-filter-panel";
 import MarketplaceListModal from "@/modules/marketplace/components/marketplace-list-modal";
-import { useInfiniteMarketplaceItems, type MarketplaceFilters } from "@/modules/marketplace/queries";
+import {
+  useInfiniteMarketplaceItems,
+  type MarketplaceFilters,
+} from "@/modules/marketplace/queries";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
 import MarketplaceCollectionHero from "@/modules/marketplace/components/marketplace-collection-hero";
 import MarketplaceCollectionTabs from "@/modules/marketplace/components/marketplace-collection-tabs";
@@ -105,7 +108,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   // Update max items and available NFTs in store when NFTs change
   useEffect(() => {
     setMaxItems(nfts.length);
-    setAvailableNFTs(nfts.map((nft) => nft.id));
+    setAvailableNFTs(nfts.map(nft => nft.id));
   }, [nfts, setMaxItems, setAvailableNFTs]);
 
   // Dispatch cart update event when selection changes
@@ -306,7 +309,11 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     <div className="h-full min-h-0 overflow-hidden text-foreground transition-all duration-150 flex flex-col">
       {/* Hero Header - Natural height */}
       <div className="w-full shrink-0">
-        <MarketplaceCollectionHero collection={collection} videoUrl={collection.banner} useMockData={true} />
+        <MarketplaceCollectionHero
+          collection={collection}
+          videoUrl={collection.banner}
+          useMockData={true}
+        />
       </div>
 
       {/* Collection Navigation - Hidden on mobile, visible on desktop */}

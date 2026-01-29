@@ -23,10 +23,7 @@ if (isSentryEnabled()) {
     environment: getSentryEnvironment(),
 
     // Set release from git SHA (Vercel provides this)
-    release:
-      process.env.VERCEL_GIT_COMMIT_SHA ||
-      process.env.NEXT_PUBLIC_APP_VERSION ||
-      "local",
+    release: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_APP_VERSION || "local",
 
     // Tracing - Environment-aware sampling via shared config
     tracesSampleRate: getTracesSampleRate(),
@@ -89,7 +86,7 @@ if (isSentryEnabled()) {
       ];
 
       const errorMessage = event.exception?.values?.[0]?.value || "";
-      if (SKIP_ERROR_PATTERNS.some((pattern) => errorMessage.includes(pattern))) {
+      if (SKIP_ERROR_PATTERNS.some(pattern => errorMessage.includes(pattern))) {
         return null;
       }
 

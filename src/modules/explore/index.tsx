@@ -336,9 +336,7 @@ export default function ExploreMarketplace() {
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-os-gray-300">
-                {nft.isAuction ? "Current Bid" : "Price"}
-              </p>
+              <p className="text-xs text-os-gray-300">{nft.isAuction ? "Current Bid" : "Price"}</p>
               <p className="font-bold">
                 {nft.price.toFixed(2)} {nft.currency}
               </p>
@@ -566,9 +564,7 @@ export default function ExploreMarketplace() {
                                 height={16}
                                 className="rounded-full"
                               />
-                              <span className="text-xs text-os-gray-300">
-                                @{nft.owner.name}
-                              </span>
+                              <span className="text-xs text-os-gray-300">@{nft.owner.name}</span>
                             </div>
                           </div>
                           <div className="text-right">
@@ -590,7 +586,9 @@ export default function ExploreMarketplace() {
                           <Badge variant="outline">{nft.category}</Badge>
                           {nft.rarity && <Badge variant="outline">{nft.rarity}</Badge>}
                           {nft.isAuction && (
-                            <Badge className="bg-destructive text-destructive-foreground">Auction</Badge>
+                            <Badge className="bg-destructive text-destructive-foreground">
+                              Auction
+                            </Badge>
                           )}
                         </div>
                       </div>

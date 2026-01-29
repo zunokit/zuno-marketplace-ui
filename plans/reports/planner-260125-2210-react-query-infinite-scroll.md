@@ -23,15 +23,15 @@ Created comprehensive implementation plan for React Query v5 infinite scroll int
 
 ### Phase Breakdown
 
-| Phase | Duration | Status | Description |
-|-------|----------|--------|-------------|
-| Phase 01: Setup Structure | 1h | pending | Create query folder & install deps |
-| Phase 02: Query Options | 1.5h | pending | Implement queryOptions with mock adapter |
-| Phase 03: Hook Wrapper | 1h | pending | Create useInfiniteMarketplaceItems hook |
-| Phase 04: Scroll Trigger | 1h | pending | Build InfiniteScrollTrigger component |
-| Phase 05: Integration | 2h | pending | Integrate with NFTGrid & marketplace |
-| Phase 06: Testing | 1h | pending | Test implementation & fix issues |
-| Phase 07: Documentation | 0.5h | pending | Update docs if needed |
+| Phase                     | Duration | Status  | Description                              |
+| ------------------------- | -------- | ------- | ---------------------------------------- |
+| Phase 01: Setup Structure | 1h       | pending | Create query folder & install deps       |
+| Phase 02: Query Options   | 1.5h     | pending | Implement queryOptions with mock adapter |
+| Phase 03: Hook Wrapper    | 1h       | pending | Create useInfiniteMarketplaceItems hook  |
+| Phase 04: Scroll Trigger  | 1h       | pending | Build InfiniteScrollTrigger component    |
+| Phase 05: Integration     | 2h       | pending | Integrate with NFTGrid & marketplace     |
+| Phase 06: Testing         | 1h       | pending | Test implementation & fix issues         |
+| Phase 07: Documentation   | 0.5h     | pending | Update docs if needed                    |
 
 ---
 
@@ -42,12 +42,14 @@ Created comprehensive implementation plan for React Query v5 infinite scroll int
 **Decision**: Centralize query definitions in `src/modules/marketplace/queries/` following TanStack Query best practices.
 
 **Benefits**:
+
 - Type-safe via `DataTag` inference
 - Testable query options
 - Reusable across components
 - Clear separation of concerns
 
 **Structure**:
+
 ```
 queries/
 ├── infinite-marketplace-items.query.ts  # Query options
@@ -62,15 +64,17 @@ queries/
 **Decision**: Use cursor pagination with 16 items per page, encoded as base64 strings.
 
 **Implementation**:
+
 ```typescript
 interface MarketplaceItemsPage {
   items: Nft[];
-  nextCursor: string | null;  // Base64 of start index (mock)
+  nextCursor: string | null; // Base64 of start index (mock)
   hasMore: boolean;
 }
 ```
 
 **Benefits**:
+
 - Stable sorting with cursor encoding
 - No duplicate items on rapid scrolling
 - Efficient for large datasets
@@ -80,6 +84,7 @@ interface MarketplaceItemsPage {
 **Decision**: Use native Intersection Observer API with `rootMargin: '200px'` for pre-fetching.
 
 **Configuration**:
+
 ```typescript
 {
   rootMargin: '200px',  // Start loading 200px before bottom
@@ -88,6 +93,7 @@ interface MarketplaceItemsPage {
 ```
 
 **Benefits**:
+
 - Smooth UX (loads before user reaches bottom)
 - Better performance than scroll events
 - Widely supported (no polyfill needed)
@@ -97,6 +103,7 @@ interface MarketplaceItemsPage {
 **Decision**: Set `staleTime: 15s` and `gcTime: 5min` to reduce refetches.
 
 **Rationale**:
+
 - 15s staleTime prevents unnecessary refetches on rapid tab switches
 - 5min gcTime balances memory and UX
 - Filters in queryKey auto-invalidate on change
@@ -106,6 +113,7 @@ interface MarketplaceItemsPage {
 **Decision**: Implement swappable fetcher with `USE_MOCK_ADAPTER` flag.
 
 **Benefits**:
+
 - Development before backend ready
 - Seamless swap to real API
 - Consistent data generation for testing
@@ -157,10 +165,7 @@ export function useInfiniteMarketplaceItems(
     infiniteMarketplaceItemsOptions({ contractAddress, filters, ...options })
   );
 
-  const items = useMemo(
-    () => query.data?.pages.flatMap(page => page.items) ?? [],
-    [query.data]
-  );
+  const items = useMemo(() => query.data?.pages.flatMap(page => page.items) ?? [], [query.data]);
 
   return { items, ...query };
 }
@@ -219,6 +224,7 @@ export function InfiniteScrollTrigger({
 ### Component Props
 
 **NFTGrid Props (Added)**:
+
 ```typescript
 interface NFTGridProps {
   // ... existing props ...
@@ -247,11 +253,11 @@ interface NFTGridProps {
 ### Unit Tests
 
 ```typescript
-describe('useInfiniteMarketplaceItems', () => {
-  it('should load initial page');
-  it('should fetch next page');
-  it('should not fetch when no next page');
-  it('should reset when filters change');
+describe("useInfiniteMarketplaceItems", () => {
+  it("should load initial page");
+  it("should fetch next page");
+  it("should not fetch when no next page");
+  it("should reset when filters change");
 });
 ```
 
@@ -265,13 +271,13 @@ describe('useInfiniteMarketplaceItems', () => {
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Backend API not ready | High | High | Mock adapter pattern |
-| Race condition on scroll | Medium | Medium | `isFetchingNextPage` guard |
-| Memory bloat | Low | Medium | `maxPages: 10` limit |
-| Filter sync issues | Low | Low | Filters in queryKey |
-| Browser incompatibility | Very Low | Low | Intersection Observer widely supported |
+| Risk                     | Probability | Impact | Mitigation                             |
+| ------------------------ | ----------- | ------ | -------------------------------------- |
+| Backend API not ready    | High        | High   | Mock adapter pattern                   |
+| Race condition on scroll | Medium      | Medium | `isFetchingNextPage` guard             |
+| Memory bloat             | Low         | Medium | `maxPages: 10` limit                   |
+| Filter sync issues       | Low         | Low    | Filters in queryKey                    |
+| Browser incompatibility  | Very Low    | Low    | Intersection Observer widely supported |
 
 ---
 
@@ -280,6 +286,7 @@ describe('useInfiniteMarketplaceItems', () => {
 ### For Developers
 
 **Before**:
+
 ```typescript
 const { nfts, isLoading } = useMyItems({
   contractAddress,
@@ -289,11 +296,15 @@ const { nfts, isLoading } = useMyItems({
 ```
 
 **After**:
+
 ```typescript
-const { items, isLoading, fetchNextPage, hasNextPage } =
-  useInfiniteMarketplaceItems(contractAddress, filters, {
+const { items, isLoading, fetchNextPage, hasNextPage } = useInfiniteMarketplaceItems(
+  contractAddress,
+  filters,
+  {
     enabled: isConnected,
-  });
+  }
+);
 ```
 
 ### Breaking Changes

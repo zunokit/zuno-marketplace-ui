@@ -20,10 +20,7 @@ import * as Sentry from "@sentry/nextjs";
  * );
  * ```
  */
-export async function tracedRepositoryCall<T>(
-  operation: string,
-  fn: () => Promise<T>
-): Promise<T> {
+export async function tracedRepositoryCall<T>(operation: string, fn: () => Promise<T>): Promise<T> {
   // Parse operation: "entity.action" → span name
   const [entity, action] = operation.split(".");
 
@@ -36,7 +33,7 @@ export async function tracedRepositoryCall<T>(
         action,
       },
     },
-    async (span) => {
+    async span => {
       try {
         const result = await fn();
         span?.setStatus({ code: 1, message: "success" }); // SpanStatus.OK
@@ -60,10 +57,7 @@ export async function tracedRepositoryCall<T>(
  * );
  * ```
  */
-export async function tracedCacheCall<T>(
-  operation: string,
-  fn: () => Promise<T>
-): Promise<T> {
+export async function tracedCacheCall<T>(operation: string, fn: () => Promise<T>): Promise<T> {
   const [action, ...keyParts] = operation.split(":");
   const key = keyParts.join(":").substring(0, 50); // Truncate long keys
 
@@ -148,10 +142,7 @@ export async function tracedGraphqlCall<T>(
  * );
  * ```
  */
-export async function tracedBlockchainCall<T>(
-  operation: string,
-  fn: () => Promise<T>
-): Promise<T> {
+export async function tracedBlockchainCall<T>(operation: string, fn: () => Promise<T>): Promise<T> {
   return await Sentry.startSpan(
     {
       name: `blockchain.${operation}`,

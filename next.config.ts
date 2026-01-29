@@ -2,13 +2,7 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: [
-    "pino",
-    "thread-stream",
-    "pino-pretty",
-    "lokijs",
-    "encoding",
-  ],
+  serverExternalPackages: ["pino", "thread-stream", "pino-pretty", "lokijs", "encoding"],
   images: {
     remotePatterns: [
       {

@@ -69,15 +69,15 @@ interface InfiniteScrollTriggerProps {
 
 ```typescript
 const observer = new IntersectionObserver(
-  (entries) => {
+  entries => {
     const [entry] = entries;
     if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   },
   {
-    rootMargin: '200px', // Start loading 200px before bottom
-    threshold: 0.1,      // Trigger when 10% visible
+    rootMargin: "200px", // Start loading 200px before bottom
+    threshold: 0.1, // Trigger when 10% visible
   }
 );
 ```
@@ -109,7 +109,7 @@ pnpm add react-intersection-observer
 
 Create `src/modules/marketplace/components/InfiniteScrollTrigger.tsx`:
 
-```typescript
+````typescript
 /**
  * Infinite scroll trigger component
  * Uses Intersection Observer to auto-fetch next page when scrolling near bottom
@@ -271,7 +271,7 @@ export function InfiniteScrollTrigger({
  * Display name for debugging
  */
 InfiniteScrollTrigger.displayName = 'InfiniteScrollTrigger';
-```
+````
 
 ### Step 3: Create Usage Example (Documentation)
 
@@ -319,12 +319,12 @@ pnpm build
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Memory leak (no cleanup) | Low | High | useEffect cleanup function |
-| Race condition (multiple calls) | Medium | Medium | Guard check before fetch |
-| Missing accessibility | Low | Medium | ARIA live region included |
-| Browser compatibility | Very Low | Low | Intersection Observer widely supported |
+| Risk                            | Probability | Impact | Mitigation                             |
+| ------------------------------- | ----------- | ------ | -------------------------------------- |
+| Memory leak (no cleanup)        | Low         | High   | useEffect cleanup function             |
+| Race condition (multiple calls) | Medium      | Medium | Guard check before fetch               |
+| Missing accessibility           | Low         | Medium | ARIA live region included              |
+| Browser compatibility           | Very Low    | Low    | Intersection Observer widely supported |
 
 ## Security Considerations
 
@@ -335,6 +335,7 @@ pnpm build
 ## Next Steps
 
 After completing this phase:
+
 1. Move to **Phase 05: Integration** to integrate with NFTGrid and marketplace
 2. Component ready to be placed at bottom of scrollable list
 3. Can test scroll behavior in development

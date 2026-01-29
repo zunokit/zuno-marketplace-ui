@@ -88,10 +88,7 @@ export function useInfiniteMarketplaceItems(
   );
 
   // Flatten pages for convenience
-  const items = useMemo(
-    () => query.data?.pages.flatMap(page => page.items) ?? [],
-    [query.data]
-  );
+  const items = useMemo(() => query.data?.pages.flatMap(page => page.items) ?? [], [query.data]);
 
   return {
     items,
@@ -121,24 +118,18 @@ export function useInfiniteMarketplaceItems(
 
 Create `src/modules/marketplace/queries/use-infinite-marketplace-items.ts`:
 
-```typescript
+````typescript
 /**
  * Infinite marketplace items hook
  * Consumer-friendly wrapper for infinite scroll functionality
  */
 
-import { useMemo } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import type {
-  InfiniteData,
-  UseInfiniteQueryResult,
-} from '@tanstack/react-query';
-import { infiniteMarketplaceItemsOptions } from './infinite-marketplace-items.query';
-import type {
-  MarketplaceFilters,
-  MarketplaceItemsPage,
-} from './types';
-import type { Nft } from '@/modules/marketplace/types';
+import { useMemo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
+import { infiniteMarketplaceItemsOptions } from "./infinite-marketplace-items.query";
+import type { MarketplaceFilters, MarketplaceItemsPage } from "./types";
+import type { Nft } from "@/modules/marketplace/types";
 
 /**
  * Hook options
@@ -154,11 +145,10 @@ export interface UseInfiniteMarketplaceItemsOptions {
 /**
  * Hook result with flattened items
  */
-export interface UseInfiniteMarketplaceItemsResult
-  extends Omit<
-    UseInfiniteQueryResult<MarketplaceItemsPage, Error>,
-    'data'
-  > {
+export interface UseInfiniteMarketplaceItemsResult extends Omit<
+  UseInfiniteQueryResult<MarketplaceItemsPage, Error>,
+  "data"
+> {
   /**
    * Flattened array of all NFT items across all pages
    */
@@ -219,8 +209,7 @@ export function useInfiniteMarketplaceItems(
 
   // Flatten pages for convenient consumption
   const items = useMemo(
-    () =>
-      query.data?.pages.flatMap((page) => page.items).filter(Boolean) ?? [],
+    () => query.data?.pages.flatMap(page => page.items).filter(Boolean) ?? [],
     [query.data]
   );
 
@@ -244,7 +233,7 @@ export function useInfiniteMarketplaceItems(
     isFetchingPreviousPage: query.isFetchingPreviousPage,
   };
 }
-```
+````
 
 ### Step 2: Update Barrel Export
 
@@ -257,14 +246,14 @@ Update `src/modules/marketplace/queries/index.ts`:
  */
 
 // Query options
-export { infiniteMarketplaceItemsOptions } from './infinite-marketplace-items.query';
+export { infiniteMarketplaceItemsOptions } from "./infinite-marketplace-items.query";
 
 // Hooks
 export {
   useInfiniteMarketplaceItems,
   type UseInfiniteMarketplaceItemsOptions,
   type UseInfiniteMarketplaceItemsResult,
-} from './use-infinite-marketplace-items';
+} from "./use-infinite-marketplace-items";
 
 // Types
 export type {
@@ -272,10 +261,10 @@ export type {
   MarketplaceItemsQueryParams,
   InfiniteMarketplaceItemsOptions,
   MarketplaceFilters,
-} from './types';
+} from "./types";
 
 // Mock adapter (dev only)
-export { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from './mock-adapter';
+export { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from "./mock-adapter";
 ```
 
 ### Step 3: Verify Exports
@@ -284,13 +273,13 @@ Check that exports are accessible:
 
 ```typescript
 // Should work:
-import { useInfiniteMarketplaceItems } from '@/modules/marketplace/queries';
+import { useInfiniteMarketplaceItems } from "@/modules/marketplace/queries";
 
 // Should also work:
 import {
   useInfiniteMarketplaceItems,
   infiniteMarketplaceItemsOptions,
-} from '@/modules/marketplace/queries';
+} from "@/modules/marketplace/queries";
 ```
 
 ### Step 4: TypeScript Verification
@@ -324,11 +313,11 @@ pnpm tsc --noEmit
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Type inference breaks | Low | Medium | Use explicit interface for result |
-| Memory leak from useMemo | Low | Low | Proper dependency array |
-| Hook violates rules | Very Low | High | Follow React hooks patterns |
+| Risk                     | Probability | Impact | Mitigation                        |
+| ------------------------ | ----------- | ------ | --------------------------------- |
+| Type inference breaks    | Low         | Medium | Use explicit interface for result |
+| Memory leak from useMemo | Low         | Low    | Proper dependency array           |
+| Hook violates rules      | Very Low    | High   | Follow React hooks patterns       |
 
 ## Security Considerations
 
@@ -339,6 +328,7 @@ pnpm tsc --noEmit
 ## Next Steps
 
 After completing this phase:
+
 1. Move to **Phase 04: Scroll Trigger** to build Intersection Observer component
 2. Hook ready for integration in components
 3. Can test with mock data in development
@@ -354,11 +344,10 @@ After completing this phase:
 
 ```typescript
 // Example test (for Phase 06)
-const { result } = renderHook(
-  () => useInfiniteMarketplaceItems('0x123', mockFilters),
-  { wrapper: QueryClientProvider }
-)
+const { result } = renderHook(() => useInfiniteMarketplaceItems("0x123", mockFilters), {
+  wrapper: QueryClientProvider,
+});
 
-await waitFor(() => expect(result.current.isSuccess).toBe(true))
-expect(result.current.items).toHaveLength(16) // First page
+await waitFor(() => expect(result.current.isSuccess).toBe(true));
+expect(result.current.items).toHaveLength(16); // First page
 ```

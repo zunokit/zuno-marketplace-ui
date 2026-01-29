@@ -34,10 +34,7 @@ export class SentryTracker {
   /**
    * Track authentication events
    */
-  static trackLogin(
-    userId: string,
-    method: "wallet" | "session"
-  ): void {
+  static trackLogin(userId: string, method: "wallet" | "session"): void {
     Sentry.setUser({ id: userId });
 
     this.addBreadcrumb("auth", `User logged in via ${method}`, "info", {

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { useAccount } from 'wagmi';
-import { useMeLazyQuery, useLogoutMutation, RefreshSessionDocument } from '@/shared/graphql/hooks';
-import { graphqlClient } from '@/shared/lib/graphql-client';
-import type { AuthUser } from '@/shared/types/auth';
+import { useState, useEffect, useRef } from "react";
+import { useAccount } from "wagmi";
+import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from "@/shared/graphql";
+import { graphqlClient } from "@/shared/lib/graphql-client";
+import type { AuthUser } from "@/shared/types/auth";
 
 // Singleton refresh state to prevent race conditions
 let isRefreshing = false;
@@ -27,35 +27,32 @@ export function useAuth() {
 
   // Use generated lazy query hook
   const [getMe] = useMeLazyQuery({
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
   });
   const [logoutMutation] = useLogoutMutation();
+  const [refreshSession] = useRefreshSessionMutation();
 
   // Singleton refresh function to prevent race conditions
   const refreshSessionSingleton = async (): Promise<string | null> => {
     // If already refreshing, wait for the existing promise
     if (isRefreshing && refreshPromise) {
-      console.log('[Auth] Refresh already in progress, waiting...');
+      console.log("[Auth] Refresh already in progress, waiting...");
       return refreshPromise;
     }
 
     isRefreshing = true;
     refreshPromise = (async () => {
       try {
-        const client = graphqlClient.getClient();
-        const result = await client.mutate({
-          mutation: RefreshSessionDocument,
-          variables: {},
-        });
+        const { data } = await refreshSession();
 
-        if (result.data?.refreshSession?.accessToken) {
-          graphqlClient.setAccessToken(result.data.refreshSession.accessToken);
-          console.log('[Auth] Session refreshed successfully');
-          return result.data.refreshSession.accessToken;
+        if (data?.refreshSession?.accessToken) {
+          graphqlClient.setAccessToken(data.refreshSession.accessToken);
+          console.log("[Auth] Session refreshed successfully");
+          return data.refreshSession.accessToken;
         }
         return null;
       } catch (error) {
-        console.log('[Auth] No valid refresh token, user needs to sign in');
+        console.log("[Auth] No valid refresh token, user needs to sign in");
         return null;
       } finally {
         isRefreshing = false;
@@ -114,18 +111,18 @@ export function useAuth() {
           setIsAuthenticated(true);
         }
       } catch (error) {
-        console.error('[Auth] Failed to get user after login:', error);
+        console.error("[Auth] Failed to get user after login:", error);
         setIsAuthenticated(false);
         setUser(null);
       }
     };
 
-    window.addEventListener('auth:logout', handleLogout);
-    window.addEventListener('auth:login', handleLogin);
+    window.addEventListener("auth:logout", handleLogout);
+    window.addEventListener("auth:login", handleLogin);
 
     return () => {
-      window.removeEventListener('auth:logout', handleLogout);
-      window.removeEventListener('auth:login', handleLogin);
+      window.removeEventListener("auth:logout", handleLogout);
+      window.removeEventListener("auth:login", handleLogin);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run only once on mount
@@ -141,18 +138,18 @@ export function useAuth() {
       setUser(null);
       setIsAuthenticated(false);
 
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:logout'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
       // Still clear local state even if logout call fails
       graphqlClient.setAccessToken(null);
       setUser(null);
       setIsAuthenticated(false);
 
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('auth:logout'));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     }
   };

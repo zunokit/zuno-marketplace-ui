@@ -59,7 +59,7 @@ const infiniteMarketplaceItemsOptions = ({ contractAddress, filters }) =>
     initialPageParam: null,
 
     // Cache invalidation
-    queryKey: ['marketplace', 'infinite', contractAddress, filters],
+    queryKey: ["marketplace", "infinite", contractAddress, filters],
 
     // Fetch function
     queryFn: async ({ queryKey, pageParam }) => {
@@ -67,7 +67,7 @@ const infiniteMarketplaceItemsOptions = ({ contractAddress, filters }) =>
     },
 
     // Cursor extraction
-    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    getNextPageParam: lastPage => lastPage.nextCursor ?? undefined,
 
     // Memory management
     maxPages: 10,
@@ -75,7 +75,7 @@ const infiniteMarketplaceItemsOptions = ({ contractAddress, filters }) =>
     // Aggressive caching
     staleTime: 15_000,
     gcTime: 5 * 60_000,
-  })
+  });
 ```
 
 ### Query Key Schema
@@ -105,42 +105,41 @@ const infiniteMarketplaceItemsOptions = ({ contractAddress, filters }) =>
 ### Step 1: Import Dependencies
 
 ```typescript
-import { infiniteQueryOptions } from '@tanstack/react-query';
-import type { InfiniteData } from '@tanstack/react-query';
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import type { InfiniteData } from "@tanstack/react-query";
 ```
 
 ### Step 2: Define Query Options Function
 
 Create `src/modules/marketplace/queries/infinite-marketplace-items.query.ts`:
 
-```typescript
+````typescript
 /**
  * Infinite marketplace items query options
  * Follows TanStack Query v5 queryOptions pattern for type safety
  */
 
-import { infiniteQueryOptions } from '@tanstack/react-query';
-import type {
-  InfiniteData,
-  InfiniteQueryOptions,
-} from '@tanstack/react-query';
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import type { InfiniteData, InfiniteQueryOptions } from "@tanstack/react-query";
 import type {
   MarketplaceItemsPage,
   MarketplaceItemsQueryParams,
   InfiniteMarketplaceItemsOptions,
   MarketplaceFilters,
-} from './types';
-import { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from './mock-adapter';
+} from "./types";
+import { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from "./mock-adapter";
 
 /**
  * Real API fetcher (to be implemented when backend is ready)
  * Placeholder for future implementation
  */
-async function realFetchMarketplaceItems(params: MarketplaceItemsQueryParams): Promise<MarketplaceItemsPage> {
+async function realFetchMarketplaceItems(
+  params: MarketplaceItemsQueryParams
+): Promise<MarketplaceItemsPage> {
   // TODO: Implement real API call
   const response = await fetch(`/api/marketplace/${params.contractAddress}/items`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(params),
   });
 
@@ -187,8 +186,8 @@ export function infiniteMarketplaceItemsOptions({
 
     // Query key - includes filters for auto-invalidation
     queryKey: [
-      'marketplace',
-      'infinite',
+      "marketplace",
+      "infinite",
       contractAddress,
       {
         priceRange: filters.priceRange,
@@ -206,7 +205,9 @@ export function infiniteMarketplaceItemsOptions({
 
       // Use mock or real API
       const data = USE_MOCK_ADAPTER
-        ? await mockFetchMarketplaceItems({ queryKey: ['marketplace', 'infinite', contractAddress, params] as const })
+        ? await mockFetchMarketplaceItems({
+            queryKey: ["marketplace", "infinite", contractAddress, params] as const,
+          })
         : await realFetchMarketplaceItems(params);
 
       return data;
@@ -229,22 +230,22 @@ export function infiniteMarketplaceItemsOptions({
 
     // Retry configuration
     retry: 1,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30_000),
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30_000),
 
     // Refetch on window focus (disabled to prevent unnecessary refetches)
     refetchOnWindowFocus: false,
 
     // Refetch on mount (use cache if fresh)
-    refetchOnMount: 'always',
+    refetchOnMount: "always",
   }) as InfiniteQueryOptions<
     MarketplaceItemsPage,
     Error,
     InfiniteData<MarketplaceItemsPage>,
-    readonly ['marketplace', 'infinite', string, typeof queryParams],
+    readonly ["marketplace", "infinite", string, typeof queryParams],
     string | null
   >;
 }
-```
+````
 
 ### Step 3: Verify Type Inference
 
@@ -310,12 +311,12 @@ pnpm build
 
 ## Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| Type inference failure | Low | Medium | Use `as` cast for complex types |
-| Mock adapter not working | Medium | High | Test mock adapter separately |
-| Filter serialization issues | Medium | Low | Filters in queryKey must be serializable |
-| v5 API mismatch | Low | High | Verify queryOptions signature |
+| Risk                        | Probability | Impact | Mitigation                               |
+| --------------------------- | ----------- | ------ | ---------------------------------------- |
+| Type inference failure      | Low         | Medium | Use `as` cast for complex types          |
+| Mock adapter not working    | Medium      | High   | Test mock adapter separately             |
+| Filter serialization issues | Medium      | Low    | Filters in queryKey must be serializable |
+| v5 API mismatch             | Low         | High   | Verify queryOptions signature            |
 
 ## Security Considerations
 
@@ -327,6 +328,7 @@ pnpm build
 ## Next Steps
 
 After completing this phase:
+
 1. Move to **Phase 03: Hook Wrapper** to create `useInfiniteMarketplaceItems`
 2. Query options pattern ready for consumption by hook
 3. Mock adapter provides development data

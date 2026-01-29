@@ -10,10 +10,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // OpenSea primary button (highlighted actions)
-        default: "bg-primary text-primary-foreground border border-border-medium hover:bg-primary/90 hover:border-border-strong shadow-os-inset font-medium rounded-[6px]",
+        default:
+          "bg-primary text-primary-foreground border border-border-medium hover:bg-primary/90 hover:border-border-strong shadow-os-inset font-medium rounded-[6px]",
 
         // OpenSea secondary button (most common)
-        secondary: "bg-secondary text-secondary-foreground border border-border-subtle hover:bg-hover-bg hover:border-border-medium shadow-os-inset rounded-[6px]",
+        secondary:
+          "bg-secondary text-secondary-foreground border border-border-subtle hover:bg-hover-bg hover:border-border-medium shadow-os-inset rounded-[6px]",
 
         // Destructive/Error button
         destructive:

@@ -35,7 +35,9 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
           <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
             {/* Top Row: Title and Badges */}
             <div className="flex items-center gap-2">
-              <h1 className="text-sm font-medium font-sans truncate">{collection?.name || "Collection"}</h1>
+              <h1 className="text-sm font-medium font-sans truncate">
+                {collection?.name || "Collection"}
+              </h1>
               <div className="w-3 h-3 rounded-full bg-primary flex items-center justify-center shrink-0">
                 <svg className="w-2 h-2 text-foreground" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -62,7 +64,9 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
                 >
                   <span className="hidden md:inline">Info</span>
                   <span className="md:hidden">i</span>
-                  <ChevronDown className={`w-2.5 h-2.5 ml-0.5 md:ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`w-2.5 h-2.5 ml-0.5 md:ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`}
+                  />
                 </Button>
                 <Button
                   variant="secondary"
@@ -79,10 +83,18 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
                 </Button>
               </div>
               <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0"
+                >
                   <X className="w-2.5 h-2.5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 text-os-gray-300 hover:text-foreground flex-shrink-0"
+                >
                   <Globe className="w-2.5 h-2.5" />
                 </Button>
               </div>
@@ -122,17 +134,23 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
 
           {/* Royalties */}
           <div className="flex items-center gap-1.5 text-xs sm:text-sm mb-3">
-            <div className="w-4 h-4 bg-warning rounded flex items-center justify-center text-xs">👑</div>
+            <div className="w-4 h-4 bg-warning rounded flex items-center justify-center text-xs">
+              👑
+            </div>
             <span className="font-medium font-sans">Royalties: 5%</span>
           </div>
 
           {/* Description */}
           <p className="text-os-gray-300 text-xs sm:text-sm mb-3">
-            {collection?.description || "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
+            {collection?.description ||
+              "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
           </p>
 
           {/* Actions */}
-          <Button variant="outline" className="border-border-subtle hover:bg-muted bg-transparent w-full h-7 text-xs">
+          <Button
+            variant="outline"
+            className="border-border-subtle hover:bg-muted bg-transparent w-full h-7 text-xs"
+          >
             <Star className="w-3 h-3 mr-1.5" />
             Add to Watchlist
           </Button>
@@ -156,7 +174,9 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
                 />
               </div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-medium font-sans whitespace-nowrap">{collection?.name || "Collection"}</h1>
+                <h1 className="text-xl font-medium font-sans whitespace-nowrap">
+                  {collection?.name || "Collection"}
+                </h1>
                 <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
                   <svg className="w-3 h-3 text-foreground" fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -182,7 +202,9 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
                 className="bg-muted hover:bg-hover text-foreground h-8 px-3"
               >
                 Info
-                <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`w-3 h-3 ml-1 transition-transform ${showInfo ? "rotate-180" : ""}`}
+                />
               </Button>
               <Button
                 variant="secondary"
@@ -197,10 +219,18 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
                 Share Stats
                 <Share2 className="w-3 h-3 ml-1" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-foreground">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-os-gray-300 hover:text-foreground"
+              >
                 <X className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-os-gray-300 hover:text-foreground">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-os-gray-300 hover:text-foreground"
+              >
                 <Globe className="w-4 h-4" />
               </Button>
             </div>
@@ -260,7 +290,11 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
           <div className="mt-4 border-t border-border-subtle pt-4 relative mx-6 lg:mx-8 xl:mx-12">
             {/* Flag Collection Button */}
             <div className="absolute top-4 right-6 lg:right-8 xl:right-12">
-              <Button variant="ghost" size="sm" className="text-os-gray-300 hover:text-foreground h-8 px-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-os-gray-300 hover:text-foreground h-8 px-2"
+              >
                 <Flag className="w-3 h-3 mr-1" />
                 <span className="text-xs">Flag Collection</span>
               </Button>
@@ -268,18 +302,24 @@ export default function CollectionInfoPanel({ collection }: CollectionInfoPanelP
 
             {/* Royalties Section */}
             <div className="flex items-center gap-2 text-sm">
-              <div className="w-5 h-5 bg-warning rounded flex items-center justify-center text-xs">👑</div>
+              <div className="w-5 h-5 bg-warning rounded flex items-center justify-center text-xs">
+                👑
+              </div>
               <span className="font-medium font-sans">Royalties: 5%</span>
             </div>
 
             {/* Description */}
             <p className="mt-3 text-os-gray-300">
-              {collection?.description || "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
+              {collection?.description ||
+                "Make Gamba Great Again - we're going to win so much, you'll be tired of winning."}
             </p>
 
             {/* Actions */}
             <div className="mt-4">
-              <Button variant="outline" className="border-border-subtle hover:bg-muted bg-transparent">
+              <Button
+                variant="outline"
+                className="border-border-subtle hover:bg-muted bg-transparent"
+              >
                 <Star className="w-4 h-4 mr-2" />
                 Add to Watchlist
               </Button>
