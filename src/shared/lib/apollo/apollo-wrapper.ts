@@ -16,6 +16,7 @@ import {
   setGetAccessTokenCallback,
 } from './apollo-client';
 import { graphqlLogger } from '@/shared/lib/logger';
+import { RefreshSessionDocument, type RefreshSessionMutation } from '@/shared/graphql';
 
 class ApolloClientWrapper {
   private client: ApolloClient;
@@ -54,11 +55,8 @@ class ApolloClientWrapper {
       try {
         graphqlLogger.info('Attempting to refresh access token...');
 
-        // Import RefreshSession mutation document
-        const { RefreshSessionDocument } = await import('@/shared/graphql/hooks');
-
         // Call refreshSession mutation directly (will use HTTP-only cookie)
-        const result = await this.client.mutate({
+        const result = await this.client.mutate<RefreshSessionMutation>({
           mutation: RefreshSessionDocument,
           variables: {},
         });
