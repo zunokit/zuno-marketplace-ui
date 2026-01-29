@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/shared/components/ui/carousel";
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 import type { CarouselApi } from "@/shared/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -56,12 +56,23 @@ export function BaseCarousel<T extends CarouselItemData>({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!api) return;
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
     api.on("select", () => setCurrent(api.selectedScrollSnap()));
+  }, [api]);
+
+  // Re-init carousel khi container resize (vd: mở/đóng right sidebar) để slide width cập nhật đúng
+  useEffect(() => {
+    if (!api || !wrapperRef.current) return;
+    const ro = new ResizeObserver(() => {
+      api.reInit();
+    });
+    ro.observe(wrapperRef.current);
+    return () => ro.disconnect();
   }, [api]);
 
   if (!items.length) return null;
@@ -72,7 +83,7 @@ export function BaseCarousel<T extends CarouselItemData>({
   };
 
   return (
-    <div className={`relative -mx-4 px-4 group ${className}`}>
+    <div ref={wrapperRef} className={`relative -mx-4 px-4 group ${className}`}>
       <CarouselComponent
         opts={{ align, loop }}
         setApi={setApi}

@@ -1,4 +1,4 @@
-import CollectionForm from "@/modules/mint/create-form/components/CollectionForm";
+import CollectionForm from "@/modules/launch-pad/create-form/components/collection-form";
 import React from "react";
 
 export default function page() {
