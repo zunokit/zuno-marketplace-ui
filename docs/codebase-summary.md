@@ -53,7 +53,7 @@ src/
 │   └── globals.css                  # Global styles
 ├── modules/                         # Feature modules
 │   ├── marketplace/                 # Core marketplace functionality
-│   ├── mint/                        # NFT minting workflows
+│   ├── launch-pad/                 # NFT minting & launch pad
 │   ├── product-discovery/           # Discovery and exploration
 │   ├── profile/                     # User profiles
 │   ├── auctions/                    # Auction system
@@ -93,7 +93,7 @@ Core trading functionality including:
 - Price charts and analytics
 - Transaction processing
 
-### 2. Mint Module (`src/modules/mint/`)
+### 2. Launch Pad Module (`src/modules/launch-pad/`)
 NFT creation and minting:
 - Single and batch minting
 - Collection creation wizard
