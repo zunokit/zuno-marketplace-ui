@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
-import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from '@/shared/graphql/hooks';
+import { useMeLazyQuery, useLogoutMutation, useRefreshSessionMutation } from '@/shared/graphql';
 import { graphqlClient } from '@/shared/lib/graphql-client';
 import type { AuthUser } from '@/shared/types/auth';
 

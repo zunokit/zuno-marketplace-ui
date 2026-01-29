@@ -9,7 +9,7 @@ import {
   useGetNonceLazyQuery,
   useVerifySiweMutation,
   useLogoutMutation,
-} from '@/shared/graphql/hooks';
+} from '@/shared/graphql';
 import { graphqlClient } from '@/shared/lib/graphql-client';
 
 export function SignInButton() {
