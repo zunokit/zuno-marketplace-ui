@@ -1,6 +1,6 @@
 "use client";
 
-import { useMyCollectionsQuery } from "@/shared/graphql/hooks";
+import { useGetMyCollectionsQuery } from "@/shared/graphql";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { CollectionCard } from "@/modules/collections/components/CollectionCard";
 import { Button } from "@/shared/components/ui/button";
@@ -10,13 +10,13 @@ import Link from "next/link";
 
 export default function MyCollectionsPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
-  const { data, loading, error } = useMyCollectionsQuery(
-    {
+  const { data, loading, error } = useGetMyCollectionsQuery({
+    skip: !isAuthenticated, // Only query when authenticated
+    variables: {
       page: 1,
       limit: 20,
     },
-    { enabled: isAuthenticated } // Only query when authenticated
-  );
+  });
 
   // Show loading while auth is being checked
   if (authLoading) {

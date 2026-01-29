@@ -10,7 +10,7 @@ import {
   useCreateCollectionMutation,
   useAddToAllowlistMutation,
   useUpdateCollectionMutation
-} from '@/shared/graphql/hooks';
+} from '@/shared/graphql';
 import type { MintTerminalCreateForm } from '@/shared/types/mint';
 import type { CreateCollectionInput, ApiTokenStandard } from '@/shared/types/collection';
 import { useCollection } from 'zuno-marketplace-sdk/react';
@@ -272,7 +272,6 @@ export function useCreateCollection() {
           input: {
             contractAddress: deployedAddress,
             status: 'DEPLOYED' as const,
-            deployedAt: new Date().toISOString(),
           },
         },
       });

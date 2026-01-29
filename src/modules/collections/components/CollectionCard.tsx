@@ -29,7 +29,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export function CollectionCard({ collection }: CollectionCardProps) {
-  const chainName = CHAIN_NAMES[collection.chainId] || collection.chainId;
+  const chainName = (collection.chainId && CHAIN_NAMES[collection.chainId]) || collection.chainId || 'Unknown';
   const statusColor = STATUS_COLORS[collection.status] || 'bg-muted text-muted-foreground';
 
   return (

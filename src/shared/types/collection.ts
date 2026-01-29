@@ -1,3 +1,4 @@
+import type { Collection as GeneratedCollection } from "@/shared/graphql";
 import {
   ID,
   ISODate,
@@ -221,38 +222,8 @@ export type ApiTokenStandard = 'ERC721' | 'ERC1155';
 export type ApiCollectionStatus = 'PENDING' | 'DEPLOYED' | 'FAILED' | 'ARCHIVED';
 export type ApiIndexStatus = 'NOT_INDEXED' | 'INDEXING' | 'INDEXED' | 'FAILED';
 
-export interface ApiCollection {
-  id: string;
-  userId: string;
-  name: string;
-  symbol: string;
-  slug?: string;
-  description?: string;
-  contractAddress?: string;
-  chainId: string;
-  tokenStandard: ApiTokenStandard;
-  status: ApiCollectionStatus;
-  indexStatus: ApiIndexStatus;
-  creatorAddress: string;
-  deployerAddress: string;
-  imageUrl: string;
-  bannerImageUrl?: string;
-  featuredImageUrl?: string;
-  baseUri?: string;
-  maxSupply?: number;
-  mintPrice?: string;
-  mintPriceAllowlist?: string;
-  mintPricePublic?: string;
-  mintStartTime?: string;
-  allowlistStageEnd?: string;
-  royaltyFeeBps?: number;
-  royaltyRecipient?: string;
-  metadata?: ApiCollectionMetadata;
-  stats?: ApiCollectionStats;
-  createdAt: string;
-  updatedAt: string;
-  deployedAt?: string;
-}
+// Use generated Collection type from GraphQL codegen
+export type ApiCollection = GeneratedCollection;
 
 export interface ApiCollectionMetadata {
   websiteUrl?: string;

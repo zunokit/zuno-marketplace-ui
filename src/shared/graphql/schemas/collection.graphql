@@ -251,6 +251,33 @@ query GetMyCollections($page: Int, $limit: Int) {
       metadataStandard
       createdAt
       updatedAt
+      metadata {
+        id
+        collectionId
+        metadataUri
+        ipfsHash
+        ipfsUrl
+        discordUrl
+        twitterUrl
+        instagramUrl
+        mediumUrl
+        telegramUrl
+        backgroundColor
+      }
+      stats {
+        collectionId
+        totalItems
+        totalOwners
+        totalSales
+        floorPriceWei
+        totalVolumeWei
+        averagePriceWei
+        volume24hWei
+        sales24h
+        lastSaleAt
+        lastMintAt
+        updatedAt
+      }
     }
     pageInfo {
       totalCount

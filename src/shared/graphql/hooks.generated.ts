@@ -858,6 +858,35 @@ export type GetMyCollectionsQuery = {
       metadataStandard: string | null;
       createdAt: string;
       updatedAt: string;
+      metadata: {
+        __typename?: "CollectionMetadata";
+        id: string;
+        collectionId: string;
+        metadataUri: string | null;
+        ipfsHash: string | null;
+        ipfsUrl: string | null;
+        discordUrl: string | null;
+        twitterUrl: string | null;
+        instagramUrl: string | null;
+        mediumUrl: string | null;
+        telegramUrl: string | null;
+        backgroundColor: string | null;
+      } | null;
+      stats: {
+        __typename?: "CollectionStats";
+        collectionId: string;
+        totalItems: number;
+        totalOwners: number;
+        totalSales: number;
+        floorPriceWei: string;
+        totalVolumeWei: string;
+        averagePriceWei: string;
+        volume24hWei: string;
+        sales24h: number;
+        lastSaleAt: string | null;
+        lastMintAt: string | null;
+        updatedAt: string;
+      } | null;
     }>;
     pageInfo: {
       __typename?: "PageInfo";
@@ -1737,6 +1766,33 @@ export const GetMyCollectionsDocument = gql`
         metadataStandard
         createdAt
         updatedAt
+        metadata {
+          id
+          collectionId
+          metadataUri
+          ipfsHash
+          ipfsUrl
+          discordUrl
+          twitterUrl
+          instagramUrl
+          mediumUrl
+          telegramUrl
+          backgroundColor
+        }
+        stats {
+          collectionId
+          totalItems
+          totalOwners
+          totalSales
+          floorPriceWei
+          totalVolumeWei
+          averagePriceWei
+          volume24hWei
+          sales24h
+          lastSaleAt
+          lastMintAt
+          updatedAt
+        }
       }
       pageInfo {
         totalCount
