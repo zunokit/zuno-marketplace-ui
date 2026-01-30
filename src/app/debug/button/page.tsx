@@ -597,7 +597,7 @@ export default function ButtonDebugPage() {
                   Buy Now
                 </Button>
                 <Button size="sm" variant="secondary">Make Offer</Button>
-                <Button size="icon" variant="ghost" size="sm">
+                <Button variant="ghost" size="sm">
                   <Heart className="w-4 h-4" />
                 </Button>
               </div>

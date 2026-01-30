@@ -12,6 +12,10 @@ import {
   Grid,
   ChevronRight,
   Bug,
+  CheckSquare,
+  Rows3,
+  BadgeCheck,
+  Loader2,
 } from "lucide-react";
 
 // ============================================
@@ -28,6 +32,38 @@ interface DebugRoute {
 }
 
 const debugRoutes: DebugRoute[] = [
+  {
+    href: "/debug/loading",
+    title: "Loading Components",
+    description: "Spinners, skeletons, progress bars, loading buttons, and shimmer effects",
+    icon: Loader2,
+    badge: "New",
+    status: "ready",
+  },
+  {
+    href: "/debug/badge-tooltip",
+    title: "Badge & Tooltip",
+    description: "Badge variants, frosted glass, gradients, tooltip positions, and rich content",
+    icon: BadgeCheck,
+    badge: "New",
+    status: "ready",
+  },
+  {
+    href: "/debug/tabs-accordion",
+    title: "Tabs & Accordion",
+    description: "Tab variants, vertical tabs, single/multiple accordions, and rich content patterns",
+    icon: Rows3,
+    badge: "New",
+    status: "ready",
+  },
+  {
+    href: "/debug/checkbox-switch",
+    title: "Checkbox & Switch",
+    description: "Checkbox states, groups, indeterminate, and switch variants with frosted glass styling",
+    icon: CheckSquare,
+    badge: "New",
+    status: "ready",
+  },
   {
     href: "/debug/drawer",
     title: "Drawer",
