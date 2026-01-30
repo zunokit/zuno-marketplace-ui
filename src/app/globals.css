@@ -805,3 +805,17 @@ html:not(.dark) {
 .input-os::placeholder {
   color: rgb(172, 173, 174);
 }
+
+/* Shimmer animation for legendary effects */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
