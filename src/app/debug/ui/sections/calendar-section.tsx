@@ -93,7 +93,16 @@ export function CalendarSection() {
             <Calendar
               mode="range"
               selected={dateRange}
-              onSelect={(range) => setDateRange(range || { from: undefined, to: undefined })}
+              onSelect={(range) => {
+                const newFrom = range?.from;
+                const newTo = range?.to;
+                if (
+                  newFrom?.getTime() !== dateRange.from?.getTime() ||
+                  newTo?.getTime() !== dateRange.to?.getTime()
+                ) {
+                  setDateRange({ from: newFrom, to: newTo });
+                }
+              }}
               numberOfMonths={2}
               className="rounded-md border"
             />
@@ -232,7 +241,16 @@ export function CalendarSection() {
                       <Calendar
                         mode="range"
                         selected={dateRange}
-                        onSelect={(range) => setDateRange(range || { from: undefined, to: undefined })}
+                        onSelect={(range) => {
+                          const newFrom = range?.from;
+                          const newTo = range?.to;
+                          if (
+                            newFrom?.getTime() !== dateRange.from?.getTime() ||
+                            newTo?.getTime() !== dateRange.to?.getTime()
+                          ) {
+                            setDateRange({ from: newFrom, to: newTo });
+                          }
+                        }}
                         numberOfMonths={2}
                         disabled={(date) => date < new Date()}
                       />
