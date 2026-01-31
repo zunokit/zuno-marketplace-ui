@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Activity,
   ShoppingCart,
@@ -285,14 +285,17 @@ export default function MarketplaceActivity() {
     </div>
   );
 
-  const stats = {
-    totalVolume: activities.reduce((acc, item) => acc + (item.price || 0), 0),
-    totalSales: activities.filter(item => item.type === "sale").length,
-    avgPrice:
-      activities.filter(item => item.price).reduce((acc, item) => acc + (item.price || 0), 0) /
-        activities.filter(item => item.price).length || 0,
-    totalTransactions: activities.length,
-  };
+  const stats = useMemo(
+    () => ({
+      totalVolume: activities.reduce((acc, item) => acc + (item.price || 0), 0),
+      totalSales: activities.filter(item => item.type === "sale").length,
+      avgPrice:
+        activities.filter(item => item.price).reduce((acc, item) => acc + (item.price || 0), 0) /
+          activities.filter(item => item.price).length || 0,
+      totalTransactions: activities.length,
+    }),
+    [activities]
+  );
 
   return (
     <div className="mx-auto py-8">
