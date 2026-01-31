@@ -10,6 +10,8 @@ export function ModeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Use useEffect for client-side mounting detection
+  // This is a valid pattern for hydration mismatch prevention
   useEffect(() => {
     setMounted(true);
   }, []);

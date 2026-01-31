@@ -7,6 +7,7 @@ import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { ResponsivePopoverDrawer } from "@/shared/components/responsive-popover-drawer";
 import { useNFTSelectionStore } from "@/shared/stores/use-nft-selection-store";
 import MarketplaceSelectionCart from "@/modules/marketplace/components/marketplace-selection-cart";
+import { useScrollDirection } from "@/shared/hooks/use-scroll-direction";
 
 type ActionMode = "buy" | "sell";
 
@@ -36,6 +37,8 @@ export default function MarketplaceSelectionBar({
   className,
 }: MarketplaceSelectionBarProps) {
   const { cartOpen, setCartOpen } = useNFTSelectionStore();
+  const { scrollDirection, isAtTop } = useScrollDirection({ threshold: 20 });
+
   const handleSliderChange = (value: number[]) => {
     onSliderChange(value[0]);
   };
@@ -43,162 +46,268 @@ export default function MarketplaceSelectionBar({
   const decrementCount = () => onItemCountChange(Math.max(0, itemCount - 1));
   const incrementCount = () => onItemCountChange(Math.min(maxItems, itemCount + 1));
 
+  // Mobile: hide on scroll down, show on scroll up or at top
+  const isMobileVisible = isAtTop || scrollDirection === "up";
+
   return (
     <div
       className={cn(
-        className,
-        "flex items-center shrink-0 w-full h-14",
-        "border-t border-border bg-background/95 backdrop-blur-sm",
-        "scrollbar-hide overflow-y-auto"
+        "flex flex-col shrink-0 w-full transition-transform duration-300 ease-out",
+        // Mobile: transform translate based on scroll
+        !isMobileVisible && "translate-y-full md:translate-y-0",
+        className
       )}
     >
-      <div className="mx-auto min-h-0 w-full min-w-0 px-4 lg:px-6 flex items-center">
-        <div className="flex items-center justify-between gap-4 w-full min-w-0">
-          {/* Left: mode, slider, count, selected */}
-          <div className="flex items-center gap-4 min-w-0 shrink-0">
-            {/* Buy/Sell Toggle */}
-            <div
-              className="inline-flex rounded-md gap-1 overflow-hidden bg-muted p-0.5"
-              role="group"
-            >
-              <button
-                type="button"
-                className={cn(
-                  "relative flex items-center rounded-md py-1 outline-hidden",
-                  "transition-[scale,colors] duration-200 ease-out active:scale-[0.97]",
-                  "text-sm px-3 h-7",
-                  mode === "buy"
-                    ? "font-medium text-foreground"
-                    : "text-os-gray-300 hover:text-foreground"
-                )}
-                onClick={() => onModeChange?.("buy")}
-              >
-                <span className="relative z-[1]">Buy</span>
-                {mode === "buy" && (
-                  <span className="absolute inset-0 size-full rounded-md bg-background" />
-                )}
-              </button>
-              <button
-                type="button"
-                className={cn(
-                  "relative flex items-center rounded-md py-1 outline-hidden",
-                  "transition-[scale,colors] duration-200 ease-out active:scale-[0.97]",
-                  "text-sm px-3 h-7",
-                  mode === "sell"
-                    ? "font-medium text-foreground"
-                    : "text-os-gray-300 hover:text-foreground"
-                )}
-                onClick={() => onModeChange?.("sell")}
-              >
-                <span className="relative z-[1]">Sell</span>
-                {mode === "sell" && (
-                  <span className="absolute inset-0 size-full rounded-md bg-background" />
-                )}
-              </button>
-            </div>
-
-            {/* Slider - controls NFT selection */}
-            <div className="hidden md:flex items-center p-3 w-[140px]">
-              <Slider
-                value={[sliderValue]}
-                onValueChange={handleSliderChange}
-                max={maxItems}
-                step={1}
-                className="w-full"
-              />
-            </div>
-
-            {/* Item Count Input */}
-            <div
+      {/* Mobile Layout - Compact single row */}
+      <div className="md:hidden flex items-center justify-between w-full h-14 px-3 border-t border-border bg-background/95 backdrop-blur-sm">
+        {/* Left: Buy/Sell toggle + Count */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Buy/Sell Toggle - Compact */}
+          <div
+            className="inline-flex rounded-md gap-0.5 overflow-hidden bg-muted p-0.5"
+            role="group"
+          >
+            <button
+              type="button"
+              onClick={() => onModeChange?.("buy")}
               className={cn(
-                "inline-flex items-center whitespace-nowrap rounded-md",
-                "bg-background hover:bg-muted border border-border",
-                "h-8 gap-1 text-sm px-2 font-mono w-[105px] shrink-0"
+                "relative flex items-center rounded px-2 py-1 text-xs font-medium transition-all",
+                mode === "buy" ? "bg-background text-foreground" : "text-os-gray-300"
               )}
             >
-              <button
-                className="inline-flex items-center text-foreground hover:text-os-gray-300 disabled:opacity-40"
-                disabled={itemCount === 0}
-                onClick={decrementCount}
-                type="button"
-              >
-                <Minus className="size-4" />
-              </button>
-              <input
-                type="number"
-                value={itemCount}
-                onChange={e =>
-                  onItemCountChange(Math.min(maxItems, Math.max(0, Number(e.target.value) || 0)))
-                }
-                min={0}
-                max={maxItems}
-                className="text-sm w-full border-0 bg-transparent outline-hidden text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-              />
-              <button
-                className="inline-flex items-center text-foreground hover:text-os-gray-300 disabled:opacity-40"
-                disabled={itemCount >= maxItems}
-                onClick={incrementCount}
-                type="button"
-              >
-                <Plus className="size-4" />
-              </button>
-            </div>
-
-            {/* Selected count display */}
-            <span className="text-sm text-muted-foreground">{itemCount} selected</span>
-            <div className="shrink-0 bg-border w-px h-6" />
+              Buy
+            </button>
+            <button
+              type="button"
+              onClick={() => onModeChange?.("sell")}
+              className={cn(
+                "relative flex items-center rounded px-2 py-1 text-xs font-medium transition-all",
+                mode === "sell" ? "bg-background text-foreground" : "text-os-gray-300"
+              )}
+            >
+              Sell
+            </button>
           </div>
 
-          {/* Right: actions + cart */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Item count badge */}
+          <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-muted text-xs">
+            <button
+              onClick={decrementCount}
+              disabled={itemCount === 0}
+              className="text-foreground disabled:opacity-40"
+            >
+              <Minus className="size-3" />
+            </button>
+            <span className="font-mono min-w-[20px] text-center">{itemCount}</span>
+            <button
+              onClick={incrementCount}
+              disabled={itemCount >= maxItems}
+              className="text-foreground disabled:opacity-40"
+            >
+              <Plus className="size-3" />
+            </button>
+          </div>
+        </div>
+
+        {/* Right: CTA Button + Cart */}
+        <div className="flex items-center gap-2">
+          {itemCount > 0 && (
+            <>
+              <Button
+                size="sm"
+                className="h-8 px-3 text-xs bg-[#2081E2] hover:bg-[#1868B7] text-white"
+                onClick={onBuyFloor}
+              >
+                {mode === "buy" ? "Buy" : "List"}
+              </Button>
+              <ResponsivePopoverDrawer
+                open={cartOpen}
+                onOpenChange={setCartOpen}
+                title={`Cart (${itemCount})`}
+                closeOnInteractOutside={false}
+                renderTrigger={p => (
+                  <button
+                    {...p}
+                    type="button"
+                    className="flex items-center justify-center w-8 h-8 rounded-md border border-border bg-card hover:bg-muted/50 relative"
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                    <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                      {itemCount}
+                    </span>
+                  </button>
+                )}
+              >
+                <MarketplaceSelectionCart
+                  onPrimaryAction={onBuyFloor}
+                  primaryLabel={mode === "buy" ? "Buy floor" : "List selected"}
+                />
+              </ResponsivePopoverDrawer>
+            </>
+          )}
+          {itemCount === 0 && (
             <Button
               variant="outline"
               size="sm"
-              className="h-8 px-3"
+              className="h-8 px-3 text-xs"
               onClick={onMakeOffer}
-              disabled={itemCount === 0}
             >
-              Make collection offer
+              Offer
             </Button>
-            <Button
-              size="sm"
-              className="h-8 px-3 bg-[#2081E2] hover:bg-[#1868B7] text-white"
-              onClick={onBuyFloor}
-              disabled={itemCount === 0}
-            >
-              {mode === "buy" ? "Buy floor" : "List selected"}
-            </Button>
-            {itemCount > 0 && (
-              <>
-                <div className="shrink-0 bg-border w-px h-6" />
-                <ResponsivePopoverDrawer
-                  open={cartOpen}
-                  onOpenChange={setCartOpen}
-                  title={`Cart (${itemCount})`}
-                  closeOnInteractOutside={false}
-                  renderTrigger={p => (
-                    <button
-                      {...p}
-                      type="button"
-                      className="flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 relative whitespace-nowrap shrink-0 h-8 px-3 rounded-md border border-border bg-card hover:border-border hover:bg-muted/50 shadow-sm"
-                    >
-                      <div className="relative">
-                        <ShoppingCart className="w-4 h-4" />
-                        <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-medium">
-                          {itemCount}
-                        </span>
-                      </div>
-                      <span className="text-xs sm:text-sm">Cart</span>
-                    </button>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop Layout - Full bar */}
+      <div className="hidden md:flex items-center shrink-0 w-full h-14 border-t border-border bg-background/95 backdrop-blur-sm scrollbar-hide overflow-y-auto">
+        <div className="mx-auto min-h-0 w-full min-w-0 px-4 lg:px-6 flex items-center">
+          <div className="flex items-center justify-between gap-4 w-full min-w-0">
+            {/* Left: mode, slider, count, selected */}
+            <div className="flex items-center gap-4 min-w-0 shrink-0">
+              {/* Buy/Sell Toggle */}
+              <div
+                className="inline-flex rounded-md gap-1 overflow-hidden bg-muted p-0.5"
+                role="group"
+              >
+                <button
+                  type="button"
+                  className={cn(
+                    "relative flex items-center rounded-md py-1 outline-hidden",
+                    "transition-[scale,colors] duration-200 ease-out active:scale-[0.97]",
+                    "text-sm px-3 h-7",
+                    mode === "buy"
+                      ? "font-medium text-foreground"
+                      : "text-os-gray-300 hover:text-foreground"
                   )}
+                  onClick={() => onModeChange?.("buy")}
                 >
-                  <MarketplaceSelectionCart
-                    onPrimaryAction={onBuyFloor}
-                    primaryLabel={mode === "buy" ? "Buy floor" : "List selected"}
-                  />
-                </ResponsivePopoverDrawer>
-              </>
-            )}
+                  <span className="relative z-[1]">Buy</span>
+                  {mode === "buy" && (
+                    <span className="absolute inset-0 size-full rounded-md bg-background" />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className={cn(
+                    "relative flex items-center rounded-md py-1 outline-hidden",
+                    "transition-[scale,colors] duration-200 ease-out active:scale-[0.97]",
+                    "text-sm px-3 h-7",
+                    mode === "sell"
+                      ? "font-medium text-foreground"
+                      : "text-os-gray-300 hover:text-foreground"
+                  )}
+                  onClick={() => onModeChange?.("sell")}
+                >
+                  <span className="relative z-[1]">Sell</span>
+                  {mode === "sell" && (
+                    <span className="absolute inset-0 size-full rounded-md bg-background" />
+                  )}
+                </button>
+              </div>
+
+              {/* Slider - controls NFT selection */}
+              <div className="flex items-center p-3 w-[140px]">
+                <Slider
+                  value={[sliderValue]}
+                  onValueChange={handleSliderChange}
+                  max={maxItems}
+                  step={1}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Item Count Input */}
+              <div
+                className={cn(
+                  "inline-flex items-center whitespace-nowrap rounded-md",
+                  "bg-background hover:bg-muted border border-border",
+                  "h-8 gap-1 text-sm px-2 font-mono w-[105px] shrink-0"
+                )}
+              >
+                <button
+                  className="inline-flex items-center text-foreground hover:text-os-gray-300 disabled:opacity-40"
+                  disabled={itemCount === 0}
+                  onClick={decrementCount}
+                  type="button"
+                >
+                  <Minus className="size-4" />
+                </button>
+                <input
+                  type="number"
+                  value={itemCount}
+                  onChange={e =>
+                    onItemCountChange(Math.min(maxItems, Math.max(0, Number(e.target.value) || 0)))
+                  }
+                  min={0}
+                  max={maxItems}
+                  className="text-sm w-full border-0 bg-transparent outline-hidden text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <button
+                  className="inline-flex items-center text-foreground hover:text-os-gray-300 disabled:opacity-40"
+                  disabled={itemCount >= maxItems}
+                  onClick={incrementCount}
+                  type="button"
+                >
+                  <Plus className="size-4" />
+                </button>
+              </div>
+
+              {/* Selected count display */}
+              <span className="text-sm text-muted-foreground">{itemCount} selected</span>
+              <div className="shrink-0 bg-border w-px h-6" />
+            </div>
+
+            {/* Right: actions + cart */}
+            <div className="flex items-center gap-3 shrink-0">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 px-3"
+                onClick={onMakeOffer}
+                disabled={itemCount === 0}
+              >
+                Make collection offer
+              </Button>
+              <Button
+                size="sm"
+                className="h-8 px-3 bg-[#2081E2] hover:bg-[#1868B7] text-white"
+                onClick={onBuyFloor}
+                disabled={itemCount === 0}
+              >
+                {mode === "buy" ? "Buy floor" : "List selected"}
+              </Button>
+              {itemCount > 0 && (
+                <>
+                  <div className="shrink-0 bg-border w-px h-6" />
+                  <ResponsivePopoverDrawer
+                    open={cartOpen}
+                    onOpenChange={setCartOpen}
+                    title={`Cart (${itemCount})`}
+                    closeOnInteractOutside={false}
+                    renderTrigger={p => (
+                      <button
+                        {...p}
+                        type="button"
+                        className="flex items-center gap-1.5 text-os-gray-300 hover:text-foreground transition-all duration-150 relative whitespace-nowrap shrink-0 h-8 px-3 rounded-md border border-border bg-card hover:border-border hover:bg-muted/50 shadow-sm"
+                      >
+                        <div className="relative">
+                          <ShoppingCart className="w-4 h-4" />
+                          <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                            {itemCount}
+                          </span>
+                        </div>
+                        <span className="text-xs sm:text-sm">Cart</span>
+                      </button>
+                    )}
+                  >
+                    <MarketplaceSelectionCart
+                      onPrimaryAction={onBuyFloor}
+                      primaryLabel={mode === "buy" ? "Buy floor" : "List selected"}
+                    />
+                  </ResponsivePopoverDrawer>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

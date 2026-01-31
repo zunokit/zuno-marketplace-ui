@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Accordion,
   AccordionContent,
@@ -88,10 +89,12 @@ export default function MintAccordions() {
                   <div className="cursor-default">
                     <div className="relative bg-layer-03 aspect-square">
                       <div className="relative w-full h-full">
-                        <img
+                        <Image
                           src="https://img-cdn.magiceden.dev/rs:fill:600:0:0/plain/https%3A%2F%2Fmedia.cdn.magiceden.dev%2Flaunchpad%2Fkyzzen_no_sekai%2Fe53eaddd-2fa5-4a37-b7c2-f3c7dc0a496c"
                           alt="OhMeOhMy image"
                           className="overflow-hidden size-full object-cover aspect-square"
+                          fill
+                          sizes="(max-width: 640px) 50vw, 33vw"
                         />
                       </div>
                     </div>

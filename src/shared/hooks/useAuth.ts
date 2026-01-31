@@ -84,6 +84,7 @@ export function useAuth() {
       window.removeEventListener("auth:logout", handleLogout);
       window.removeEventListener("auth:login", handleLogin);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, address]);
 
   const logout = async () => {

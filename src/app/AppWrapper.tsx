@@ -8,50 +8,32 @@ import { ReactNode } from "react";
 import { AppFooter } from "@/shared/components/layout/AppFooter";
 import { ApolloProvider } from "@apollo/client/react";
 import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
-import { usePathname } from "next/navigation";
-import { cn } from "@/shared/utils/tailwind-utils";
 import MarketplaceSelectionBarWrapper from "@/modules/marketplace/components/marketplace-selection-bar-wrapper";
 
 export default function Wrapper({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-  const isMarketplaceCollection = pathname?.startsWith("/marketplace/") ?? false;
-
   return (
     <ApolloProvider client={apolloWrapper.getClient()}>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <Web3Provider>
-          <div
-            className={cn(
-              "flex flex-col bg-background text-foreground transition-all duration-150",
-              isMarketplaceCollection ? "h-screen overflow-hidden" : "min-h-screen"
-            )}
-          >
+          <div className="h-screen flex flex-col bg-background text-foreground">
             {/* Fixed Left Sidebar */}
             <LeftSidebar />
 
             {/* Fixed Top Navigation - full width */}
             <TopNav />
 
-            {/* Content: grow min-h-0 để Bar+Footer global nằm dưới cùng viewport */}
-            <div
-              className={cn(
-                "lg:ml-[52px] flex flex-col grow min-h-0 pt-10 sm:pt-11 lg:pt-12",
-                isMarketplaceCollection && "overflow-hidden"
-              )}
-            >
-              <main
-                className={cn(
-                  "max-w-screen w-full mx-auto grow",
-                  isMarketplaceCollection ? "pb-0 min-h-0 overflow-hidden" : "pb-0"
-                )}
-              >
+            {/* Scrollable Content Area */}
+            <div className="lg:ml-[52px] flex-1 flex flex-col min-h-0 pt-10 sm:pt-11 lg:pt-12">
+              <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden">
                 {children}
               </main>
-            </div>
 
-            {/* Global: Bottom Action Bar + Footer — cùng cấp LeftSidebar/TopNav, căn content lg:ml-[52px] */}
-            <MarketplaceSelectionBarWrapper />
-            <AppFooter />
+              {/* Bottom Action Bar + Footer - in document flow, not fixed */}
+              <div className="shrink-0">
+                <MarketplaceSelectionBarWrapper />
+                <AppFooter />
+              </div>
+            </div>
           </div>
         </Web3Provider>
       </ThemeProvider>
