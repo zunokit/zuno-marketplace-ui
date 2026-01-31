@@ -1,19 +1,22 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    // Override to prevent circular structure serialization
-    rules: {},
+    ignores: [
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/build/**",
+      "**/dist/**",
+      "**/.cache/**",
+      "**/coverage/**",
+      "**/.turbo/**",
+      "**/public/**",
+    ],
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
+    rules: {
+      // Add custom rules as needed
+    },
   },
 ];
 
