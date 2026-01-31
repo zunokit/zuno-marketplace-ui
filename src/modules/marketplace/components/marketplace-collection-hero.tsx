@@ -105,8 +105,8 @@ function TagBadge({ children, href, icon, className }: TagBadgeProps) {
     <div
       className={cn(
         "flex items-center h-[18px] w-fit whitespace-nowrap rounded px-1.5 py-1",
-        "border border-frosted-6 bg-frosted-2 font-mono uppercase text-xs gap-1 cursor-pointer",
-        "hover:bg-frosted-6 transition-colors",
+        "border border-border bg-muted font-mono uppercase text-xs gap-1 cursor-pointer",
+        "hover:bg-muted/80 transition-colors",
         className
       )}
     >
@@ -164,7 +164,9 @@ export default function MarketplaceCollectionHero({
   bannerUrl,
   useMockData = true,
 }: MarketplaceCollectionHeroProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // Expand feature temporarily disabled
+  const isExpanded = false;
+  // const [isExpanded, setIsExpanded] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
 
   // Use mock data or real collection data
@@ -218,12 +220,15 @@ export default function MarketplaceCollectionHero({
       <div className="hidden md:block">
         <div
           className={cn(
-            "pointer-events-auto right-0 flex w-full z-10 absolute transition-all duration-500 ease-out",
-            isExpanded ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" : "h-24"
+            "pointer-events-auto right-0 flex w-full relative transition-all duration-500 ease-out",
+            isExpanded ? "h-32 md:h-36" : "h-24"
           )}
         >
           {/* Content Overlay */}
-          <div className="mx-auto min-h-0 min-w-0  px-4 md:px-6 z-[1] flex w-full items-end dark">
+          <div className={cn(
+            "mx-auto min-h-0 min-w-0 px-4 md:px-6 z-[1] flex w-full items-end",
+            isExpanded ? "bg-transparent" : "bg-background"
+          )}>
             <div
               className={cn(
                 "flex w-full min-w-0 flex-col pb-4 md:grid md:grid-cols-[1fr_auto] md:items-end md:justify-between xl:gap-4 xl:pb-5",
@@ -375,7 +380,7 @@ export default function MarketplaceCollectionHero({
                       </div>
                     </div>
 
-                    {/* Collapse/Expand Banner Button */}
+                    {/* Collapse/Expand Banner Button - TEMPORARILY DISABLED
                     <Button
                       variant="ghost"
                       size="icon"
@@ -389,6 +394,7 @@ export default function MarketplaceCollectionHero({
                         <ChevronDown className="size-5" />
                       )}
                     </Button>
+                    */}
                   </div>
                 </div>
               </div>
@@ -396,12 +402,13 @@ export default function MarketplaceCollectionHero({
           </div>
         </div>
 
-        {/* Background Media - Hide/Show based on isExpanded */}
+        {/* Background Media - TEMPORARILY DISABLED */}
+        {/*
         <div
           className={cn(
-            "absolute right-0 flex w-full pointer-events-none top-0 z-0 overflow-hidden transition-all duration-500 ease-out",
+            "absolute right-0 flex w-full pointer-events-none top-0 z-[-1] overflow-hidden transition-all duration-500 ease-out",
             isExpanded
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full opacity-100"
+              ? "h-32 md:h-36 opacity-100"
               : "h-24 opacity-30"
           )}
         >
@@ -424,9 +431,9 @@ export default function MarketplaceCollectionHero({
                   fill
                   className="object-cover object-center"
                   priority
+                  unoptimized
                 />
               )}
-              {/* Gradient Overlay */}
               <div
                 className="absolute inset-0 z-20 dark transition-opacity duration-500 ease-out"
                 style={{
@@ -438,12 +445,13 @@ export default function MarketplaceCollectionHero({
             </div>
           </div>
         </div>
+        */}
 
-        {/* Spacer for layout */}
+        {/* Spacer for layout - only when expanded */}
         <div
           className={cn(
             "pointer-events-none opacity-0 -mx-4 md:-mx-6 relative w-full transition-all duration-500 ease-out",
-            isExpanded ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full" : "h-24"
+            isExpanded ? "h-32 md:h-36" : "h-0"
           )}
         />
       </div>
