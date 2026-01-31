@@ -823,18 +823,18 @@ export default function ButtonDebugPage() {
 // IMPROVED BUTTON COMPONENT
 // ============================================
 
-interface ButtonProps extends React.ComponentProps<"button"> {
-  variant?: "default" | "secondary" | "outline" | "ghost" | "destructive" | "success";
+interface DemoButtonProps extends React.ComponentProps<"button"> {
+  variant?: "default" | "secondary" | "outline" | "ghost" | "link" | "destructive" | "success";
   size?: "default" | "sm" | "lg" | "icon";
 }
 
-function Button({
+function DemoButton({
   className,
   variant = "default",
   size = "default",
   children,
   ...props
-}: ButtonProps) {
+}: DemoButtonProps) {
   const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none";
 
   // Size styles
@@ -851,7 +851,7 @@ function Button({
       bg-gradient-to-b from-primary to-primary/90
       text-primary-foreground
       border border-primary/50
-      rounded-[6px]
+      rounded-lg
       shadow-[0_1px_2px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.1)_inset]
       hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.4),0_0_0_1px_rgba(255,255,255,0.15)_inset]
       hover:-translate-y-0.5
@@ -870,7 +870,7 @@ function Button({
       backdrop-blur-md
       text-secondary-foreground
       border border-border-subtle
-      rounded-[6px]
+      rounded-lg
       shadow-[0_1px_2px_rgba(0,0,0,0.05)]
       hover:bg-secondary
       hover:border-border-medium
@@ -891,7 +891,7 @@ function Button({
       backdrop-blur-xl
       text-foreground
       border border-border-subtle
-      rounded-[6px]
+      rounded-lg
       hover:bg-accent/80
       hover:border-border-strong
       hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.05)_inset]
@@ -908,7 +908,7 @@ function Button({
     `,
     ghost: `
       text-muted-foreground
-      rounded-[6px]
+      rounded-lg
       hover:bg-hover-bg/80
       hover:text-foreground
       hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)]
@@ -923,11 +923,21 @@ function Button({
       focus-visible:ring-offset-2
       focus-visible:ring-offset-background
     `,
+    link: `
+      text-primary
+      underline-offset-4
+      hover:underline
+      transition-colors
+      focus-visible:ring-2
+      focus-visible:ring-primary/60
+      focus-visible:ring-offset-2
+      focus-visible:ring-offset-background
+    `,
     destructive: `
       bg-destructive
       text-destructive-foreground
       border border-destructive/50
-      rounded-[6px]
+      rounded-lg
       shadow-[0_1px_2px_rgba(0,0,0,0.1)]
       hover:shadow-[0_0_20px_rgba(var(--destructive-rgb),0.4)]
       hover:-translate-y-0.5
@@ -945,7 +955,7 @@ function Button({
       bg-success
       text-success-foreground
       border border-success/50
-      rounded-[6px]
+      rounded-lg
       shadow-[0_1px_2px_rgba(0,0,0,0.1)]
       hover:shadow-[0_0_20px_rgba(var(--success-rgb),0.4)]
       hover:-translate-y-0.5

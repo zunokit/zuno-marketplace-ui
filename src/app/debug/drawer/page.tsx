@@ -39,6 +39,7 @@ import {
   Globe,
   Check,
 } from "lucide-react";
+import Link from "next/link";
 
 // ============================================
 // DRAWER DEBUG PAGE - OpenSea Design System
@@ -47,6 +48,17 @@ import {
 export default function DrawerDebugPage() {
   return (
     <div className="min-h-screen bg-background p-6 md:p-10">
+      {/* Back Link */}
+      <div className="mx-auto max-w-5xl mb-6">
+        <Link
+          href="/debug"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Debug Dashboard
+        </Link>
+      </div>
+
       {/* Page Header */}
       <div className="mx-auto max-w-5xl space-y-2 mb-10">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
@@ -622,8 +634,8 @@ export default function DrawerDebugPage() {
                     <Label>Email Address</Label>
                     <Input placeholder="Enter your email" />
                   </div>
-                  <p className="text-sm text-[#acadae]">
-                    This drawer uses the OpenSea color palette with #26272d background and #34353c borders.
+                  <p className="text-sm text-muted-foreground">
+                    This drawer uses the semantic color palette with frosted glass effects and subtle borders.
                   </p>
                 </div>
                 <DrawerFooter>
@@ -652,11 +664,11 @@ export default function DrawerDebugPage() {
                 </DrawerHeader>
                 <div className="p-6 space-y-3">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
-                      <Bell className="w-5 h-5 text-[#83c3ff]" />
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-frosted-1 border border-border-subtle">
+                      <Bell className="w-5 h-5 text-os-info" />
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-[#fcfcfc]">New bid received</p>
-                        <p className="text-xs text-[#acadae]">2 minutes ago</p>
+                        <p className="text-sm font-medium text-foreground">New bid received</p>
+                        <p className="text-xs text-muted-foreground">2 minutes ago</p>
                       </div>
                     </div>
                   ))}
@@ -688,7 +700,7 @@ export default function DrawerDebugPage() {
                   {["Dashboard", "Marketplace", "Collections", "Profile", "Settings"].map((item) => (
                     <button
                       key={item}
-                      className="w-full text-left px-4 py-3 rounded-lg text-sm text-[#fcfcfc] hover:bg-white/5 transition-colors"
+                      className="w-full text-left px-4 py-3 rounded-lg text-sm text-foreground hover:bg-frosted-1 transition-colors"
                     >
                       {item}
                     </button>
@@ -718,18 +730,18 @@ export default function DrawerDebugPage() {
                   </DrawerDescription>
                 </DrawerHeader>
                 <div className="p-6 space-y-4">
-                  <div className="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
-                    <div className="w-16 h-16 rounded-lg bg-[#34353c] flex items-center justify-center">
-                      <span className="text-xs text-[#acadae]">NFT</span>
+                  <div className="flex items-center gap-4 p-4 rounded-lg bg-frosted-1 border border-border-subtle">
+                    <div className="w-16 h-16 rounded-lg bg-frosted-2 flex items-center justify-center border border-border-subtle">
+                      <span className="text-xs text-muted-foreground">NFT</span>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-[#fcfcfc]">Digital Art #1234</p>
-                      <p className="text-xs text-[#acadae]">0.5 ETH</p>
+                      <p className="text-sm font-medium text-foreground">Digital Art #1234</p>
+                      <p className="text-xs text-muted-foreground">0.5 ETH</p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-sm text-[#acadae]">Total</span>
-                    <span className="text-lg font-semibold text-[#fcfcfc]">0.5 ETH</span>
+                  <div className="flex items-center justify-between pt-4 border-t border-border-subtle">
+                    <span className="text-sm text-muted-foreground">Total</span>
+                    <span className="text-lg font-semibold text-foreground">0.5 ETH</span>
                   </div>
                 </div>
                 <DrawerFooter>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { getSentryStatus } from "@/shared/debug/sentry-status";
 import {
   triggerSentryError,
@@ -28,6 +29,7 @@ import {
   MessageSquare,
   Footprints,
   User,
+  ArrowLeft,
 } from "lucide-react";
 
 export default function SentryDebugPage() {
@@ -106,11 +108,29 @@ export default function SentryDebugPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Sentry Debug Panel</h1>
-        <p className="text-muted-foreground">Test Sentry integration and monitor error tracking</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto py-8 px-4 max-w-4xl">
+        {/* Back Link */}
+        <div className="mb-6">
+          <Link
+            href="/debug"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Debug Dashboard
+          </Link>
+        </div>
+
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 rounded-lg bg-frosted-1 flex items-center justify-center border border-border-subtle">
+            <Bug className="w-5 h-5 text-os-info" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Sentry Debug Panel</h1>
+            <p className="text-muted-foreground">Test Sentry integration and monitor error tracking</p>
+          </div>
+        </div>
 
       {/* Status Card */}
       <Card className="mb-6">
@@ -134,7 +154,7 @@ export default function SentryDebugPage() {
           {status.dsn && (
             <div className="space-y-1">
               <Label className="text-sm text-muted-foreground">DSN</Label>
-              <code className="text-xs bg-muted px-2 py-1 rounded block">{status.dsn}</code>
+              <code className="text-xs bg-frosted-1 px-2 py-1 rounded block border border-border-subtle">{status.dsn}</code>
             </div>
           )}
 
@@ -276,6 +296,7 @@ export default function SentryDebugPage() {
           </ul>
         </AlertDescription>
       </Alert>
+    </div>
     </div>
   );
 }

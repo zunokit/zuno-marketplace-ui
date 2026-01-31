@@ -150,7 +150,7 @@ const flexAlignOptions = [
 const Section: React.FC<SectionProps> = ({ title, icon: Icon, children, description }) => (
   <section className="space-y-4">
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-lg bg-os-gray-400 flex items-center justify-center">
+      <div className="w-8 h-8 rounded-lg bg-frosted-1 flex items-center justify-center border border-border-subtle">
         <Icon className="w-4 h-4 text-os-info" />
       </div>
       <div>
@@ -159,7 +159,7 @@ const Section: React.FC<SectionProps> = ({ title, icon: Icon, children, descript
       </div>
     </div>
     <div className="pl-11">{children}</div>
-    <Separator className="bg-os-gray-400/30" />
+    <Separator className="bg-border-subtle" />
   </section>
 );
 

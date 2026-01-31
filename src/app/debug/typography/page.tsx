@@ -720,18 +720,18 @@ export default function TypographyDebugPage() {
                     {/* Content */}
                     <div className="p-4 space-y-3">
                       <div>
-                        <p className="text-sm text-gray-500">Bored Ape Yacht Club</p>
+                        <p className="text-sm text-muted-foreground">Bored Ape Yacht Club</p>
                         <p className="text-base">BAYC #1234</p>
                       </div>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-muted-foreground">
                         A unique bored ape with rare traits including golden fur and laser eyes.
                       </p>
                       <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
                         <div>
-                          <p className="text-xs text-gray-500">Price</p>
+                          <p className="text-xs text-muted-foreground">Price</p>
                           <p className="text-base">24.5 ETH</p>
                         </div>
-                        <button className="px-4 py-2 bg-blue-500 text-white rounded text-sm">
+                        <button className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm">
                           Buy Now
                         </button>
                       </div>
@@ -825,7 +825,7 @@ export default function TypographyDebugPage() {
                     <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <h2 className="text-xl">CryptoCollector</h2>
-                      <p className="text-sm text-gray-500">0x742d...bEb</p>
+                      <p className="text-sm text-muted-foreground">0x742d...bEb</p>
                       <p className="text-sm mt-2 text-gray-600">
                         Digital art enthusiast and NFT collector. Building the future of web3.
                       </p>
