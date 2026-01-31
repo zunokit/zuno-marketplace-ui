@@ -93,7 +93,7 @@ export function CalendarSection() {
             <Calendar
               mode="range"
               selected={dateRange}
-              onSelect={(range) => setDateRange(range || { from: undefined, to: undefined })}
+              onSelect={(range) => setDateRange({ from: range?.from, to: range?.to })}
               numberOfMonths={2}
               className="rounded-md border"
             />
@@ -232,7 +232,7 @@ export function CalendarSection() {
                       <Calendar
                         mode="range"
                         selected={dateRange}
-                        onSelect={(range) => setDateRange(range || { from: undefined, to: undefined })}
+                        onSelect={(range) => setDateRange({ from: range?.from, to: range?.to })}
                         numberOfMonths={2}
                         disabled={(date) => date < new Date()}
                       />
