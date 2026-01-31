@@ -163,11 +163,11 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
     switch (activeTab) {
       case "items":
         return (
-          <div className="flex transition-all duration-300 ease-in-out h-full">
+          <div className="flex transition-all duration-300 ease-in-out h-full overflow-hidden">
             {/* Desktop Filter Sidebar */}
             <div
               className={cn(
-                "hidden md:block w-0 h-full shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
+                "hidden md:block w-0 shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
                 showFilters && "w-[240px] 3xl:w-[390px]"
               )}
             >
@@ -306,7 +306,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   };
 
   return (
-    <div className="h-full min-h-0 overflow-hidden text-foreground transition-all duration-150 flex flex-col">
+    <div className="flex flex-col text-foreground transition-all duration-150">
       {/* Hero Header - Natural height */}
       <div className="w-full shrink-0">
         <MarketplaceCollectionHero
