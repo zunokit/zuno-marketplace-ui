@@ -1,8 +1,25 @@
 # Zuno Marketplace UI - Code Standards
 
 **Version**: 0.1.0
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-01
 **TypeScript**: Strict Mode Enabled
+
+> **Performance Guidelines**: All developers must follow the [React Best Practices](./react-best-practices/README.md) documentation.
+
+---
+
+## Table of Contents
+
+1. [File Naming Conventions](#1-file-naming-conventions)
+2. [TypeScript Standards](#2-typescript-standards)
+3. [Component Patterns](#3-component-patterns)
+4. [Import Conventions](#4-import-conventions)
+5. [Styling Standards](#5-styling-standards)
+6. [Error Handling](#6-error-handling)
+7. [Testing Approach](#7-testing-approach)
+8. [React Best Practices](#8-react-best-practices) ⭐ **NEW**
+9. [Code Quality Checklist](#9-code-quality-checklist)
+10. [Security Standards](#10-security-standards)
 
 ---
 
@@ -16,15 +33,15 @@
 
 ### 1.2 File Type Patterns
 
-| File Type | Naming Pattern | Example |
-|-----------|----------------|---------|
-| React Components | `pascal-case.tsx` | `nft-card.tsx`, `connect-wallet-button.tsx` |
-| Custom Hooks | `use-description.ts` | `use-wallet.ts`, `use-nft-listing.ts` |
-| Utilities | `descriptive-name.ts` | `format-ether.ts`, `truncate-address.ts` |
-| Types | `name.types.ts` | `nft.types.ts`, `api.types.ts` |
-| Constants | `SCOPE-constants.ts` or `descriptive-constants.ts` | `api-constants.ts`, `chain-constants.ts` |
-| Config | `descriptive-config.ts` | `wagmi-config.ts`, `apollo-config.ts` |
-| Styles | `globals.css`, `component.module.css` | `globals.css` |
+| File Type        | Naming Pattern                                     | Example                                     |
+| ---------------- | -------------------------------------------------- | ------------------------------------------- |
+| React Components | `pascal-case.tsx`                                  | `nft-card.tsx`, `connect-wallet-button.tsx` |
+| Custom Hooks     | `use-description.ts`                               | `use-wallet.ts`, `use-nft-listing.ts`       |
+| Utilities        | `descriptive-name.ts`                              | `format-ether.ts`, `truncate-address.ts`    |
+| Types            | `name.types.ts`                                    | `nft.types.ts`, `api.types.ts`              |
+| Constants        | `SCOPE-constants.ts` or `descriptive-constants.ts` | `api-constants.ts`, `chain-constants.ts`    |
+| Config           | `descriptive-config.ts`                            | `wagmi-config.ts`, `apollo-config.ts`       |
+| Styles           | `globals.css`, `component.module.css`              | `globals.css`                               |
 
 ### 1.3 Directory Naming
 
@@ -69,10 +86,11 @@ interface NFTListing {
 }
 
 // GOOD: Type for unions
-type ListingStatus = 'active' | 'sold' | 'cancelled' | 'expired';
+type ListingStatus = "active" | "sold" | "cancelled" | "expired";
 
 // AVOID: Implicit any
-function badFunction(data) {  // Error: Parameter 'data' implicitly has an 'any' type
+function badFunction(data) {
+  // Error: Parameter 'data' implicitly has an 'any' type
   return data.value;
 }
 ```
@@ -81,13 +99,15 @@ function badFunction(data) {  // Error: Parameter 'data' implicitly has an 'any'
 
 ```typescript
 // Export types from module index
-export type { NFTListing, ListingStatus } from './types';
-export { ListingCard } from './listing-card';
+export type { NFTListing, ListingStatus } from "./types";
+export { ListingCard } from "./listing-card";
 ```
 
 ---
 
 ## 3. Component Patterns
+
+> **Performance Reference**: See [React Best Practices - Data Fetching](./react-best-practices/data-fetching.md) for Suspense, React.cache(), and parallel fetching patterns.
 
 ### 3.1 Server Components (Default)
 
@@ -171,51 +191,76 @@ export function Card({ children, className, onClick }: CardProps) {
 
 ## 4. Import Conventions
 
+> **Bundle Size Warning**: See [React Best Practices - Bundle Optimization](./react-best-practices/bundle-optimization.md) for avoiding barrel file imports and dynamic import patterns.
+
 ### 4.1 Import Order
 
 ```typescript
 // 1. React and Next.js imports
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // 2. Third-party library imports
-import { useAccount } from 'wagmi';
-import { useQuery } from '@tanstack/react-query';
-import { formatEther } from 'viem';
+import { useAccount } from "wagmi";
+import { useQuery } from "@tanstack/react-query";
+import { formatEther } from "viem";
 
 // 3. Absolute imports (@/* aliases)
-import { Button } from '@/shared/components/ui/button';
-import { useWallet } from '@/shared/hooks/use-wallet';
-import { cn } from '@/shared/utils/tailwind-utils';
+import { Button } from "@/shared/components/ui/button";
+import { useWallet } from "@/shared/hooks/use-wallet";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 // 4. Relative imports (only within same module)
-import { useListing } from '../hooks/use-listing';
-import { ListingCard } from './listing-card';
+import { useListing } from "../hooks/use-listing";
+import { ListingCard } from "./listing-card";
 ```
 
 ### 4.2 Path Aliases
 
-| Alias | Target | Usage Example |
-|-------|--------|---------------|
-| `@/*` | `./src/*` | `import { X } from '@/shared/components'` |
-| `@/shared/*` | `./src/shared/*` | `import { Button } from '@/shared/components/ui/button'` |
+| Alias         | Target            | Usage Example                                                |
+| ------------- | ----------------- | ------------------------------------------------------------ |
+| `@/*`         | `./src/*`         | `import { X } from '@/shared/components'`                    |
+| `@/shared/*`  | `./src/shared/*`  | `import { Button } from '@/shared/components/ui/button'`     |
 | `@/modules/*` | `./src/modules/*` | `import { NFTCard } from '@/modules/marketplace/components'` |
 
 ### 4.3 Import Organization
 
 ```typescript
 // Group and separate with blank lines
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useAccount } from 'wagmi';
-import { useQuery } from '@tanstack/react-query';
+import { useAccount } from "wagmi";
+import { useQuery } from "@tanstack/react-query";
 
-import { Button } from '@/shared/components/ui/button';
-import { Card } from '@/shared/components/ui/card';
+import { Button } from "@/shared/components/ui/button";
+import { Card } from "@/shared/components/ui/card";
 
-import { useLocalStorage } from './use-local-storage';
+import { useLocalStorage } from "./use-local-storage";
 ```
+
+### 4.4 Barrel Import Rules
+
+**CRITICAL**: Avoid importing from barrel files (index.ts) in large libraries:
+
+```typescript
+// BAD: Imports entire library
+import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
+
+// GOOD: Import specific icons directly
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+
+// GOOD: Or use our optimized barrel (tree-shaking works)
+import { ArrowLeft, ArrowRight } from "@/shared/components/ui/icons";
+```
+
+Our `next.config.ts` has `optimizePackageImports` enabled for:
+
+- `lucide-react`
+- `@radix-ui/react-icons`
+
+See [Bundle Optimization](./react-best-practices/bundle-optimization.md) for full details.
 
 ---
 
@@ -275,7 +320,7 @@ async function fetchNFTData(tokenId: string): Promise<NFT | null> {
     return await response.json();
   } catch (error) {
     // Log to Sentry in production
-    console.error('Failed to fetch NFT:', error);
+    console.error("Failed to fetch NFT:", error);
     return null;
   }
 }
@@ -325,20 +370,93 @@ Test file:      src/shared/components/ui/button.test.tsx
 
 ```typescript
 // Descriptive test names
-describe('formatPrice', () => {
-  it('should format wei to ether with 4 decimals', () => {
-    expect(formatPrice(1000000000000000000n)).toBe('1.0000');
+describe("formatPrice", () => {
+  it("should format wei to ether with 4 decimals", () => {
+    expect(formatPrice(1000000000000000000n)).toBe("1.0000");
   });
 
-  it('should handle zero value', () => {
-    expect(formatPrice(0n)).toBe('0.0000');
+  it("should handle zero value", () => {
+    expect(formatPrice(0n)).toBe("0.0000");
   });
 });
 ```
 
 ---
 
-## 8. Code Quality Checklist
+## 8. React Best Practices
+
+### 8.1 Performance Guidelines
+
+All developers **MUST** follow the React Best Practices documentation:
+
+```
+docs/react-best-practices/
+├── README.md                      # Quick reference
+├── bundle-optimization.md         # Dynamic imports & code splitting
+├── data-fetching.md               # Server/client fetching patterns
+├── re-render-optimization.md      # useMemo, useCallback, React.memo
+├── rendering-performance.md       # Hydration & CSS optimization
+├── javascript-performance.md      # Array methods & data structures
+└── checklist.md                   # Pre-commit checklist
+```
+
+### 8.2 Critical Rules (Must Follow)
+
+| Rule                                        | Impact   | Reference                                                                     |
+| ------------------------------------------- | -------- | ----------------------------------------------------------------------------- |
+| Use `next/dynamic` for components > 20KB    | CRITICAL | [bundle-optimization.md](./react-best-practices/bundle-optimization.md)       |
+| Parallel fetching with `Promise.all()`      | CRITICAL | [data-fetching.md](./react-best-practices/data-fetching.md)                   |
+| Use ternary `? :` not `&&` for conditionals | HIGH     | [rendering-performance.md](./react-best-practices/rendering-performance.md)   |
+| Memoize expensive calculations              | MEDIUM   | [re-render-optimization.md](./react-best-practices/re-render-optimization.md) |
+| Use skeleton for hydration placeholders     | MEDIUM   | [rendering-performance.md](./react-best-practices/rendering-performance.md)   |
+
+### 8.3 Quick Examples
+
+```typescript
+// GOOD: Dynamic import for heavy components
+import dynamic from 'next/dynamic';
+
+const Chart = dynamic(() => import('@/shared/components/ui/chart'), {
+  loading: () => <ChartSkeleton />,
+  ssr: false,
+});
+
+// GOOD: Parallel data fetching
+const [user, posts] = await Promise.all([
+  fetchUser(userId),
+  fetchPosts(userId),
+]);
+
+// GOOD: Ternary for conditional rendering
+{showModal ? <Modal /> : null}
+
+// BAD: && can cause issues with falsy values
+{showModal && <Modal />}
+
+// GOOD: useMemo for expensive calculations
+const stats = useMemo(() => ({
+  total: items.reduce((a, b) => a + b.price, 0),
+  count: items.length,
+}), [items]);
+
+// GOOD: Skeleton during hydration
+if (!mounted) {
+  return <Button disabled><Skeleton className="h-4 w-4" /></Button>;
+}
+```
+
+### 8.4 Before Committing
+
+Run the React Best Practices checklist:
+
+```bash
+# Review the checklist
+cat docs/react-best-practices/checklist.md
+```
+
+---
+
+## 9. Code Quality Checklist
 
 Before submitting code:
 
@@ -351,10 +469,14 @@ Before submitting code:
 - [ ] Error handling is implemented
 - [ ] Loading states are handled
 - [ ] Responsive design is considered
+- [ ] **React Best Practices followed** (see section 8)
+- [ ] **Dynamic imports used for heavy components** (>20KB)
+- [ ] **No barrel imports from large libraries** (lucide-react, @radix-ui)
+- [ ] **Parallel fetching for independent operations**
 
 ---
 
-## 9. Security Standards
+## 10. Security Standards
 
 ### 9.1 Environment Variables
 
