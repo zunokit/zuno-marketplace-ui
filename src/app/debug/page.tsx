@@ -120,14 +120,14 @@ export default function DebugDashboardPage() {
       {/* Page Header */}
       <div className="mx-auto max-w-5xl space-y-2 mb-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-os-gray-400 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-frosted-6 flex items-center justify-center">
             <Bug className="w-5 h-5 text-os-info" />
           </div>
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-foreground">
               Debug Dashboard
             </h1>
-            <p className="text-os-gray-300">
+            <p className="text-muted-foreground">
               Component testing and development environment
             </p>
           </div>
@@ -148,8 +148,8 @@ export default function DebugDashboardPage() {
                 className={`
                   group relative flex flex-col p-5 rounded-lg border transition-all duration-200
                   ${isReady
-                    ? "bg-os-gray-500 border-os-gray-400 hover:border-os-gray-300 hover:bg-os-gray-400 cursor-pointer"
-                    : "bg-os-gray-500/50 border-os-gray-400/50 opacity-60 cursor-not-allowed pointer-events-none"
+                    ? "bg-card border-border hover:border-os-gray-300 hover:bg-os-gray-400 cursor-pointer"
+                    : "bg-card/50 border-border/50 opacity-60 cursor-not-allowed pointer-events-none"
                   }
                 `}
               >
@@ -168,7 +168,7 @@ export default function DebugDashboardPage() {
 
                 {/* Icon */}
                 <div className="w-10 h-10 rounded-lg bg-frosted-1 border border-border-subtle flex items-center justify-center mb-4 group-hover:border-border-medium transition-colors">
-                  <Icon className="w-5 h-5 text-os-gray-300" />
+                  <Icon className="w-5 h-5 text-muted-foreground" />
                 </div>
 
                 {/* Content */}
@@ -181,14 +181,14 @@ export default function DebugDashboardPage() {
                       </Badge>
                     )}
                   </div>
-                  <p className="text-sm text-os-gray-300 line-clamp-2">
+                  <p className="text-sm text-muted-foreground line-clamp-2">
                     {route.description}
                   </p>
                 </div>
 
                 {/* Arrow */}
                 {isReady && (
-                  <div className="mt-4 flex items-center text-sm text-os-gray-300 group-hover:text-foreground transition-colors">
+                  <div className="mt-4 flex items-center text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                     <span>View</span>
                     <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
                   </div>
@@ -197,7 +197,7 @@ export default function DebugDashboardPage() {
                 {/* Coming Soon Overlay */}
                 {!isReady && (
                   <div className="mt-4">
-                    <Badge variant="outline" className="text-xs text-os-gray-300">
+                    <Badge variant="outline" className="text-xs text-muted-foreground">
                       Coming Soon
                     </Badge>
                   </div>
@@ -212,7 +212,7 @@ export default function DebugDashboardPage() {
           <h4 className="text-sm font-medium text-foreground mb-2">
             About Debug Pages
           </h4>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             These pages are for development and testing purposes only. They showcase
             all component variants, states, and use cases to ensure consistency across
             the application. Components follow the OpenSea design system with custom

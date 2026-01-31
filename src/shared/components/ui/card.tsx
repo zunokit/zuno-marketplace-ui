@@ -29,9 +29,9 @@ function Card({ className, variant = "default", hoverable = true, ...props }: Ca
   // Hover effect classes
   const hoverClasses = hoverable
     ? {
-        default: "hover:-translate-y-1 hover:shadow-lg hover:shadow-black/10 hover:border-border-medium",
-        frosted: "hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 hover:bg-card/90",
-        gradient: "hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10 hover:before:from-blue-500/50 hover:before:via-purple-500/40 hover:before:to-pink-500/50",
+        default: "hover:shadow-lg hover:shadow-black/10 hover:border-border-medium",
+        frosted: "hover:shadow-xl hover:shadow-black/10 hover:bg-card/90",
+        gradient: "hover:shadow-lg hover:shadow-purple-500/10 hover:before:from-blue-500/50 hover:before:via-purple-500/40 hover:before:to-pink-500/50",
       }
     : {
         default: "",

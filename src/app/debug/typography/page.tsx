@@ -34,13 +34,13 @@ function TypeSpecimen({
     <div className="group flex items-start gap-4 p-4 rounded-lg border border-border-subtle bg-frosted-1 hover:border-border-medium transition-colors">
       <div className={`flex-1 ${className}`}>{sampleText}</div>
       <div className="flex flex-col items-end gap-2 min-w-[140px]">
-        <span className="text-xs text-os-gray-300 font-mono">{label}</span>
+        <span className="text-xs text-muted-foreground font-mono">{label}</span>
         {description && (
-          <span className="text-xs text-os-gray-300">{description}</span>
+          <span className="text-xs text-muted-foreground">{description}</span>
         )}
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1 text-xs text-os-gray-300 hover:text-foreground transition-colors mt-1"
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors mt-1"
         >
           {copied ? (
             <>
@@ -82,7 +82,7 @@ function FontWeightSpecimen({
         <span className="text-sm font-medium text-foreground capitalize">
           {weight}
         </span>
-        <span className="text-xs text-os-gray-300 font-mono">{value}</span>
+        <span className="text-xs text-muted-foreground font-mono">{value}</span>
       </div>
     </div>
   );
@@ -99,7 +99,7 @@ function LineHeightSpecimen({ label, className, value }: LineHeightProps) {
     <div className="p-4 rounded-lg border border-border-subtle bg-frosted-1">
       <div className="flex items-center justify-between mb-2">
         <span className="text-sm font-medium text-foreground">{label}</span>
-        <span className="text-xs text-os-gray-300 font-mono">{value}</span>
+        <span className="text-xs text-muted-foreground font-mono">{value}</span>
       </div>
       <p className={`text-base text-foreground ${className} bg-frosted-2 p-2 rounded`}>
         This is a sample paragraph demonstrating line height. The quick brown fox
@@ -122,7 +122,7 @@ function LetterSpacingSpecimen({ label, className, value }: LetterSpacingProps) 
       <span className={`text-lg text-foreground ${className}`}>ABCDEFG</span>
       <div className="flex flex-col items-end">
         <span className="text-sm font-medium text-foreground">{label}</span>
-        <span className="text-xs text-os-gray-300 font-mono">{value}</span>
+        <span className="text-xs text-muted-foreground font-mono">{value}</span>
       </div>
     </div>
   );
@@ -138,7 +138,7 @@ function TextColorSpecimen({ label, className, usage }: TextColorProps) {
   return (
     <div className="flex items-center justify-between p-4 rounded-lg border border-border-subtle bg-frosted-1">
       <span className={`text-base ${className}`}>{label}</span>
-      <span className="text-xs text-os-gray-300">{usage}</span>
+      <span className="text-xs text-muted-foreground">{usage}</span>
     </div>
   );
 }
@@ -155,7 +155,7 @@ function Section({ title, children, description }: SectionProps) {
       <div className="border-b border-border-subtle pb-2">
         <h2 className="text-xl font-semibold text-foreground">{title}</h2>
         {description && (
-          <p className="text-sm text-os-gray-300 mt-1">{description}</p>
+          <p className="text-sm text-muted-foreground mt-1">{description}</p>
         )}
       </div>
       {children}
@@ -173,7 +173,7 @@ export default function TypographyDebugPage() {
             <div className="flex items-center gap-4">
               <Link
                 href="/debug"
-                className="flex items-center gap-2 text-os-gray-300 hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back to Debug</span>
@@ -213,10 +213,10 @@ export default function TypographyDebugPage() {
                 <p className="text-2xl text-foreground mb-2">
                   GT America / Inter
                 </p>
-                <p className="text-sm text-os-gray-300 font-mono">
+                <p className="text-sm text-muted-foreground font-mono">
                   var(--font-sans)
                 </p>
-                <p className="text-sm text-os-gray-300 mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   Used for all UI text, headings, and body content
                 </p>
               </div>
@@ -233,10 +233,10 @@ export default function TypographyDebugPage() {
                 <p className="text-2xl text-foreground font-mono mb-2">
                   0x1234...ABCD
                 </p>
-                <p className="text-sm text-os-gray-300 font-mono">
+                <p className="text-sm text-muted-foreground font-mono">
                   var(--font-mono)
                 </p>
-                <p className="text-sm text-os-gray-300 mt-2">
+                <p className="text-sm text-muted-foreground mt-2">
                   Used for wallet addresses, token IDs, and prices
                 </p>
               </div>
@@ -372,7 +372,7 @@ export default function TypographyDebugPage() {
               <h4 className="text-sm font-medium text-foreground mb-2">
                 Weight Guidelines
               </h4>
-              <ul className="text-sm text-os-gray-300 space-y-1">
+              <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Light (300): Large display text, elegant headings</li>
                 <li>• Normal (400): Body text, descriptions, UI elements</li>
                 <li>• Medium (500): Headings, buttons, emphasis (default)</li>
@@ -452,7 +452,7 @@ export default function TypographyDebugPage() {
           >
             <div className="p-6 rounded-lg border border-border-subtle bg-frosted-1 space-y-6">
               <div>
-                <p className="text-xs uppercase tracking-widest text-os-gray-300 mb-2">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
                   Collection
                 </p>
                 <h1 className="text-4xl font-bold tracking-tight text-foreground">
@@ -460,7 +460,7 @@ export default function TypographyDebugPage() {
                 </h1>
               </div>
 
-              <p className="text-lg text-os-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
                 A collection of 10,000 unique Bored Ape NFTs living on the
                 Ethereum blockchain. Each Bored Ape doubles as a Yacht Club
                 membership card and grants access to members-only benefits.
@@ -468,7 +468,7 @@ export default function TypographyDebugPage() {
 
               <div className="grid grid-cols-3 gap-6 pt-4 border-t border-border-subtle">
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-os-gray-300 mb-1">
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
                     Floor Price
                   </p>
                   <p className="text-2xl font-bold text-foreground font-mono">
@@ -476,7 +476,7 @@ export default function TypographyDebugPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-os-gray-300 mb-1">
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
                     Volume
                   </p>
                   <p className="text-2xl font-bold text-foreground font-mono">
@@ -484,7 +484,7 @@ export default function TypographyDebugPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-os-gray-300 mb-1">
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">
                     Items
                   </p>
                   <p className="text-2xl font-bold text-foreground font-mono">
@@ -499,7 +499,7 @@ export default function TypographyDebugPage() {
                   <p className="text-sm font-medium text-foreground">
                     Created by YugaLabs
                   </p>
-                  <p className="text-xs text-os-gray-300">
+                  <p className="text-xs text-muted-foreground">
                     2 years ago • 6.2K owners
                   </p>
                 </div>
@@ -519,8 +519,8 @@ export default function TypographyDebugPage() {
                 usage="Main content, headings"
               />
               <TextColorSpecimen
-                label="Secondary (text-os-gray-300)"
-                className="text-os-gray-300"
+                label="Secondary (text-muted-foreground)"
+                className="text-muted-foreground"
                 usage="Secondary text, descriptions"
               />
               <TextColorSpecimen
@@ -568,7 +568,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Monospace / Code
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     font-mono
                   </span>
                 </div>
@@ -588,7 +588,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Uppercase with Tracking
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     uppercase tracking-wider
                   </span>
                 </div>
@@ -603,7 +603,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Truncated Text
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     truncate
                   </span>
                 </div>
@@ -619,7 +619,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Line Clamp
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     line-clamp-2
                   </span>
                 </div>
@@ -637,7 +637,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Balanced Text
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     text-balance
                   </span>
                 </div>
@@ -652,7 +652,7 @@ export default function TypographyDebugPage() {
                   <span className="text-sm font-medium text-foreground">
                     Tabular Numbers
                   </span>
-                  <span className="text-xs text-os-gray-300 font-mono">
+                  <span className="text-xs text-muted-foreground font-mono">
                     tabular-nums
                   </span>
                 </div>
@@ -708,7 +708,7 @@ export default function TypographyDebugPage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm font-medium text-foreground">Standard Typography</h3>
-                  <Badge variant="outline" className="text-xs text-os-gray-300">Basic</Badge>
+                  <Badge variant="outline" className="text-xs text-muted-foreground">Basic</Badge>
                 </div>
                 <div className="p-4 rounded-lg border border-border-subtle bg-frosted-1">
                   {/* NFT Card - Standard */}
@@ -741,7 +741,7 @@ export default function TypographyDebugPage() {
                   {/* Issues List */}
                   <div className="mt-4 p-3 rounded bg-os-error/5 border border-os-error/20">
                     <p className="text-xs font-medium text-os-error mb-2">Issues:</p>
-                    <ul className="text-xs text-os-gray-300 space-y-1">
+                    <ul className="text-xs text-muted-foreground space-y-1">
                       <li>• Inconsistent hierarchy (collection same weight as name)</li>
                       <li>• Poor line height makes description hard to read</li>
                       <li>• No letter spacing on uppercase labels</li>
@@ -752,40 +752,40 @@ export default function TypographyDebugPage() {
                 </div>
               </div>
 
-              {/* Improved Typography */}
+              {/*  Typography */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-medium text-foreground">Improved Typography</h3>
+                  <h3 className="text-sm font-medium text-foreground"> Typography</h3>
                   <Badge variant="outline" className="text-xs text-os-success">Enhanced</Badge>
                 </div>
                 <div className="p-4 rounded-lg border border-os-success/30 bg-os-success/5">
-                  {/* NFT Card - Improved */}
+                  {/* NFT Card -  */}
                   <div className="rounded-lg border border-border-subtle overflow-hidden bg-background max-w-sm mx-auto shadow-sm">
                     {/* Image Placeholder */}
                     <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center relative group">
                       <span className="text-6xl">🎨</span>
                       <div className="absolute top-3 right-3">
                         <button className="p-2 rounded-full bg-background/80 backdrop-blur hover:bg-background transition-colors">
-                          <Heart className="w-4 h-4 text-os-gray-300" />
+                          <Heart className="w-4 h-4 text-muted-foreground" />
                         </button>
                       </div>
                     </div>
                     {/* Content */}
                     <div className="p-4 space-y-4">
                       <div>
-                        <p className="text-xs uppercase tracking-wider text-os-gray-300 font-medium mb-1">
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-1">
                           Bored Ape Yacht Club
                         </p>
                         <h3 className="text-xl font-semibold tracking-tight text-foreground">
                           BAYC #1234
                         </h3>
                       </div>
-                      <p className="text-sm text-os-gray-300 leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         A unique bored ape with rare traits including golden fur and laser eyes.
                       </p>
                       <div className="flex items-center justify-between pt-3 border-t border-border-subtle">
                         <div>
-                          <p className="text-xs uppercase tracking-wider text-os-gray-300 font-medium">
+                          <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
                             Current Price
                           </p>
                           <p className="text-2xl font-bold text-foreground font-mono tabular-nums">
@@ -837,7 +837,7 @@ export default function TypographyDebugPage() {
                   </div>
                 </div>
 
-                {/* Improved Profile */}
+                {/*  Profile */}
                 <div className="p-4 rounded-lg border border-os-success/30 bg-os-success/5">
                   <div className="flex items-start gap-4">
                     <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex-shrink-0 ring-2 ring-border-subtle" />
@@ -845,20 +845,20 @@ export default function TypographyDebugPage() {
                       <h2 className="text-2xl font-bold tracking-tight text-foreground">
                         CryptoCollector
                       </h2>
-                      <p className="text-sm font-mono text-os-gray-300 mt-0.5">
+                      <p className="text-sm font-mono text-muted-foreground mt-0.5">
                         0x742d...bEb
                       </p>
-                      <p className="text-sm mt-3 text-os-gray-300 leading-relaxed">
+                      <p className="text-sm mt-3 text-muted-foreground leading-relaxed">
                         Digital art enthusiast and NFT collector. Building the future of web3.
                       </p>
                       <div className="flex gap-6 mt-4">
                         <div>
                           <span className="text-lg font-semibold text-foreground tabular-nums">1.2K</span>
-                          <span className="text-sm text-os-gray-300 ml-1">followers</span>
+                          <span className="text-sm text-muted-foreground ml-1">followers</span>
                         </div>
                         <div>
                           <span className="text-lg font-semibold text-foreground tabular-nums">342</span>
-                          <span className="text-sm text-os-gray-300 ml-1">following</span>
+                          <span className="text-sm text-muted-foreground ml-1">following</span>
                         </div>
                       </div>
                     </div>
@@ -873,25 +873,25 @@ export default function TypographyDebugPage() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-os-info">Hierarchy</p>
-                  <p className="text-xs text-os-gray-300">
+                  <p className="text-xs text-muted-foreground">
                     Use size, weight, and tracking to create clear visual hierarchy
                   </p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-os-info">Readability</p>
-                  <p className="text-xs text-os-gray-300">
+                  <p className="text-xs text-muted-foreground">
                     Apply relaxed line-height (1.625) for body text and descriptions
                   </p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-os-info">Labels</p>
-                  <p className="text-xs text-os-gray-300">
+                  <p className="text-xs text-muted-foreground">
                     Use uppercase + tracking-wider for labels and metadata
                   </p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-os-info">Numbers</p>
-                  <p className="text-xs text-os-gray-300">
+                  <p className="text-xs text-muted-foreground">
                     Apply tabular-nums and monospace for prices and addresses
                   </p>
                 </div>
@@ -908,16 +908,16 @@ export default function TypographyDebugPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border-subtle">
-                    <th className="text-left py-2 px-4 text-os-gray-300 font-medium">
+                    <th className="text-left py-2 px-4 text-muted-foreground font-medium">
                       Token
                     </th>
-                    <th className="text-left py-2 px-4 text-os-gray-300 font-medium">
+                    <th className="text-left py-2 px-4 text-muted-foreground font-medium">
                       Size
                     </th>
-                    <th className="text-left py-2 px-4 text-os-gray-300 font-medium">
+                    <th className="text-left py-2 px-4 text-muted-foreground font-medium">
                       Line Height
                     </th>
-                    <th className="text-left py-2 px-4 text-os-gray-300 font-medium">
+                    <th className="text-left py-2 px-4 text-muted-foreground font-medium">
                       Usage
                     </th>
                   </tr>
@@ -927,55 +927,55 @@ export default function TypographyDebugPage() {
                     <td className="py-2 px-4 font-mono">text-2xs</td>
                     <td className="py-2 px-4">10px</td>
                     <td className="py-2 px-4">12px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Fine print</td>
+                    <td className="py-2 px-4 text-muted-foreground">Fine print</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-xs</td>
                     <td className="py-2 px-4">12px</td>
                     <td className="py-2 px-4">16px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Captions</td>
+                    <td className="py-2 px-4 text-muted-foreground">Captions</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-sm</td>
                     <td className="py-2 px-4">14px</td>
                     <td className="py-2 px-4">20px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Body small</td>
+                    <td className="py-2 px-4 text-muted-foreground">Body small</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-base</td>
                     <td className="py-2 px-4">16px</td>
                     <td className="py-2 px-4">24px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Body</td>
+                    <td className="py-2 px-4 text-muted-foreground">Body</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-lg</td>
                     <td className="py-2 px-4">18px</td>
                     <td className="py-2 px-4">28px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Lead</td>
+                    <td className="py-2 px-4 text-muted-foreground">Lead</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-xl</td>
                     <td className="py-2 px-4">20px</td>
                     <td className="py-2 px-4">30px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Card titles</td>
+                    <td className="py-2 px-4 text-muted-foreground">Card titles</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-2xl</td>
                     <td className="py-2 px-4">24px</td>
                     <td className="py-2 px-4">32px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Subtitles</td>
+                    <td className="py-2 px-4 text-muted-foreground">Subtitles</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-3xl</td>
                     <td className="py-2 px-4">30px</td>
                     <td className="py-2 px-4">40px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Page titles</td>
+                    <td className="py-2 px-4 text-muted-foreground">Page titles</td>
                   </tr>
                   <tr className="border-b border-border-subtle/50">
                     <td className="py-2 px-4 font-mono">text-4xl</td>
                     <td className="py-2 px-4">36px</td>
                     <td className="py-2 px-4">44px</td>
-                    <td className="py-2 px-4 text-os-gray-300">Hero</td>
+                    <td className="py-2 px-4 text-muted-foreground">Hero</td>
                   </tr>
                 </tbody>
               </table>

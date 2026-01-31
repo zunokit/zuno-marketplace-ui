@@ -20,7 +20,7 @@ export function AppFooter() {
 
   return (
     <nav
-      className="relative z-60 w-full shrink-0 bg-background/95 backdrop-blur-sm border-t border-border px-2 sm:px-3 md:px-4 lg:px-6 py-2 md:py-2.5"
+      className="fixed bottom-0 left-0 right-0 z-60 w-full shrink-0 bg-background/95 backdrop-blur-sm border-t border-border px-2 sm:px-3 md:px-4 lg:px-6 py-2 md:py-2.5"
       role="navigation"
     >
       <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs md:text-sm max-w-[1920px] mx-auto">

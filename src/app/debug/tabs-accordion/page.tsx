@@ -56,7 +56,7 @@ export default function TabsAccordionDebugPage() {
         <div className="flex items-center gap-2 mb-2">
           <Link
             href="/debug"
-            className="text-sm text-os-gray-300 hover:text-foreground transition-colors flex items-center gap-1"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Debug
@@ -65,7 +65,7 @@ export default function TabsAccordionDebugPage() {
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Tabs & Accordion Debug
         </h1>
-        <p className="text-os-gray-300">
+        <p className="text-muted-foreground">
           Comprehensive showcase of tab and accordion variants, animations, and patterns.
         </p>
       </div>
@@ -77,7 +77,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Tabs Variants</h2>
             <Badge variant="secondary">3 variants</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Core tab styles for different navigation patterns and use cases.
           </p>
 
@@ -91,14 +91,14 @@ export default function TabsAccordionDebugPage() {
                   <TabsTrigger value="password">Password</TabsTrigger>
                   <TabsTrigger value="settings">Settings</TabsTrigger>
                 </TabsList>
-                <TabsContent value="account" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Account settings content here.</p>
+                <TabsContent value="account" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Account settings content here.</p>
                 </TabsContent>
-                <TabsContent value="password" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Password settings content here.</p>
+                <TabsContent value="password" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Password settings content here.</p>
                 </TabsContent>
-                <TabsContent value="settings" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">General settings content here.</p>
+                <TabsContent value="settings" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">General settings content here.</p>
                 </TabsContent>
               </Tabs>
             </div>
@@ -127,14 +127,14 @@ export default function TabsAccordionDebugPage() {
                     Reports
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="overview" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Overview content with pills style.</p>
+                <TabsContent value="overview" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Overview content with pills style.</p>
                 </TabsContent>
-                <TabsContent value="analytics" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Analytics content with pills style.</p>
+                <TabsContent value="analytics" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Analytics content with pills style.</p>
                 </TabsContent>
-                <TabsContent value="reports" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Reports content with pills style.</p>
+                <TabsContent value="reports" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Reports content with pills style.</p>
                 </TabsContent>
               </Tabs>
             </div>
@@ -143,7 +143,7 @@ export default function TabsAccordionDebugPage() {
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">Underline</p>
               <Tabs defaultValue="active" className="w-full">
-                <TabsList className="w-full bg-transparent border-b border-os-gray-400 rounded-none p-0 h-auto gap-6">
+                <TabsList className="w-full bg-transparent border-b border-border rounded-none p-0 h-auto gap-6">
                   <TabsTrigger
                     value="active"
                     className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 py-2"
@@ -163,14 +163,14 @@ export default function TabsAccordionDebugPage() {
                     Completed
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="active" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Active items content.</p>
+                <TabsContent value="active" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Active items content.</p>
                 </TabsContent>
-                <TabsContent value="pending" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Pending items content.</p>
+                <TabsContent value="pending" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Pending items content.</p>
                 </TabsContent>
-                <TabsContent value="completed" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                  <p className="text-sm text-os-gray-300">Completed items content.</p>
+                <TabsContent value="completed" className="mt-4 p-4 rounded-lg bg-card border border-border">
+                  <p className="text-sm text-muted-foreground">Completed items content.</p>
                 </TabsContent>
               </Tabs>
             </div>
@@ -183,7 +183,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Tabs with Icons</h2>
             <Badge variant="secondary">Icon combinations</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tabs enhanced with icons for better visual recognition and UX.
           </p>
 
@@ -214,58 +214,58 @@ export default function TabsAccordionDebugPage() {
                     Billing
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="profile" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+                <TabsContent value="profile" className="mt-4 p-4 rounded-lg bg-card border border-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
                       <User className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Profile Settings</p>
-                      <p className="text-sm text-os-gray-300">Manage your profile information.</p>
+                      <p className="text-sm text-muted-foreground">Manage your profile information.</p>
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="wallet" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+                <TabsContent value="wallet" className="mt-4 p-4 rounded-lg bg-card border border-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-os-success/20 flex items-center justify-center">
                       <Wallet className="w-5 h-5 text-os-success" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Wallet Connection</p>
-                      <p className="text-sm text-os-gray-300">Connect and manage wallets.</p>
+                      <p className="text-sm text-muted-foreground">Connect and manage wallets.</p>
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="notifications" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+                <TabsContent value="notifications" className="mt-4 p-4 rounded-lg bg-card border border-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-os-warning/20 flex items-center justify-center">
                       <Bell className="w-5 h-5 text-os-warning" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Notification Preferences</p>
-                      <p className="text-sm text-os-gray-300">Customize your notifications.</p>
+                      <p className="text-sm text-muted-foreground">Customize your notifications.</p>
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="security" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+                <TabsContent value="security" className="mt-4 p-4 rounded-lg bg-card border border-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-os-info/20 flex items-center justify-center">
                       <Shield className="w-5 h-5 text-os-info" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Security Settings</p>
-                      <p className="text-sm text-os-gray-300">Two-factor auth and more.</p>
+                      <p className="text-sm text-muted-foreground">Two-factor auth and more.</p>
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="billing" className="mt-4 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+                <TabsContent value="billing" className="mt-4 p-4 rounded-lg bg-card border border-border">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-os-error/20 flex items-center justify-center">
                       <CreditCard className="w-5 h-5 text-os-error" />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Billing Information</p>
-                      <p className="text-sm text-os-gray-300">Manage payment methods.</p>
+                      <p className="text-sm text-muted-foreground">Manage payment methods.</p>
                     </div>
                   </div>
                 </TabsContent>
@@ -288,18 +288,18 @@ export default function TabsAccordionDebugPage() {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="grid" className="mt-4">
-                  <div className="p-8 rounded-lg bg-os-gray-500 border border-os-gray-400 flex items-center justify-center">
-                    <LayoutGrid className="w-12 h-12 text-os-gray-300" />
+                  <div className="p-8 rounded-lg bg-card border border-border flex items-center justify-center">
+                    <LayoutGrid className="w-12 h-12 text-muted-foreground" />
                   </div>
                 </TabsContent>
                 <TabsContent value="list" className="mt-4">
-                  <div className="p-8 rounded-lg bg-os-gray-500 border border-os-gray-400 flex items-center justify-center">
-                    <List className="w-12 h-12 text-os-gray-300" />
+                  <div className="p-8 rounded-lg bg-card border border-border flex items-center justify-center">
+                    <List className="w-12 h-12 text-muted-foreground" />
                   </div>
                 </TabsContent>
                 <TabsContent value="settings" className="mt-4">
-                  <div className="p-8 rounded-lg bg-os-gray-500 border border-os-gray-400 flex items-center justify-center">
-                    <Settings className="w-12 h-12 text-os-gray-300" />
+                  <div className="p-8 rounded-lg bg-card border border-border flex items-center justify-center">
+                    <Settings className="w-12 h-12 text-muted-foreground" />
                   </div>
                 </TabsContent>
               </Tabs>
@@ -313,7 +313,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Vertical Tabs</h2>
             <Badge variant="secondary">Side navigation</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Vertical tab layout ideal for settings pages and complex configurations.
           </p>
 
@@ -357,9 +357,9 @@ export default function TabsAccordionDebugPage() {
             </TabsList>
             <div className="flex-1">
               <TabsContent value="general" className="mt-0">
-                <div className="p-6 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-4">
+                <div className="p-6 rounded-lg bg-card border border-border space-y-4">
                   <h3 className="font-medium text-foreground">General Settings</h3>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Configure your general account preferences. These settings apply across all devices.
                   </p>
                   <div className="space-y-3">
@@ -375,9 +375,9 @@ export default function TabsAccordionDebugPage() {
                 </div>
               </TabsContent>
               <TabsContent value="appearance" className="mt-0">
-                <div className="p-6 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-4">
+                <div className="p-6 rounded-lg bg-card border border-border space-y-4">
                   <h3 className="font-medium text-foreground">Appearance</h3>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Customize the look and feel of your interface.
                   </p>
                   <div className="grid grid-cols-3 gap-3">
@@ -397,9 +397,9 @@ export default function TabsAccordionDebugPage() {
                 </div>
               </TabsContent>
               <TabsContent value="language" className="mt-0">
-                <div className="p-6 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-4">
+                <div className="p-6 rounded-lg bg-card border border-border space-y-4">
                   <h3 className="font-medium text-foreground">Language & Region</h3>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Select your preferred language and regional settings.
                   </p>
                   <div className="space-y-2">
@@ -416,17 +416,17 @@ export default function TabsAccordionDebugPage() {
                 </div>
               </TabsContent>
               <TabsContent value="nft" className="mt-0">
-                <div className="p-6 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-4">
+                <div className="p-6 rounded-lg bg-card border border-border space-y-4">
                   <h3 className="font-medium text-foreground">NFT Display Settings</h3>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Configure how NFTs are displayed in your collection.
                   </p>
                 </div>
               </TabsContent>
               <TabsContent value="analytics" className="mt-0">
-                <div className="p-6 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-4">
+                <div className="p-6 rounded-lg bg-card border border-border space-y-4">
                   <h3 className="font-medium text-foreground">Analytics Preferences</h3>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     Manage your analytics and data tracking preferences.
                   </p>
                 </div>
@@ -441,7 +441,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Accordion Single</h2>
             <Badge variant="secondary">One item at a time</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Single-expand accordion where only one item can be open at a time.
           </p>
 
@@ -483,7 +483,7 @@ export default function TabsAccordionDebugPage() {
                 <AccordionContent>
                   <div className="space-y-2">
                     <p>Our fee structure is transparent:</p>
-                    <ul className="list-disc list-inside text-os-gray-300 space-y-1">
+                    <ul className="list-disc list-inside text-muted-foreground space-y-1">
                       <li>2.5% marketplace fee on sales</li>
                       <li>Creator royalties (set by collection)</li>
                       <li>Gas fees (network dependent)</li>
@@ -525,7 +525,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Accordion Multiple</h2>
             <Badge variant="secondary">Multiple items open</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Multi-expand accordion allowing multiple items to be open simultaneously.
           </p>
 
@@ -536,18 +536,18 @@ export default function TabsAccordionDebugPage() {
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500" />
                   <div className="text-left">
                     <p className="font-medium">CryptoPunks</p>
-                    <p className="text-xs text-os-gray-300 font-normal">10,000 items</p>
+                    <p className="text-xs text-muted-foreground font-normal">10,000 items</p>
                   </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-4 py-2">
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Floor Price</p>
+                    <p className="text-xs text-muted-foreground">Floor Price</p>
                     <p className="font-medium">64.5 ETH</p>
                   </div>
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Volume</p>
+                    <p className="text-xs text-muted-foreground">Volume</p>
                     <p className="font-medium">1.2M ETH</p>
                   </div>
                 </div>
@@ -559,18 +559,18 @@ export default function TabsAccordionDebugPage() {
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500" />
                   <div className="text-left">
                     <p className="font-medium">Bored Ape Yacht Club</p>
-                    <p className="text-xs text-os-gray-300 font-normal">9,999 items</p>
+                    <p className="text-xs text-muted-foreground font-normal">9,999 items</p>
                   </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-4 py-2">
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Floor Price</p>
+                    <p className="text-xs text-muted-foreground">Floor Price</p>
                     <p className="font-medium">28.2 ETH</p>
                   </div>
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Volume</p>
+                    <p className="text-xs text-muted-foreground">Volume</p>
                     <p className="font-medium">890K ETH</p>
                   </div>
                 </div>
@@ -582,18 +582,18 @@ export default function TabsAccordionDebugPage() {
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-red-500" />
                   <div className="text-left">
                     <p className="font-medium">Azuki</p>
-                    <p className="text-xs text-os-gray-300 font-normal">10,000 items</p>
+                    <p className="text-xs text-muted-foreground font-normal">10,000 items</p>
                   </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-2 gap-4 py-2">
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Floor Price</p>
+                    <p className="text-xs text-muted-foreground">Floor Price</p>
                     <p className="font-medium">5.8 ETH</p>
                   </div>
                   <div className="p-3 rounded-lg bg-os-gray-400/50">
-                    <p className="text-xs text-os-gray-300">Volume</p>
+                    <p className="text-xs text-muted-foreground">Volume</p>
                     <p className="font-medium">456K ETH</p>
                   </div>
                 </div>
@@ -608,7 +608,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Accordion with Rich Content</h2>
             <Badge variant="secondary">Complex layouts</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Accordions containing rich content like cards, stats, and interactive elements.
           </p>
 
@@ -624,12 +624,12 @@ export default function TabsAccordionDebugPage() {
               <AccordionContent>
                 <div className="space-y-4 py-2">
                   {/* NFT Card Preview */}
-                  <div className="p-4 rounded-lg bg-os-gray-400/30 border border-os-gray-400">
+                  <div className="p-4 rounded-lg bg-os-gray-400/30 border border-border">
                     <div className="flex gap-4">
                       <div className="w-24 h-24 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex-shrink-0" />
                       <div className="flex-1 space-y-2">
                         <h4 className="font-medium">Cosmic Explorer #1337</h4>
-                        <p className="text-sm text-os-gray-300">
+                        <p className="text-sm text-muted-foreground">
                           A rare cosmic explorer from the Galactic Voyagers collection.
                           Features unique traits including Nebula Background and Quantum Armor.
                         </p>
@@ -655,7 +655,7 @@ export default function TabsAccordionDebugPage() {
                         key={prop.label}
                         className="p-3 rounded-lg bg-os-gray-400/30 text-center"
                       >
-                        <p className="text-xs text-os-gray-300 uppercase">{prop.label}</p>
+                        <p className="text-xs text-muted-foreground uppercase">{prop.label}</p>
                         <p className="font-medium text-sm">{prop.value}</p>
                         <p className="text-xs text-os-success">{prop.rarity} have this</p>
                       </div>
@@ -687,11 +687,11 @@ export default function TabsAccordionDebugPage() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-os-gray-400 flex items-center justify-center">
-                          <item.icon className="w-4 h-4 text-os-gray-300" />
+                          <item.icon className="w-4 h-4 text-muted-foreground" />
                         </div>
                         <div>
                           <p className="font-medium text-sm">{item.action}</p>
-                          <p className="text-xs text-os-gray-300">{item.time}</p>
+                          <p className="text-xs text-muted-foreground">{item.time}</p>
                         </div>
                       </div>
                       <span className="font-medium text-sm">{item.price}</span>
@@ -725,7 +725,7 @@ export default function TabsAccordionDebugPage() {
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-600" />
                         <div>
                           <p className="font-medium text-sm">{offer.user}</p>
-                          <p className="text-xs text-os-gray-300">Expires in {offer.expires}</p>
+                          <p className="text-xs text-muted-foreground">Expires in {offer.expires}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -744,7 +744,7 @@ export default function TabsAccordionDebugPage() {
             <AccordionItem value="actions">
               <AccordionTrigger>
                 <div className="flex items-center gap-2">
-                  <MoreHorizontal className="w-4 h-4 text-os-gray-300" />
+                  <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
                   Quick Actions
                 </div>
               </AccordionTrigger>
@@ -763,7 +763,7 @@ export default function TabsAccordionDebugPage() {
                     <span className="text-sm">View on Etherscan</span>
                   </button>
                   <button className="flex items-center gap-2 p-3 rounded-lg bg-os-gray-400/30 hover:bg-os-gray-400/50 transition-colors text-left">
-                    <Copy className="w-4 h-4 text-os-gray-300" />
+                    <Copy className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm">Copy Token ID</span>
                   </button>
                 </div>
@@ -778,7 +778,7 @@ export default function TabsAccordionDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Combined Pattern</h2>
             <Badge variant="secondary">Tabs + Accordion</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Using tabs for top-level navigation and accordions for expandable content within each section.
           </p>
 
@@ -802,12 +802,12 @@ export default function TabsAccordionDebugPage() {
                   <AccordionTrigger>Collection Statistics</AccordionTrigger>
                   <AccordionContent>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="p-3 rounded-lg bg-os-gray-500">
-                        <p className="text-xs text-os-gray-300">Items</p>
+                      <div className="p-3 rounded-lg bg-card">
+                        <p className="text-xs text-muted-foreground">Items</p>
                         <p className="font-medium">10,000</p>
                       </div>
-                      <div className="p-3 rounded-lg bg-os-gray-500">
-                        <p className="text-xs text-os-gray-300">Owners</p>
+                      <div className="p-3 rounded-lg bg-card">
+                        <p className="text-xs text-muted-foreground">Owners</p>
                         <p className="font-medium">5,420</p>
                       </div>
                     </div>
@@ -863,7 +863,7 @@ export default function TabsAccordionDebugPage() {
           <h4 className="text-sm font-medium text-foreground mb-2">
             About Tabs & Accordion Components
           </h4>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tabs and accordions are essential navigation and content organization components.
             Tabs are ideal for switching between related content sections at the same level of hierarchy,
             while accordions excel at progressive disclosure of detailed information.

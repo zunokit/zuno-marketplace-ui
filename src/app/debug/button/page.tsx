@@ -45,7 +45,7 @@ export default function ButtonDebugPage() {
         <div className="flex items-center gap-2 mb-2">
           <Link
             href="/debug"
-            className="text-sm text-os-gray-300 hover:text-foreground transition-colors flex items-center gap-1"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Debug
@@ -54,7 +54,7 @@ export default function ButtonDebugPage() {
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Button Component Debug
         </h1>
-        <p className="text-os-gray-300">
+        <p className="text-muted-foreground">
           Comprehensive showcase of button variants, sizes, states, and patterns with OpenSea design system.
         </p>
       </div>
@@ -66,38 +66,38 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Button Variants</h2>
             <Badge variant="secondary">7 variants</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Core button styles for different emphasis levels and use cases.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
             <div className="space-y-2">
               <Button variant="default" className="w-full">Default</Button>
-              <p className="text-xs text-os-gray-300 text-center">Primary CTA</p>
+              <p className="text-xs text-muted-foreground text-center">Primary CTA</p>
             </div>
             <div className="space-y-2">
               <Button variant="secondary" className="w-full">Secondary</Button>
-              <p className="text-xs text-os-gray-300 text-center">Alternative</p>
+              <p className="text-xs text-muted-foreground text-center">Alternative</p>
             </div>
             <div className="space-y-2">
               <Button variant="outline" className="w-full">Outline</Button>
-              <p className="text-xs text-os-gray-300 text-center">Subtle</p>
+              <p className="text-xs text-muted-foreground text-center">Subtle</p>
             </div>
             <div className="space-y-2">
               <Button variant="ghost" className="w-full">Ghost</Button>
-              <p className="text-xs text-os-gray-300 text-center">Minimal</p>
+              <p className="text-xs text-muted-foreground text-center">Minimal</p>
             </div>
             <div className="space-y-2">
               <Button variant="link" className="w-full">Link</Button>
-              <p className="text-xs text-os-gray-300 text-center">Text action</p>
+              <p className="text-xs text-muted-foreground text-center">Text action</p>
             </div>
             <div className="space-y-2">
               <Button variant="destructive" className="w-full">Destructive</Button>
-              <p className="text-xs text-os-gray-300 text-center">Danger</p>
+              <p className="text-xs text-muted-foreground text-center">Danger</p>
             </div>
             <div className="space-y-2">
               <Button variant="success" className="w-full">Success</Button>
-              <p className="text-xs text-os-gray-300 text-center">Confirm</p>
+              <p className="text-xs text-muted-foreground text-center">Confirm</p>
             </div>
           </div>
         </section>
@@ -108,28 +108,28 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Button Sizes</h2>
             <Badge variant="secondary">4 sizes</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Size variations for different contexts and importance levels.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center gap-4 p-6 rounded-lg bg-card border border-border">
             <div className="space-y-2 text-center">
               <Button size="sm">Small</Button>
-              <p className="text-xs text-os-gray-300">sm (32px)</p>
+              <p className="text-xs text-muted-foreground">sm (32px)</p>
             </div>
             <div className="space-y-2 text-center">
               <Button size="default">Default</Button>
-              <p className="text-xs text-os-gray-300">default (36px)</p>
+              <p className="text-xs text-muted-foreground">default (36px)</p>
             </div>
             <div className="space-y-2 text-center">
               <Button size="lg">Large</Button>
-              <p className="text-xs text-os-gray-300">lg (40px)</p>
+              <p className="text-xs text-muted-foreground">lg (40px)</p>
             </div>
             <div className="space-y-2 text-center">
               <Button size="icon">
                 <Plus className="w-4 h-4" />
               </Button>
-              <p className="text-xs text-os-gray-300">icon (36px)</p>
+              <p className="text-xs text-muted-foreground">icon (36px)</p>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Button States</h2>
             <Badge variant="secondary">Interactive states</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Visual feedback for user interactions and component states.
           </p>
 
@@ -242,7 +242,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Icon Buttons</h2>
             <Badge variant="secondary">3 patterns</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Leading icons, trailing icons, and icon-only buttons.
           </p>
 
@@ -347,7 +347,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Button Groups</h2>
             <Badge variant="secondary">Horizontal & Vertical</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Grouped buttons for related actions and toolbars.
           </p>
 
@@ -441,7 +441,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Interactive States</h2>
             <Badge variant="secondary">Click effects & focus</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Visual feedback for user interactions.
           </p>
 
@@ -532,21 +532,21 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">State Matrix</h2>
             <Badge variant="secondary">All variants × states</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Complete matrix of button variants across different states.
           </p>
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-os-gray-400">
-                  <th className="text-left py-3 px-4 font-medium text-os-gray-300">Variant</th>
-                  <th className="text-left py-3 px-4 font-medium text-os-gray-300">Default</th>
-                  <th className="text-left py-3 px-4 font-medium text-os-gray-300">Disabled</th>
-                  <th className="text-left py-3 px-4 font-medium text-os-gray-300">With Icon</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Variant</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Default</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Disabled</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">With Icon</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-os-gray-400">
+              <tbody className="divide-y divide-border">
                 {[
                   { variant: "default", label: "Default" },
                   { variant: "secondary", label: "Secondary" },
@@ -556,8 +556,8 @@ export default function ButtonDebugPage() {
                   { variant: "destructive", label: "Destructive" },
                   { variant: "success", label: "Success" },
                 ].map(({ variant, label }) => (
-                  <tr key={variant} className="hover:bg-os-gray-500/50">
-                    <td className="py-3 px-4 text-os-gray-300 capitalize">{label}</td>
+                  <tr key={variant} className="hover:bg-card/50">
+                    <td className="py-3 px-4 text-muted-foreground capitalize">{label}</td>
                     <td className="py-3 px-4">
                       <Button variant={variant as any} size="sm">Button</Button>
                     </td>
@@ -583,13 +583,13 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Real-world Examples</h2>
             <Badge variant="secondary">NFT Marketplace use cases</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Common button patterns used in NFT marketplace interfaces.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* NFT Card Actions */}
-            <div className="p-4 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-3">
+            <div className="p-4 rounded-lg bg-card border border-border space-y-3">
               <p className="text-sm font-medium text-foreground">NFT Card Actions</p>
               <div className="flex flex-wrap gap-2">
                 <Button size="sm">
@@ -604,7 +604,7 @@ export default function ButtonDebugPage() {
             </div>
 
             {/* Wallet Actions */}
-            <div className="p-4 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-3">
+            <div className="p-4 rounded-lg bg-card border border-border space-y-3">
               <p className="text-sm font-medium text-foreground">Wallet Actions</p>
               <div className="flex flex-wrap gap-2">
                 <Button>
@@ -619,7 +619,7 @@ export default function ButtonDebugPage() {
             </div>
 
             {/* Listing Actions */}
-            <div className="p-4 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-3">
+            <div className="p-4 rounded-lg bg-card border border-border space-y-3">
               <p className="text-sm font-medium text-foreground">Listing Actions</p>
               <div className="flex flex-wrap gap-2">
                 <Button variant="secondary" size="sm">
@@ -634,7 +634,7 @@ export default function ButtonDebugPage() {
             </div>
 
             {/* Confirmation Dialog */}
-            <div className="p-4 rounded-lg bg-os-gray-500 border border-os-gray-400 space-y-3">
+            <div className="p-4 rounded-lg bg-card border border-border space-y-3">
               <p className="text-sm font-medium text-foreground">Confirmation Dialog</p>
               <div className="flex flex-wrap gap-2">
                 <Button variant="destructive" size="sm">
@@ -653,7 +653,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Accessibility</h2>
             <Badge variant="secondary">WCAG 2.2</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Accessible button patterns with proper ARIA attributes.
           </p>
 
@@ -685,7 +685,7 @@ export default function ButtonDebugPage() {
                 <Button variant="secondary">Enter to Activate</Button>
                 <Button variant="outline">Space to Activate</Button>
               </div>
-              <p className="text-xs text-os-gray-300">
+              <p className="text-xs text-muted-foreground">
                 Use Tab to navigate, Enter or Space to activate buttons.
               </p>
             </div>
@@ -698,7 +698,7 @@ export default function ButtonDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Button Improvements</h2>
             <Badge variant="secondary">Enhanced UX</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Side-by-side comparison of standard shadcn buttons vs. enhanced buttons with improved interactions.
           </p>
 
@@ -706,8 +706,8 @@ export default function ButtonDebugPage() {
           <div className="space-y-6">
             {/* Standard Buttons Row */}
             <div className="space-y-3">
-              <p className="text-sm font-medium text-os-gray-300">Standard shadcn Buttons</p>
-              <div className="flex flex-wrap gap-3 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
+              <p className="text-sm font-medium text-muted-foreground">Standard shadcn Buttons</p>
+              <div className="flex flex-wrap gap-3 p-4 rounded-lg bg-card border border-border">
                 <Button>Primary</Button>
                 <Button variant="secondary">Secondary</Button>
                 <Button variant="outline">Outline</Button>
@@ -721,14 +721,14 @@ export default function ButtonDebugPage() {
             {/* Improved Buttons Row */}
             <div className="space-y-3">
               <p className="text-sm font-medium text-os-success">Improved Buttons</p>
-              <div className="flex flex-wrap gap-3 p-4 rounded-lg bg-os-gray-500 border border-os-gray-400">
-                <ImprovedButton>Primary</ImprovedButton>
-                <ImprovedButton variant="secondary">Secondary</ImprovedButton>
-                <ImprovedButton variant="outline">Outline</ImprovedButton>
-                <ImprovedButton variant="ghost">Ghost</ImprovedButton>
-                <ImprovedButton size="icon" variant="outline">
+              <div className="flex flex-wrap gap-3 p-4 rounded-lg bg-card border border-border">
+                <Button>Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button size="icon" variant="outline">
                   <Heart className="w-4 h-4" />
-                </ImprovedButton>
+                </Button>
               </div>
             </div>
           </div>
@@ -737,7 +737,7 @@ export default function ButtonDebugPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div className="p-4 rounded-lg bg-frosted-1 border border-border-subtle space-y-3">
               <h4 className="text-sm font-medium text-foreground">Visual Enhancements</h4>
-              <ul className="space-y-2 text-sm text-os-gray-300">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-os-success mt-0.5">✓</span>
                   <span><strong>Frosted glass effect</strong> on hover with backdrop-blur</span>
@@ -759,7 +759,7 @@ export default function ButtonDebugPage() {
 
             <div className="p-4 rounded-lg bg-frosted-1 border border-border-subtle space-y-3">
               <h4 className="text-sm font-medium text-foreground">Interaction Improvements</h4>
-              <ul className="space-y-2 text-sm text-os-gray-300">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-os-success mt-0.5">✓</span>
                   <span><strong>Spring animations</strong> using cubic-bezier for natural feel</span>
@@ -781,23 +781,23 @@ export default function ButtonDebugPage() {
           </div>
 
           {/* Interactive Demo */}
-          <div className="p-4 rounded-lg bg-gradient-to-br from-os-gray-500 to-os-gray-400 border border-os-gray-400 space-y-3">
+          <div className="p-4 rounded-lg bg-gradient-to-br from-os-gray-500 to-os-gray-400 border border-border space-y-3">
             <p className="text-sm font-medium text-foreground">Interactive Demo - Try Hovering & Clicking</p>
             <div className="flex flex-wrap gap-3">
-              <ImprovedButton size="lg">
+              <Button size="lg">
                 <ShoppingCart className="w-5 h-5" />
                 Buy Now
-              </ImprovedButton>
-              <ImprovedButton size="lg" variant="secondary">
+              </Button>
+              <Button size="lg" variant="secondary">
                 <Wallet className="w-5 h-5" />
                 Connect Wallet
-              </ImprovedButton>
-              <ImprovedButton size="lg" variant="outline">
+              </Button>
+              <Button size="lg" variant="outline">
                 Make Offer
-              </ImprovedButton>
-              <ImprovedButton size="icon" variant="outline">
+              </Button>
+              <Button size="icon" variant="outline">
                 <Heart className="w-5 h-5" />
-              </ImprovedButton>
+              </Button>
             </div>
           </div>
         </section>
@@ -807,7 +807,7 @@ export default function ButtonDebugPage() {
           <h4 className="text-sm font-medium text-foreground mb-2">
             About Button Components
           </h4>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             All buttons follow the OpenSea design system with a 6px border radius,
             consistent padding, and proper focus indicators. The component supports
             7 variants, 4 sizes, and full keyboard accessibility. Loading states use
@@ -823,18 +823,18 @@ export default function ButtonDebugPage() {
 // IMPROVED BUTTON COMPONENT
 // ============================================
 
-interface ImprovedButtonProps extends React.ComponentProps<"button"> {
+interface ButtonProps extends React.ComponentProps<"button"> {
   variant?: "default" | "secondary" | "outline" | "ghost" | "destructive" | "success";
   size?: "default" | "sm" | "lg" | "icon";
 }
 
-function ImprovedButton({
+function Button({
   className,
   variant = "default",
   size = "default",
   children,
   ...props
-}: ImprovedButtonProps) {
+}: ButtonProps) {
   const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none";
 
   // Size styles

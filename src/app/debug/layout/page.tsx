@@ -155,7 +155,7 @@ const Section: React.FC<SectionProps> = ({ title, icon: Icon, children, descript
       </div>
       <div>
         <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-        {description && <p className="text-sm text-os-gray-300">{description}</p>}
+        {description && <p className="text-sm text-muted-foreground">{description}</p>}
       </div>
     </div>
     <div className="pl-11">{children}</div>
@@ -206,7 +206,7 @@ export default function LayoutDebugPage() {
         <div className="mx-auto max-w-7xl space-y-2 mb-10">
           <Link
             href="/debug"
-            className="inline-flex items-center text-sm text-os-gray-300 hover:text-foreground transition-colors mb-4"
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
             Back to Debug Dashboard
@@ -219,7 +219,7 @@ export default function LayoutDebugPage() {
               <h1 className="text-2xl font-semibold tracking-tight text-foreground">
                 Layout System
               </h1>
-              <p className="text-os-gray-300">
+              <p className="text-muted-foreground">
                 Container widths, grid system, spacing, flexbox, and responsive breakpoints
               </p>
             </div>
@@ -312,7 +312,7 @@ export default function LayoutDebugPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[0, 2, 4, 8].map((gap) => (
                     <div key={gap} className="space-y-1">
-                      <span className="text-xs text-os-gray-300">gap-{gap}</span>
+                      <span className="text-xs text-muted-foreground">gap-{gap}</span>
                       <div className={`grid grid-cols-2 gap-${gap}`}>
                         <div className="bg-os-gray-400 h-8 rounded" />
                         <div className="bg-os-gray-400 h-8 rounded" />
@@ -335,11 +335,11 @@ export default function LayoutDebugPage() {
             <div className="space-y-2">
               {spacingValues.map((spacing) => (
                 <div key={spacing.name} className="flex items-center gap-4">
-                  <div className="w-16 text-xs text-os-gray-300 font-mono">
+                  <div className="w-16 text-xs text-muted-foreground font-mono">
                     {spacing.class}
                   </div>
-                  <div className="w-12 text-xs text-os-gray-300">{spacing.pixels}</div>
-                  <div className="flex-1 bg-os-gray-500/50 rounded overflow-hidden">
+                  <div className="w-12 text-xs text-muted-foreground">{spacing.pixels}</div>
+                  <div className="flex-1 bg-card/50 rounded overflow-hidden">
                     <div
                       className={`${spacing.class} bg-os-rare/30 border border-os-rare/50 inline-block`}
                     >
@@ -363,8 +363,8 @@ export default function LayoutDebugPage() {
                 <span className="text-sm font-medium text-foreground">Direction</span>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <span className="text-xs text-os-gray-300">flex-row</span>
-                    <div className="flex flex-row gap-2 bg-os-gray-500/30 p-3 rounded">
+                    <span className="text-xs text-muted-foreground">flex-row</span>
+                    <div className="flex flex-row gap-2 bg-card/30 p-3 rounded">
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
@@ -376,8 +376,8 @@ export default function LayoutDebugPage() {
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-xs text-os-gray-300">flex-col</span>
-                    <div className="flex flex-col gap-2 bg-os-gray-500/30 p-3 rounded">
+                    <span className="text-xs text-muted-foreground">flex-col</span>
+                    <div className="flex flex-col gap-2 bg-card/30 p-3 rounded">
                       {[1, 2, 3].map((i) => (
                         <div
                           key={i}
@@ -397,9 +397,9 @@ export default function LayoutDebugPage() {
                 <div className="space-y-3">
                   {flexJustifyOptions.map((option) => (
                     <div key={option.name} className="space-y-1">
-                      <span className="text-xs text-os-gray-300">{option.class}</span>
+                      <span className="text-xs text-muted-foreground">{option.class}</span>
                       <div
-                        className={`flex ${option.class} gap-2 bg-os-gray-500/30 p-3 rounded h-16`}
+                        className={`flex ${option.class} gap-2 bg-card/30 p-3 rounded h-16`}
                       >
                         {[1, 2, 3].map((i) => (
                           <div
@@ -421,9 +421,9 @@ export default function LayoutDebugPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {flexAlignOptions.map((option) => (
                     <div key={option.name} className="space-y-1">
-                      <span className="text-xs text-os-gray-300">{option.class}</span>
+                      <span className="text-xs text-muted-foreground">{option.class}</span>
                       <div
-                        className={`flex ${option.class} gap-2 bg-os-gray-500/30 p-3 rounded h-24`}
+                        className={`flex ${option.class} gap-2 bg-card/30 p-3 rounded h-24`}
                       >
                         {[1, 2, 3].map((i) => (
                           <div
@@ -446,8 +446,8 @@ export default function LayoutDebugPage() {
                 <span className="text-sm font-medium text-foreground">Wrap Behavior</span>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <span className="text-xs text-os-gray-300">flex-nowrap</span>
-                    <div className="flex flex-nowrap gap-2 bg-os-gray-500/30 p-3 rounded overflow-hidden">
+                    <span className="text-xs text-muted-foreground">flex-nowrap</span>
+                    <div className="flex flex-nowrap gap-2 bg-card/30 p-3 rounded overflow-hidden">
                       {Array.from({ length: 8 }).map((_, i) => (
                         <div
                           key={i}
@@ -459,8 +459,8 @@ export default function LayoutDebugPage() {
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-xs text-os-gray-300">flex-wrap</span>
-                    <div className="flex flex-wrap gap-2 bg-os-gray-500/30 p-3 rounded">
+                    <span className="text-xs text-muted-foreground">flex-wrap</span>
+                    <div className="flex flex-wrap gap-2 bg-card/30 p-3 rounded">
                       {Array.from({ length: 8 }).map((_, i) => (
                         <div
                           key={i}
@@ -484,8 +484,8 @@ export default function LayoutDebugPage() {
           >
             <div className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                <div className="hidden xs:block p-4 bg-os-gray-500/50 rounded border border-os-gray-400 text-center">
-                  <span className="text-xs text-os-gray-300 block">xs</span>
+                <div className="hidden xs:block p-4 bg-card/50 rounded border border-border text-center">
+                  <span className="text-xs text-muted-foreground block">xs</span>
                   <span className="text-sm font-medium text-foreground">Always visible</span>
                 </div>
                 <div className="hidden sm:block p-4 bg-os-success/20 rounded border border-os-success/50 text-center">
@@ -511,7 +511,7 @@ export default function LayoutDebugPage() {
               </div>
 
               <div className="p-4 bg-frosted-1 border border-border-subtle rounded">
-                <p className="text-sm text-os-gray-300">
+                <p className="text-sm text-muted-foreground">
                   Resize your browser window to see the breakpoint indicator (bottom-right)
                   change and different boxes appear/disappear above.
                 </p>
@@ -531,7 +531,7 @@ export default function LayoutDebugPage() {
                   <div
                     className={`${radius.class} w-full h-20 bg-os-gray-400 border border-os-gray-300 flex items-center justify-center`}
                   >
-                    <span className="text-xs text-os-gray-300 font-mono">{radius.class}</span>
+                    <span className="text-xs text-muted-foreground font-mono">{radius.class}</span>
                   </div>
                   <span className="text-xs text-foreground">{radius.name}</span>
                 </div>
@@ -549,9 +549,9 @@ export default function LayoutDebugPage() {
               {shadowValues.map((shadow) => (
                 <div key={shadow.name} className="space-y-2 text-center">
                   <div
-                    className={`${shadow.class} w-full h-24 bg-os-gray-500 rounded-lg border border-os-gray-400 flex items-center justify-center`}
+                    className={`${shadow.class} w-full h-24 bg-card rounded-lg border border-border flex items-center justify-center`}
                   >
-                    <span className="text-xs text-os-gray-300 font-mono">{shadow.class}</span>
+                    <span className="text-xs text-muted-foreground font-mono">{shadow.class}</span>
                   </div>
                   <span className="text-xs text-foreground">{shadow.name}</span>
                 </div>
@@ -574,11 +574,11 @@ export default function LayoutDebugPage() {
                     Common pattern for NFT collections
                   </Badge>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-os-gray-500/30 rounded">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-card/30 rounded">
                   {Array.from({ length: 4 }).map((_, i) => (
                     <div
                       key={i}
-                      className="bg-os-gray-500 rounded-lg border border-os-gray-400 overflow-hidden"
+                      className="bg-card rounded-lg border border-border overflow-hidden"
                     >
                       <div className="aspect-square bg-os-gray-400/50" />
                       <div className="p-3 space-y-2">
@@ -598,14 +598,14 @@ export default function LayoutDebugPage() {
                     Dashboard / Admin layouts
                   </Badge>
                 </div>
-                <div className="flex h-48 rounded overflow-hidden border border-os-gray-400">
+                <div className="flex h-48 rounded overflow-hidden border border-border">
                   <div className="w-48 bg-os-gray-400 p-4 space-y-2 hidden md:block">
                     <div className="h-3 bg-os-gray-300/50 rounded" />
                     <div className="h-3 bg-os-gray-300/30 rounded w-3/4" />
                     <div className="h-3 bg-os-gray-300/30 rounded w-1/2" />
                   </div>
-                  <div className="flex-1 bg-os-gray-500/50 p-4">
-                    <div className="h-full bg-os-gray-500 rounded border border-os-gray-400 p-4">
+                  <div className="flex-1 bg-card/50 p-4">
+                    <div className="h-full bg-card rounded border border-border p-4">
                       <div className="h-4 bg-os-gray-400/50 rounded w-1/3 mb-4" />
                       <div className="space-y-2">
                         <div className="h-3 bg-os-gray-400/30 rounded" />
@@ -625,7 +625,7 @@ export default function LayoutDebugPage() {
                     Standard page layout
                   </Badge>
                 </div>
-                <div className="rounded overflow-hidden border border-os-gray-400">
+                <div className="rounded overflow-hidden border border-border">
                   <div className="h-12 bg-os-gray-400 px-4 flex items-center justify-between">
                     <div className="h-4 bg-os-gray-300/50 rounded w-24" />
                     <div className="flex gap-2">
@@ -633,7 +633,7 @@ export default function LayoutDebugPage() {
                       <div className="w-8 h-8 bg-os-gray-300/30 rounded" />
                     </div>
                   </div>
-                  <div className="h-32 bg-os-gray-500/50 p-4">
+                  <div className="h-32 bg-card/50 p-4">
                     <div className="max-w-3xl mx-auto space-y-3">
                       <div className="h-4 bg-os-gray-400/50 rounded w-1/2" />
                       <div className="h-3 bg-os-gray-400/30 rounded" />
@@ -652,13 +652,13 @@ export default function LayoutDebugPage() {
                     Landing pages / Auth
                   </Badge>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 h-48 rounded overflow-hidden border border-os-gray-400">
+                <div className="grid grid-cols-1 md:grid-cols-2 h-48 rounded overflow-hidden border border-border">
                   <div className="bg-os-info/20 p-6 flex flex-col justify-center items-center text-center">
                     <div className="w-16 h-16 bg-os-info/30 rounded-full mb-4" />
                     <div className="h-4 bg-os-info/40 rounded w-32 mb-2" />
                     <div className="h-3 bg-os-info/20 rounded w-48" />
                   </div>
-                  <div className="bg-os-gray-500 p-6 flex flex-col justify-center">
+                  <div className="bg-card p-6 flex flex-col justify-center">
                     <div className="h-4 bg-os-gray-400/50 rounded w-24 mb-4" />
                     <div className="space-y-2">
                       <div className="h-10 bg-os-gray-400/30 rounded" />
@@ -679,7 +679,7 @@ export default function LayoutDebugPage() {
                     Tables / Lists
                   </Badge>
                 </div>
-                <div className="h-48 rounded overflow-hidden border border-os-gray-400">
+                <div className="h-48 rounded overflow-hidden border border-border">
                   <div className="h-10 bg-os-gray-400 px-4 flex items-center sticky top-0">
                     <div className="flex-1 h-3 bg-os-gray-300/50 rounded mr-4" />
                     <div className="w-24 h-3 bg-os-gray-300/50 rounded" />
@@ -688,7 +688,7 @@ export default function LayoutDebugPage() {
                     {Array.from({ length: 8 }).map((_, i) => (
                       <div
                         key={i}
-                        className="h-12 px-4 flex items-center border-b border-os-gray-400/30 bg-os-gray-500/30"
+                        className="h-12 px-4 flex items-center border-b border-border/30 bg-card/30"
                       >
                         <div className="flex-1 h-3 bg-os-gray-400/30 rounded mr-4" />
                         <div className="w-24 h-3 bg-os-gray-400/30 rounded" />
@@ -713,19 +713,19 @@ export default function LayoutDebugPage() {
                   <span className="text-sm font-medium text-foreground">NFT Card Grid</span>
                   <div className="flex gap-2">
                     <Badge variant="outline" className="text-xs">Standard</Badge>
-                    <span className="text-os-gray-300">vs</span>
-                    <Badge variant="success" className="text-xs">Improved</Badge>
+                    <span className="text-muted-foreground">vs</span>
+                    <Badge variant="success" className="text-xs"></Badge>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Standard Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-gray-300 font-mono">Standard: Basic grid with inconsistent spacing</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-gray-400">
+                    <span className="text-xs text-muted-foreground font-mono">Standard: Basic grid with inconsistent spacing</span>
+                    <div className="p-4 bg-card/30 rounded border border-border">
                       <div className="grid grid-cols-2 gap-2">
                         {Array.from({ length: 4 }).map((_, i) => (
-                          <div key={i} className="bg-os-gray-500 rounded border border-os-gray-400 overflow-hidden">
+                          <div key={i} className="bg-card rounded border border-border overflow-hidden">
                             <div className="aspect-square bg-os-gray-400/50" />
                             <div className="p-2 space-y-1">
                               <div className="h-2 bg-os-gray-400 rounded w-3/4" />
@@ -737,15 +737,15 @@ export default function LayoutDebugPage() {
                     </div>
                   </div>
 
-                  {/* Improved Layout */}
+                  {/*  Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-success font-mono">Improved: 8px rhythm, visual hierarchy, hover states</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-success/30">
+                    <span className="text-xs text-os-success font-mono">: 8px rhythm, visual hierarchy, hover states</span>
+                    <div className="p-4 bg-card/30 rounded border border-os-success/30">
                       <div className="grid grid-cols-2 gap-3">
                         {Array.from({ length: 4 }).map((_, i) => (
                           <div
                             key={i}
-                            className="group bg-os-gray-500 rounded-lg border border-os-gray-400 overflow-hidden transition-all duration-200 hover:border-os-success/50 hover:shadow-md hover:-translate-y-0.5"
+                            className="group bg-card rounded-lg border border-border overflow-hidden transition-all duration-200 hover:border-os-success/50 hover:shadow-md hover:-translate-y-0.5"
                           >
                             <div className="relative aspect-square bg-os-gray-400/50 overflow-hidden">
                               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -773,19 +773,19 @@ export default function LayoutDebugPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Spacing Rhythm</span>
-                    <p className="text-os-gray-300 mt-1">Consistent 8px base unit (gap-3 = 12px)</p>
+                    <p className="text-muted-foreground mt-1">Consistent 8px base unit (gap-3 = 12px)</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Visual Hierarchy</span>
-                    <p className="text-os-gray-300 mt-1">Larger padding, clearer text sizing</p>
+                    <p className="text-muted-foreground mt-1">Larger padding, clearer text sizing</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Hover Feedback</span>
-                    <p className="text-os-gray-300 mt-1">Lift, shadow, and action reveal</p>
+                    <p className="text-muted-foreground mt-1">Lift, shadow, and action reveal</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Border Radius</span>
-                    <p className="text-os-gray-300 mt-1">rounded-lg for modern feel</p>
+                    <p className="text-muted-foreground mt-1">rounded-lg for modern feel</p>
                   </div>
                 </div>
               </div>
@@ -798,16 +798,16 @@ export default function LayoutDebugPage() {
                   <span className="text-sm font-medium text-foreground">Dashboard Sidebar Layout</span>
                   <div className="flex gap-2">
                     <Badge variant="outline" className="text-xs">Standard</Badge>
-                    <span className="text-os-gray-300">vs</span>
-                    <Badge variant="success" className="text-xs">Improved</Badge>
+                    <span className="text-muted-foreground">vs</span>
+                    <Badge variant="success" className="text-xs"></Badge>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Standard Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-gray-300 font-mono">Standard: Fixed sidebar, no responsive behavior</span>
-                    <div className="h-56 rounded overflow-hidden border border-os-gray-400">
+                    <span className="text-xs text-muted-foreground font-mono">Standard: Fixed sidebar, no responsive behavior</span>
+                    <div className="h-56 rounded overflow-hidden border border-border">
                       <div className="flex h-full">
                         <div className="w-40 bg-os-gray-400 p-3 space-y-2">
                           <div className="h-8 bg-os-gray-300/30 rounded" />
@@ -815,8 +815,8 @@ export default function LayoutDebugPage() {
                           <div className="h-6 bg-os-gray-300/20 rounded" />
                           <div className="h-6 bg-os-gray-300/20 rounded" />
                         </div>
-                        <div className="flex-1 bg-os-gray-500/50 p-3">
-                          <div className="h-full bg-os-gray-500 rounded border border-os-gray-400 p-3 space-y-2">
+                        <div className="flex-1 bg-card/50 p-3">
+                          <div className="h-full bg-card rounded border border-border p-3 space-y-2">
                             <div className="h-4 bg-os-gray-400/50 rounded w-1/3" />
                             <div className="h-20 bg-os-gray-400/30 rounded" />
                           </div>
@@ -825,14 +825,14 @@ export default function LayoutDebugPage() {
                     </div>
                   </div>
 
-                  {/* Improved Layout */}
+                  {/*  Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-success font-mono">Improved: Collapsible, responsive, better spacing</span>
+                    <span className="text-xs text-os-success font-mono">: Collapsible, responsive, better spacing</span>
                     <div className="h-56 rounded overflow-hidden border border-os-success/30">
                       <div className="flex h-full">
                         {/* Collapsible Sidebar */}
-                        <div className="hidden md:flex w-48 bg-os-gray-400/80 backdrop-blur flex-col p-4 space-y-4 border-r border-os-gray-400/50">
-                          <div className="flex items-center gap-2 pb-4 border-b border-os-gray-400/50">
+                        <div className="hidden md:flex w-48 bg-os-gray-400/80 backdrop-blur flex-col p-4 space-y-4 border-r border-border/50">
+                          <div className="flex items-center gap-2 pb-4 border-b border-border/50">
                             <LayoutDashboard className="w-5 h-5 text-os-info" />
                             <span className="text-sm font-medium">Dashboard</span>
                           </div>
@@ -841,7 +841,7 @@ export default function LayoutDebugPage() {
                               <div
                                 key={item}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
-                                  i === 0 ? 'bg-os-info/20 text-os-info' : 'hover:bg-os-gray-400/50 text-os-gray-300'
+                                  i === 0 ? 'bg-os-info/20 text-os-info' : 'hover:bg-os-gray-400/50 text-muted-foreground'
                                 }`}
                               >
                                 <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-os-info' : 'bg-os-gray-300'}`} />
@@ -857,7 +857,7 @@ export default function LayoutDebugPage() {
                           </div>
                         </div>
                         {/* Main Content */}
-                        <div className="flex-1 bg-os-gray-500/30 p-4 md:p-6">
+                        <div className="flex-1 bg-card/30 p-4 md:p-6">
                           <div className="h-full space-y-4">
                             <div className="flex items-center justify-between">
                               <div className="h-5 bg-os-gray-400/50 rounded w-32" />
@@ -866,17 +866,17 @@ export default function LayoutDebugPage() {
                               </div>
                             </div>
                             <div className="grid grid-cols-2 gap-3">
-                              <div className="h-20 bg-os-gray-500 rounded-lg border border-os-gray-400/50 p-3">
+                              <div className="h-20 bg-card rounded-lg border border-border/50 p-3">
                                 <div className="flex items-center gap-2 mb-2">
                                   <TrendingUp className="w-4 h-4 text-os-success" />
-                                  <span className="text-xs text-os-gray-300">Revenue</span>
+                                  <span className="text-xs text-muted-foreground">Revenue</span>
                                 </div>
                                 <div className="h-4 bg-os-success/30 rounded w-20" />
                               </div>
-                              <div className="h-20 bg-os-gray-500 rounded-lg border border-os-gray-400/50 p-3">
+                              <div className="h-20 bg-card rounded-lg border border-border/50 p-3">
                                 <div className="flex items-center gap-2 mb-2">
                                   <Eye className="w-4 h-4 text-os-info" />
-                                  <span className="text-xs text-os-gray-300">Views</span>
+                                  <span className="text-xs text-muted-foreground">Views</span>
                                 </div>
                                 <div className="h-4 bg-os-info/30 rounded w-20" />
                               </div>
@@ -892,19 +892,19 @@ export default function LayoutDebugPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Collapsible</span>
-                    <p className="text-os-gray-300 mt-1">Hidden on mobile, visible on md+</p>
+                    <p className="text-muted-foreground mt-1">Hidden on mobile, visible on md+</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Visual Cues</span>
-                    <p className="text-os-gray-300 mt-1">Active state, icons, dividers</p>
+                    <p className="text-muted-foreground mt-1">Active state, icons, dividers</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Content Spacing</span>
-                    <p className="text-os-gray-300 mt-1">Proper padding (p-6) for breathing room</p>
+                    <p className="text-muted-foreground mt-1">Proper padding (p-6) for breathing room</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Card Layout</span>
-                    <p className="text-os-gray-300 mt-1">Stats in organized card grid</p>
+                    <p className="text-muted-foreground mt-1">Stats in organized card grid</p>
                   </div>
                 </div>
               </div>
@@ -917,17 +917,17 @@ export default function LayoutDebugPage() {
                   <span className="text-sm font-medium text-foreground">Mobile-Responsive Patterns</span>
                   <div className="flex gap-2">
                     <Badge variant="outline" className="text-xs">Standard</Badge>
-                    <span className="text-os-gray-300">vs</span>
-                    <Badge variant="success" className="text-xs">Improved</Badge>
+                    <span className="text-muted-foreground">vs</span>
+                    <Badge variant="success" className="text-xs"></Badge>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Standard Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-gray-300 font-mono">Standard: Same layout, breaks on mobile</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-gray-400">
-                      <div className="max-w-[200px] mx-auto bg-os-gray-500 rounded-lg border border-os-gray-400 overflow-hidden">
+                    <span className="text-xs text-muted-foreground font-mono">Standard: Same layout, breaks on mobile</span>
+                    <div className="p-4 bg-card/30 rounded border border-border">
+                      <div className="max-w-[200px] mx-auto bg-card rounded-lg border border-border overflow-hidden">
                         <div className="p-2 space-y-2">
                           <div className="grid grid-cols-3 gap-1">
                             {Array.from({ length: 6 }).map((_, i) => (
@@ -937,15 +937,15 @@ export default function LayoutDebugPage() {
                           <div className="h-16 bg-os-gray-400/30 rounded" />
                         </div>
                       </div>
-                      <p className="text-xs text-os-gray-300 text-center mt-2">Grid too dense, text unreadable</p>
+                      <p className="text-xs text-muted-foreground text-center mt-2">Grid too dense, text unreadable</p>
                     </div>
                   </div>
 
-                  {/* Improved Layout */}
+                  {/*  Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-success font-mono">Improved: Adaptive grid, touch-friendly</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-success/30">
-                      <div className="max-w-[200px] mx-auto bg-os-gray-500 rounded-lg border border-os-gray-400 overflow-hidden">
+                    <span className="text-xs text-os-success font-mono">: Adaptive grid, touch-friendly</span>
+                    <div className="p-4 bg-card/30 rounded border border-os-success/30">
+                      <div className="max-w-[200px] mx-auto bg-card rounded-lg border border-border overflow-hidden">
                         <div className="p-3 space-y-3">
                           <div className="grid grid-cols-2 gap-2">
                             {Array.from({ length: 4 }).map((_, i) => (
@@ -970,27 +970,27 @@ export default function LayoutDebugPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="border-b border-os-gray-400/30">
-                        <th className="text-left py-2 text-os-gray-300 font-medium">Pattern</th>
-                        <th className="text-left py-2 text-os-gray-300 font-medium">Mobile (&lt;640px)</th>
-                        <th className="text-left py-2 text-os-gray-300 font-medium">Tablet (640-1024px)</th>
-                        <th className="text-left py-2 text-os-gray-300 font-medium">Desktop (&gt;1024px)</th>
+                      <tr className="border-b border-border/30">
+                        <th className="text-left py-2 text-muted-foreground font-medium">Pattern</th>
+                        <th className="text-left py-2 text-muted-foreground font-medium">Mobile (&lt;640px)</th>
+                        <th className="text-left py-2 text-muted-foreground font-medium">Tablet (640-1024px)</th>
+                        <th className="text-left py-2 text-muted-foreground font-medium">Desktop (&gt;1024px)</th>
                       </tr>
                     </thead>
                     <tbody className="text-foreground">
-                      <tr className="border-b border-os-gray-400/20">
+                      <tr className="border-b border-border/20">
                         <td className="py-2">NFT Grid</td>
                         <td className="py-2 text-os-success">2 cols, gap-3</td>
                         <td className="py-2 text-os-success">3 cols, gap-4</td>
                         <td className="py-2 text-os-success">4-6 cols, gap-6</td>
                       </tr>
-                      <tr className="border-b border-os-gray-400/20">
+                      <tr className="border-b border-border/20">
                         <td className="py-2">Sidebar</td>
                         <td className="py-2 text-os-success">Hidden, hamburger</td>
                         <td className="py-2 text-os-success">Collapsed icon-only</td>
                         <td className="py-2 text-os-success">Full expanded</td>
                       </tr>
-                      <tr className="border-b border-os-gray-400/20">
+                      <tr className="border-b border-border/20">
                         <td className="py-2">Typography</td>
                         <td className="py-2 text-os-success">text-sm base</td>
                         <td className="py-2 text-os-success">text-base base</td>
@@ -1015,19 +1015,19 @@ export default function LayoutDebugPage() {
                   <span className="text-sm font-medium text-foreground">Card Layouts with Hover Effects</span>
                   <div className="flex gap-2">
                     <Badge variant="outline" className="text-xs">Standard</Badge>
-                    <span className="text-os-gray-300">vs</span>
-                    <Badge variant="success" className="text-xs">Improved</Badge>
+                    <span className="text-muted-foreground">vs</span>
+                    <Badge variant="success" className="text-xs"></Badge>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {/* Standard Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-gray-300 font-mono">Standard: Static cards, no interaction</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-gray-400">
+                    <span className="text-xs text-muted-foreground font-mono">Standard: Static cards, no interaction</span>
+                    <div className="p-4 bg-card/30 rounded border border-border">
                       <div className="grid grid-cols-2 gap-2">
                         {Array.from({ length: 2 }).map((_, i) => (
-                          <div key={i} className="bg-os-gray-500 rounded border border-os-gray-400 overflow-hidden">
+                          <div key={i} className="bg-card rounded border border-border overflow-hidden">
                             <div className="aspect-video bg-os-gray-400/50" />
                             <div className="p-2 space-y-1">
                               <div className="h-2 bg-os-gray-400 rounded w-2/3" />
@@ -1039,10 +1039,10 @@ export default function LayoutDebugPage() {
                     </div>
                   </div>
 
-                  {/* Improved Layout */}
+                  {/*  Layout */}
                   <div className="space-y-2">
-                    <span className="text-xs text-os-success font-mono">Improved: Rich hover states, layered effects</span>
-                    <div className="p-4 bg-os-gray-500/30 rounded border border-os-success/30">
+                    <span className="text-xs text-os-success font-mono">: Rich hover states, layered effects</span>
+                    <div className="p-4 bg-card/30 rounded border border-os-success/30">
                       <div className="grid grid-cols-2 gap-3">
                         {[
                           { label: 'Legendary', color: 'bg-os-legendary', badge: 'legendary' },
@@ -1050,7 +1050,7 @@ export default function LayoutDebugPage() {
                         ].map((item, i) => (
                           <div
                             key={i}
-                            className="group relative bg-os-gray-500 rounded-lg border border-os-gray-400 overflow-hidden transition-all duration-300 hover:border-os-success/50 hover:shadow-lg hover:-translate-y-1"
+                            className="group relative bg-card rounded-lg border border-border overflow-hidden transition-all duration-300 hover:border-os-success/50 hover:shadow-lg hover:-translate-y-1"
                           >
                             <div className="relative aspect-video bg-os-gray-400/50 overflow-hidden">
                               <div className={`absolute inset-0 ${item.color}/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
@@ -1067,7 +1067,7 @@ export default function LayoutDebugPage() {
                               <div className="h-2.5 bg-os-gray-400 rounded w-2/3" />
                               <div className="flex items-center justify-between">
                                 <div className="h-2 bg-os-success/50 rounded w-12" />
-                                <Heart className="w-3 h-3 text-os-gray-300 group-hover:text-os-error transition-colors" />
+                                <Heart className="w-3 h-3 text-muted-foreground group-hover:text-os-error transition-colors" />
                               </div>
                             </div>
                           </div>
@@ -1081,19 +1081,19 @@ export default function LayoutDebugPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Transform</span>
-                    <p className="text-os-gray-300 mt-1">hover:-translate-y-1 for lift effect</p>
+                    <p className="text-muted-foreground mt-1">hover:-translate-y-1 for lift effect</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Shadow</span>
-                    <p className="text-os-gray-300 mt-1">hover:shadow-lg for depth</p>
+                    <p className="text-muted-foreground mt-1">hover:shadow-lg for depth</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Border</span>
-                    <p className="text-os-gray-300 mt-1">Color transition on hover</p>
+                    <p className="text-muted-foreground mt-1">Color transition on hover</p>
                   </div>
                   <div className="p-3 bg-os-success/10 rounded border border-os-success/20">
                     <span className="text-os-success font-medium">Content Reveal</span>
-                    <p className="text-os-gray-300 mt-1">opacity-0 group-hover:opacity-100</p>
+                    <p className="text-muted-foreground mt-1">opacity-0 group-hover:opacity-100</p>
                   </div>
                 </div>
               </div>
@@ -1109,7 +1109,7 @@ export default function LayoutDebugPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
               <div>
                 <h4 className="font-medium text-foreground mb-2">Container</h4>
-                <ul className="space-y-1 text-os-gray-300">
+                <ul className="space-y-1 text-muted-foreground">
                   <li>max-w-xs to max-w-7xl</li>
                   <li>container (responsive)</li>
                   <li>mx-auto for centering</li>
@@ -1117,7 +1117,7 @@ export default function LayoutDebugPage() {
               </div>
               <div>
                 <h4 className="font-medium text-foreground mb-2">Grid</h4>
-                <ul className="space-y-1 text-os-gray-300">
+                <ul className="space-y-1 text-muted-foreground">
                   <li>grid-cols-1 to grid-cols-12</li>
                   <li>col-span-1 to col-span-12</li>
                   <li>gap-0 to gap-24</li>
@@ -1125,7 +1125,7 @@ export default function LayoutDebugPage() {
               </div>
               <div>
                 <h4 className="font-medium text-foreground mb-2">Flexbox</h4>
-                <ul className="space-y-1 text-os-gray-300">
+                <ul className="space-y-1 text-muted-foreground">
                   <li>flex-row, flex-col</li>
                   <li>justify-start to justify-evenly</li>
                   <li>items-start to items-baseline</li>
@@ -1133,7 +1133,7 @@ export default function LayoutDebugPage() {
               </div>
               <div>
                 <h4 className="font-medium text-foreground mb-2">Responsive</h4>
-                <ul className="space-y-1 text-os-gray-300">
+                <ul className="space-y-1 text-muted-foreground">
                   <li>sm:, md:, lg:, xl:, 2xl:</li>
                   <li>hidden, block, flex, grid</li>
                   <li>Resize browser to test</li>

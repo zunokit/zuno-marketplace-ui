@@ -44,7 +44,7 @@ export default function BadgeTooltipDebugPage() {
         <div className="flex items-center gap-2 mb-2">
           <Link
             href="/debug"
-            className="text-sm text-os-gray-300 hover:text-foreground transition-colors flex items-center gap-1"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Debug
@@ -53,7 +53,7 @@ export default function BadgeTooltipDebugPage() {
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Badge & Tooltip Debug
         </h1>
-        <p className="text-os-gray-300">
+        <p className="text-muted-foreground">
           Comprehensive showcase of badge variants, tooltip positions, and interaction patterns.
         </p>
       </div>
@@ -65,34 +65,34 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Badge Variants</h2>
             <Badge variant="secondary">Core variants</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Standard badge styles for different semantic purposes.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 p-6 rounded-lg bg-card border border-border">
             <div className="space-y-2 text-center">
               <Badge variant="default">Default</Badge>
-              <p className="text-xs text-os-gray-300">Frosted glass</p>
+              <p className="text-xs text-muted-foreground">Frosted glass</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="secondary">Secondary</Badge>
-              <p className="text-xs text-os-gray-300">Alternative</p>
+              <p className="text-xs text-muted-foreground">Alternative</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="outline">Outline</Badge>
-              <p className="text-xs text-os-gray-300">Subtle border</p>
+              <p className="text-xs text-muted-foreground">Subtle border</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="destructive">Destructive</Badge>
-              <p className="text-xs text-os-gray-300">Error/Danger</p>
+              <p className="text-xs text-muted-foreground">Error/Danger</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="success">Success</Badge>
-              <p className="text-xs text-os-gray-300">Verified/OK</p>
+              <p className="text-xs text-muted-foreground">Verified/OK</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="info">Info</Badge>
-              <p className="text-xs text-os-gray-300">Information</p>
+              <p className="text-xs text-muted-foreground">Information</p>
             </div>
           </div>
         </section>
@@ -103,11 +103,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Badge with Icons</h2>
             <Badge variant="secondary">Enhanced visual</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Badges with leading and trailing icons for better visual communication.
           </p>
 
-          <div className="space-y-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="space-y-6 p-6 rounded-lg bg-card border border-border">
             {/* Leading Icons */}
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">Leading Icons</p>
@@ -181,38 +181,38 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Enhanced Badge Variants</h2>
             <Badge variant="secondary">New</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             New badge variants with frosted glass, gradient, glow, and subtle styles.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 p-6 rounded-lg bg-card border border-border">
             <div className="space-y-2 text-center">
               <Badge variant="frosted">Frosted</Badge>
-              <p className="text-xs text-os-gray-300">Blur effect</p>
+              <p className="text-xs text-muted-foreground">Blur effect</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="gradient">Gradient</Badge>
-              <p className="text-xs text-os-gray-300">Primary glow</p>
+              <p className="text-xs text-muted-foreground">Primary glow</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="glow">Glow</Badge>
-              <p className="text-xs text-os-gray-300">Info glow</p>
+              <p className="text-xs text-muted-foreground">Info glow</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="subtle">Subtle</Badge>
-              <p className="text-xs text-os-gray-300">Minimal</p>
+              <p className="text-xs text-muted-foreground">Minimal</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="dot" className="text-os-success">Dot</Badge>
-              <p className="text-xs text-os-gray-300">Status dot</p>
+              <p className="text-xs text-muted-foreground">Status dot</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="epic">Epic</Badge>
-              <p className="text-xs text-os-gray-300">NFT rarity</p>
+              <p className="text-xs text-muted-foreground">NFT rarity</p>
             </div>
             <div className="space-y-2 text-center">
               <Badge variant="warning">Warning</Badge>
-              <p className="text-xs text-os-gray-300">Caution</p>
+              <p className="text-xs text-muted-foreground">Caution</p>
             </div>
           </div>
         </section>
@@ -223,11 +223,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Badge Groups</h2>
             <Badge variant="secondary">Grouped badges</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Multiple badges grouped together for status indicators and filters.
           </p>
 
-          <div className="space-y-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="space-y-6 p-6 rounded-lg bg-card border border-border">
             {/* Status Group */}
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">Status Indicators</p>
@@ -277,7 +277,7 @@ export default function BadgeTooltipDebugPage() {
             {/* Inline with Text */}
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">Inline with Text</p>
-              <div className="space-y-2 text-sm text-os-gray-300">
+              <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
                   This NFT collection has <Badge variant="success">5,000 items</Badge> with{" "}
                   <Badge variant="legendary">100 legendary</Badge> pieces.
@@ -297,11 +297,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Tooltip Positions</h2>
             <Badge variant="secondary">4 positions</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tooltips can appear on any side of the trigger element.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 p-10 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center justify-center gap-8 p-10 rounded-lg bg-card border border-border">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -362,11 +362,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Rich Content Tooltips</h2>
             <Badge variant="secondary">Complex content</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tooltips can contain rich content including icons, badges, and formatted text.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-card border border-border">
             {/* NFT Card Preview */}
             <TooltipProvider>
               <Tooltip>
@@ -382,7 +382,7 @@ export default function BadgeTooltipDebugPage() {
                       <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-pink-500" />
                       <div>
                         <p className="font-medium text-foreground">Bored Ape #1234</p>
-                        <p className="text-xs text-os-gray-300">BAYC Collection</p>
+                        <p className="text-xs text-muted-foreground">BAYC Collection</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 pt-2 border-t border-border-subtle">
@@ -406,11 +406,11 @@ export default function BadgeTooltipDebugPage() {
                 <TooltipContent side="bottom" className="max-w-xs">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-os-gray-300">Balance</span>
+                      <span className="text-xs text-muted-foreground">Balance</span>
                       <span className="font-medium">12.45 ETH</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-os-gray-300">Network</span>
+                      <span className="text-xs text-muted-foreground">Network</span>
                       <Badge variant="success" className="text-xs">Mainnet</Badge>
                     </div>
                     <div className="flex items-center gap-2 pt-2 border-t border-border-subtle">
@@ -443,10 +443,10 @@ export default function BadgeTooltipDebugPage() {
                       <div className="w-2 h-2 rounded-full bg-os-warning animate-pulse" />
                       <span className="font-medium">Pending</span>
                     </div>
-                    <p className="text-xs text-os-gray-300">
+                    <p className="text-xs text-muted-foreground">
                       Transaction is being processed on the blockchain.
                     </p>
-                    <div className="text-xs text-os-gray-300">
+                    <div className="text-xs text-muted-foreground">
                       Hash: <span className="font-mono">0x7a8f...3e2d</span>
                     </div>
                   </div>
@@ -476,7 +476,7 @@ export default function BadgeTooltipDebugPage() {
                             <Check className="w-2 h-2" />
                           </Badge>
                         </div>
-                        <p className="text-xs text-os-gray-300">@johndoe</p>
+                        <p className="text-xs text-muted-foreground">@johndoe</p>
                       </div>
                     </div>
                     <div className="flex gap-3 pt-2 text-xs">
@@ -496,11 +496,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Tooltip Delay</h2>
             <Badge variant="secondary">Timing control</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tooltips can have custom delay durations for better UX.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-card border border-border">
             {/* Instant */}
             <TooltipProvider delayDuration={0}>
               <Tooltip>
@@ -569,11 +569,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Badge + Tooltip Combinations</h2>
             <Badge variant="secondary">Interactive badges</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Badges enhanced with tooltips for additional context.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-card border border-border">
             {/* Verified Badge with Tooltip */}
             <TooltipProvider>
               <Tooltip>
@@ -605,7 +605,7 @@ export default function BadgeTooltipDebugPage() {
                 <TooltipContent>
                   <div className="space-y-1">
                     <p className="font-medium">Legendary Rarity</p>
-                    <p className="text-xs text-os-gray-300">Only 1% of items have this rarity</p>
+                    <p className="text-xs text-muted-foreground">Only 1% of items have this rarity</p>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -625,7 +625,7 @@ export default function BadgeTooltipDebugPage() {
                 <TooltipContent>
                   <div className="space-y-1">
                     <p className="font-medium">Gas Price: 12 Gwei</p>
-                    <p className="text-xs text-os-gray-300">Estimated: $2.50</p>
+                    <p className="text-xs text-muted-foreground">Estimated: $2.50</p>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -645,7 +645,7 @@ export default function BadgeTooltipDebugPage() {
                 <TooltipContent>
                   <div className="space-y-1">
                     <p className="font-medium">Ethereum Mainnet</p>
-                    <p className="text-xs text-os-gray-300">Block: 18,234,567</p>
+                    <p className="text-xs text-muted-foreground">Block: 18,234,567</p>
                   </div>
                 </TooltipContent>
               </Tooltip>
@@ -659,23 +659,23 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">NFT Marketplace Use Cases</h2>
             <Badge variant="secondary">Real-world examples</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Common patterns for badges and tooltips in NFT marketplace interfaces.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-lg bg-card border border-border">
             {/* NFT Card */}
-            <div className="space-y-4 p-4 rounded-lg bg-os-gray-400 border border-os-gray-400">
+            <div className="space-y-4 p-4 rounded-lg bg-os-gray-400 border border-border">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-medium text-foreground">Crypto Punk #7823</h3>
-                  <p className="text-sm text-os-gray-300">Larva Labs</p>
+                  <p className="text-sm text-muted-foreground">Larva Labs</p>
                 </div>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <button className="p-1.5 rounded-md hover:bg-os-gray-300 transition-colors">
-                        <Heart className="w-4 h-4 text-os-gray-300" />
+                        <Heart className="w-4 h-4 text-muted-foreground" />
                       </button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -704,17 +704,17 @@ export default function BadgeTooltipDebugPage() {
                 </TooltipProvider>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-os-gray-400">
+              <div className="flex items-center justify-between pt-2 border-t border-border">
                 <div className="flex items-center gap-1">
                   <span className="font-medium">2.5 ETH</span>
-                  <span className="text-xs text-os-gray-300">($5,234)</span>
+                  <span className="text-xs text-muted-foreground">($5,234)</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button className="p-1.5 rounded-md hover:bg-os-gray-300 transition-colors">
-                          <Share2 className="w-4 h-4 text-os-gray-300" />
+                          <Share2 className="w-4 h-4 text-muted-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -726,7 +726,7 @@ export default function BadgeTooltipDebugPage() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button className="p-1.5 rounded-md hover:bg-os-gray-300 transition-colors">
-                          <MoreHorizontal className="w-4 h-4 text-os-gray-300" />
+                          <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -739,13 +739,13 @@ export default function BadgeTooltipDebugPage() {
             </div>
 
             {/* Transaction Item */}
-            <div className="space-y-4 p-4 rounded-lg bg-os-gray-400 border border-os-gray-400">
+            <div className="space-y-4 p-4 rounded-lg bg-os-gray-400 border border-border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500" />
                   <div>
                     <h3 className="font-medium text-foreground">Purchase</h3>
-                    <p className="text-sm text-os-gray-300">2 hours ago</p>
+                    <p className="text-sm text-muted-foreground">2 hours ago</p>
                   </div>
                 </div>
                 <TooltipProvider>
@@ -761,7 +761,7 @@ export default function BadgeTooltipDebugPage() {
                     <TooltipContent>
                       <div className="space-y-1">
                         <p>Waiting for confirmation</p>
-                        <p className="text-xs text-os-gray-300">~3 more blocks</p>
+                        <p className="text-xs text-muted-foreground">~3 more blocks</p>
                       </div>
                     </TooltipContent>
                   </Tooltip>
@@ -769,11 +769,11 @@ export default function BadgeTooltipDebugPage() {
               </div>
 
               <div className="flex items-center justify-between text-sm">
-                <span className="text-os-gray-300">Amount</span>
+                <span className="text-muted-foreground">Amount</span>
                 <span className="font-medium">1.2 ETH</span>
               </div>
 
-              <div className="flex items-center gap-2 pt-2 border-t border-os-gray-400">
+              <div className="flex items-center gap-2 pt-2 border-t border-border">
                 <Badge variant="outline" className="text-xs">
                   Transfer
                 </Badge>
@@ -803,11 +803,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Enhanced Tooltip Variants</h2>
             <Badge variant="secondary">Colored</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Tooltips with semantic color variants for different contexts.
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="flex flex-wrap items-center gap-6 p-6 rounded-lg bg-card border border-border">
             {/* Default */}
             <TooltipProvider>
               <Tooltip>
@@ -886,11 +886,11 @@ export default function BadgeTooltipDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Accessibility</h2>
             <Badge variant="secondary">WCAG 2.2</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Accessible patterns for badges and tooltips.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-lg bg-os-gray-500 border border-os-gray-400">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-lg bg-card border border-border">
             {/* Keyboard Navigation */}
             <div className="space-y-3">
               <p className="text-sm font-medium text-foreground">Keyboard Navigation</p>
@@ -908,7 +908,7 @@ export default function BadgeTooltipDebugPage() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <p className="text-xs text-os-gray-300">
+              <p className="text-xs text-muted-foreground">
                 Use Tab to navigate, Enter or Space to activate.
               </p>
             </div>
@@ -930,7 +930,7 @@ export default function BadgeTooltipDebugPage() {
                   Warning
                 </Badge>
               </div>
-              <p className="text-xs text-os-gray-300">
+              <p className="text-xs text-muted-foreground">
                 Badges include aria-labels for screen reader context.
               </p>
             </div>
@@ -942,7 +942,7 @@ export default function BadgeTooltipDebugPage() {
           <h4 className="text-sm font-medium text-foreground mb-2">
             About Badge & Tooltip Components
           </h4>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Badges use a 6px border radius with consistent padding and support multiple
             semantic variants. Tooltips are built on Radix UI with frosted glass styling,
             smooth animations, and customizable positioning. Both components follow the

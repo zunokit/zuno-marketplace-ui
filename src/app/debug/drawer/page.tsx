@@ -11,16 +11,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/shared/components/ui/drawer";
-import {
-  Drawer as ImprovedDrawer,
-  DrawerClose as ImprovedDrawerClose,
-  DrawerContent as ImprovedDrawerContent,
-  DrawerDescription as ImprovedDrawerDescription,
-  DrawerFooter as ImprovedDrawerFooter,
-  DrawerHeader as ImprovedDrawerHeader,
-  DrawerTitle as ImprovedDrawerTitle,
-  DrawerTrigger as ImprovedDrawerTrigger,
-} from "@/shared/components/ui/drawer-improved";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
@@ -62,7 +52,7 @@ export default function DrawerDebugPage() {
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Drawer Component Debug
         </h1>
-        <p className="text-os-gray-300">
+        <p className="text-muted-foreground">
           Testing all drawer variants, directions, and use cases with OpenSea design system.
         </p>
       </div>
@@ -74,7 +64,7 @@ export default function DrawerDebugPage() {
             <h2 className="text-lg font-medium text-foreground">Direction Variants</h2>
             <Badge variant="secondary">4 directions</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
+          <p className="text-sm text-muted-foreground">
             Drawers can slide in from any edge of the screen.
           </p>
 
@@ -87,7 +77,7 @@ export default function DrawerDebugPage() {
                   Bottom
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader className="border-b border-border-subtle pb-4">
                   <DrawerTitle className="text-foreground">Bottom Drawer</DrawerTitle>
                   <DrawerDescription>
@@ -117,7 +107,7 @@ export default function DrawerDebugPage() {
                   Top
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader className="border-b border-border-subtle pb-4">
                   <DrawerTitle className="text-foreground">Top Drawer</DrawerTitle>
                   <DrawerDescription>
@@ -129,7 +119,7 @@ export default function DrawerDebugPage() {
                     <Bell className="w-5 h-5 text-os-info" />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-foreground">New notification</p>
-                      <p className="text-xs text-os-gray-300">Someone placed a bid on your item</p>
+                      <p className="text-xs text-muted-foreground">Someone placed a bid on your item</p>
                     </div>
                   </div>
                 </div>
@@ -149,7 +139,7 @@ export default function DrawerDebugPage() {
                   Left
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-sm">
+              <DrawerContent className="bg-card border-border w-full sm:max-w-sm">
                 <DrawerHeader className="border-b border-border-subtle pb-4">
                   <DrawerTitle className="text-foreground">Left Drawer</DrawerTitle>
                   <DrawerDescription>
@@ -182,7 +172,7 @@ export default function DrawerDebugPage() {
                   Right
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-sm">
+              <DrawerContent className="bg-card border-border w-full sm:max-w-sm">
                 <DrawerHeader className="border-b border-border-subtle pb-4">
                   <DrawerTitle className="text-foreground">Right Drawer</DrawerTitle>
                   <DrawerDescription>
@@ -194,7 +184,7 @@ export default function DrawerDebugPage() {
                     <div className="w-12 h-12 rounded-md bg-os-gray-400" />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-foreground">Item Name</p>
-                      <p className="text-xs text-os-gray-300">0.5 ETH</p>
+                      <p className="text-xs text-muted-foreground">0.5 ETH</p>
                     </div>
                   </div>
                 </div>
@@ -225,7 +215,7 @@ export default function DrawerDebugPage() {
                   <span className="text-sm">Shopping Cart</span>
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-md">
+              <DrawerContent className="bg-card border-border w-full sm:max-w-md">
                 <DrawerHeader className="border-b border-border-subtle">
                   <div className="flex items-center justify-between">
                     <DrawerTitle className="text-foreground flex items-center gap-2">
@@ -242,11 +232,11 @@ export default function DrawerDebugPage() {
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-frosted-1 border border-border-subtle">
                       <div className="w-16 h-16 rounded-md bg-os-gray-400 flex items-center justify-center">
-                        <span className="text-xs text-os-gray-300">NFT</span>
+                        <span className="text-xs text-muted-foreground">NFT</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-foreground truncate">Cool NFT #{1000 + i}</p>
-                        <p className="text-xs text-os-gray-300">Collection Name</p>
+                        <p className="text-xs text-muted-foreground">Collection Name</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-medium text-foreground">{(0.5 * i).toFixed(2)} ETH</p>
@@ -257,7 +247,7 @@ export default function DrawerDebugPage() {
                 </div>
                 <DrawerFooter className="border-t border-border-subtle mt-auto">
                   <div className="flex items-center justify-between py-2">
-                    <span className="text-sm text-os-gray-300">Total</span>
+                    <span className="text-sm text-muted-foreground">Total</span>
                     <span className="text-lg font-semibold text-foreground">3.00 ETH</span>
                   </div>
                   <Button className="w-full">Proceed to Checkout</Button>
@@ -276,7 +266,7 @@ export default function DrawerDebugPage() {
                   <span className="text-sm">Filter Panel</span>
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-sm">
+              <DrawerContent className="bg-card border-border w-full sm:max-w-sm">
                 <DrawerHeader className="border-b border-border-subtle">
                   <DrawerTitle className="text-foreground flex items-center gap-2">
                     <Filter className="w-5 h-5" />
@@ -292,7 +282,7 @@ export default function DrawerDebugPage() {
                     <Label className="text-sm font-medium">Price Range</Label>
                     <div className="flex items-center gap-2">
                       <Input placeholder="Min" className="flex-1" />
-                      <span className="text-os-gray-300">-</span>
+                      <span className="text-muted-foreground">-</span>
                       <Input placeholder="Max" className="flex-1" />
                     </div>
                   </div>
@@ -341,11 +331,11 @@ export default function DrawerDebugPage() {
                   <span className="text-sm">User Profile</span>
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-sm">
+              <DrawerContent className="bg-card border-border w-full sm:max-w-sm">
                 <DrawerHeader className="border-b border-border-subtle">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-os-gray-400 border-2 border-os-rare flex items-center justify-center">
-                      <User className="w-6 h-6 text-os-gray-300" />
+                      <User className="w-6 h-6 text-muted-foreground" />
                     </div>
                     <div>
                       <DrawerTitle className="text-foreground">John Doe</DrawerTitle>
@@ -366,7 +356,7 @@ export default function DrawerDebugPage() {
                       key={label}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm text-foreground hover:bg-frosted-1 transition-colors"
                     >
-                      <Icon className="w-4 h-4 text-os-gray-300" />
+                      <Icon className="w-4 h-4 text-muted-foreground" />
                       {label}
                     </button>
                   ))}
@@ -392,13 +382,13 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Small (Auto)</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 max-h-[40vh]">
+              <DrawerContent className="bg-card border-border max-h-[40vh]">
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground">Small Drawer</DrawerTitle>
                   <DrawerDescription>Compact size for simple actions</DrawerDescription>
                 </DrawerHeader>
                 <div className="p-4">
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     This drawer has a maximum height of 40vh, perfect for confirmations or quick actions.
                   </p>
                 </div>
@@ -413,13 +403,13 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Medium (Default)</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 max-h-[60vh]">
+              <DrawerContent className="bg-card border-border max-h-[60vh]">
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground">Medium Drawer</DrawerTitle>
                   <DrawerDescription>Default size for most use cases</DrawerDescription>
                 </DrawerHeader>
                 <div className="p-4 space-y-4">
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     This is the default drawer size with 60vh max height. Good for forms and moderate content.
                   </p>
                   <div className="space-y-2">
@@ -438,13 +428,13 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Large (80vh)</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400 max-h-[80vh]">
+              <DrawerContent className="bg-card border-border max-h-[80vh]">
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground">Large Drawer</DrawerTitle>
                   <DrawerDescription>Full content drawer</DrawerDescription>
                 </DrawerHeader>
                 <div className="p-4 space-y-4">
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     This drawer uses the maximum 80vh height, suitable for complex forms or content-heavy views.
                   </p>
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -498,7 +488,7 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="outline" className="w-full">Solid Background</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground">Solid Background</DrawerTitle>
                   <DrawerDescription>Clean solid background without transparency</DrawerDescription>
@@ -531,14 +521,14 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Loading State</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground">Processing</DrawerTitle>
                   <DrawerDescription>Please wait while we process your request</DrawerDescription>
                 </DrawerHeader>
                 <div className="p-8 flex flex-col items-center justify-center gap-4">
                   <div className="w-8 h-8 border-2 border-os-gray-300 border-t-os-info rounded-full animate-spin" />
-                  <p className="text-sm text-os-gray-300">Confirming transaction...</p>
+                  <p className="text-sm text-muted-foreground">Confirming transaction...</p>
                 </div>
               </DrawerContent>
             </Drawer>
@@ -548,7 +538,7 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Success State</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-os-success flex items-center justify-center">
@@ -578,7 +568,7 @@ export default function DrawerDebugPage() {
               <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">Error State</Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-os-gray-500 border-os-gray-400">
+              <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle className="text-foreground text-os-error">Error</DrawerTitle>
                   <DrawerDescription>Something went wrong</DrawerDescription>
@@ -601,32 +591,32 @@ export default function DrawerDebugPage() {
           </div>
         </section>
 
-        {/* Section 6: Improved Drawer Component */}
+        {/* Section 6: OpenSea Design Drawer */}
         <section className="space-y-4">
           <div className="flex items-center gap-2">
-            <h2 className="text-lg font-medium text-foreground">Improved Drawer (OpenSea Design)</h2>
-            <Badge variant="default">New</Badge>
+            <h2 className="text-lg font-medium text-foreground">OpenSea Design Drawer</h2>
+            <Badge variant="default">Styled</Badge>
           </div>
-          <p className="text-sm text-os-gray-300">
-            Enhanced drawer with frosted glass effect, spring physics animations, and improved styling.
+          <p className="text-sm text-muted-foreground">
+            Enhanced drawer with frosted glass effect, spring physics animations, and OpenSea styling.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Bottom Improved Drawer */}
-            <ImprovedDrawer>
-              <ImprovedDrawerTrigger asChild>
+            {/* Bottom Drawer */}
+            <Drawer>
+              <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">
                   <ArrowUp className="w-4 h-4 mr-2" />
                   Bottom
                 </Button>
-              </ImprovedDrawerTrigger>
-              <ImprovedDrawerContent>
-                <ImprovedDrawerHeader>
-                  <ImprovedDrawerTitle>Improved Bottom Drawer</ImprovedDrawerTitle>
-                  <ImprovedDrawerDescription>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Styled Bottom Drawer</DrawerTitle>
+                  <DrawerDescription>
                     Features frosted glass backdrop blur and smooth spring animations.
-                  </ImprovedDrawerDescription>
-                </ImprovedDrawerHeader>
+                  </DrawerDescription>
+                </DrawerHeader>
                 <div className="p-6 space-y-4">
                   <div className="space-y-2">
                     <Label>Email Address</Label>
@@ -636,30 +626,30 @@ export default function DrawerDebugPage() {
                     This drawer uses the OpenSea color palette with #26272d background and #34353c borders.
                   </p>
                 </div>
-                <ImprovedDrawerFooter>
+                <DrawerFooter>
                   <Button className="w-full">Continue</Button>
-                  <ImprovedDrawerClose asChild>
+                  <DrawerClose asChild>
                     <Button variant="ghost" className="w-full">Cancel</Button>
-                  </ImprovedDrawerClose>
-                </ImprovedDrawerFooter>
-              </ImprovedDrawerContent>
-            </ImprovedDrawer>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
 
-            {/* Top Improved Drawer */}
-            <ImprovedDrawer direction="top">
-              <ImprovedDrawerTrigger asChild>
+            {/* Top Drawer */}
+            <Drawer direction="top">
+              <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">
                   <ArrowDown className="w-4 h-4 mr-2" />
                   Top
                 </Button>
-              </ImprovedDrawerTrigger>
-              <ImprovedDrawerContent>
-                <ImprovedDrawerHeader>
-                  <ImprovedDrawerTitle>Notifications</ImprovedDrawerTitle>
-                  <ImprovedDrawerDescription>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Notifications</DrawerTitle>
+                  <DrawerDescription>
                     Real-time updates with elegant presentation.
-                  </ImprovedDrawerDescription>
-                </ImprovedDrawerHeader>
+                  </DrawerDescription>
+                </DrawerHeader>
                 <div className="p-6 space-y-3">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
@@ -671,29 +661,29 @@ export default function DrawerDebugPage() {
                     </div>
                   ))}
                 </div>
-                <ImprovedDrawerFooter>
-                  <ImprovedDrawerClose asChild>
+                <DrawerFooter>
+                  <DrawerClose asChild>
                     <Button variant="ghost" className="w-full">Dismiss All</Button>
-                  </ImprovedDrawerClose>
-                </ImprovedDrawerFooter>
-              </ImprovedDrawerContent>
-            </ImprovedDrawer>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
 
-            {/* Left Improved Drawer */}
-            <ImprovedDrawer direction="left">
-              <ImprovedDrawerTrigger asChild>
+            {/* Left Drawer */}
+            <Drawer direction="left">
+              <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">
                   <ArrowRight className="w-4 h-4 mr-2" />
                   Left
                 </Button>
-              </ImprovedDrawerTrigger>
-              <ImprovedDrawerContent>
-                <ImprovedDrawerHeader>
-                  <ImprovedDrawerTitle>Navigation</ImprovedDrawerTitle>
-                  <ImprovedDrawerDescription>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Navigation</DrawerTitle>
+                  <DrawerDescription>
                     Quick access to all sections.
-                  </ImprovedDrawerDescription>
-                </ImprovedDrawerHeader>
+                  </DrawerDescription>
+                </DrawerHeader>
                 <div className="p-6 space-y-1">
                   {["Dashboard", "Marketplace", "Collections", "Profile", "Settings"].map((item) => (
                     <button
@@ -704,29 +694,29 @@ export default function DrawerDebugPage() {
                     </button>
                   ))}
                 </div>
-                <ImprovedDrawerFooter>
-                  <ImprovedDrawerClose asChild>
+                <DrawerFooter>
+                  <DrawerClose asChild>
                     <Button variant="ghost" className="w-full">Close</Button>
-                  </ImprovedDrawerClose>
-                </ImprovedDrawerFooter>
-              </ImprovedDrawerContent>
-            </ImprovedDrawer>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
 
-            {/* Right Improved Drawer */}
-            <ImprovedDrawer direction="right">
-              <ImprovedDrawerTrigger asChild>
+            {/* Right Drawer */}
+            <Drawer direction="right">
+              <DrawerTrigger asChild>
                 <Button variant="secondary" className="w-full">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Right
                 </Button>
-              </ImprovedDrawerTrigger>
-              <ImprovedDrawerContent>
-                <ImprovedDrawerHeader>
-                  <ImprovedDrawerTitle>Shopping Cart</ImprovedDrawerTitle>
-                  <ImprovedDrawerDescription>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Shopping Cart</DrawerTitle>
+                  <DrawerDescription>
                     Review your items before checkout.
-                  </ImprovedDrawerDescription>
-                </ImprovedDrawerHeader>
+                  </DrawerDescription>
+                </DrawerHeader>
                 <div className="p-6 space-y-4">
                   <div className="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
                     <div className="w-16 h-16 rounded-lg bg-[#34353c] flex items-center justify-center">
@@ -742,14 +732,14 @@ export default function DrawerDebugPage() {
                     <span className="text-lg font-semibold text-[#fcfcfc]">0.5 ETH</span>
                   </div>
                 </div>
-                <ImprovedDrawerFooter>
+                <DrawerFooter>
                   <Button className="w-full">Checkout</Button>
-                  <ImprovedDrawerClose asChild>
+                  <DrawerClose asChild>
                     <Button variant="ghost" className="w-full">Continue Shopping</Button>
-                  </ImprovedDrawerClose>
-                </ImprovedDrawerFooter>
-              </ImprovedDrawerContent>
-            </ImprovedDrawer>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </section>
 
@@ -767,7 +757,7 @@ export default function DrawerDebugPage() {
                 Open Settings
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="bg-os-gray-500 border-os-gray-400 w-full sm:max-w-lg">
+            <DrawerContent className="bg-card border-border w-full sm:max-w-lg">
               <DrawerHeader className="border-b border-border-subtle">
                 <DrawerTitle className="text-foreground flex items-center gap-2">
                   <Settings className="w-5 h-5" />
@@ -781,7 +771,7 @@ export default function DrawerDebugPage() {
                 {/* Profile Section */}
                 <div className="space-y-3">
                   <h3 className="text-sm font-medium text-foreground flex items-center gap-2">
-                    <User className="w-4 h-4 text-os-gray-300" />
+                    <User className="w-4 h-4 text-muted-foreground" />
                     Profile
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -799,21 +789,21 @@ export default function DrawerDebugPage() {
                 {/* Preferences Section */}
                 <div className="space-y-3">
                   <h3 className="text-sm font-medium text-foreground flex items-center gap-2">
-                    <Palette className="w-4 h-4 text-os-gray-300" />
+                    <Palette className="w-4 h-4 text-muted-foreground" />
                     Preferences
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-foreground">Email Notifications</p>
-                        <p className="text-xs text-os-gray-300">Receive updates about your items</p>
+                        <p className="text-xs text-muted-foreground">Receive updates about your items</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded border-os-gray-400" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-foreground">Push Notifications</p>
-                        <p className="text-xs text-os-gray-300">Get notified about bids and offers</p>
+                        <p className="text-xs text-muted-foreground">Get notified about bids and offers</p>
                       </div>
                       <input type="checkbox" defaultChecked className="rounded border-os-gray-400" />
                     </div>
@@ -823,7 +813,7 @@ export default function DrawerDebugPage() {
                 {/* Language Section */}
                 <div className="space-y-3">
                   <h3 className="text-sm font-medium text-foreground flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-os-gray-300" />
+                    <Globe className="w-4 h-4 text-muted-foreground" />
                     Language & Region
                   </h3>
                   <Select defaultValue="en">

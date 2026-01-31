@@ -45,7 +45,7 @@ export default function CheckboxSwitchDebugPage() {
       <div className="mx-auto max-w-5xl space-y-2 mb-10">
         <Link
           href="/debug"
-          className="inline-flex items-center text-sm text-os-gray-300 hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Debug Dashboard
@@ -56,7 +56,7 @@ export default function CheckboxSwitchDebugPage() {
           </h1>
           <Badge variant="secondary">Components</Badge>
         </div>
-        <p className="text-os-gray-300">
+        <p className="text-muted-foreground">
           Interactive checkbox and switch component variants with frosted glass styling
         </p>
       </div>
@@ -106,7 +106,7 @@ export default function CheckboxSwitchDebugPage() {
 
           {/* Vertical Group */}
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle">
-            <h3 className="text-sm font-medium text-os-gray-300 mb-4">Vertical Layout</h3>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">Vertical Layout</h3>
             <div className="space-y-3">
               {["item-1", "item-2", "item-3"].map((item, index) => (
                 <div key={item} className="flex items-center space-x-3">
@@ -125,7 +125,7 @@ export default function CheckboxSwitchDebugPage() {
 
           {/* Horizontal Group */}
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle">
-            <h3 className="text-sm font-medium text-os-gray-300 mb-4">Horizontal Layout</h3>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">Horizontal Layout</h3>
             <div className="flex flex-wrap gap-6">
               {["horizontal-1", "horizontal-2", "horizontal-3"].map((item, index) => (
                 <div key={item} className="flex items-center space-x-3">
@@ -143,7 +143,7 @@ export default function CheckboxSwitchDebugPage() {
         <section className="space-y-4">
           <h2 className="text-lg font-medium text-foreground">Indeterminate State</h2>
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle space-y-4">
-            <p className="text-sm text-os-gray-300">
+            <p className="text-sm text-muted-foreground">
               Click the checkbox to cycle through states: unchecked → checked → indeterminate
             </p>
             <div className="flex items-center space-x-3">
@@ -178,7 +178,7 @@ export default function CheckboxSwitchDebugPage() {
 
           {/* Default States */}
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle space-y-6">
-            <h3 className="text-sm font-medium text-os-gray-300 mb-4">Default States</h3>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">Default States</h3>
 
             <div className="flex items-center justify-between max-w-xs">
               <Label htmlFor="switch-default" className="text-sm font-normal cursor-pointer">
@@ -211,7 +211,7 @@ export default function CheckboxSwitchDebugPage() {
 
           {/* Switch Sizes */}
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle space-y-6">
-            <h3 className="text-sm font-medium text-os-gray-300 mb-4">Sizes</h3>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">Sizes</h3>
 
             <div className="flex items-center justify-between max-w-xs">
               <Label htmlFor="switch-sm" className="text-sm font-normal cursor-pointer">
@@ -237,22 +237,22 @@ export default function CheckboxSwitchDebugPage() {
 
           {/* Switch with Labels */}
           <div className="p-6 rounded-lg bg-frosted-1 border border-border-subtle space-y-6">
-            <h3 className="text-sm font-medium text-os-gray-300 mb-4">With Labels</h3>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">With Labels</h3>
 
             <div className="flex items-center gap-4">
-              <span className="text-sm text-os-gray-300">Off</span>
+              <span className="text-sm text-muted-foreground">Off</span>
               <Switch id="switch-labels" />
               <span className="text-sm text-foreground">On</span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-sm text-os-gray-300">Dark</span>
+              <span className="text-sm text-muted-foreground">Dark</span>
               <Switch id="switch-theme" defaultChecked />
               <span className="text-sm text-foreground">Light</span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-sm text-os-gray-300">Public</span>
+              <span className="text-sm text-muted-foreground">Public</span>
               <Switch id="switch-privacy" defaultChecked />
               <span className="text-sm text-foreground">Private</span>
             </div>
@@ -272,7 +272,7 @@ export default function CheckboxSwitchDebugPage() {
                     <Label htmlFor="email-notif" className="text-sm font-normal cursor-pointer">
                       Email notifications
                     </Label>
-                    <p className="text-xs text-os-gray-300">Receive updates via email</p>
+                    <p className="text-xs text-muted-foreground">Receive updates via email</p>
                   </div>
                   <Switch id="email-notif" defaultChecked />
                 </div>
@@ -281,7 +281,7 @@ export default function CheckboxSwitchDebugPage() {
                     <Label htmlFor="push-notif" className="text-sm font-normal cursor-pointer">
                       Push notifications
                     </Label>
-                    <p className="text-xs text-os-gray-300">Receive push notifications</p>
+                    <p className="text-xs text-muted-foreground">Receive push notifications</p>
                   </div>
                   <Switch id="push-notif" />
                 </div>
@@ -290,7 +290,7 @@ export default function CheckboxSwitchDebugPage() {
                     <Label htmlFor="sms-notif" className="text-sm font-normal cursor-pointer">
                       SMS notifications
                     </Label>
-                    <p className="text-xs text-os-gray-300">Receive text messages</p>
+                    <p className="text-xs text-muted-foreground">Receive text messages</p>
                   </div>
                   <Switch id="sms-notif" disabled />
                 </div>
@@ -333,7 +333,7 @@ export default function CheckboxSwitchDebugPage() {
         {/* Component Info */}
         <section className="p-4 rounded-lg bg-frosted-1 border border-border-subtle">
           <h4 className="text-sm font-medium text-foreground mb-2">Component Features</h4>
-          <ul className="text-sm text-os-gray-300 space-y-1 list-disc list-inside">
+          <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
             <li>Frosted glass effect with backdrop blur</li>
             <li>Animated checkmark with smooth transitions</li>
             <li>Glow effect on active/selected state</li>

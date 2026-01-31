@@ -78,7 +78,7 @@ export default function FormElementsDebugPage() {
       <div className="mx-auto max-w-6xl space-y-2 mb-10">
         <Link
           href="/debug"
-          className="inline-flex items-center text-sm text-os-gray-300 hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Debug Dashboard
@@ -88,7 +88,7 @@ export default function FormElementsDebugPage() {
             <h1 className="text-2xl font-semibold tracking-tight text-foreground">
               Form Elements
             </h1>
-            <p className="text-os-gray-300">
+            <p className="text-muted-foreground">
               Input fields, selects, checkboxes, radio buttons, and validation states
             </p>
           </div>
@@ -424,7 +424,7 @@ export default function FormElementsDebugPage() {
                     >
                       Accept terms and conditions
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       You agree to our Terms of Service and Privacy Policy
                     </p>
                   </div>
@@ -439,7 +439,7 @@ export default function FormElementsDebugPage() {
                     >
                       Subscribe to newsletter
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Receive updates about new features and promotions
                     </p>
                   </div>
@@ -454,7 +454,7 @@ export default function FormElementsDebugPage() {
                     >
                       Disabled checkbox
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       This option cannot be selected
                     </p>
                   </div>
@@ -514,7 +514,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="child-3">Item 3</Label>
                   </div>
                 </div>
-                <p className="text-sm text-os-gray-300">
+                <p className="text-sm text-muted-foreground">
                   Current state: <span className="text-foreground font-medium">{indeterminateChecked}</span>
                 </p>
               </div>
@@ -591,7 +591,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="plan-basic" className="font-medium cursor-pointer">
                       Basic Plan
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Essential features for individuals and small projects
                     </p>
                   </div>
@@ -602,7 +602,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="plan-pro" className="font-medium cursor-pointer">
                       Pro Plan
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Advanced features with priority support
                     </p>
                   </div>
@@ -613,7 +613,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="plan-enterprise" className="font-medium cursor-pointer">
                       Enterprise
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Custom solutions for large organizations
                     </p>
                   </div>
@@ -684,7 +684,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="dark-mode" className="text-base font-medium cursor-pointer">
                       Dark Mode
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Use dark theme throughout the application
                     </p>
                   </div>
@@ -702,7 +702,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="email-notif" className="text-base font-medium cursor-pointer">
                       Email Notifications
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Receive email updates about your account
                     </p>
                   </div>
@@ -714,7 +714,7 @@ export default function FormElementsDebugPage() {
                     <Label htmlFor="two-factor" className="text-base font-medium cursor-pointer">
                       Two-Factor Authentication
                     </Label>
-                    <p className="text-sm text-os-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       Add an extra layer of security to your account
                     </p>
                   </div>
@@ -962,13 +962,13 @@ export default function FormElementsDebugPage() {
 // ============================================
 
 function FormImprovementsSection() {
-  const [improvedText, setImprovedText] = useState("");
-  const [improvedEmail, setImprovedEmail] = useState("");
-  const [improvedPassword, setImprovedPassword] = useState("");
-  const [showImprovedPassword, setShowImprovedPassword] = useState(false);
-  const [improvedSelect, setImprovedSelect] = useState("");
-  const [improvedCheckbox, setImprovedCheckbox] = useState(false);
-  const [improvedRadio, setImprovedRadio] = useState("option1");
+  const [improvedText, setText] = useState("");
+  const [improvedEmail, setEmail] = useState("");
+  const [improvedPassword, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [improvedSelect, setSelect] = useState("");
+  const [improvedCheckbox, setCheckbox] = useState(false);
+  const [improvedRadio, setRadio] = useState("option1");
   const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   // Validation states for demo
@@ -998,7 +998,7 @@ function FormImprovementsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Standard Input */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-os-gray-300 uppercase tracking-wider">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                 Standard
               </h4>
               <Field>
@@ -1008,10 +1008,10 @@ function FormImprovementsSection() {
               </Field>
             </div>
 
-            {/* Improved Input */}
+            {/*  Input */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-primary uppercase tracking-wider">
-                Improved
+                
               </h4>
               <Field>
                 <FieldLabel htmlFor="improved-input">Email Address</FieldLabel>
@@ -1020,12 +1020,12 @@ function FormImprovementsSection() {
                     id="improved-input"
                     type="email"
                     value={improvedEmail}
-                    onChange={(e) => setImprovedEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter email..."
                     className={cn(
                       "w-full h-10 px-4 rounded-lg bg-white/5 backdrop-blur-sm",
                       "border transition-all duration-300 ease-out",
-                      "placeholder:text-os-gray-300/50",
+                      "placeholder:text-muted-foreground/50",
                       "focus:outline-none focus:ring-0",
                       improvedEmail && !isEmailValid
                         ? "border-os-error/50 focus:border-os-error shadow-[0_0_0_3px_rgba(239,68,68,0.1)]"
@@ -1072,7 +1072,7 @@ function FormImprovementsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Standard Password */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-os-gray-300 uppercase tracking-wider">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                 Standard
               </h4>
               <Field>
@@ -1091,10 +1091,10 @@ function FormImprovementsSection() {
               </Field>
             </div>
 
-            {/* Improved Password */}
+            {/*  Password */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-primary uppercase tracking-wider">
-                Improved
+                
               </h4>
               <Field>
                 <FieldLabel htmlFor="improved-password">Password</FieldLabel>
@@ -1106,23 +1106,23 @@ function FormImprovementsSection() {
                       "focus-within:border-primary/50 focus-within:shadow-[0_0_20px_rgba(var(--primary-rgb),0.15)]"
                     )}
                   >
-                    <div className="pl-3 text-os-gray-300">
+                    <div className="pl-3 text-muted-foreground">
                       <Lock className="w-4 h-4" />
                     </div>
                     <input
                       id="improved-password"
-                      type={showImprovedPassword ? "text" : "password"}
+                      type={showPassword ? "text" : "password"}
                       value={improvedPassword}
-                      onChange={(e) => setImprovedPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter password"
-                      className="flex-1 h-full px-3 bg-transparent border-none outline-none placeholder:text-os-gray-300/50"
+                      className="flex-1 h-full px-3 bg-transparent border-none outline-none placeholder:text-muted-foreground/50"
                     />
                     <button
                       type="button"
-                      onClick={() => setShowImprovedPassword(!showImprovedPassword)}
-                      className="pr-3 text-os-gray-300 hover:text-foreground transition-colors"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="pr-3 text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      {showImprovedPassword ? (
+                      {showPassword ? (
                         <EyeOff className="w-4 h-4" />
                       ) : (
                         <Eye className="w-4 h-4" />
@@ -1174,7 +1174,7 @@ function FormImprovementsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Standard Select */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-os-gray-300 uppercase tracking-wider">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                 Standard
               </h4>
               <Field>
@@ -1194,10 +1194,10 @@ function FormImprovementsSection() {
               </Field>
             </div>
 
-            {/* Improved Select */}
+            {/*  Select */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-primary uppercase tracking-wider">
-                Improved
+                
               </h4>
               <Field>
                 <FieldLabel>Blockchain Network</FieldLabel>
@@ -1216,13 +1216,13 @@ function FormImprovementsSection() {
                     )}
                   >
                     <span
-                      className={improvedSelect ? "text-foreground" : "text-os-gray-300/50"}
+                      className={improvedSelect ? "text-foreground" : "text-muted-foreground/50"}
                     >
                       {improvedSelect || "Select network..."}
                     </span>
                     <ChevronDown
                       className={cn(
-                        "w-4 h-4 text-os-gray-300 transition-transform duration-300",
+                        "w-4 h-4 text-muted-foreground transition-transform duration-300",
                         isSelectOpen && "rotate-180"
                       )}
                     />
@@ -1237,7 +1237,7 @@ function FormImprovementsSection() {
                             key={option}
                             type="button"
                             onClick={() => {
-                              setImprovedSelect(option);
+                              setSelect(option);
                               setIsSelectOpen(false);
                             }}
                             className={cn(
@@ -1270,7 +1270,7 @@ function FormImprovementsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Standard Checkbox */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-os-gray-300 uppercase tracking-wider">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                 Standard
               </h4>
               <div className="flex items-start gap-3">
@@ -1282,24 +1282,24 @@ function FormImprovementsSection() {
                   >
                     Accept terms and conditions
                   </Label>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     You agree to our Terms of Service
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Improved Checkbox */}
+            {/*  Checkbox */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-primary uppercase tracking-wider">
-                Improved
+                
               </h4>
               <label className="flex items-start gap-4 cursor-pointer group">
                 <div className="relative">
                   <input
                     type="checkbox"
                     checked={improvedCheckbox}
-                    onChange={(e) => setImprovedCheckbox(e.target.checked)}
+                    onChange={(e) => setCheckbox(e.target.checked)}
                     className="sr-only"
                   />
                   <div
@@ -1341,7 +1341,7 @@ function FormImprovementsSection() {
                   >
                     Accept terms and conditions
                   </span>
-                  <p className="text-sm text-os-gray-300">
+                  <p className="text-sm text-muted-foreground">
                     You agree to our Terms of Service
                   </p>
                 </div>
@@ -1356,7 +1356,7 @@ function FormImprovementsSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Standard Radio */}
             <div className="space-y-3">
-              <h4 className="text-sm font-medium text-os-gray-300 uppercase tracking-wider">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
                 Standard
               </h4>
               <RadioGroup defaultValue="option1" className="gap-3">
@@ -1375,10 +1375,10 @@ function FormImprovementsSection() {
               </RadioGroup>
             </div>
 
-            {/* Improved Radio */}
+            {/*  Radio */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-primary uppercase tracking-wider">
-                Improved
+                
               </h4>
               <div className="space-y-2">
                 {[
@@ -1403,7 +1403,7 @@ function FormImprovementsSection() {
                         name="improved-radio"
                         value={option.value}
                         checked={improvedRadio === option.value}
-                        onChange={(e) => setImprovedRadio(e.target.value)}
+                        onChange={(e) => setRadio(e.target.value)}
                         className="sr-only"
                       />
                       <div
@@ -1435,7 +1435,7 @@ function FormImprovementsSection() {
                       >
                         {option.label}
                       </div>
-                      <div className="text-sm text-os-gray-300">{option.desc}</div>
+                      <div className="text-sm text-muted-foreground">{option.desc}</div>
                     </div>
                     {improvedRadio === option.value && (
                       <CheckCircle2 className="w-5 h-5 text-primary animate-in fade-in duration-200" />
@@ -1460,7 +1460,7 @@ function FormImprovementsSection() {
               { icon: "✓", title: "Status Icons", desc: "Visual feedback for validation" },
               { icon: "↔", title: "Transitions", desc: "Smooth state changes" },
               { icon: "▼", title: "Custom Select", desc: "Enhanced dropdown styling" },
-              { icon: "◉", title: "Better Controls", desc: "Improved checkbox/radio styling" },
+              { icon: "◉", title: "Better Controls", desc: " checkbox/radio styling" },
             ].map((item) => (
               <div
                 key={item.title}
@@ -1469,7 +1469,7 @@ function FormImprovementsSection() {
                 <span className="text-lg">{item.icon}</span>
                 <div>
                   <div className="font-medium text-sm">{item.title}</div>
-                  <div className="text-xs text-os-gray-300">{item.desc}</div>
+                  <div className="text-xs text-muted-foreground">{item.desc}</div>
                 </div>
               </div>
             ))}

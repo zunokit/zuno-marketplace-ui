@@ -54,7 +54,7 @@ export default function DebugLoadingPage() {
             <h1 className="text-2xl font-semibold tracking-tight text-foreground">
               Loading Components
             </h1>
-            <p className="text-os-gray-300">
+            <p className="text-muted-foreground">
               Spinners, skeletons, progress bars, and loading states
             </p>
           </div>
@@ -363,7 +363,7 @@ export default function DebugLoadingPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="relative h-64 rounded-lg border border-border-subtle bg-os-gray-500 overflow-hidden">
+            <div className="relative h-64 rounded-lg border border-border-subtle bg-card overflow-hidden">
               {/* Simulated Page Content */}
               <div className="p-6 space-y-4 opacity-30">
                 <Skeleton className="h-8 w-1/3" />

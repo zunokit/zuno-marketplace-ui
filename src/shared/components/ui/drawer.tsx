@@ -29,7 +29,7 @@ function DrawerOverlay({
     <DrawerPrimitive.Overlay
       data-slot="drawer-overlay"
       className={cn(
-        "fixed inset-0 z-50",
+        "fixed inset-0 z-[70]",
         "bg-gradient-to-b from-black/40 via-black/60 to-black/70",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -56,15 +56,15 @@ function DrawerDragHandle({ className }: { className?: string }) {
     >
       <div className="relative flex items-center justify-center">
         {/* Outer glow effect */}
-        <div className="absolute inset-0 rounded-full bg-white/5 blur-sm" />
+        <div className="absolute inset-0 rounded-full bg-foreground/5 blur-sm" />
         {/* Main handle bar */}
         <div
           className={cn(
             "relative h-1.5 w-10 rounded-full",
-            "bg-[#34353c]",
-            "ring-1 ring-white/10",
+            "bg-frosted-6",
+            "ring-1 ring-border-subtle",
             "transition-all duration-200",
-            "group-hover/drawer-content:bg-[#3d3e45]",
+            "group-hover/drawer-content:bg-frosted-7",
             "group-active/drawer-content:scale-95"
           )}
         />
@@ -85,9 +85,9 @@ function DrawerContent({
         data-slot="drawer-content"
         className={cn(
           // Base styles
-          "group/drawer-content fixed z-50 flex flex-col",
-          "bg-[#26272d]/95 backdrop-blur-xl",
-          "border-[#34353c]",
+          "group/drawer-content fixed z-[70] flex flex-col",
+          "bg-card/95 backdrop-blur-xl",
+          "border-border-subtle",
           "shadow-2xl shadow-black/40",
           // Animation classes
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
@@ -135,7 +135,7 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="drawer-header"
       className={cn(
         "flex flex-col gap-1.5 p-6 pb-4",
-        "border-b border-[#34353c]/50",
+        "border-b border-border-subtle",
         "group-data-[vaul-drawer-direction=bottom]/drawer-content:pt-10",
         "group-data-[vaul-drawer-direction=top]/drawer-content:pb-10",
         className
@@ -151,7 +151,7 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="drawer-footer"
       className={cn(
         "mt-auto flex flex-col gap-3 p-6 pt-4",
-        "border-t border-[#34353c]/50",
+        "border-t border-border-subtle",
         className
       )}
       {...props}
@@ -164,7 +164,7 @@ function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Drawer
     <DrawerPrimitive.Title
       data-slot="drawer-title"
       className={cn(
-        "text-[#fcfcfc] text-lg font-semibold tracking-tight",
+        "text-card-foreground text-lg font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -179,7 +179,7 @@ function DrawerDescription({
   return (
     <DrawerPrimitive.Description
       data-slot="drawer-description"
-      className={cn("text-[#acadae] text-sm leading-relaxed", className)}
+      className={cn("text-muted-foreground text-sm leading-relaxed", className)}
       {...props}
     />
   );
