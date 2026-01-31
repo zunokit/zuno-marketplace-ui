@@ -33,14 +33,6 @@ const debugRoutes: DebugRoute[] = [
     status: "ready",
   },
   {
-    href: "/debug/colors",
-    title: "Colors",
-    description: "Color palette, semantic colors, and transparency effects",
-    icon: Palette,
-    status: "ready",
-    badge: "Design System",
-  },
-  {
     href: "/debug/sentry",
     title: "Sentry",
     description: "Error tracking and monitoring integration",

@@ -2,19 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Boxes,
-  ChevronRight,
-  Search,
-  Menu,
-  X,
-} from "lucide-react";
+import { ArrowLeft, Boxes } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Badge } from "@/shared/components/ui/badge";
-import { Input } from "@/shared/components/ui/input";
-import { ScrollArea } from "@/shared/components/ui/scroll-area";
-import { Separator } from "@/shared/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 
 // Import all component sections
 import { ButtonSection } from "./sections/button-section";
@@ -23,9 +14,10 @@ import { FormSection } from "./sections/form-section";
 import { CardSection } from "./sections/card-section";
 import { AlertSection } from "./sections/alert-section";
 import { BadgeSection } from "./sections/badge-section";
-import { TabsSection } from "./sections/tabs-section";
-import { DrawerSection } from "./sections/drawer-section";
+import { TableSection } from "./sections/table-section";
 import { DialogSection } from "./sections/dialog-section";
+import { DrawerSection } from "./sections/drawer-section";
+import { TabsSection } from "./sections/tabs-section";
 import { AccordionSection } from "./sections/accordion-section";
 import { TooltipSection } from "./sections/tooltip-section";
 import { OverlaySection } from "./sections/overlay-section";
@@ -38,11 +30,6 @@ import { InteractiveSection } from "./sections/interactive-section";
 import { AdvancedLayoutSection } from "./sections/advanced-layout-section";
 import { ToastSection } from "./sections/toast-section";
 import { AlertDialogSection } from "./sections/alert-dialog-section";
-import { TableSection } from "@/app/debug/ui/sections/table-section";
-
-// ============================================
-// UI COMPONENTS SHOWCASE - All-in-One Page
-// ============================================
 
 interface Section {
   id: string;
@@ -230,292 +217,136 @@ const categories = [
 ];
 
 export default function UIComponentsPage() {
-  const [activeSection, setActiveSection] = React.useState<string>("button");
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
-
-  // Filter sections based on search and category
-  const filteredSections = React.useMemo(() => {
-    return sections.filter((section) => {
-      const matchesSearch = section.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        section.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory = selectedCategory === "all" || section.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchQuery, selectedCategory]);
-
-  // Scroll to section
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80; // Header height
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-      setActiveSection(sectionId);
-      setSidebarOpen(false);
-    }
-  };
-
-  // Update active section on scroll
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-visible">
       {/* Fixed Header */}
       <header className="sticky top-0 z-50 border-b border-border-subtle bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="lg:hidden"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-              >
-                {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </Button>
-              <Link
-                href="/debug"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Back to Debug</span>
-              </Link>
-            </div>
+            <Link
+              href="/debug"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Debug</span>
+            </Link>
             <div className="flex items-center gap-3">
               <Boxes className="w-5 h-5 text-os-info" />
-              <div>
-                <h1 className="text-lg font-semibold text-foreground">
-                  UI Components
-                </h1>
-              </div>
+              <h1 className="text-lg font-semibold text-foreground">
+                UI Components
+              </h1>
             </div>
-            <div className="w-24" /> {/* Spacer for centering */}
+            <div className="w-24" />
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-8 py-8">
-          {/* Sidebar Navigation */}
-          <aside
-            className={`
-              fixed lg:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 shrink-0
-              bg-background border-r border-border-subtle lg:border-0
-              transition-transform duration-300 z-40
-              ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-            `}
-          >
-            <ScrollArea className="h-full py-6 px-4 lg:px-0">
-              <div className="space-y-6">
-                {/* Search */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search components..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9"
-                  />
-                </div>
-
-                {/* Category Filter */}
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Categories
-                  </p>
-                  <div className="space-y-1">
-                    {categories.map((category) => (
-                      <button
-                        key={category.id}
-                        onClick={() => setSelectedCategory(category.id)}
-                        className={`
-                          w-full flex items-center justify-between px-3 py-2 rounded-md text-sm
-                          transition-colors
-                          ${selectedCategory === category.id
-                            ? "bg-accent text-accent-foreground"
-                            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                          }
-                        `}
-                      >
-                        <span>{category.label}</span>
-                        <Badge variant="secondary" className="text-xs">
-                          {category.count}
-                        </Badge>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <Separator />
-
-                {/* Component List */}
-                <div className="space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Components
-                  </p>
-                  <nav className="space-y-1">
-                    {filteredSections.map((section) => (
-                      <button
-                        key={section.id}
-                        onClick={() => scrollToSection(section.id)}
-                        className={`
-                          w-full flex items-center justify-between px-3 py-2 rounded-md text-sm
-                          transition-all duration-200 group
-                          ${activeSection === section.id
-                            ? "bg-primary/10 text-primary font-medium"
-                            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                          }
-                        `}
-                      >
-                        <span className="truncate">{section.title}</span>
-                        <ChevronRight
-                          className={`
-                            w-4 h-4 transition-transform
-                            ${activeSection === section.id
-                              ? "opacity-100"
-                              : "opacity-0 group-hover:opacity-100"
-                            }
-                          `}
-                        />
-                      </button>
-                    ))}
-                  </nav>
-                </div>
-
-                {filteredSections.length === 0 && (
-                  <div className="text-center py-8">
-                    <p className="text-sm text-muted-foreground">
-                      No components found
-                    </p>
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-          </aside>
-
-          {/* Overlay for mobile */}
-          {sidebarOpen && (
-            <div
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden"
-              onClick={() => setSidebarOpen(false)}
-            />
-          )}
-
-          {/* Main Content */}
-          <main className="flex-1 min-w-0">
-            <div className="space-y-16">
-              {/* Intro */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-os-info/20 to-os-epic/20 flex items-center justify-center">
-                    <Boxes className="w-6 h-6 text-os-info" />
-                  </div>
-                  <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                      UI Component Library
-                    </h2>
-                    <p className="text-muted-foreground">
-                      Complete showcase of all UI components with OpenSea design system
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-lg bg-card border border-border-subtle">
-                    <p className="text-2xl font-bold text-foreground">
-                      {sections.length}
-                    </p>
-                    <p className="text-sm text-muted-foreground">Components</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-card border border-border-subtle">
-                    <p className="text-2xl font-bold text-foreground">
-                      {categories.length - 1}
-                    </p>
-                    <p className="text-sm text-muted-foreground">Categories</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-card border border-border-subtle">
-                    <p className="text-2xl font-bold text-foreground">53+</p>
-                    <p className="text-sm text-muted-foreground">UI Elements</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-card border border-border-subtle">
-                    <p className="text-2xl font-bold text-os-success">100%</p>
-                    <p className="text-sm text-muted-foreground">Coverage</p>
-                  </div>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Component Sections */}
-              {filteredSections.map((section) => {
-                const Component = section.component;
-                return (
-                  <section
-                    key={section.id}
-                    id={section.id}
-                    className="scroll-mt-20"
-                  >
-                    <div className="mb-6">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-2xl font-semibold text-foreground">
-                          {section.title}
-                        </h3>
-                        <Badge variant="outline" className="text-xs">
-                          {section.category}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {section.description}
-                      </p>
-                    </div>
-                    <Component />
-                  </section>
-                );
-              })}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Intro */}
+        <div className="space-y-4 mb-8">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-os-info/20 to-os-epic/20 flex items-center justify-center">
+              <Boxes className="w-6 h-6 text-os-info" />
             </div>
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-foreground">
+                UI Component Library
+              </h2>
+              <p className="text-muted-foreground">
+                Complete showcase of all UI components with OpenSea design system
+              </p>
+            </div>
+          </div>
 
-            {/* Footer */}
-            <footer className="mt-16 pt-8 border-t border-border-subtle">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground">
-                  Built with OpenSea design system • {sections.length} components
-                </p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                >
-                  Back to top
-                </Button>
-              </div>
-            </footer>
-          </main>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="p-4 rounded-lg bg-card border border-border-subtle">
+              <p className="text-2xl font-bold text-foreground">
+                {sections.length}
+              </p>
+              <p className="text-sm text-muted-foreground">Components</p>
+            </div>
+            <div className="p-4 rounded-lg bg-card border border-border-subtle">
+              <p className="text-2xl font-bold text-foreground">
+                {categories.length - 1}
+              </p>
+              <p className="text-sm text-muted-foreground">Categories</p>
+            </div>
+            <div className="p-4 rounded-lg bg-card border border-border-subtle">
+              <p className="text-2xl font-bold text-foreground">53+</p>
+              <p className="text-sm text-muted-foreground">UI Elements</p>
+            </div>
+            <div className="p-4 rounded-lg bg-card border border-border-subtle">
+              <p className="text-2xl font-bold text-os-success">100%</p>
+              <p className="text-sm text-muted-foreground">Coverage</p>
+            </div>
+          </div>
         </div>
+
+        {/* Tabs: block layout only, no flex — tránh scroll lồng trong main */}
+        <Tabs defaultValue="all" className="w-full !block">
+          <TabsList className="w-full justify-start overflow-x-auto flex-wrap h-auto gap-2 bg-transparent p-0 mb-8">
+            {categories.map((category) => (
+              <TabsTrigger
+                key={category.id}
+                value={category.id}
+                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+              >
+                {category.label}
+                <Badge variant="secondary" className="ml-2 text-xs">
+                  {category.count}
+                </Badge>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {categories.map((category) => {
+            const categorySections = category.id === "all"
+              ? sections
+              : sections.filter(s => s.category === category.id);
+
+            return (
+              <TabsContent key={category.id} value={category.id} className="space-y-12 mt-8 !block flex-none min-h-0 overflow-visible">
+                {categorySections.map((section) => {
+                  const Component = section.component;
+                  return (
+                    <section key={section.id} id={section.id}>
+                      <div className="mb-6">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-2xl font-semibold text-foreground">
+                            {section.title}
+                          </h3>
+                          <Badge variant="outline" className="text-xs">
+                            {section.category}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {section.description}
+                        </p>
+                      </div>
+                      <Component />
+                    </section>
+                  );
+                })}
+              </TabsContent>
+            );
+          })}
+        </Tabs>
+
+        {/* Footer */}
+        <footer className="mt-12 pt-6 pb-8 border-t border-border-subtle">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground text-center sm:text-left">
+              Built with OpenSea design system • {sections.length} components
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Back to top
+            </Button>
+          </div>
+        </footer>
       </div>
     </div>
   );
