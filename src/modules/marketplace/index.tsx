@@ -103,7 +103,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
   });
 
   // Safe NFTs for compatibility with existing code
-  const safeNFTs = useMemo(() => nfts, [nfts]);
+  const safeNFTs = nfts;
 
   // Update max items and available NFTs in store when NFTs change
   useEffect(() => {
@@ -124,14 +124,17 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
 
   const sortValue = sortBy;
 
-  const handlePriceRangeChange = useCallback((range: [number, number]) => {
-    const [min, max] = range;
-    const validPriceRange: [number, number] = [
-      isNaN(min) ? 0 : min,
-      isNaN(max) ? Infinity : Math.max(min, max),
-    ];
-    setPriceRange(validPriceRange);
-  }, []);
+  const handlePriceRangeChange = useCallback(
+    (range: [number, number]) => {
+      const [min, max] = range;
+      const validPriceRange: [number, number] = [
+        isNaN(min) ? 0 : min,
+        isNaN(max) ? Infinity : Math.max(min, max),
+      ];
+      setPriceRange(validPriceRange);
+    },
+    [setPriceRange]
+  );
 
   // Handle NFT selection using store
   const handleNFTSelection = useCallback(
@@ -171,7 +174,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                 showFilters && "w-[240px] 3xl:w-[390px]"
               )}
             >
-              {showFilters && (
+              {showFilters ? (
                 <MarketplaceFilterPanel
                   onClose={() => setShowFilters(false)}
                   priceRange={priceRange}
@@ -182,11 +185,11 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   onTraitsChange={setSelectedTraits}
                   isOpen={true}
                 />
-              )}
+              ) : null}
             </div>
 
             {/* Mobile Filter Sheet */}
-            {showFilters && (
+            {showFilters ? (
               <div className="md:hidden">
                 <MarketplaceFilterPanel
                   onClose={() => setShowFilters(false)}
@@ -199,7 +202,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
                   isOpen={showFilters}
                 />
               </div>
-            )}
+            ) : null}
 
             <div className="flex-1 min-h-0 transition-all duration-300 ease-in-out min-w-0 flex flex-col h-full overflow-hidden">
               <MarketplaceToolbar
@@ -336,7 +339,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
       <MarketplaceMobileTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Card click: open MarketplaceListModal (list / edit listing) */}
-      {selectedNFT && (
+      {selectedNFT ? (
         <MarketplaceListModal
           nft={selectedNFT}
           open={showSellerModal}
@@ -345,7 +348,7 @@ export default function ShopNFTs({ contractAddress, initialCollection }: ShopNFT
             if (!open) setSelectedNFT(null);
           }}
         />
-      )}
+      ) : null}
     </div>
   );
 }

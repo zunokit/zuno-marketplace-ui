@@ -23,7 +23,11 @@ export function ModeToggle() {
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   if (!mounted) {
-    return null; // or a loading spinner/skeleton
+    return (
+      <Button variant="outline" size="icon" disabled>
+        <div className="h-[1.2rem] w-[1.2rem] animate-pulse bg-muted rounded" />
+      </Button>
+    );
   }
 
   return (
