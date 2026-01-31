@@ -1,16 +1,36 @@
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/shared/utils/tailwind-utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+const cardVariants = cva(
+  "flex flex-col gap-6 py-6 transition-all duration-200",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-card text-card-foreground border border-border-subtle shadow-os-inset hover:border-border-medium rounded-[8px]",
+        frosted:
+          "bg-white/5 backdrop-blur-md border border-white/10 text-card-foreground rounded-[8px]",
+        gradient:
+          "bg-card text-card-foreground border border-transparent shadow-os-inset rounded-[8px] bg-gradient-to-br from-primary/5 via-card to-secondary/5",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+interface CardProps
+  extends React.ComponentProps<"div">,
+    VariantProps<typeof cardVariants> {}
+
+function Card({ className, variant, ...props }: CardProps) {
   return (
     <div
       data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 border border-border-subtle py-6 shadow-os-inset transition-all duration-200 hover:border-border-medium",
-        "rounded-[8px]", // OpenSea border radius
-        className
-      )}
+      className={cn(cardVariants({ variant }), className)}
       {...props}
     />
   );

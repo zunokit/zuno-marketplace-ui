@@ -1,5 +1,9 @@
-const url = "https://picsum.photos/1920/1080?random";
+import { faker } from "./faker-instance";
 
-export const randomImage = () => {
-  return `${url}`;
+/**
+ * Generate a random image URL
+ * @deprecated Use faker.image.urlPicsumPhotos() directly
+ */
+export const randomImage = (width = 1920, height = 1080) => {
+  return faker.image.urlPicsumPhotos({ width, height });
 };

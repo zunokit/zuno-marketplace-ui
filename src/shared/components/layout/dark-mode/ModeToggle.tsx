@@ -10,6 +10,8 @@ export function ModeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Use useEffect for client-side mounting detection
+  // This is a valid pattern for hydration mismatch prevention
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -21,7 +23,11 @@ export function ModeToggle() {
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   if (!mounted) {
-    return null; // or a loading spinner/skeleton
+    return (
+      <Button variant="outline" size="icon" disabled>
+        <div className="h-[1.2rem] w-[1.2rem] animate-pulse bg-muted rounded" />
+      </Button>
+    );
   }
 
   return (

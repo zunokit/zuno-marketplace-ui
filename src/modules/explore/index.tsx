@@ -89,6 +89,151 @@ const generateMockNFTs = (count: number): NFTItem[] => {
   }));
 };
 
+// FilterSidebar component extracted outside to avoid recreation on each render
+interface FilterSidebarProps {
+  showOnlyBuyNow: boolean;
+  setShowOnlyBuyNow: (value: boolean) => void;
+  showOnlyAuctions: boolean;
+  setShowOnlyAuctions: (value: boolean) => void;
+  priceRange: number[];
+  setPriceRange: (value: number[]) => void;
+  selectedCategories: string[];
+  setSelectedCategories: (value: string[]) => void;
+  selectedBlockchains: string[];
+  setSelectedBlockchains: (value: string[]) => void;
+}
+
+const FilterSidebar = ({
+  showOnlyBuyNow,
+  setShowOnlyBuyNow,
+  showOnlyAuctions,
+  setShowOnlyAuctions,
+  priceRange,
+  setPriceRange,
+  selectedCategories,
+  setSelectedCategories,
+  selectedBlockchains,
+  setSelectedBlockchains,
+}: FilterSidebarProps) => (
+  <div className="space-y-6">
+    <div>
+      <h3 className="font-medium font-sans mb-3">Status</h3>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="buy-now"
+            checked={showOnlyBuyNow}
+            onCheckedChange={checked => setShowOnlyBuyNow(checked as boolean)}
+          />
+          <label htmlFor="buy-now" className="text-sm cursor-pointer">
+            Buy Now
+          </label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="on-auction"
+            checked={showOnlyAuctions}
+            onCheckedChange={checked => setShowOnlyAuctions(checked as boolean)}
+          />
+          <label htmlFor="on-auction" className="text-sm cursor-pointer">
+            On Auction
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-medium font-sans mb-3">Price Range</h3>
+      <div className="space-y-3">
+        <Slider
+          value={priceRange}
+          onValueChange={setPriceRange}
+          max={100}
+          step={0.1}
+          className="w-full"
+        />
+        <div className="flex items-center justify-between text-sm">
+          <Input
+            type="number"
+            value={priceRange[0]}
+            onChange={e => setPriceRange([Number(e.target.value), priceRange[1]])}
+            className="w-20 h-8"
+          />
+          <span>to</span>
+          <Input
+            type="number"
+            value={priceRange[1]}
+            onChange={e => setPriceRange([priceRange[0], Number(e.target.value)])}
+            className="w-20 h-8"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-medium font-sans mb-3">Categories</h3>
+      <div className="space-y-2">
+        {["Art", "Gaming", "Music", "Photography", "Sports", "Collectibles"].map(category => (
+          <div key={category} className="flex items-center space-x-2">
+            <Checkbox
+              id={category}
+              checked={selectedCategories.includes(category)}
+              onCheckedChange={checked => {
+                if (checked) {
+                  setSelectedCategories([...selectedCategories, category]);
+                } else {
+                  setSelectedCategories(selectedCategories.filter(c => c !== category));
+                }
+              }}
+            />
+            <label htmlFor={category} className="text-sm cursor-pointer">
+              {category}
+            </label>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <h3 className="font-medium font-sans mb-3">Blockchain</h3>
+      <div className="space-y-2">
+        {["Ethereum", "Polygon", "Solana", "BNB Chain"].map(chain => (
+          <div key={chain} className="flex items-center space-x-2">
+            <Checkbox
+              id={chain}
+              checked={selectedBlockchains.includes(chain)}
+              onCheckedChange={checked => {
+                if (checked) {
+                  setSelectedBlockchains([...selectedBlockchains, chain]);
+                } else {
+                  setSelectedBlockchains(selectedBlockchains.filter(c => c !== chain));
+                }
+              }}
+            />
+            <label htmlFor={chain} className="text-sm cursor-pointer">
+              {chain}
+            </label>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <Button
+      variant="outline"
+      className="w-full"
+      onClick={() => {
+        setSelectedCategories([]);
+        setSelectedBlockchains([]);
+        setPriceRange([0, 100]);
+        setShowOnlyAuctions(false);
+        setShowOnlyBuyNow(false);
+      }}
+    >
+      Clear All Filters
+    </Button>
+  </div>
+);
+
 export default function ExploreMarketplace() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchQuery, setSearchQuery] = useState("");
@@ -162,126 +307,6 @@ export default function ExploreMarketplace() {
     showOnlyBuyNow,
     sortBy,
   ]);
-
-  const FilterSidebar = () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="font-medium font-sans mb-3">Status</h3>
-        <div className="space-y-2">
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="buy-now"
-              checked={showOnlyBuyNow}
-              onCheckedChange={checked => setShowOnlyBuyNow(checked as boolean)}
-            />
-            <label htmlFor="buy-now" className="text-sm cursor-pointer">
-              Buy Now
-            </label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="on-auction"
-              checked={showOnlyAuctions}
-              onCheckedChange={checked => setShowOnlyAuctions(checked as boolean)}
-            />
-            <label htmlFor="on-auction" className="text-sm cursor-pointer">
-              On Auction
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-medium font-sans mb-3">Price Range</h3>
-        <div className="space-y-3">
-          <Slider
-            value={priceRange}
-            onValueChange={setPriceRange}
-            max={100}
-            step={0.1}
-            className="w-full"
-          />
-          <div className="flex items-center justify-between text-sm">
-            <Input
-              type="number"
-              value={priceRange[0]}
-              onChange={e => setPriceRange([Number(e.target.value), priceRange[1]])}
-              className="w-20 h-8"
-            />
-            <span>to</span>
-            <Input
-              type="number"
-              value={priceRange[1]}
-              onChange={e => setPriceRange([priceRange[0], Number(e.target.value)])}
-              className="w-20 h-8"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-medium font-sans mb-3">Categories</h3>
-        <div className="space-y-2">
-          {["Art", "Gaming", "Music", "Photography", "Sports", "Collectibles"].map(category => (
-            <div key={category} className="flex items-center space-x-2">
-              <Checkbox
-                id={category}
-                checked={selectedCategories.includes(category)}
-                onCheckedChange={checked => {
-                  if (checked) {
-                    setSelectedCategories([...selectedCategories, category]);
-                  } else {
-                    setSelectedCategories(selectedCategories.filter(c => c !== category));
-                  }
-                }}
-              />
-              <label htmlFor={category} className="text-sm cursor-pointer">
-                {category}
-              </label>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-medium font-sans mb-3">Blockchain</h3>
-        <div className="space-y-2">
-          {["Ethereum", "Polygon", "Solana", "BNB Chain"].map(chain => (
-            <div key={chain} className="flex items-center space-x-2">
-              <Checkbox
-                id={chain}
-                checked={selectedBlockchains.includes(chain)}
-                onCheckedChange={checked => {
-                  if (checked) {
-                    setSelectedBlockchains([...selectedBlockchains, chain]);
-                  } else {
-                    setSelectedBlockchains(selectedBlockchains.filter(c => c !== chain));
-                  }
-                }}
-              />
-              <label htmlFor={chain} className="text-sm cursor-pointer">
-                {chain}
-              </label>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <Button
-        variant="outline"
-        className="w-full"
-        onClick={() => {
-          setSelectedCategories([]);
-          setSelectedBlockchains([]);
-          setPriceRange([0, 100]);
-          setShowOnlyAuctions(false);
-          setShowOnlyBuyNow(false);
-        }}
-      >
-        Clear All Filters
-      </Button>
-    </div>
-  );
 
   const NFTCard = ({ nft }: { nft: NFTItem }) => (
     <Link href={`/nft/${nft.id}`}>
@@ -434,7 +459,18 @@ export default function ExploreMarketplace() {
                 <SheetTitle>Filters</SheetTitle>
               </SheetHeader>
               <div className="mt-4">
-                <FilterSidebar />
+                <FilterSidebar
+                  showOnlyBuyNow={showOnlyBuyNow}
+                  setShowOnlyBuyNow={setShowOnlyBuyNow}
+                  showOnlyAuctions={showOnlyAuctions}
+                  setShowOnlyAuctions={setShowOnlyAuctions}
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  selectedCategories={selectedCategories}
+                  setSelectedCategories={setSelectedCategories}
+                  selectedBlockchains={selectedBlockchains}
+                  setSelectedBlockchains={setSelectedBlockchains}
+                />
               </div>
             </SheetContent>
           </Sheet>
@@ -522,7 +558,18 @@ export default function ExploreMarketplace() {
               <SlidersHorizontal className="h-4 w-4" />
               Filters
             </h2>
-            <FilterSidebar />
+            <FilterSidebar
+              showOnlyBuyNow={showOnlyBuyNow}
+              setShowOnlyBuyNow={setShowOnlyBuyNow}
+              showOnlyAuctions={showOnlyAuctions}
+              setShowOnlyAuctions={setShowOnlyAuctions}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              selectedBlockchains={selectedBlockchains}
+              setSelectedBlockchains={setSelectedBlockchains}
+            />
           </div>
         </aside>
 

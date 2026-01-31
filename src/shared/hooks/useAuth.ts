@@ -124,7 +124,7 @@ export function useAuth() {
       window.removeEventListener("auth:logout", handleLogout);
       window.removeEventListener("auth:login", handleLogin);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run only once on mount
 
   const logout = async () => {
