@@ -561,7 +561,7 @@ export default function OverlayDebugPage() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Bell className="mr-2 h-4 w-4" />
-                    What's New
+                    What&apos;s New
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

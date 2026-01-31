@@ -243,7 +243,7 @@ export default function AlertDebugPage() {
               <XCircle className="h-4 w-4" />
               <AlertTitle>Insufficient Funds</AlertTitle>
               <AlertDescription>
-                You don't have enough ETH to complete this transaction. Required: 2.5 ETH, Available: 1.8 ETH.
+                You don&apos;t have enough ETH to complete this transaction. Required: 2.5 ETH, Available: 1.8 ETH.
                 <div className="mt-2">
                   <Button size="sm" variant="outline">Add Funds</Button>
                 </div>
@@ -336,7 +336,7 @@ export default function AlertDebugPage() {
               <Alert variant="info" className="py-2">
                 <Info className="h-4 w-4" />
                 <AlertDescription className="text-xs">
-                  Listing fee: 0.01 ETH. You'll receive 97.5% of the sale price.
+                  Listing fee: 0.01 ETH. You&apos;ll receive 97.5% of the sale price.
                 </AlertDescription>
               </Alert>
               <div className="flex gap-2">

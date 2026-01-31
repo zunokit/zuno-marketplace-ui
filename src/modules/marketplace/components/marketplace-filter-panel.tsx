@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/shared/components/ui/sheet";
 import {
@@ -554,10 +555,12 @@ export default function FilterSidebar({
                                   >
                                     <div className="w-full overflow-hidden">
                                       <div className="relative transition-transform duration-300 group-hover:scale-110 min-h-[98px] 3xl:min-h-[173px] w-full bg-layer-03">
-                                        <img
+                                        <Image
                                           src={`${randomImage()}&id=${categoryIndex * 10 + index}`}
                                           alt={trait.name}
                                           className="overflow-hidden w-full"
+                                          fill
+                                          sizes="(max-width: 768px) 50vw, 25vw"
                                         />
                                       </div>
                                     </div>
