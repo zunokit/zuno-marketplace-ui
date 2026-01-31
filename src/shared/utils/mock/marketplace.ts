@@ -1,6 +1,7 @@
+import { faker } from "./faker-instance";
 import { type NFT, type Collection } from "@/shared/types/marketplace";
 
-// Mock collections data
+// Static collections for consistent UI testing
 export const mockCollections: Collection[] = [
   {
     address: "0x1234567890abcdef",
@@ -38,10 +39,13 @@ export const mockCollections: Collection[] = [
   },
 ];
 
-// Mock NFT data generator
+/**
+ * Generate a single mock NFT using faker
+ * @deprecated Use marketplaceFaker.nft() directly
+ */
 const generateMockNFT = (index: number): NFT => {
   const collection = mockCollections[index % mockCollections.length];
-  const statuses: NFT["status"][] = ["available", "sold", "reserved"];
+  const statuses: NFT["status"][] = ["available", "sold", "reserved", "cancelled"];
   const listingTypes: NFT["listingType"][] = ["fixed", "auction", "offer"];
 
   return {
@@ -49,13 +53,13 @@ const generateMockNFT = (index: number): NFT => {
     tokenId: `${1000 + index}`,
     name: `${collection.name} #${1000 + index}`,
     description: `A unique piece from the ${collection.name} collection`,
-    image: `https://picsum.photos/400/400?random=${100 + index}`,
-    price: (Math.random() * 0.5 + 0.01).toFixed(3),
+    image: faker.image.urlPicsumPhotos({ width: 400, height: 400 }),
+    price: faker.finance.amount({ min: 0.01, max: 0.5, dec: 3 }),
     currency: "ETH",
     owner: {
-      address: `0xOwner${index.toString().padStart(4, "0")}`,
-      name: `Collector${index}`,
-      avatar: `https://picsum.photos/100/100?random=${200 + index}`,
+      address: faker.finance.ethereumAddress(),
+      name: faker.helpers.maybe(() => faker.internet.username(), { probability: 0.7 }),
+      avatar: faker.helpers.maybe(() => faker.image.avatar(), { probability: 0.7 }),
     },
     collection: {
       address: collection.address,
@@ -65,24 +69,24 @@ const generateMockNFT = (index: number): NFT => {
     attributes: [
       {
         trait_type: "Background",
-        value: ["Blue", "Red", "Green", "Purple"][index % 4],
+        value: faker.helpers.arrayElement(["Blue", "Red", "Green", "Purple"]),
       },
       {
         trait_type: "Rarity",
-        value: ["Common", "Uncommon", "Rare", "Legendary"][index % 4],
+        value: faker.helpers.arrayElement(["Common", "Uncommon", "Rare", "Legendary"]),
       },
       {
         trait_type: "Power",
-        value: Math.floor(Math.random() * 100),
+        value: faker.number.int({ min: 1, max: 100 }),
         display_type: "number",
       },
     ],
     status: statuses[index % statuses.length],
     listingType: listingTypes[index % listingTypes.length],
-    createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
-    updatedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
-    likes: Math.floor(Math.random() * 500),
-    views: Math.floor(Math.random() * 5000),
+    createdAt: faker.date.recent({ days: 30 }),
+    updatedAt: faker.date.recent({ days: 7 }),
+    likes: faker.number.int({ min: 0, max: 500 }),
+    views: faker.number.int({ min: 0, max: 5000 }),
   };
 };
 
