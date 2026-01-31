@@ -3,27 +3,27 @@
  * Follows TanStack Query v5 queryOptions pattern for type safety
  */
 
-import { infiniteQueryOptions } from '@tanstack/react-query';
-import type {
-  InfiniteData,
-} from '@tanstack/react-query';
+import { infiniteQueryOptions } from "@tanstack/react-query";
+import type { InfiniteData } from "@tanstack/react-query";
 import type {
   MarketplaceItemsPage,
   MarketplaceItemsQueryParams,
   InfiniteMarketplaceItemsOptions,
   MarketplaceFilters,
-} from './types';
-import { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from './mock-adapter';
+} from "./types";
+import { mockFetchMarketplaceItems, USE_MOCK_ADAPTER } from "./mock-adapter";
 
 /**
  * Real API fetcher (to be implemented when backend is ready)
  * Placeholder for future implementation
  */
-async function realFetchMarketplaceItems(params: MarketplaceItemsQueryParams): Promise<MarketplaceItemsPage> {
+async function realFetchMarketplaceItems(
+  params: MarketplaceItemsQueryParams
+): Promise<MarketplaceItemsPage> {
   // TODO: Implement real API call
   const response = await fetch(`/api/marketplace/${params.contractAddress}/items`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(params),
   });
 
@@ -70,8 +70,8 @@ export function infiniteMarketplaceItemsOptions({
 
     // Query key - includes filters for auto-invalidation
     queryKey: [
-      'marketplace',
-      'infinite',
+      "marketplace",
+      "infinite",
       contractAddress,
       {
         priceRange: filters.priceRange,
@@ -89,7 +89,9 @@ export function infiniteMarketplaceItemsOptions({
 
       // Use mock or real API
       const data = USE_MOCK_ADAPTER
-        ? await mockFetchMarketplaceItems({ queryKey: ['marketplace', 'infinite', contractAddress, params] as const })
+        ? await mockFetchMarketplaceItems({
+            queryKey: ["marketplace", "infinite", contractAddress, params] as const,
+          })
         : await realFetchMarketplaceItems(params);
 
       return data;
@@ -112,13 +114,13 @@ export function infiniteMarketplaceItemsOptions({
 
     // Retry configuration
     retry: 1,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30_000),
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30_000),
 
     // Refetch on window focus (disabled to prevent unnecessary refetches)
     refetchOnWindowFocus: false,
 
     // Refetch on mount (use cache if fresh)
-    refetchOnMount: 'always',
+    refetchOnMount: "always",
   });
 }
 

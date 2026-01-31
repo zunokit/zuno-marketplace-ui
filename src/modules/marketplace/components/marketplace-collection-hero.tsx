@@ -28,7 +28,10 @@ function VerifiedBadge({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm94-278 226-226-56-58-170 170-86-84-56 56 142 142Z" />
-      <path className="fill-white" d="M438-338 L664-564 L608-622 L438-452 L352-538 L296-482 L438-338 Z" />
+      <path
+        className="fill-white"
+        d="M438-338 L664-564 L608-622 L438-452 L352-538 L296-482 L438-338 Z"
+      />
     </svg>
   );
 }
@@ -102,8 +105,8 @@ function TagBadge({ children, href, icon, className }: TagBadgeProps) {
     <div
       className={cn(
         "flex items-center h-[18px] w-fit whitespace-nowrap rounded px-1.5 py-1",
-        "border border-frosted-6 bg-frosted-2 font-mono uppercase text-xs gap-1 cursor-pointer",
-        "hover:bg-frosted-6 transition-colors",
+        "border border-border bg-muted font-mono uppercase text-xs gap-1 cursor-pointer",
+        "hover:bg-muted/80 transition-colors",
         className
       )}
     >
@@ -159,41 +162,47 @@ export default function MarketplaceCollectionHero({
   collection,
   videoUrl,
   bannerUrl,
-  useMockData = true
+  useMockData = true,
 }: MarketplaceCollectionHeroProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // Expand feature temporarily disabled
+  const isExpanded = false;
+  // const [isExpanded, setIsExpanded] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
 
   // Use mock data or real collection data
-  const displayData = useMockData ? {
-    name: MOCK_COLLECTION_DATA.name,
-    image: MOCK_COLLECTION_DATA.image,
-    contractAddress: MOCK_COLLECTION_DATA.contractAddress,
-    verified: MOCK_COLLECTION_DATA.verified,
-    totalSupply: MOCK_COLLECTION_DATA.totalSupply,
-    description: collection?.description,
-  } : {
-    name: collection?.name || "Collection",
-    image: collection?.image || "/placeholder-nft.png",
-    contractAddress: collection?.contractAddress || "0x0000",
-    verified: collection?.verified || false,
-    totalSupply: collection?.totalSupply || 0,
-    description: collection?.description,
-  };
+  const displayData = useMockData
+    ? {
+        name: MOCK_COLLECTION_DATA.name,
+        image: MOCK_COLLECTION_DATA.image,
+        contractAddress: MOCK_COLLECTION_DATA.contractAddress,
+        verified: MOCK_COLLECTION_DATA.verified,
+        totalSupply: MOCK_COLLECTION_DATA.totalSupply,
+        description: collection?.description,
+      }
+    : {
+        name: collection?.name || "Collection",
+        image: collection?.image || "/placeholder-nft.png",
+        contractAddress: collection?.contractAddress || "0x0000",
+        verified: collection?.verified || false,
+        totalSupply: collection?.totalSupply || 0,
+        description: collection?.description,
+      };
 
   // Media URL priority: props > mock banner image (use image instead of video for reliability)
   const mediaUrl = videoUrl || bannerUrl || MOCK_COLLECTION_DATA.bannerImage;
   const isVideo = mediaUrl.includes(".mp4") || mediaUrl.includes(".webm");
 
   // Stats data
-  const stats = useMockData ? MOCK_COLLECTION_DATA.stats : {
-    floorPrice: collection?.floorPrice || "0.00",
-    topOffer: "0.00",
-    totalVolume: collection?.volume24h || "0.00",
-    listed: "0.00",
-    owners: collection?.owners || 0,
-    ownerPercentage: "0.00",
-  };
+  const stats = useMockData
+    ? MOCK_COLLECTION_DATA.stats
+    : {
+        floorPrice: collection?.floorPrice || "0.00",
+        topOffer: "0.00",
+        totalVolume: collection?.volume24h || "0.00",
+        listed: "0.00",
+        owners: collection?.owners || 0,
+        ownerPercentage: "0.00",
+      };
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(displayData.contractAddress);
@@ -211,14 +220,15 @@ export default function MarketplaceCollectionHero({
       <div className="hidden md:block">
         <div
           className={cn(
-            "pointer-events-auto right-0 flex w-full z-10 absolute transition-all duration-500 ease-out",
-            isExpanded
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full"
-              : "h-24"
+            "pointer-events-auto right-0 flex w-full relative transition-all duration-500 ease-out",
+            isExpanded ? "h-32 md:h-36" : "h-24"
           )}
         >
           {/* Content Overlay */}
-          <div className="mx-auto min-h-0 min-w-0  px-4 md:px-6 z-[1] flex w-full items-end dark">
+          <div className={cn(
+            "mx-auto min-h-0 min-w-0 px-4 md:px-6 z-[1] flex w-full items-end",
+            isExpanded ? "bg-transparent" : "bg-background"
+          )}>
             <div
               className={cn(
                 "flex w-full min-w-0 flex-col pb-4 md:grid md:grid-cols-[1fr_auto] md:items-end md:justify-between xl:gap-4 xl:pb-5",
@@ -230,7 +240,10 @@ export default function MarketplaceCollectionHero({
                 <div className="flex w-full items-center gap-3 border-0 p-0 min-w-0 select-text">
                   {/* Avatar */}
                   <div className="flex group relative">
-                    <div className="relative inline-block shrink-0" style={{ width: 60, height: 60 }}>
+                    <div
+                      className="relative inline-block shrink-0"
+                      style={{ width: 60, height: 60 }}
+                    >
                       <Image
                         alt={displayData.name}
                         width={60}
@@ -339,7 +352,9 @@ export default function MarketplaceCollectionHero({
 
                       <TagBadge>{MOCK_COLLECTION_DATA.createdDate}</TagBadge>
 
-                      <TagBadge href="/collections?category=art">{MOCK_COLLECTION_DATA.category}</TagBadge>
+                      <TagBadge href="/collections?category=art">
+                        {MOCK_COLLECTION_DATA.category}
+                      </TagBadge>
                     </div>
                   </div>
                 </div>
@@ -365,7 +380,7 @@ export default function MarketplaceCollectionHero({
                       </div>
                     </div>
 
-                    {/* Collapse/Expand Banner Button */}
+                    {/* Collapse/Expand Banner Button - TEMPORARILY DISABLED
                     <Button
                       variant="ghost"
                       size="icon"
@@ -379,6 +394,7 @@ export default function MarketplaceCollectionHero({
                         <ChevronDown className="size-5" />
                       )}
                     </Button>
+                    */}
                   </div>
                 </div>
               </div>
@@ -386,12 +402,13 @@ export default function MarketplaceCollectionHero({
           </div>
         </div>
 
-        {/* Background Media - Hide/Show based on isExpanded */}
+        {/* Background Media - TEMPORARILY DISABLED */}
+        {/*
         <div
           className={cn(
-            "absolute right-0 flex w-full pointer-events-none top-0 z-0 overflow-hidden transition-all duration-500 ease-out",
+            "absolute right-0 flex w-full pointer-events-none top-0 z-[-1] overflow-hidden transition-all duration-500 ease-out",
             isExpanded
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full opacity-100"
+              ? "h-32 md:h-36 opacity-100"
               : "h-24 opacity-30"
           )}
         >
@@ -414,9 +431,9 @@ export default function MarketplaceCollectionHero({
                   fill
                   className="object-cover object-center"
                   priority
+                  unoptimized
                 />
               )}
-              {/* Gradient Overlay */}
               <div
                 className="absolute inset-0 z-20 dark transition-opacity duration-500 ease-out"
                 style={{
@@ -428,14 +445,13 @@ export default function MarketplaceCollectionHero({
             </div>
           </div>
         </div>
+        */}
 
-        {/* Spacer for layout */}
+        {/* Spacer for layout - only when expanded */}
         <div
           className={cn(
             "pointer-events-none opacity-0 -mx-4 md:-mx-6 relative w-full transition-all duration-500 ease-out",
-            isExpanded
-              ? "aspect-[8/3] xl:h-[min(670px,calc(100vh-400px))] xl:min-w-full"
-              : "h-24"
+            isExpanded ? "h-32 md:h-36" : "h-0"
           )}
         />
       </div>
@@ -457,9 +473,7 @@ export default function MarketplaceCollectionHero({
           {/* Title */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-medium text-foreground truncate">
-                {displayData.name}
-              </h1>
+              <h1 className="text-lg font-medium text-foreground truncate">{displayData.name}</h1>
               {displayData.verified && <VerifiedBadge className="size-5" />}
             </div>
             <div className="flex items-center gap-2 mt-1">

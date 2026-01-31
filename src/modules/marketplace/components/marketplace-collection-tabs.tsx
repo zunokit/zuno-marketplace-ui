@@ -55,7 +55,7 @@ export default function MarketplaceCollectionTabs({
         className="flex gap-6 mx-auto min-h-0 w-full min-w-0  px-4 lg:px-6"
         aria-label="Collection"
       >
-        {NAV_ITEMS.map((item) => {
+        {NAV_ITEMS.map(item => {
           const isActive = currentTab === item.id;
 
           return (
@@ -69,19 +69,15 @@ export default function MarketplaceCollectionTabs({
                   "relative w-fit whitespace-nowrap pb-2 pt-1.5",
                   "hover:text-foreground focus-visible:text-foreground focus-visible:outline-hidden",
                   "transition-colors duration-150",
-                  isActive
-                    ? "font-medium text-foreground"
-                    : "font-normal text-os-gray-300"
+                  isActive ? "font-medium text-foreground" : "font-normal text-os-gray-300"
                 )}
                 aria-current={isActive ? "page" : undefined}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handleTabClick(item.id);
                 }}
               >
-                <span className="leading-normal text-sm relative font-inherit">
-                  {item.label}
-                </span>
+                <span className="leading-normal text-sm relative font-inherit">{item.label}</span>
 
                 {/* Active indicator underline */}
                 {isActive && (

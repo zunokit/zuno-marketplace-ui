@@ -1,7 +1,8 @@
 import { type UserProfile, type ProfileActivity } from "@/shared/types/profile";
-import { mockNFTs } from "./marketplace";
+import { faker } from "./faker-instance";
+import { marketplaceFaker } from "./fakers";
 
-// Mock user profiles
+// Static mock user profiles for consistent UI testing
 export const mockUserProfiles: UserProfile[] = [
   {
     id: "user-1",
@@ -51,7 +52,6 @@ export const mockUserProfiles: UserProfile[] = [
   },
 ];
 
-// Generate mock activities
 const activityTypes: ProfileActivity["type"][] = [
   "purchase",
   "sale",
@@ -61,42 +61,50 @@ const activityTypes: ProfileActivity["type"][] = [
   "mint",
 ];
 
-export const generateMockActivities = (userId: string, count: number = 20): ProfileActivity[] => {
-  const activities: ProfileActivity[] = [];
+/**
+ * Generate mock profile activities using faker
+ * @deprecated Use marketplaceFaker or nftFaker directly
+ */
+export const generateMockActivities = (
+  userId: string,
+  count: number = 20
+): ProfileActivity[] => {
+  const nfts = marketplaceFaker.nfts(count, faker.finance.ethereumAddress(), 1);
 
-  for (let i = 0; i < count; i++) {
-    const type = activityTypes[i % activityTypes.length];
-    const nft = mockNFTs[i % mockNFTs.length];
-
-    activities.push({
-      id: `activity-${userId}-${i}`,
-      type,
-      nft: {
-        id: nft.id,
-        name: nft.name,
-        image: nft.image,
-        tokenId: nft.tokenId,
-        collection: nft.collection.name,
-      },
-      from:
-        type === "purchase" || type === "transfer"
-          ? `0xFrom${i.toString().padStart(4, "0")}`
-          : userId,
-      to: type === "sale" || type === "transfer" ? `0xTo${i.toString().padStart(4, "0")}` : userId,
-      price:
-        type === "purchase" || type === "sale" || type === "listing" || type === "bid"
-          ? (Math.random() * 0.5 + 0.01).toFixed(3)
-          : undefined,
-      currency:
-        type === "purchase" || type === "sale" || type === "listing" || type === "bid"
-          ? "ETH"
-          : undefined,
-      timestamp: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
-      txHash: `0x${Math.random().toString(16).substring(2)}`,
-    });
-  }
-
-  return activities.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+  return nfts
+    .map((nft, i) => {
+      const type = activityTypes[i % activityTypes.length];
+      return {
+        id: `activity-${userId}-${i}`,
+        type,
+        nft: {
+          id: nft.id,
+          name: nft.name,
+          image: nft.image || "",
+          tokenId: nft.tokenId,
+          collection: "Mock Collection",
+        },
+        from:
+          type === "purchase" || type === "transfer"
+            ? faker.finance.ethereumAddress()
+            : userId,
+        to:
+          type === "sale" || type === "transfer"
+            ? faker.finance.ethereumAddress()
+            : userId,
+        price:
+          type === "purchase" || type === "sale" || type === "listing" || type === "bid"
+            ? faker.finance.amount({ min: 0.01, max: 0.5, dec: 3 })
+            : undefined,
+        currency:
+          type === "purchase" || type === "sale" || type === "listing" || type === "bid"
+            ? "ETH"
+            : undefined,
+        timestamp: faker.date.recent({ days: 30 }),
+        txHash: faker.string.hexadecimal({ length: 64 }),
+      };
+    })
+    .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 };
 
 // Current user mock data

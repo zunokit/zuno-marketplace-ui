@@ -80,9 +80,7 @@ export default function ExistingCollections() {
               ) : (
                 <div className="flex flex-col items-center py-6">
                   <Sprout className="h-8 w-8 text-os-gray-300 mb-2" />
-                  <p className="text-sm text-os-gray-300">
-                    No collections found for this wallet
-                  </p>
+                  <p className="text-sm text-os-gray-300">No collections found for this wallet</p>
                 </div>
               )}
             </ScrollArea>

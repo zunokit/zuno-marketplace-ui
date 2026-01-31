@@ -1,258 +1,314 @@
-# Codebase Summary
+# Zuno Marketplace UI - Codebase Summary
 
-## Project Overview
+**Version**: 0.1.0
+**Last Updated**: 2026-01-31
+**Total Files**: ~313 TypeScript/TSX files
+**Total LOC**: ~36,314 lines
 
-Zuno NFT Marketplace is a modern, feature-rich NFT trading platform built with cutting-edge web technologies. The project follows a modular architecture with clear separation of concerns, making it scalable and maintainable for multi-chain NFT operations.
+---
 
-## Technology Stack
+## 1. Architecture Overview
 
-### Core Framework
-- **Next.js 16** - React framework with App Router
-- **React 19** - Latest React with concurrent features
-- **TypeScript 5** - Strict type safety enabled
-- **Tailwind CSS v4** - Utility-first CSS framework
-
-### Web3 Integration
-- **Wagmi 2.19.4** - Ethereum React hooks and utilities
-- **Viem 2.39.0** - TypeScript interface for Ethereum
-- **RainbowKit** - Wallet connection UI and components
-- **SIWE** - Sign-In with Ethereum authentication
-
-### State Management & Data
-- **Apollo Client 4** - GraphQL client with caching
-- **React Hook Form** - Form management with Zod validation
-- **Zustand** - Lightweight state management
-- **TanStack React Query** - Server state management
-
-### UI Components & Styling
-- **Shadcn/ui** - High-quality component library
-- **Radix UI** - Low-level primitives for accessible components
-- **Lucide React** - Beautiful & consistent icon library
-- **Framer Motion** - Animation library for React
-- **Tailwind Merge** - Merge Tailwind CSS classes safely
-
-### Testing & Development Tools
-- **Jest** - Unit testing framework
-- **React Testing Library** - Testing utilities for React components
-- **Playwright** - E2E testing framework
-- **GraphQL Codegen** - TypeScript code generation from GraphQL
-
-## Project Structure
+The Zuno Marketplace UI follows a modular architecture built on Next.js 16 with the App Router. The codebase is organized into three primary layers:
 
 ```
-src/
-├── app/                              # Next.js App Router
-│   ├── (discover)/                  # Discovery route group
-│   ├── (marketplace)/               # Marketplace route group
-│   ├── (creator)/                   # Creator route group
-│   ├── (user)/                      # User route group
-│   ├── (analytics)/                 # Analytics route group
-│   ├── actions/                     # Server actions
-│   ├── layout.tsx                   # Root layout
-│   ├── page.tsx                     # Home page
-│   └── globals.css                  # Global styles
-├── modules/                         # Feature modules
-│   ├── marketplace/                 # Core marketplace functionality
-│   ├── launch-pad/                 # NFT minting & launch pad
-│   ├── product-discovery/           # Discovery and exploration
-│   ├── profile/                     # User profiles
-│   ├── auctions/                    # Auction system
-│   ├── collections/                 # Collection management
-│   ├── launchpad/                   # Launch pad features
-│   ├── explore/                     # Explore functionality
-│   ├── create/                      # Creation tools
-│   ├── activity/                    # Activity tracking
-│   ├── stats/                       # Statistics and analytics
-│   ├── nft-detail/                 # NFT detail pages
-│   ├── chain/                       # Chain-specific functionality
-│   └── wallets/                     # Wallet management
-├── shared/                          # Shared resources
-│   ├── components/                  # Reusable components
-│   │   └── ui/                      # Shadcn/ui components
-│   ├── graphql/                     # GraphQL setup and schemas
-│   │   └── schemas/                 # GraphQL schema files
-│   ├── hooks/                       # Custom React hooks
-│   ├── types/                       # TypeScript type definitions
-│   ├── utils/                       # Utility functions
-│   ├── lib/                         # Library files
-│   ├── config/                      # Configuration files
-│   ├── constants/                   # Application constants
-│   ├── api/                         # API utilities
-│   ├── providers/                   # Context providers
-│   ├── services/                    # Service layer
-│   └── theme/                       # Theme configuration
-└── ... other directories
+┌─────────────────────────────────────────────────────────────┐
+│                      APP LAYER                               │
+│  (Next.js App Router - Pages, Layouts, Loading States)       │
+├─────────────────────────────────────────────────────────────┤
+│                    MODULE LAYER                              │
+│  (Feature Modules - Business Logic, Components, Hooks)       │
+├─────────────────────────────────────────────────────────────┤
+│                    SHARED LAYER                              │
+│  (Cross-cutting - UI Components, Utils, API, Config)         │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Key Modules Architecture
+---
 
-### 1. Marketplace Module (`src/modules/marketplace/`)
-Core trading functionality including:
-- NFT buying and selling
-- Order book management
-- Price charts and analytics
-- Transaction processing
+## 2. Directory Structure
 
-### 2. Launch Pad Module (`src/modules/launch-pad/`)
-NFT creation and minting:
-- Single and batch minting
-- Collection creation wizard
-- Royalty configuration
-- IPFS integration
+### 2.1 Root Structure
 
-### 3. Product Discovery (`src/modules/product-discovery/`)
-Advanced discovery features:
-- Search and filtering
-- Recommendation engine
-- Trending collections
-- Smart categorization
+```
+/e/zuno-marketplace-ui/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   ├── modules/                # Feature modules
+│   └── shared/                 # Shared resources
+├── public/                     # Static assets
+├── docs/                       # Documentation
+├── components.json             # shadcn/ui config
+├── next.config.ts              # Next.js configuration
+├── tsconfig.json               # TypeScript configuration
+└── package.json                # Dependencies
+```
 
-### 4. Profile Module (`src/modules/profile/`)
-User management:
-- Profile creation and editing
-- Collection showcase
-- Activity history
-- Favorites and watchlists
+### 2.2 App Router Structure (`src/app/`)
 
-### 5. Auctions Module (`src/modules/auctions/`)
-Auction functionality:
-- Live auction rooms
-- Bidding system
-- Timer management
-- Winner determination
+The App Router uses route groups for organization:
 
-## Data Flow Architecture
+| Route Group | Purpose | Files |
+|-------------|---------|-------|
+| `(analytics)` | Analytics & statistics pages | `stats/page.tsx` |
+| `(creator)` | NFT creation flows | `create/`, `mint/` |
+| `(discover)` | Homepage & discovery | `page.tsx`, `discover/` |
+| `(marketplace)` | Core marketplace | `marketplace/`, `collections/`, `auctions/`, `launchpad/`, `nft/[slug]/` |
+| `(user)` | User-related pages | `profile/`, `wallets/` |
+| `activity/` | Global activity feed | `page.tsx` |
+| `debug/` | Development tools | `page.tsx`, `ui/`, `sentry/` |
 
-### GraphQL Schema Organization
-The GraphQL API is organized into domain-specific schemas:
-- `auth.graphql` - Authentication operations
-- `user.graphql` - User management
-- `nft.graphql` - NFT operations
-- `collection.graphql` - Collection management
-- `marketplace.graphql` - Trading operations
+### 2.3 Module Structure (`src/modules/`)
 
-### State Management Pattern
-- **Global State**: Zustand stores for application-wide state
-- **Server State**: TanStack Query for server data caching
-- **Local State**: React hooks for component-level state
-- **Form State**: React Hook Form with Zod validation
+Each module is self-contained with its own components, hooks, and utilities:
 
-### Component Architecture
-- **Layout Components**: Page layouts and structure
-- **UI Components**: Shadcn/ui primitives with customization
-- **Feature Components**: Domain-specific business logic
-- **Hook Components**: Custom hooks for reusable logic
+```
+src/modules/
+├── activity/           # Activity feed functionality
+├── auctions/           # Auction system (bidding, timers)
+├── chain/              # Blockchain configuration
+├── collections/        # Collection browsing & management
+├── create/             # NFT creation workflows
+├── explore/            # Exploration features
+├── launch-pad/         # Collection launchpad
+├── launchpad/          # Launchpad components
+├── marketplace/        # Core marketplace logic
+├── nft-detail/         # NFT detail views
+├── product-discovery/  # Homepage & discovery
+├── profile/            # User profile management
+├── stats/              # Statistics & analytics
+└── wallets/            # Wallet integration
+```
 
-## Multi-Chain Support
+### 2.4 Shared Structure (`src/shared/`)
 
-### Supported Networks
-- Ethereum Mainnet (Chain ID: 1)
-- Polygon (Chain ID: 137)
-- Sepolia Testnet (Chain ID: 11155111)
-- Local Anvil (Development)
+```
+src/shared/
+├── api/                # API client configuration
+├── components/         # Shared React components
+│   └── ui/             # shadcn/ui components (53 components)
+├── config/             # App configuration
+│   ├── api-endpoints.config.ts
+│   ├── wagmi.ts
+│   └── index.ts
+├── constants/          # Application constants
+├── contexts/           # React contexts
+├── debug/              # Debug utilities
+├── graphql/            # GraphQL schemas & codegen
+├── hooks/              # Custom React hooks
+├── lib/                # Library utilities
+├── monitoring/         # Sentry & analytics
+├── providers/          # Context providers
+├── stores/             # Zustand stores
+├── theme/              # Theme configuration
+├── types/              # TypeScript types
+└── utils/              # Utility functions
+```
 
-### Chain Configuration
-Chain-specific configurations are stored in:
-- `src/shared/config/chains.ts`
-- Environment variables for network settings
-- Dynamic network switching capabilities
+---
 
-## Testing Strategy
+## 3. Module Organization
 
-### Unit Testing
-- Jest with React Testing Library
-- Component testing with user interactions
-- Utility function testing
-- Hook testing with custom renderers
+### 3.1 Module Anatomy
 
-### E2E Testing
-- Playwright for end-to-end scenarios
-- Cross-browser testing
-- Wallet integration testing
-- Transaction flow validation
+Each module follows a consistent structure:
 
-### Coverage Targets
-- Minimum 80% line coverage
-- 100% critical path coverage
-- Security-sensitive feature coverage
+```
+modules/{module-name}/
+├── components/         # Module-specific components
+├── hooks/              # Custom hooks
+├── stores/             # Zustand stores (if needed)
+├── types/              # Module-specific types
+├── utils/              # Module utilities
+├── constants/          # Module constants
+└── index.ts            # Public API exports
+```
 
-## Build & Development
+### 3.2 Key Modules
 
-### Scripts
-- `pnpm dev` - Development server with Turbopack
-- `pnpm build` - Production build
-- `pnpm start` - Production server
-- `pnpm test` - Run unit tests
-- `pnpm test:e2e` - Run E2E tests
-- `pnpm codegen` - Generate GraphQL types
-- `pnpm lint` - Code linting
-- `pnpm format` - Code formatting
+#### Marketplace Module
+- **Purpose**: Core NFT trading functionality
+- **Key Components**: Listing cards, price displays, buy buttons
+- **Dependencies**: `shared/api`, `shared/stores`
 
-### Environment Configuration
-Environment variables are required for:
-- GraphQL API endpoints
-- Network configuration
-- Wallet provider settings
-- Analytics and tracking
-- IPFS storage configuration
+#### Auctions Module
+- **Purpose**: Auction system with bidding
+- **Key Components**: Bid forms, countdown timers, bid history
+- **Dependencies**: `shared/hooks`, `modules/wallets`
 
-## Security Considerations
+#### Collections Module
+- **Purpose**: NFT collection browsing and management
+- **Key Components**: Collection cards, grid layouts, filters
+- **Dependencies**: `shared/components`, `shared/graphql`
 
-### Authentication
-- SIWE (Sign-In with Ethereum) for Web3 authentication
-- Session management with RainbowKit
-- Secure token handling
+#### Profile Module
+- **Purpose**: User profile and portfolio management
+- **Key Components**: Profile cards, NFT grids, activity feeds
+- **Dependencies**: `modules/activity`, `shared/stores`
 
-### Data Validation
-- Zod schemas for runtime validation
-- TypeScript compile-time checks
-- GraphQL schema validation
-- Input sanitization
+---
 
-### Security Best Practices
-- Environment variable protection
-- Secure error handling
-- Rate limiting considerations
-- Access control patterns
+## 4. Key Patterns
 
-## Performance Optimization
+### 4.1 Component Patterns
 
-### Rendering Strategy
-- Next.js static generation where possible
-- Dynamic imports for heavy components
-- Image optimization with Next.js Image
-- Code splitting at route level
+#### Server Components (Default)
+```typescript
+// app/page.tsx - Server Component
+async function HomePage() {
+  const data = await fetchData();
+  return <HomeView data={data} />;
+}
+```
 
-### Caching Strategy
-- TanStack Query for server state caching
-- GraphQL client caching with Apollo
-- Browser storage for user preferences
-- CDN integration for static assets
+#### Client Components
+```typescript
+'use client';
 
-### Bundle Optimization
-- Tree shaking for unused code
-- Dynamic imports for third-party libraries
-- Code splitting by route
-- Image optimization
+// modules/marketplace/components/listing-card.tsx
+import { useWallet } from '@/shared/hooks/use-wallet';
 
-## Development Workflow
+export function ListingCard({ listing }: ListingCardProps) {
+  const { address } = useWallet();
+  // Client-side logic
+}
+```
 
-### Code Quality
-- ESLint with Next.js rules
-- Prettier for code formatting
-- TypeScript strict mode
-- Pre-commit hooks
+### 4.2 Data Fetching Patterns
 
-### Git Workflow
-- Feature branches from main
-- Pull request reviews
-- Automated testing on CI
-- Semantic versioning
+#### GraphQL with Apollo
+```typescript
+// Using generated hooks
+import { useGetNftsQuery } from '@/shared/graphql/generated';
 
-### Documentation
-- JSDoc for TypeScript interfaces
-- Component documentation
-- API documentation with GraphQL
-- Development guides and patterns
+function NFTList() {
+  const { data, loading } = useGetNftsQuery();
+  // ...
+}
+```
 
-This architecture provides a solid foundation for a scalable, maintainable NFT marketplace with modern development practices and comprehensive testing coverage.
+#### TanStack Query for Server State
+```typescript
+import { useQuery } from '@tanstack/react-query';
+
+function useMarketData() {
+  return useQuery({
+    queryKey: ['market-data'],
+    queryFn: fetchMarketData,
+  });
+}
+```
+
+### 4.3 State Management Patterns
+
+#### Zustand Store
+```typescript
+// shared/stores/wallet-store.ts
+import { create } from 'zustand';
+
+interface WalletState {
+  address: string | null;
+  setAddress: (address: string | null) => void;
+}
+
+export const useWalletStore = create<WalletState>((set) => ({
+  address: null,
+  setAddress: (address) => set({ address }),
+}));
+```
+
+### 4.4 Web3 Integration Pattern
+
+```typescript
+// Using Wagmi hooks
+import { useAccount, useWriteContract } from 'wagmi';
+
+function BuyButton({ listing }: BuyButtonProps) {
+  const { address, isConnected } = useAccount();
+  const { writeContract } = useWriteContract();
+
+  const handleBuy = () => {
+    writeContract({
+      address: MARKETPLACE_CONTRACT,
+      abi: MARKETPLACE_ABI,
+      functionName: 'buy',
+      args: [listing.id],
+    });
+  };
+}
+```
+
+---
+
+## 5. Import Conventions
+
+### 5.1 Path Aliases
+
+| Alias | Target | Usage |
+|-------|--------|-------|
+| `@/*` | `src/*` | Primary import alias |
+| `@/shared/*` | `src/shared/*` | Shared resources |
+| `@/modules/*` | `src/modules/*` | Feature modules |
+| `@/app/*` | `src/app/*` | App router files |
+
+### 5.2 Import Order
+
+```typescript
+// 1. React/Next.js imports
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+// 2. Third-party imports
+import { useAccount } from 'wagmi';
+import { useQuery } from '@tanstack/react-query';
+
+// 3. Absolute imports (@/*)
+import { Button } from '@/shared/components/ui/button';
+import { useWallet } from '@/shared/hooks/use-wallet';
+
+// 4. Relative imports (same module only)
+import { ListingCard } from './listing-card';
+```
+
+---
+
+## 6. File Naming Conventions
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Components | PascalCase | `ListingCard.tsx` |
+| Hooks | camelCase with `use` prefix | `use-wallet.ts` |
+| Utilities | camelCase | `format-price.ts` |
+| Constants | UPPER_SNAKE_CASE or camelCase | `API_ENDPOINTS.ts` |
+| Types | PascalCase with suffix | `nft.types.ts` |
+| Config | camelCase | `wagmi.ts` |
+| Styles | camelCase with suffix | `globals.css` |
+
+---
+
+## 7. Code Statistics
+
+```
+Language           Files        Lines         Code     Comments       Blank
+────────────────────────────────────────────────────────────────────────────
+TypeScript/TSX       313       36,314       28,500        3,200        4,614
+CSS                    1          808          650           50          108
+JSON                   5          450          450            0            0
+Markdown               1           50           40            5            5
+────────────────────────────────────────────────────────────────────────────
+Total                320       37,622       29,640        3,255        4,727
+```
+
+---
+
+## 8. Dependencies Overview
+
+### Production Dependencies: 39
+### Development Dependencies: 18
+
+Key dependency categories:
+- **UI Framework**: Next.js, React, Tailwind CSS
+- **Web3**: Wagmi, Viem, RainbowKit, SIWE
+- **Data**: Apollo Client, GraphQL, TanStack Query
+- **State**: Zustand, React Hook Form
+- **Monitoring**: Sentry

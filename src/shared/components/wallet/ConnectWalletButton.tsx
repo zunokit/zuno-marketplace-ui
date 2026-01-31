@@ -102,9 +102,7 @@ export function ConnectWalletButton() {
                   >
                     {/* Hide balance on screens below lg */}
                     {account.displayBalance && (
-                      <span className="hidden lg:inline text-xs">
-                        {account.displayBalance}
-                      </span>
+                      <span className="hidden lg:inline text-xs">{account.displayBalance}</span>
                     )}
                     <span className="font-semibold truncate max-w-[60px] sm:max-w-[80px] lg:max-w-[100px]">
                       {account.displayName}

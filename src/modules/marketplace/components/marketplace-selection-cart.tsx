@@ -32,7 +32,7 @@ export default function MarketplaceSelectionCart({
   const totalPrice =
     nfts && selectedNFTs.length > 0
       ? selectedNFTs.reduce((sum, id) => {
-          const n = nfts.find((x) => x.id === id);
+          const n = nfts.find(x => x.id === id);
           const p = parseFloat(n?.listPrice || n?.mintPrice || "0");
           return sum + p;
         }, 0)
@@ -49,7 +49,7 @@ export default function MarketplaceSelectionCart({
     <ScrollArea className="max-h-[min(60vh,400px)] pr-2">
       <div className="space-y-2">
         {selectedNFTs.map((id, i) => {
-          const nft = nfts?.find((x) => x.id === id);
+          const nft = nfts?.find(x => x.id === id);
           return (
             <div
               key={id}
@@ -116,21 +116,20 @@ export default function MarketplaceSelectionCart({
     </div>
   );
 
-  const summary =
-    !isProcessing && (hasPrices || selectedNFTs.length > 0) && (
-      <div className="border-t border-border-subtle pt-4">
-        <div className="flex justify-between text-sm mb-2">
-          <span>Subtotal ({selectedNFTs.length} items)</span>
-          {hasPrices ? <span>{totalPrice.toFixed(4)} ETH</span> : <span>—</span>}
-        </div>
-        {hasPrices && (
-          <div className="flex justify-between font-medium font-sans">
-            <span>Total</span>
-            <span>{totalPrice.toFixed(4)} ETH</span>
-          </div>
-        )}
+  const summary = !isProcessing && (hasPrices || selectedNFTs.length > 0) && (
+    <div className="border-t border-border-subtle pt-4">
+      <div className="flex justify-between text-sm mb-2">
+        <span>Subtotal ({selectedNFTs.length} items)</span>
+        {hasPrices ? <span>{totalPrice.toFixed(4)} ETH</span> : <span>—</span>}
       </div>
-    );
+      {hasPrices && (
+        <div className="flex justify-between font-medium font-sans">
+          <span>Total</span>
+          <span>{totalPrice.toFixed(4)} ETH</span>
+        </div>
+      )}
+    </div>
+  );
 
   const footer = !isProcessing && (
     <div className="flex flex-col gap-2 pt-2">
@@ -140,7 +139,12 @@ export default function MarketplaceSelectionCart({
         </Button>
       )}
       {onPrimaryAction && primaryLabel && (
-        <Button size="sm" className="w-full" onClick={onPrimaryAction} disabled={selectedNFTs.length === 0}>
+        <Button
+          size="sm"
+          className="w-full"
+          onClick={onPrimaryAction}
+          disabled={selectedNFTs.length === 0}
+        >
           {primaryLabel}
         </Button>
       )}

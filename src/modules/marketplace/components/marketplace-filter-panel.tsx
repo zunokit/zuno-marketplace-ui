@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/shared/components/ui/sheet";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/shared/components/ui/accordion";
 import { X } from "lucide-react";
 import { randomImage } from "@/shared/utils/mock/randomImage";
 
@@ -122,12 +128,13 @@ export default function FilterSidebar({
   isOpen = true,
 }: MarketplaceFilterPanelProps) {
   const traitKey = (cat: string, name: string) => `${cat}:${name}`;
-  const isTraitSelected = (cat: string, name: string) => selectedTraits.includes(traitKey(cat, name));
+  const isTraitSelected = (cat: string, name: string) =>
+    selectedTraits.includes(traitKey(cat, name));
   const toggleTrait = (cat: string, name: string) => {
     if (!onTraitsChange) return;
     const key = traitKey(cat, name);
     if (selectedTraits.includes(key)) {
-      onTraitsChange(selectedTraits.filter((t) => t !== key));
+      onTraitsChange(selectedTraits.filter(t => t !== key));
     } else {
       onTraitsChange([...selectedTraits, key]);
     }
@@ -141,7 +148,7 @@ export default function FilterSidebar({
 
   const TRAIT_VISIBLE_INITIAL = 6;
   const toggleTraitCategoryExpand = (name: string) => {
-    setExpandedTraitCategory((prev) => ({ ...prev, [name]: !prev[name] }));
+    setExpandedTraitCategory(prev => ({ ...prev, [name]: !prev[name] }));
   };
 
   useEffect(() => {
@@ -176,7 +183,10 @@ export default function FilterSidebar({
     <div className="overflow-y-auto scrollbar-hide relative pt-12 h-full flex-1 min-h-0">
       <Accordion type="multiple" defaultValue={["status", "price", "traits"]} className="w-full">
         {/* Status Accordion */}
-        <AccordionItem value="status" className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b">
+        <AccordionItem
+          value="status"
+          className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b"
+        >
           <AccordionTrigger className="mantine-focus-auto m_6939a5e9 bg-transparent hover:bg-transparent hover:no-underline p-0 m_4ba585b8 w-full flex items-center justify-between [&[data-state=open]>svg]:rotate-180">
             <span className="text py-4 text text-base w-full m_df3ffa0f">
               <div className="flex items-center">Status</div>
@@ -188,10 +198,26 @@ export default function FilterSidebar({
                 <div role="radiogroup">
                   <div
                     className="text flex items-stretch gap-x-6 gap-y-4 flex-col m_4081bf90"
-                    style={{ "--group-gap": "var(--mantine-spacing-md)", "--group-align": "center", "--group-justify": "flex-start", "--group-wrap": "wrap" } as React.CSSProperties}
+                    style={
+                      {
+                        "--group-gap": "var(--mantine-spacing-md)",
+                        "--group-align": "center",
+                        "--group-justify": "flex-start",
+                        "--group-wrap": "wrap",
+                      } as React.CSSProperties
+                    }
                   >
                     {/* Show all option */}
-                    <div className="m_f3f1af94 m_5f75b09e" data-label-position="right" data-checked="true" style={{ "--radio-color": "var(--mantine-color-blue-filled)" } as React.CSSProperties}>
+                    <div
+                      className="m_f3f1af94 m_5f75b09e"
+                      data-label-position="right"
+                      data-checked="true"
+                      style={
+                        {
+                          "--radio-color": "var(--mantine-color-blue-filled)",
+                        } as React.CSSProperties
+                      }
+                    >
                       <div className="m_5f6e695e">
                         <div className="hidden m_89c4f5e4" data-label-position="right">
                           <input
@@ -203,12 +229,21 @@ export default function FilterSidebar({
                             checked
                             onChange={() => onStatusChange("all")}
                           />
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 5" aria-hidden="true" className="m_f3ed6b2b">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 5 5"
+                            aria-hidden="true"
+                            className="m_f3ed6b2b"
+                          >
                             <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor" />
                           </svg>
                         </div>
                         <div className="flex-1 m_d3ea56bb">
-                          <label className="group flex items-center outline-none px-0 gap-x-2 text-base cursor-pointer m_8ee546b8" htmlFor="mantine-nzwp0c3s8">
+                          <label
+                            className="group flex items-center outline-none px-0 gap-x-2 text-base cursor-pointer m_8ee546b8"
+                            htmlFor="mantine-nzwp0c3s8"
+                          >
                             <div className="relative shrink-0 border rounded-full size-5 border-brand group-hover:border-brand-darker transition-colors">
                               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition duration-200 size-2.5 bg-brand group-hover:bg-brand-darker" />
                             </div>
@@ -225,7 +260,15 @@ export default function FilterSidebar({
                       </div>
                     </div>
                     {/* Buy now option */}
-                    <div className="m_f3f1af94 m_5f75b09e" data-label-position="right" style={{ "--radio-color": "var(--mantine-color-blue-filled)" } as React.CSSProperties}>
+                    <div
+                      className="m_f3f1af94 m_5f75b09e"
+                      data-label-position="right"
+                      style={
+                        {
+                          "--radio-color": "var(--mantine-color-blue-filled)",
+                        } as React.CSSProperties
+                      }
+                    >
                       <div className="m_5f6e695e">
                         <div className="hidden m_89c4f5e4" data-label-position="right">
                           <input
@@ -236,12 +279,21 @@ export default function FilterSidebar({
                             value="buy_now"
                             onChange={() => onStatusChange("buy_now")}
                           />
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 5" aria-hidden="true" className="m_f3ed6b2b">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 5 5"
+                            aria-hidden="true"
+                            className="m_f3ed6b2b"
+                          >
                             <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor" />
                           </svg>
                         </div>
                         <div className="flex-1 m_d3ea56bb">
-                          <label className="group flex items-center outline-none px-0 gap-x-2 text-base cursor-pointer m_8ee546b8" htmlFor="mantine-w72yjvppi">
+                          <label
+                            className="group flex items-center outline-none px-0 gap-x-2 text-base cursor-pointer m_8ee546b8"
+                            htmlFor="mantine-w72yjvppi"
+                          >
                             <div className="relative shrink-0 border rounded-full size-5 bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active transition-colors">
                               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition duration-200 size-2.5 scale-50 bg-transparent" />
                             </div>
@@ -265,7 +317,10 @@ export default function FilterSidebar({
         </AccordionItem>
 
         {/* Price Accordion */}
-        <AccordionItem value="price" className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b">
+        <AccordionItem
+          value="price"
+          className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b"
+        >
           <AccordionTrigger className="mantine-focus-auto m_6939a5e9 bg-transparent hover:bg-transparent hover:no-underline p-0 m_4ba585b8 w-full flex items-center justify-between [&[data-state=open]>svg]:rotate-180">
             <span className="text py-4 text text-base w-full m_df3ffa0f">
               <div className="flex items-center">
@@ -312,7 +367,10 @@ export default function FilterSidebar({
         </AccordionItem>
 
         {/* Traits Accordion */}
-        <AccordionItem value="traits" className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b">
+        <AccordionItem
+          value="traits"
+          className="m_fe19b709 !border-primary text !bg-transparent last:border-b-0 m_9bd7b098 border-b"
+        >
           <AccordionTrigger className="mantine-focus-auto m_6939a5e9 bg-transparent hover:bg-transparent hover:no-underline p-0 m_4ba585b8 w-full flex items-center justify-between [&[data-state=open]>svg]:rotate-180">
             <span className="text py-4 text text-base w-full m_df3ffa0f">
               <div className="flex items-center">Traits</div>
@@ -338,13 +396,18 @@ export default function FilterSidebar({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
-                      <path d="M18.2002 17.5L14.5752 13.875" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                      <path
+                        d="M18.2002 17.5L14.5752 13.875"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                     <input
                       className="px-0 h-5 w-full text-sm text bg-transparent placeholder:text-placeholder rounded-none border-0 outline-none"
                       placeholder="Search Traits"
                       value={traitsSearch}
-                      onChange={(e) => setTraitsSearch(e.target.value)}
+                      onChange={e => setTraitsSearch(e.target.value)}
                     />
                   </div>
                   <button
@@ -374,7 +437,14 @@ export default function FilterSidebar({
                         <line x1="3" y1="18" x2="3.01" y2="18" />
                       </svg>
                     ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" color="currentColor" width="20" height="20">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                        color="currentColor"
+                        width="20"
+                        height="20"
+                      >
                         <rect width="6" height="6" x="3.084" y="3" fill="currentColor" rx="1" />
                         <rect width="6" height="6" x="11.084" y="3" fill="currentColor" rx="1" />
                         <rect width="6" height="6" x="3.084" y="11" fill="currentColor" rx="1" />
@@ -406,11 +476,11 @@ export default function FilterSidebar({
                             <div className="flex flex-col">
                               {category.items
                                 .filter(
-                                  (t) =>
+                                  t =>
                                     !traitsSearch ||
                                     t.name.toLowerCase().includes(traitsSearch.toLowerCase().trim())
                                 )
-                                .map((trait) => (
+                                .map(trait => (
                                   <label
                                     key={trait.name}
                                     className="group inline-flex items-center gap-x-2 text-base cursor-pointer py-2.5 px-1"
@@ -446,28 +516,28 @@ export default function FilterSidebar({
                                         <polyline points="20 6 9 17 4 12" />
                                       </svg>
                                     </span>
-                                  <div className="empty:hidden w-full truncate">
-                                    <div className="transition text-primary">
-                                      <div className="select-none">
-                                        <div className="flex items-center justify-between text-sm mb-0.5 gap-2">
-                                          <span className="truncate">{trait.name}</span>
-                                          <span className="shrink-0">{trait.count}</span>
-                                        </div>
-                                        <div className="flex text-xs text-secondary">
-                                          <div>{trait.floor} floor</div>
-                                          <div className="ml-auto" />
+                                    <div className="empty:hidden w-full truncate">
+                                      <div className="transition text-primary">
+                                        <div className="select-none">
+                                          <div className="flex items-center justify-between text-sm mb-0.5 gap-2">
+                                            <span className="truncate">{trait.name}</span>
+                                            <span className="shrink-0">{trait.count}</span>
+                                          </div>
+                                          <div className="flex text-xs text-secondary">
+                                            <div>{trait.floor} floor</div>
+                                            <div className="ml-auto" />
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </label>
-                              ))}
+                                  </label>
+                                ))}
                             </div>
                           ) : (
                             <div className="grid grid-cols-2 gap-2 py-3">
                               {category.items
                                 .filter(
-                                  (t) =>
+                                  t =>
                                     !traitsSearch ||
                                     t.name.toLowerCase().includes(traitsSearch.toLowerCase().trim())
                                 )
@@ -483,22 +553,30 @@ export default function FilterSidebar({
                                         : "")
                                     }
                                   >
-                                  <div className="w-full overflow-hidden">
-                                    <div className="relative transition-transform duration-300 group-hover:scale-110 min-h-[98px] 3xl:min-h-[173px] w-full bg-layer-03">
-                                      <img src={`${randomImage()}&id=${categoryIndex * 10 + index}`} alt={trait.name} className="overflow-hidden w-full" />
-                                    </div>
-                                  </div>
-                                  <div className="p-1.5 text-left w-full">
-                                    <div className="text-xs text truncate py-1.5">{trait.name}</div>
-                                    <div className="flex items-center justify-between text-xxs text-secondary">
-                                      <div>
-                                        <span className="text">{trait.floor}</span>{" "}
+                                    <div className="w-full overflow-hidden">
+                                      <div className="relative transition-transform duration-300 group-hover:scale-110 min-h-[98px] 3xl:min-h-[173px] w-full bg-layer-03">
+                                        <Image
+                                          src={`${randomImage()}&id=${categoryIndex * 10 + index}`}
+                                          alt={trait.name}
+                                          className="overflow-hidden w-full"
+                                          fill
+                                          sizes="(max-width: 768px) 50vw, 25vw"
+                                        />
                                       </div>
-                                      <div>{trait.percentage}</div>
                                     </div>
-                                  </div>
-                                </button>
-                              ))}
+                                    <div className="p-1.5 text-left w-full">
+                                      <div className="text-xs text truncate py-1.5">
+                                        {trait.name}
+                                      </div>
+                                      <div className="flex items-center justify-between text-xxs text-secondary">
+                                        <div>
+                                          <span className="text">{trait.floor}</span>{" "}
+                                        </div>
+                                        <div>{trait.percentage}</div>
+                                      </div>
+                                    </div>
+                                  </button>
+                                ))}
                             </div>
                           )}
                         </div>
@@ -519,24 +597,24 @@ export default function FilterSidebar({
     return (
       <Sheet
         open={isOpen}
-        onOpenChange={(open) => {
+        onOpenChange={open => {
           if (!open) onClose();
         }}
       >
-        <SheetContent
-          side="left"
-          className="w-full sm:max-w-full p-0 h-full fixed"
-        >
+        <SheetContent side="left" className="w-full sm:max-w-full p-0 h-full fixed">
           <div className="h-full flex flex-col">
             <SheetHeader className="flex items-center justify-between w-full absolute z-10 p-4 top-0 left-0 bg-background">
               <SheetTitle className="text font-semibold text-lg">Filters</SheetTitle>
-              <Button variant="ghost" size="icon" className="h-6 w-6 text font-semibold cursor-pointer ml-auto" onClick={onClose}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 text font-semibold cursor-pointer ml-auto"
+                onClick={onClose}
+              >
                 <X className="size-6" />
               </Button>
             </SheetHeader>
-            <div className="flex-1 overflow-hidden">
-              {filterContent}
-            </div>
+            <div className="flex-1 overflow-hidden">{filterContent}</div>
           </div>
         </SheetContent>
       </Sheet>
@@ -559,7 +637,12 @@ export default function FilterSidebar({
               width="20"
               height="20"
             >
-              <path d="M15.625 4.375L4.375 15.625M15.625 15.625L4.375 4.375" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M15.625 4.375L4.375 15.625M15.625 15.625L4.375 4.375"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>

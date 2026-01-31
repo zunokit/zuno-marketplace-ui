@@ -127,10 +127,7 @@ export default function MarketplaceNFTCard({
 
           {/* Content: bố cục riêng — compact (view 1) vs grid (view 2) */}
           <CardContent
-            className={cn(
-              "flex flex-col justify-between",
-              compact ? "p-2" : "p-3 h-32"
-            )}
+            className={cn("flex flex-col justify-between", compact ? "p-2" : "p-3 h-32")}
           >
             {compact ? (
               /* View 1 (compact): bố cục riêng, gọn — Name, Price | Token, Status */
@@ -141,7 +138,15 @@ export default function MarketplaceNFTCard({
                 <div className="flex items-baseline gap-2 flex-wrap">
                   <span
                     className="font-medium text-xs text-foreground dark:text-foreground truncate min-w-0"
-                    title={isListed ? (priceStr !== "—" ? `${priceStr} ETH` : "—") : priceStr !== "—" ? `${priceStr} (mint)` : "Unlisted"}
+                    title={
+                      isListed
+                        ? priceStr !== "—"
+                          ? `${priceStr} ETH`
+                          : "—"
+                        : priceStr !== "—"
+                          ? `${priceStr} (mint)`
+                          : "Unlisted"
+                    }
                   >
                     {isListed
                       ? priceStr === "—"
@@ -151,13 +156,19 @@ export default function MarketplaceNFTCard({
                         ? "Unlisted"
                         : `${formatPriceShort(priceStr)} (mint)`}
                   </span>
-                  <span className="text-xs text-os-gray-300 dark:text-os-gray-300 shrink-0" title={nft.tokenId}>
+                  <span
+                    className="text-xs text-os-gray-300 dark:text-os-gray-300 shrink-0"
+                    title={nft.tokenId}
+                  >
                     {tokenStr}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 mt-1.5 shrink-0">
                   <span className={cn("size-1.5 rounded-full shrink-0", statusMeta.color)} />
-                  <span className="text-xs text-foreground dark:text-foreground truncate" title={statusMeta.label}>
+                  <span
+                    className="text-xs text-foreground dark:text-foreground truncate"
+                    title={statusMeta.label}
+                  >
                     {statusMeta.label}
                   </span>
                 </div>
@@ -170,8 +181,21 @@ export default function MarketplaceNFTCard({
                 </h3>
                 <div className="space-y-1.5 mb-auto">
                   <div className="min-w-0 overflow-hidden">
-                    <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">Price</p>
-                    <p className="font-medium text-sm text-foreground dark:text-foreground truncate" title={isListed ? (priceStr !== "—" ? `${priceStr} ETH` : "—") : priceStr !== "—" ? `${priceStr} (mint)` : "Unlisted"}>
+                    <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+                      Price
+                    </p>
+                    <p
+                      className="font-medium text-sm text-foreground dark:text-foreground truncate"
+                      title={
+                        isListed
+                          ? priceStr !== "—"
+                            ? `${priceStr} ETH`
+                            : "—"
+                          : priceStr !== "—"
+                            ? `${priceStr} (mint)`
+                            : "Unlisted"
+                      }
+                    >
                       {isListed
                         ? priceStr === "—"
                           ? "—"
@@ -183,22 +207,37 @@ export default function MarketplaceNFTCard({
                   </div>
                   <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
                     <div className="min-w-0 overflow-hidden">
-                      <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">Token</p>
-                      <p className="font-medium text-sm text-foreground dark:text-foreground truncate" title={nft.tokenId}>
+                      <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+                        Token
+                      </p>
+                      <p
+                        className="font-medium text-sm text-foreground dark:text-foreground truncate"
+                        title={nft.tokenId}
+                      >
                         {tokenStr}
                       </p>
                     </div>
                     <div className="min-w-0 overflow-hidden">
-                      <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">Last sale</p>
-                      <p className="font-medium text-sm text-foreground dark:text-foreground truncate" title={nft.lastSalePrice ? `${nft.lastSalePrice} ETH` : undefined}>
-                        {nft.lastSalePrice ? `${formatPriceShort(nft.lastSalePrice)}${ETH_SYMBOL}` : "—"}
+                      <p className="text-xs uppercase font-medium text-os-gray-300 dark:text-os-gray-300">
+                        Last sale
+                      </p>
+                      <p
+                        className="font-medium text-sm text-foreground dark:text-foreground truncate"
+                        title={nft.lastSalePrice ? `${nft.lastSalePrice} ETH` : undefined}
+                      >
+                        {nft.lastSalePrice
+                          ? `${formatPriceShort(nft.lastSalePrice)}${ETH_SYMBOL}`
+                          : "—"}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 mt-2 pt-1.5 border-t border-border-subtle dark:border-border-subtle shrink-0">
                   <span className={cn("w-2 h-2 rounded-full shrink-0", statusMeta.color)} />
-                  <span className="text-xs text-foreground dark:text-foreground truncate" title={statusMeta.label}>
+                  <span
+                    className="text-xs text-foreground dark:text-foreground truncate"
+                    title={statusMeta.label}
+                  >
                     {statusMeta.label}
                   </span>
                 </div>

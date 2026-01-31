@@ -96,10 +96,7 @@ function Calendar({
           "bg-frosted-2 text-accent-foreground rounded-[6px] data-[selected=true]:rounded-none",
           defaultClassNames.today
         ),
-        outside: cn(
-          "text-os-gray-300 aria-selected:text-os-gray-300",
-          defaultClassNames.outside
-        ),
+        outside: cn("text-os-gray-300 aria-selected:text-os-gray-300", defaultClassNames.outside),
         disabled: cn("text-os-gray-300 opacity-50", defaultClassNames.disabled),
         hidden: cn("invisible", defaultClassNames.hidden),
         ...classNames,

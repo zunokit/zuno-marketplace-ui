@@ -15,7 +15,7 @@ export async function triggerSentryError(): Promise<{ success: boolean; message:
       data: {
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV,
-      }
+      },
     });
 
     // Trigger an intentional error for Sentry testing
@@ -48,14 +48,16 @@ export async function triggerSentryMessage(): Promise<{ success: boolean; messag
 /**
  * Debug action to add a breadcrumb to Sentry
  */
-export async function addSentryBreadcrumb(message: string): Promise<{ success: boolean; message: string }> {
+export async function addSentryBreadcrumb(
+  message: string
+): Promise<{ success: boolean; message: string }> {
   Sentry.addBreadcrumb({
     message: `Debug: ${message}`,
     category: "debug",
     level: "info",
     data: {
       timestamp: new Date().toISOString(),
-    }
+    },
   });
 
   return {
@@ -67,7 +69,9 @@ export async function addSentryBreadcrumb(message: string): Promise<{ success: b
 /**
  * Debug action to set user context in Sentry
  */
-export async function setSentryUser(userId: string): Promise<{ success: boolean; message: string }> {
+export async function setSentryUser(
+  userId: string
+): Promise<{ success: boolean; message: string }> {
   Sentry.setUser({ id: userId });
 
   return {

@@ -32,6 +32,13 @@ export default async function ProfileByAddressPage({ params }: ProfileByAddressP
 
   if (!profile) {
     // Create basic profile for unknown address
+    // Generate deterministic mock stats based on address hash
+    const addressHash = address.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const seed1 = (addressHash % 100);
+    const seed2 = (addressHash % 10);
+    const seed3 = ((addressHash * 7) % 100);
+    const seed4 = ((addressHash * 13) % 1000);
+    
     profile = {
       id: `address-${address}`,
       address,
@@ -48,11 +55,11 @@ export default async function ProfileByAddressPage({ params }: ProfileByAddressP
       updatedAt: new Date(),
       verified: false,
       stats: {
-        nftsOwned: Math.floor(Math.random() * 100),
+        nftsOwned: seed1,
         nftsCreated: 0,
-        collections: Math.floor(Math.random() * 10),
-        totalVolume: `${(Math.random() * 100).toFixed(2)} ETH`,
-        floorPrice: `${(Math.random() * 1).toFixed(3)} ETH`,
+        collections: seed2,
+        totalVolume: `${(seed3).toFixed(2)} ETH`,
+        floorPrice: `${(seed4 / 1000).toFixed(3)} ETH`,
         followers: 0,
         following: 0,
       },

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Accordion,
   AccordionContent,
@@ -19,9 +20,9 @@ export default function MintAccordions() {
             <AccordionContent>
               <div className="text-secondary">
                 <p className="text-sm leading-normal mb-5 last:mb-0">
-                  Kyzzen.io is your all-in-one explorer for opportunities on Solana, aggregating data
-                  from Solana’s major protocols to highlight the best opportunities spanning tokens,
-                  NFTs, DeFi, DePIN, airdrops and more.
+                  Kyzzen.io is your all-in-one explorer for opportunities on Solana, aggregating
+                  data from Solana’s major protocols to highlight the best opportunities spanning
+                  tokens, NFTs, DeFi, DePIN, airdrops and more.
                 </p>
                 <p className="text-sm leading-normal mb-5 last:mb-0">
                   The Kyzzen no Sekai NFT unlocks our most advanced products: premium alpha signals,
@@ -30,10 +31,10 @@ export default function MintAccordions() {
                 </p>
                 <p className="text-sm leading-normal mb-5 last:mb-0">
                   Our NFT art is a human-AI collaboration - we trained an AI model on our artist’s
-                  original work to create a collection where every character is uniquely styled, with
-                  diverse traits and individually rendered shadows, showcasing how AI can serve as a
-                  creative tool rather than a competitor and achieving a scale no single artist could
-                  realistically produce by hand.
+                  original work to create a collection where every character is uniquely styled,
+                  with diverse traits and individually rendered shadows, showcasing how AI can serve
+                  as a creative tool rather than a competitor and achieving a scale no single artist
+                  could realistically produce by hand.
                 </p>
                 <p className="text-sm leading-normal mb-5 last:mb-0">
                   Created by one of the earliest Solana OGs, OhMeOhMy, known for reviving historic
@@ -58,8 +59,8 @@ export default function MintAccordions() {
                     analytics and precision.
                   </li>
                   <li className="my-0 text-sm">
-                    Daily Portfolio Snapshots: Get detailed automated email updates so you never miss
-                    a portfolio change.
+                    Daily Portfolio Snapshots: Get detailed automated email updates so you never
+                    miss a portfolio change.
                   </li>
                   <li className="my-0 text-sm">
                     Real-Time Risk Alerts: Protect your bags with notifications on events that could
@@ -88,10 +89,12 @@ export default function MintAccordions() {
                   <div className="cursor-default">
                     <div className="relative bg-layer-03 aspect-square">
                       <div className="relative w-full h-full">
-                        <img
+                        <Image
                           src="https://img-cdn.magiceden.dev/rs:fill:600:0:0/plain/https%3A%2F%2Fmedia.cdn.magiceden.dev%2Flaunchpad%2Fkyzzen_no_sekai%2Fe53eaddd-2fa5-4a37-b7c2-f3c7dc0a496c"
                           alt="OhMeOhMy image"
                           className="overflow-hidden size-full object-cover aspect-square"
+                          fill
+                          sizes="(max-width: 640px) 50vw, 33vw"
                         />
                       </div>
                     </div>

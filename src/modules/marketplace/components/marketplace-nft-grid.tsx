@@ -106,7 +106,7 @@ export default function MarketplaceNFTGrid({
       {/* End of list message */}
       {!infiniteScrollProps?.hasNextPage && nfts.length > 0 && (
         <div className="text-center py-8 text-muted-foreground">
-          <p className="text-sm">You've reached the end</p>
+          <p className="text-sm">You&apos;ve reached the end</p>
         </div>
       )}
 

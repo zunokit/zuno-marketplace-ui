@@ -9,12 +9,11 @@
  * - TypeScript type safety
  */
 
-import { ApolloClient, InMemoryCache, createHttpLink, from, Observable } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { onError } from '@apollo/client/link/error';
-import { CombinedGraphQLErrors } from '@apollo/client/errors';
-
-const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL || 'http://localhost:8081/graphql';
+import { ApolloClient, InMemoryCache, createHttpLink, from, Observable } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
+import { CombinedGraphQLErrors } from "@apollo/client/errors";
+import { GRAPHQL_URL } from "@/shared/config/api-endpoints.config";
 
 /**
  * Callback for token refresh
@@ -44,7 +43,7 @@ export function createApolloClient(accessToken?: string | null) {
   // HTTP connection to GraphQL API
   const httpLink = createHttpLink({
     uri: GRAPHQL_URL,
-    credentials: 'include', // Send cookies (for refresh token)
+    credentials: "include", // Send cookies (for refresh token)
   });
 
   // Auth middleware: Add Bearer token to headers
@@ -66,19 +65,19 @@ export function createApolloClient(accessToken?: string | null) {
       for (const err of error.errors) {
         // Check if error is authentication-related
         if (
-          err.message === 'authentication required' ||
-          err.extensions?.code === 'UNAUTHENTICATED'
+          err.message === "authentication required" ||
+          err.extensions?.code === "UNAUTHENTICATED"
         ) {
           // Try to refresh token if callback is available
           if (onTokenRefreshCallback) {
-            console.log('[Apollo] Auth error detected, attempting token refresh...');
+            console.log("[Apollo] Auth error detected, attempting token refresh...");
 
             // Create an Observable from the Promise and retry the operation
-            return new Observable((observer) => {
+            return new Observable(observer => {
               onTokenRefreshCallback!()
-                .then((newToken) => {
+                .then(newToken => {
                   if (newToken) {
-                    console.log('[Apollo] Token refreshed, retrying request');
+                    console.log("[Apollo] Token refreshed, retrying request");
                     // Token refreshed successfully, retry the operation
                     // The new token will be used automatically because
                     // the wrapper recreates the client with the new token
@@ -89,12 +88,12 @@ export function createApolloClient(accessToken?: string | null) {
                     });
                     return () => subscriber.unsubscribe();
                   } else {
-                    console.log('[Apollo] Token refresh failed');
-                    observer.error(new Error('Token refresh failed'));
+                    console.log("[Apollo] Token refresh failed");
+                    observer.error(new Error("Token refresh failed"));
                   }
                 })
-                .catch((error) => {
-                  console.error('[Apollo] Token refresh error:', error);
+                .catch(error => {
+                  console.error("[Apollo] Token refresh error:", error);
                   observer.error(error);
                 });
             });
@@ -121,15 +120,15 @@ export function createApolloClient(accessToken?: string | null) {
     }),
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'cache-and-network',
-        errorPolicy: 'all',
+        fetchPolicy: "cache-and-network",
+        errorPolicy: "all",
       },
       query: {
-        fetchPolicy: 'network-only',
-        errorPolicy: 'all',
+        fetchPolicy: "network-only",
+        errorPolicy: "all",
       },
       mutate: {
-        errorPolicy: 'all',
+        errorPolicy: "all",
       },
     },
   });

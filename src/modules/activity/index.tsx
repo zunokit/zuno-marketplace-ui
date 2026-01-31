@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Activity,
   ShoppingCart,
@@ -160,34 +160,15 @@ const getActivityDescription = (item: ActivityItem) => {
 };
 
 export default function MarketplaceActivity() {
-  const [activities, setActivities] = useState<ActivityItem[]>([]);
-  const [filteredActivities, setFilteredActivities] = useState<ActivityItem[]>([]);
+  // Use lazy initializer to generate data only once on mount
+  const [activities, setActivities] = useState<ActivityItem[]>(() => generateMockActivity(100));
   const [selectedTypes, setSelectedTypes] = useState<ActivityType[]>([]);
   const [selectedBlockchain, setSelectedBlockchain] = useState<string>("all");
   const [timeFilter, setTimeFilter] = useState<string>("all");
   const [isAutoRefresh, setIsAutoRefresh] = useState(false);
 
-  useEffect(() => {
-    // Initial load
-    const mockData = generateMockActivity(100);
-    setActivities(mockData);
-    setFilteredActivities(mockData);
-  }, []);
-
-  useEffect(() => {
-    if (isAutoRefresh) {
-      const interval = setInterval(() => {
-        // Simulate new activity
-        const newActivity = generateMockActivity(1);
-        newActivity[0].timestamp = new Date();
-        setActivities(prev => [newActivity[0], ...prev.slice(0, 99)]);
-      }, 5000);
-
-      return () => clearInterval(interval);
-    }
-  }, [isAutoRefresh]);
-
-  useEffect(() => {
+  // Derive filtered activities from state - no need for separate state
+  const filteredActivities = React.useMemo(() => {
     let filtered = [...activities];
 
     // Filter by type
@@ -216,8 +197,21 @@ export default function MarketplaceActivity() {
         break;
     }
 
-    setFilteredActivities(filtered);
+    return filtered;
   }, [activities, selectedTypes, selectedBlockchain, timeFilter]);
+
+  useEffect(() => {
+    if (isAutoRefresh) {
+      const interval = setInterval(() => {
+        // Simulate new activity
+        const newActivity = generateMockActivity(1);
+        newActivity[0].timestamp = new Date();
+        setActivities(prev => [newActivity[0], ...prev.slice(0, 99)]);
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isAutoRefresh]);
 
   const ActivityRow = ({ item }: { item: ActivityItem }) => (
     <div className="flex items-center gap-4 p-4 hover:bg-muted/50 transition-all duration-150 rounded-[8px]">
@@ -304,9 +298,7 @@ export default function MarketplaceActivity() {
     <div className="mx-auto py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4">Activity Feed</h1>
-        <p className="text-os-gray-300">
-          Real-time marketplace activity across all collections
-        </p>
+        <p className="text-os-gray-300">Real-time marketplace activity across all collections</p>
       </div>
 
       {/* Stats Cards */}

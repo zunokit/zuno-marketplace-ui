@@ -44,7 +44,11 @@ const VerifiedBadge = ({ size = "normal" }: { size?: "small" | "normal" }) => (
 );
 
 const EthereumIcon = () => (
-  <svg className="aspect-square overflow-hidden" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    className="aspect-square overflow-hidden"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <g fill="none" fillRule="nonzero">
       <rect fill="#627EEA" height="24" rx="0" width="24" />
       <g fill="#FFF">
@@ -164,7 +168,12 @@ const ChevronLeftIcon = () => (
   </svg>
 );
 
-export function RightSidebar({ collections, tokens = [], isCollapsed: externalIsCollapsed, onToggle }: RightSidebarProps) {
+export function RightSidebar({
+  collections,
+  tokens = [],
+  isCollapsed: externalIsCollapsed,
+  onToggle,
+}: RightSidebarProps) {
   const [activeTab, setActiveTab] = useState<TabType>("nfts");
   const [viewMode, setViewMode] = useState<ViewMode>("compact");
   const [timePeriod, setTimePeriod] = useState<TimePeriod>("1d");
@@ -212,7 +221,9 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
           "backdrop-blur-2xl bg-background p-2",
           "transition-all duration-700 ease-in-out",
           "hover:bg-frosted-1 hover:border-border-medium",
-          isCollapsed ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
+          isCollapsed
+            ? "translate-x-0 opacity-100"
+            : "translate-x-full opacity-0 pointer-events-none"
         )}
         aria-label="Expand sidebar"
       >
@@ -231,10 +242,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
         role="complementary"
       >
         {/* Header */}
-        <div className={cn(
-          "flex justify-between h-[68px] shrink-0 items-center gap-2 px-2",
-          isCollapsed ? "w-0" : "w-[420px]"
-        )}>
+        <div
+          className={cn(
+            "flex justify-between h-[68px] shrink-0 items-center gap-2 px-2",
+            isCollapsed ? "w-0" : "w-[420px]"
+          )}
+        >
           {/* Tabs */}
           <div className="flex gap-2">
             <button
@@ -281,7 +294,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
               </button>
               {showTimePeriodDropdown && (
                 <div className="absolute right-0 top-full z-10 mt-1 w-20 rounded-md border border-border-subtle bg-background shadow-lg">
-                  {(Object.keys(timePeriodLabels) as TimePeriod[]).map((period) => (
+                  {(Object.keys(timePeriodLabels) as TimePeriod[]).map(period => (
                     <button
                       key={period}
                       onClick={() => {
@@ -367,12 +380,15 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
         </div>
 
         {/* Column Headers */}
-        <div className={cn(
-          "pb-2 inline-flex min-w-full overflow-auto h-6 min-h-6 bg-transparent px-2",
-          "scrollbar-hidden",
-          viewMode === "compact" ? "gap-2" : "gap-4",
-          isCollapsed ? "w-0 overflow-hidden" : "w-[420px]"
-        )} role="row">
+        <div
+          className={cn(
+            "pb-2 inline-flex min-w-full overflow-auto h-6 min-h-6 bg-transparent px-2",
+            "scrollbar-hidden",
+            viewMode === "compact" ? "gap-2" : "gap-4",
+            isCollapsed ? "w-0 overflow-hidden" : "w-[420px]"
+          )}
+          role="row"
+        >
           <div
             className="flex items-center shrink-0 overflow-hidden first:pl-2 last:pr-2 justify-start text-os-gray-300 font-mono uppercase text-xs w-[100px] grow"
             role="columnheader"
@@ -408,7 +424,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
           role="rowgroup"
         >
           {activeTab === "nfts"
-            ? collections.map((collection) => {
+            ? collections.map(collection => {
                 const floorPrice = 0.5 + Math.random() * 5;
                 const priceChange = (Math.random() - 0.5) * 50;
                 const currency = "ETH";
@@ -435,7 +451,10 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                       >
                         <div className="flex items-center gap-3 w-auto max-w-full">
                           {/* Image with Chain Badge */}
-                          <div className="relative inline-block shrink-0" style={{ width: 40, height: 40 }}>
+                          <div
+                            className="relative inline-block shrink-0"
+                            style={{ width: 40, height: 40 }}
+                          >
                             <Image
                               src={collection.imageUrl || "/placeholder.svg"}
                               alt={collection.name}
@@ -482,7 +501,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                             </div>
                           </div>
                           <div className="inline-flex">
-                            <span className={cn("font-mono", priceChange >= 0 ? "text-success" : "text-destructive")}>
+                            <span
+                              className={cn(
+                                "font-mono",
+                                priceChange >= 0 ? "text-success" : "text-destructive"
+                              )}
+                            >
                               {priceChange >= 0 ? "+" : ""}
                               {priceChange.toFixed(1)}%
                             </span>
@@ -563,7 +587,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                         role="cell"
                       >
                         <div className="inline-flex">
-                          <span className={cn("font-mono", priceChange >= 0 ? "text-success" : "text-destructive")}>
+                          <span
+                            className={cn(
+                              "font-mono",
+                              priceChange >= 0 ? "text-success" : "text-destructive"
+                            )}
+                          >
                             {priceChange >= 0 ? "+" : ""}
                             {priceChange.toFixed(1)}%
                           </span>
@@ -573,7 +602,7 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                   </Link>
                 );
               })
-            : tokens.map((token) =>
+            : tokens.map(token =>
                 viewMode === "compact" ? (
                   // Compact View (60px rows with chain badge)
                   <div
@@ -592,7 +621,10 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                     >
                       <div className="flex items-center gap-3 w-auto max-w-full">
                         {/* Image with Chain Badge */}
-                        <div className="relative inline-block shrink-0" style={{ width: 40, height: 40 }}>
+                        <div
+                          className="relative inline-block shrink-0"
+                          style={{ width: 40, height: 40 }}
+                        >
                           <Image
                             src={token.icon || "/placeholder.svg"}
                             alt={token.name}
@@ -642,7 +674,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                           </div>
                         </div>
                         <div className="inline-flex">
-                          <span className={cn("font-mono", token.priceChange >= 0 ? "text-success" : "text-destructive")}>
+                          <span
+                            className={cn(
+                              "font-mono",
+                              token.priceChange >= 0 ? "text-success" : "text-destructive"
+                            )}
+                          >
                             {token.priceChange >= 0 ? "+" : ""}
                             {token.priceChange}%
                           </span>
@@ -720,7 +757,12 @@ export function RightSidebar({ collections, tokens = [], isCollapsed: externalIs
                       role="cell"
                     >
                       <div className="inline-flex">
-                        <span className={cn("font-mono", token.priceChange >= 0 ? "text-success" : "text-destructive")}>
+                        <span
+                          className={cn(
+                            "font-mono",
+                            token.priceChange >= 0 ? "text-success" : "text-destructive"
+                          )}
+                        >
                           {token.priceChange >= 0 ? "+" : ""}
                           {token.priceChange}%
                         </span>

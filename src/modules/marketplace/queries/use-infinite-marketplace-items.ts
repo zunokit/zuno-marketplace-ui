@@ -3,17 +3,12 @@
  * Consumer-friendly wrapper for infinite scroll functionality
  */
 
-import { useMemo } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import type {
-  InfiniteData,
-} from '@tanstack/react-query';
-import { infiniteMarketplaceItemsOptions } from './infinite-marketplace-items.query';
-import type {
-  MarketplaceFilters,
-  MarketplaceItemsPage,
-} from './types';
-import type { Nft } from '@/modules/marketplace/types';
+import { useMemo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import type { InfiniteData } from "@tanstack/react-query";
+import { infiniteMarketplaceItemsOptions } from "./infinite-marketplace-items.query";
+import type { MarketplaceFilters, MarketplaceItemsPage } from "./types";
+import type { Nft } from "@/modules/marketplace/types";
 
 /**
  * Hook options
@@ -58,7 +53,7 @@ export interface UseInfiniteMarketplaceItemsResult {
   isRefetchError: boolean;
 
   // Status
-  status: 'pending' | 'error' | 'success';
+  status: "pending" | "error" | "success";
   isRefetching: boolean;
 
   // Refetch
@@ -116,12 +111,14 @@ export function useInfiniteMarketplaceItems(
   // Flatten pages for convenient consumption
   const items = useMemo(() => {
     if (!query.data) return [];
-    return query.data.pages.flatMap((page) => {
-      // Type guard to ensure page is MarketplaceItemsPage
-      if (!page || typeof page !== 'object') return [];
-      if (!('items' in page)) return [];
-      return (page as MarketplaceItemsPage).items;
-    }).filter(Boolean);
+    return query.data.pages
+      .flatMap(page => {
+        // Type guard to ensure page is MarketplaceItemsPage
+        if (!page || typeof page !== "object") return [];
+        if (!("items" in page)) return [];
+        return (page as MarketplaceItemsPage).items;
+      })
+      .filter(Boolean);
   }, [query.data]);
 
   return {

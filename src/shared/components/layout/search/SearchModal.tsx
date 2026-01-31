@@ -346,21 +346,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <div className="border-t border-border-subtle bg-secondary dark:bg-card px-5 py-3 flex items-center justify-between text-xs text-os-gray-300">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
-                ↑↓
-              </kbd>
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">↑↓</kbd>
               Navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
-                Enter
-              </kbd>
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">Enter</kbd>
               Select
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">
-                Esc
-              </kbd>
+              <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px] font-mono">Esc</kbd>
               Close
             </span>
           </div>

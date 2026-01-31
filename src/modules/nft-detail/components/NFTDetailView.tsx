@@ -70,7 +70,9 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
                     className="bg-background/80 backdrop-blur-sm"
                     onClick={handleLike}
                   >
-                    <Heart className={`h-4 w-4 ${isLiked ? "fill-destructive text-destructive" : ""}`} />
+                    <Heart
+                      className={`h-4 w-4 ${isLiked ? "fill-destructive text-destructive" : ""}`}
+                    />
                   </Button>
                   <Button
                     size="icon"
@@ -230,7 +232,10 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           <h2 className="text-2xl font-bold mb-6">More from this collection</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {nft.moreFromCollection.slice(0, 6).map(item => (
-              <Card key={item.id} className="cursor-pointer hover:shadow-os-focus transition-shadow">
+              <Card
+                key={item.id}
+                className="cursor-pointer hover:shadow-os-focus transition-shadow"
+              >
                 <div className="relative aspect-square">
                   <Image
                     src={item.image}

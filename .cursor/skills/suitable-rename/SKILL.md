@@ -11,14 +11,15 @@ Apply when: renaming files or components, user asks for "suitable" names, or add
 
 Use **kebab-case** (`xxx-yyy`) for **file and folder names**. Do **not** use PascalCase (`XxxYyy`) or camelCase (`xxxYyy`) for filenames.
 
-| Instead of (PascalCase/camelCase) | Use (kebab-case)     |
-|----------------------------------|----------------------|
-| `CreateManageContent.tsx`        | `create-manage-content.tsx` |
-| `MintNFT.tsx`                    | `mint-nft.tsx`       |
-| `useMintState.ts`                | `use-mint-state.ts`  |
-| `ExistingCollections.tsx`        | `existing-collections.tsx` |
+| Instead of (PascalCase/camelCase) | Use (kebab-case)            |
+| --------------------------------- | --------------------------- |
+| `CreateManageContent.tsx`         | `create-manage-content.tsx` |
+| `MintNFT.tsx`                     | `mint-nft.tsx`              |
+| `useMintState.ts`                 | `use-mint-state.ts`         |
+| `ExistingCollections.tsx`         | `existing-collections.tsx`  |
 
 **Conversion rules:**
+
 - PascalCase → kebab: `XxxYyyZzz` → `xxx-yyy-zzz` (lowercase, split on caps, join with `-`)
 - camelCase → kebab: `useXxxYyy` → `use-xxx-yyy` (same, preserve `use` prefix for hooks)
 - Existing snake: `xxx_yyy` → `xxx-yyy` (replace `_` with `-`)
@@ -59,18 +60,21 @@ Use **kebab-case** (`xxx-yyy`) for **file and folder names**. Do **not** use Pas
 ## Examples
 
 **Component file:**
+
 - Before: `src/modules/launch-pad/mint-nft/components/MintPanel.tsx`
-- After:  `src/modules/launch-pad/mint-nft/components/mint-panel.tsx`
+- After: `src/modules/launch-pad/mint-nft/components/mint-panel.tsx`
 - Import: `from "@/modules/launch-pad/mint-nft/components/mint-panel"`
-- Export:  `export default function MintPanel(...)` — unchanged.
+- Export: `export default function MintPanel(...)` — unchanged.
 
 **Hook file:**
+
 - Before: `mint-nft/hooks/useMintState.ts`
-- After:  `mint-nft/hooks/use-mint-state.ts`
+- After: `mint-nft/hooks/use-mint-state.ts`
 - Import: `from ".../hooks/use-mint-state"`
-- Export:  `export function useMintState(...)` — unchanged.
+- Export: `export function useMintState(...)` — unchanged.
 
 **New file in a feature:**
+
 - In `launch-pad/collection-manager`: `NewCollection.tsx` → `new-collection.tsx`
 - In `marketplace`: `MarketplaceFilter.tsx` → `marketplace-filter.tsx` or more specific `marketplace-filter-panel.tsx` if it’s a panel.
 

@@ -88,11 +88,7 @@ export function ProfileHeader({
                 {truncateAddress(profile.address)}
               </code>
               <Button variant="ghost" size="sm" onClick={handleCopyAddress} className="h-8 w-8 p-0">
-                {copied ? (
-                  <Check className="h-4 w-4 text-success" />
-                ) : (
-                  <Copy className="h-4 w-4" />
-                )}
+                {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>
 

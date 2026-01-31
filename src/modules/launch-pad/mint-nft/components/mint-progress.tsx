@@ -30,7 +30,9 @@ export default function MintProgress() {
     return (
       <div className="w-full" aria-live="polite">
         <div className="flex justify-between mb-2">
-          <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">Minted</span>
+          <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">
+            Minted
+          </span>
           <span className="text-sm font-medium font-sans text-foreground dark:text-foreground">
             <Loader2 className="inline h-4 w-4 animate-spin" />
           </span>

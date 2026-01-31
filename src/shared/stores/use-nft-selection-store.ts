@@ -1,9 +1,9 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 /**
  * Action mode for NFT operations
  */
-export type ActionMode = 'buy' | 'sell';
+export type ActionMode = "buy" | "sell";
 
 /**
  * NFT Selection Store Interface
@@ -66,19 +66,19 @@ interface NFTSelectionStore {
  * };
  * ```
  */
-export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
+export const useNFTSelectionStore = create<NFTSelectionStore>(set => ({
   // Initial state
   selectedNFTs: [],
   availableNFTs: [],
   maxItems: 0,
   sliderValue: 0,
-  actionMode: 'buy',
+  actionMode: "buy",
   cartOpen: false,
 
   // Actions
-  setCartOpen: (open) => set({ cartOpen: open }),
-  add: (id) =>
-    set((state) => {
+  setCartOpen: open => set({ cartOpen: open }),
+  add: id =>
+    set(state => {
       // Prevent duplicates and enforce max items
       if (state.selectedNFTs.includes(id) || state.selectedNFTs.length >= state.maxItems) {
         return state;
@@ -89,19 +89,19 @@ export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
       };
     }),
 
-  remove: (id) =>
-    set((state) => ({
-      selectedNFTs: state.selectedNFTs.filter((nftId) => nftId !== id),
+  remove: id =>
+    set(state => ({
+      selectedNFTs: state.selectedNFTs.filter(nftId => nftId !== id),
       sliderValue: Math.max(0, state.selectedNFTs.length - 1),
     })),
 
-  toggle: (id) =>
-    set((state) => {
+  toggle: id =>
+    set(state => {
       const isSelected = state.selectedNFTs.includes(id);
       let newSelectedNFTs: string[];
 
       if (isSelected) {
-        newSelectedNFTs = state.selectedNFTs.filter((nftId) => nftId !== id);
+        newSelectedNFTs = state.selectedNFTs.filter(nftId => nftId !== id);
       } else {
         // Enforce max items limit
         if (state.selectedNFTs.length >= state.maxItems) {
@@ -116,7 +116,7 @@ export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
       };
     }),
 
-  set: (ids) =>
+  set: ids =>
     set({
       selectedNFTs: ids,
       sliderValue: ids.length,
@@ -128,8 +128,8 @@ export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
       sliderValue: 0,
     }),
 
-  setSliderValue: (value) =>
-    set((state) => {
+  setSliderValue: value =>
+    set(state => {
       // Select NFTs from the beginning of available list up to slider value
       const newSelectedNFTs = state.availableNFTs.slice(0, value);
       return {
@@ -138,12 +138,9 @@ export const useNFTSelectionStore = create<NFTSelectionStore>((set) => ({
       };
     }),
 
-  setActionMode: (mode) =>
-    set({ actionMode: mode }),
+  setActionMode: mode => set({ actionMode: mode }),
 
-  setMaxItems: (max) =>
-    set({ maxItems: max }),
+  setMaxItems: max => set({ maxItems: max }),
 
-  setAvailableNFTs: (nftIds) =>
-    set({ availableNFTs: nftIds }),
+  setAvailableNFTs: nftIds => set({ availableNFTs: nftIds }),
 }));
