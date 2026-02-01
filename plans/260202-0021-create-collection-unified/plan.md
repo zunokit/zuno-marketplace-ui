@@ -219,6 +219,12 @@ Group E (UI Components & Testing)
 
 ---
 
+## Additional Resources
+
+- [Branching Strategy](./branching-strategy.md) - Git branch strategy and PR workflow
+
+---
+
 ## Cross-Project Dependencies
 
 ```
