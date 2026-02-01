@@ -134,7 +134,7 @@ Group E (UI Components & Testing)
 | 13 | D | UI+SDK | 8-10h | pending | UI-SDK integration |
 | 14 | D | API+Indexer | 6-8h | pending | API-Indexer synchronization |
 | 15 | D | Notifications | 4-6h | pending | Webhook notifications |
-| 16 | E | UI | 8-10h | pending | UI components & feedback |
+| 16 | E | UI | 8-10h | completed | UI components & feedback |
 | 17 | E | All | 10-12h | pending | Unit tests |
 | 18 | E | All | 12-16h | pending | Cross-project integration tests |
 | 19 | E | UI | 8-10h | pending | E2E UI tests |
