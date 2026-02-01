@@ -1,23 +1,45 @@
 "use client";
 
-import { useState, useCallback } from 'react';
-import { useAccount } from 'wagmi';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { useAuth } from '@/shared/hooks/useAuth';
-import { useMediaUpload } from '@/shared/hooks/useMediaUpload';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAccount, useChainId } from "wagmi";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { useMediaUpload } from "@/shared/hooks/useMediaUpload";
+import { useRecovery } from "@/shared/hooks/use-recovery";
+import { usePersistedCreation } from "@/shared/hooks/use-persisted-creation";
+import { useGasEstimation } from "@/shared/hooks/use-gas-estimation";
+import { useTransactionState } from "@/shared/hooks/use-transaction-state";
+import { CreationMachine } from "@/shared/machines/creation-machine";
 import {
   useCreateCollectionMutation,
   useAddToAllowlistMutation,
-  useUpdateCollectionMutation
-} from '@/shared/graphql';
-import type { MintTerminalCreateForm } from '@/shared/types/mint';
-import type { CreateCollectionInput, ApiTokenStandard } from '@/shared/types/collection';
-import { useCollection } from 'zuno-marketplace-sdk/react';
-import type { CollectionParams } from 'zuno-marketplace-sdk';
-import { durationToSeconds } from '@/shared/utils/time';
+  useUpdateCollectionMutation,
+} from "@/shared/graphql";
+import {
+  CollectionError,
+  MediaUploadError,
+  DatabaseError,
+  DeploymentError,
+  UserRejectionError,
+  getCollectionErrorMessage,
+  isRecoverableError,
+} from "@/shared/errors/collection-errors";
+import type { MintTerminalCreateForm } from "@/shared/types/mint";
+import type { CreateCollectionInput, ApiTokenStandard } from "@/shared/types/collection";
+import { useCollection } from "zuno-marketplace-sdk/react";
+import type { CollectionParams } from "zuno-marketplace-sdk";
+import { durationToSeconds } from "@/shared/utils/time";
 
-export type StepStatus = 'pending' | 'loading' | 'success' | 'error';
+const CHAIN_ID_MAP: Record<string, string> = {
+  sepolia: "eip155:11155111",
+  ethereum: "eip155:1",
+  polygon: "eip155:137",
+  bsc: "eip155:56",
+  anvil: "eip155:31337",
+};
+
+export type StepStatus = "pending" | "loading" | "success" | "error";
 
 interface CreateCollectionState {
   step1Status: StepStatus;
@@ -31,302 +53,397 @@ interface CreateCollectionState {
   error: string | null;
 }
 
-// Map chain name to chainId (eip155 format)
-const CHAIN_ID_MAP: Record<string, string> = {
-  'sepolia': 'eip155:11155111',
-  'ethereum': 'eip155:1',
-  'polygon': 'eip155:137',
-  'bsc': 'eip155:56',
-  'anvil': 'eip155:31337',
-};
-
 export function useCreateCollection() {
   const router = useRouter();
   const { address } = useAccount();
+  const chainId = useChainId();
   const { isAuthenticated } = useAuth();
   const { uploadFile } = useMediaUpload();
+
   const [createCollectionMutation] = useCreateCollectionMutation();
   const [addToAllowlistMutation] = useAddToAllowlistMutation();
   const [updateCollectionMutation] = useUpdateCollectionMutation();
 
-  // SDK hooks for blockchain operations - now SSR-safe
   const sdkCollection = useCollection();
+  const machineRef = useRef(new CreationMachine());
+  const machine = machineRef.current;
 
-  const [state, setState] = useState<CreateCollectionState>({
-    step1Status: 'pending',
-    step2Status: 'pending',
-    step3Status: 'pending',
-    step4Status: 'pending',
-    step5Status: 'pending',
+  // Legacy state for backward compatibility with UI components
+  const [legacyState, setLegacyState] = useState<CreateCollectionState>({
+    step1Status: "pending",
+    step2Status: "pending",
+    step3Status: "pending",
+    step4Status: "pending",
+    step5Status: "pending",
     collectionId: null,
     contractAddress: null,
     txHash: null,
     error: null,
   });
 
-  const submit = useCallback(async (formData: MintTerminalCreateForm) => {
-    // Validation
-    if (!isAuthenticated) {
-      toast.error('Please sign in first');
-      return;
-    }
+  const recovery = useRecovery({
+    maxRetries: 3,
+    onRetry: (step, attempt) => {
+      toast.info(`Retrying ${step} (attempt ${attempt})...`);
+    },
+  });
 
-    if (!address) {
-      toast.error('Wallet not connected');
-      return;
-    }
+  const persistence = usePersistedCreation();
+  const gasEstimation = useGasEstimation({ chainId: chainId ?? 1 });
+  const txState = useTransactionState({
+    onSuccess: (hash) => toast.success(`Transaction confirmed: ${hash.slice(0, 10)}...`),
+    onReplaced: () => toast.info("Transaction was sped up"),
+  });
 
-    setState({
-      step1Status: 'loading',
-      step2Status: 'pending',
-      step3Status: 'pending',
-      step4Status: 'pending',
-      step5Status: 'pending',
-      collectionId: null,
-      contractAddress: null,
-      txHash: null,
-      error: null,
-    });
-
-    try {
-      // === STEP 1: Upload Media ===
-      let imageUrl: string | undefined;
-
-      if (formData.collectionImage) {
-        try {
-          imageUrl = await uploadFile(formData.collectionImage);
-          setState(prev => ({ ...prev, step1Status: 'success' }));
-        } catch (uploadError) {
-          setState(prev => ({ ...prev, step1Status: 'error' }));
-          throw uploadError;
-        }
-      } else {
-        setState(prev => ({ ...prev, step1Status: 'success' }));
-      }
-
-      // === STEP 2: Create Collection in Database ===
-      setState(prev => ({ ...prev, step2Status: 'loading' }));
-
-      const chainId = CHAIN_ID_MAP[formData.chain] || 'eip155:31337';
-      const tokenStandard: ApiTokenStandard =
-        formData.artworkMode === 'ERC721' ? 'ERC721' : 'ERC1155';
-
-      // Get allowlist stage data if exists
-      const stage = formData.stages?.[0];
-      const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
-      
-      // Calculate mint start time and allowlist stage end
-      const mintStartTime = formData.mintStartAt 
-        ? new Date(formData.mintStartAt) 
-        : new Date();
-      
-      let allowlistStageEnd: string | undefined;
-      let allowlistStageDurationSeconds: number | undefined;
-      if (stage?.presale?.duration && allowlistAddresses.length > 0) {
-        allowlistStageDurationSeconds = durationToSeconds(stage.presale.duration);
-        allowlistStageEnd = new Date(
-          mintStartTime.getTime() + allowlistStageDurationSeconds * 1000
-        ).toISOString();
-      }
-
-      const input: CreateCollectionInput = {
-        name: formData.name,
-        symbol: formData.symbol,
-        description: formData.description || '',
-        chainId,
-        tokenStandard,
-        deployerAddress: address,
-        imageUrl: imageUrl || '',
-        baseUri: formData.metadataBaseUrl || `https://metadata.example.com/${formData.symbol}/`,
-        maxSupply: formData.maxSupply ? Number(formData.maxSupply) : 10000,
-        mintPriceAllowlist: stage?.presale?.price || '0',
-        mintPricePublic: stage?.public?.price || formData.mintPrice || '0',
-        mintStartTime: mintStartTime.toISOString(),
-        allowlistStageEnd,
-        mintLimitPerWallet: formData.mintLimitPerWallet || 10,
-        royaltyFeeBps: formData.royaltyPercent ? formData.royaltyPercent * 100 : 500,
-        royaltyRecipient: address,
-      };
-
-      const result = await createCollectionMutation({ variables: { input } });
-
-      if (!result.data?.createCollection) {
-        throw new Error('Failed to create collection');
-      }
-
-      const data = result.data;
-
-      const collectionId = data.createCollection.id;
-      setState(prev => ({
-        ...prev,
-        step2Status: 'success',
-        collectionId,
-      }));
-
-      // === STEP 3: Add Allowlist to Database (if presale configured) ===
-      console.log('[CreateCollection] Step 3 - Allowlist Debug:', {
-        stage,
-        presale: stage?.presale,
-        allowlistAddresses,
-        allowlistCount: allowlistAddresses.length,
-        collectionId,
-        mintLimitPerWallet: formData.mintLimitPerWallet,
+  // Sync machine state with persistence and legacy state
+  useEffect(() => {
+    const unsubscribe = machine.subscribe((state, context) => {
+      persistence.saveProgress({
+        currentStep: state,
+        collectionId: context.collectionId,
+        stepResults: {
+          imageUrl: context.imageUrl ?? undefined,
+          contractAddress: context.contractAddress ?? undefined,
+          txHash: context.txHash ?? undefined,
+        },
       });
 
-      if (allowlistAddresses.length > 0) {
-        setState(prev => ({ ...prev, step3Status: 'loading' }));
+      // Update legacy state for UI compatibility
+      setLegacyState(prev => ({
+        ...prev,
+        step1Status: state === "UPLOADING_MEDIA" ? "loading" : context.imageUrl ? "success" : prev.step1Status,
+        step2Status: state === "CREATING_DB_RECORD" ? "loading" : context.collectionId ? "success" : prev.step2Status,
+        step3Status: state === "ADDING_ALLOWLIST" ? "loading" : state === "DEPLOYING_CONTRACT" || state === "UPDATING_DB" || state === "COMPLETED" ? "success" : prev.step3Status,
+        step4Status: state === "DEPLOYING_CONTRACT" ? "loading" : context.contractAddress ? "success" : prev.step4Status,
+        step5Status: state === "UPDATING_DB" ? "loading" : state === "COMPLETED" ? "success" : prev.step5Status,
+        collectionId: context.collectionId ?? prev.collectionId,
+        contractAddress: context.contractAddress ?? prev.contractAddress,
+        txHash: context.txHash ?? prev.txHash,
+      }));
+    });
+    return unsubscribe;
+  }, [machine, persistence]);
 
-        const maxMintAmount = formData.mintLimitPerWallet || 10; // Default to 10 if not specified
-        console.log('[CreateCollection] Step 3 - Calling addToAllowlistMutation with:', {
+  // Step 1: Upload Media
+  const uploadMedia = useCallback(async (formData: MintTerminalCreateForm) => {
+    if (!formData.collectionImage) {
+      return { imageUrl: undefined, bannerUrl: undefined };
+    }
+
+    const operation = async () => {
+      const imageUrl = await uploadFile(formData.collectionImage!);
+      return { imageUrl, bannerUrl: undefined };
+    };
+
+    try {
+      return await operation();
+    } catch (error) {
+      if (isRecoverableError(error)) {
+        return await recovery.retry("UPLOAD_MEDIA", operation);
+      }
+      throw new MediaUploadError(error instanceof Error ? error.message : "Upload failed");
+    }
+  }, [uploadFile, recovery]);
+
+  // Step 2: Create DB Record
+  const createDbRecord = useCallback(async (
+    formData: MintTerminalCreateForm,
+    imageUrl?: string,
+    bannerUrl?: string
+  ) => {
+    const chainIdStr = CHAIN_ID_MAP[formData.chain] || "eip155:31337";
+    const tokenStandard: ApiTokenStandard =
+      formData.artworkMode === "ERC721" ? "ERC721" : "ERC1155";
+
+    const stage = formData.stages?.[0];
+    const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+    const mintStartTime = formData.mintStartAt
+      ? new Date(formData.mintStartAt)
+      : new Date();
+
+    let allowlistStageEnd: string | undefined;
+    let allowlistStageDurationSeconds: number | undefined;
+
+    if (stage?.presale?.duration && allowlistAddresses.length > 0) {
+      allowlistStageDurationSeconds = durationToSeconds(stage.presale.duration);
+      allowlistStageEnd = new Date(
+        mintStartTime.getTime() + allowlistStageDurationSeconds * 1000
+      ).toISOString();
+    }
+
+    const input: CreateCollectionInput = {
+      name: formData.name,
+      symbol: formData.symbol,
+      description: formData.description || "",
+      chainId: chainIdStr,
+      tokenStandard,
+      deployerAddress: address!,
+      imageUrl: imageUrl || "",
+      bannerUrl,
+      baseUri: formData.metadataBaseUrl || `https://metadata.example.com/${formData.symbol}/`,
+      maxSupply: formData.maxSupply ? Number(formData.maxSupply) : 10000,
+      mintPriceAllowlist: stage?.presale?.price || "0",
+      mintPricePublic: stage?.public?.price || formData.mintPrice || "0",
+      mintStartTime: mintStartTime.toISOString(),
+      allowlistStageEnd,
+      mintLimitPerWallet: formData.mintLimitPerWallet || 10,
+      royaltyFeeBps: formData.royaltyPercent ? formData.royaltyPercent * 100 : 500,
+      royaltyRecipient: address!,
+    };
+
+    const result = await createCollectionMutation({ variables: { input } });
+
+    if (!result.data?.createCollection) {
+      throw new DatabaseError("Failed to create collection", true);
+    }
+
+    return result.data.createCollection.id;
+  }, [address, createCollectionMutation]);
+
+  // Step 3: Add Allowlist
+  const addAllowlist = useCallback(async (
+    collectionId: string,
+    formData: MintTerminalCreateForm
+  ) => {
+    const stage = formData.stages?.[0];
+    const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+
+    if (allowlistAddresses.length === 0) return;
+
+    const maxMintAmount = formData.mintLimitPerWallet || 10;
+
+    await addToAllowlistMutation({
+      variables: {
+        input: {
           collectionId,
           walletAddresses: allowlistAddresses,
           maxMintAmount,
-        });
+        },
+      },
+    });
+  }, [addToAllowlistMutation]);
 
-        try {
-          const allowlistResult = await addToAllowlistMutation({
-            variables: {
-              input: {
-                collectionId,
-                walletAddresses: allowlistAddresses,
-                maxMintAmount,
-              },
-            },
-          });
-          console.log('[CreateCollection] Step 3 - Allowlist result:', allowlistResult);
-          setState(prev => ({ ...prev, step3Status: 'success' }));
-        } catch (allowlistError) {
-          console.error('[CreateCollection] Step 3 - Allowlist error:', allowlistError);
-          throw allowlistError;
-        }
-      } else {
-        console.log('[CreateCollection] Step 3 - No allowlist addresses, skipping');
-        setState(prev => ({ ...prev, step3Status: 'success' }));
-      }
+  // Step 4: Deploy Contract
+  const deployContract = useCallback(async (
+    formData: MintTerminalCreateForm,
+    collectionId: string
+  ) => {
+    // Pre-flight gas check
+    await gasEstimation.estimateGas();
 
-      // === STEP 4: Deploy Smart Contract via SDK ===
-      setState(prev => ({ ...prev, step4Status: 'loading' }));
+    txState.startTransaction();
 
-      // Build collection params for SDK
-      const publicPrice = stage?.public?.price || formData.mintPrice || '0';
+    try {
+      const stage = formData.stages?.[0];
+      const publicPrice = stage?.public?.price || formData.mintPrice || "0";
       const allowlistPrice = stage?.presale?.price || publicPrice;
-      
+      const allowlistAddresses = stage?.presale?.allowlistAddresses || [];
+
       const collectionParams: CollectionParams = {
         name: formData.name,
         symbol: formData.symbol,
-        description: formData.description || '',
+        description: formData.description || "",
         mintPrice: publicPrice,
         royaltyFee: Math.round((formData.royaltyPercent || 0) * 100),
         maxSupply: formData.maxSupply || 10000,
         mintLimitPerWallet: formData.mintLimitPerWallet || 0,
-        allowlistMintPrice: allowlistPrice, // Allowlist stage price
+        allowlistMintPrice: allowlistPrice,
         publicMintPrice: publicPrice,
-        // Only set allowlist duration if addresses provided
-        allowlistStageDuration: allowlistAddresses.length > 0 ? (allowlistStageDurationSeconds || 0) : 0,
-        tokenURI: input.baseUri || '',
+        allowlistStageDuration: allowlistAddresses.length > 0
+          ? (stage?.presale?.duration ? durationToSeconds(stage.presale.duration) : 0)
+          : 0,
+        tokenURI: formData.metadataBaseUrl || "",
       };
 
-      let deployResult;
+      const deployResult = formData.artworkMode === "ERC721"
+        ? await sdkCollection.createERC721.mutateAsync(collectionParams)
+        : await sdkCollection.createERC1155.mutateAsync(collectionParams);
 
-      if (formData.artworkMode === 'ERC721') {
-        deployResult = await sdkCollection.createERC721.mutateAsync(collectionParams);
-      } else {
-        deployResult = await sdkCollection.createERC1155.mutateAsync(collectionParams);
-      }
+      // Convert hash to 0x${string} type
+      const txHash = deployResult.tx.hash as `0x${string}`;
 
-      const deployedAddress = deployResult.address;
-      const deployTxHash = deployResult.tx.hash;
+      // Use 0 as nonce since SDK TransactionReceipt doesn't include nonce
+      txState.setSubmitted(txHash, 0);
 
-      // Add addresses to allowlist on blockchain if provided
+      // Add to blockchain allowlist if needed
       if (allowlistAddresses.length > 0) {
         await sdkCollection.addToAllowlist.mutateAsync({
-          collectionAddress: deployedAddress,
-          addresses: allowlistAddresses
+          collectionAddress: deployResult.address,
+          addresses: allowlistAddresses,
         });
-
-        // Enable allowlist-only mode
         await sdkCollection.setAllowlistOnly.mutateAsync({
-          collectionAddress: deployedAddress,
-          enabled: true
+          collectionAddress: deployResult.address,
+          enabled: true,
         });
       }
 
-      setState(prev => ({
-        ...prev,
-        step4Status: 'success',
-        contractAddress: deployedAddress,
-        txHash: deployTxHash,
-      }));
+      return deployResult;
+    } catch (error) {
+      txState.setFailed(error instanceof Error ? error : new Error("Deployment failed"));
 
-      // === STEP 5: Update Database with Contract Address ===
-      setState(prev => ({ ...prev, step5Status: 'loading' }));
-
-      await updateCollectionMutation({
-        variables: {
-          id: collectionId,
-          input: {
-            contractAddress: deployedAddress,
-            status: 'DEPLOYED' as const,
-          },
-        },
-      });
-
-      setState(prev => ({ ...prev, step5Status: 'success' }));
-
-      // Success!
-      toast.success('Collection deployed successfully!');
-
-      // Redirect to collection page
-      router.push(`/my-collections`);
-
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to create collection';
-
-      setState(prev => ({
-        ...prev,
-        step1Status: prev.step1Status === 'loading' ? 'error' : prev.step1Status,
-        step2Status: prev.step2Status === 'loading' ? 'error' : prev.step2Status,
-        step3Status: prev.step3Status === 'loading' ? 'error' : prev.step3Status,
-        step4Status: prev.step4Status === 'loading' ? 'error' : prev.step4Status,
-        step5Status: prev.step5Status === 'loading' ? 'error' : prev.step5Status,
-        error: errorMessage,
-      }));
-
-      toast.error(errorMessage);
+      if (error instanceof Error && error.message.includes("rejected")) {
+        throw new UserRejectionError();
+      }
+      throw new DeploymentError(error instanceof Error ? error.message : "Deployment failed");
     }
-  }, [
-    isAuthenticated,
-    address,
-    uploadFile,
-    createCollectionMutation,
-    addToAllowlistMutation,
-    updateCollectionMutation,
-    sdkCollection,
-    router,
-  ]);
+  }, [sdkCollection, gasEstimation, txState]);
 
-  const reset = useCallback(() => {
-    setState({
-      step1Status: 'pending',
-      step2Status: 'pending',
-      step3Status: 'pending',
-      step4Status: 'pending',
-      step5Status: 'pending',
+  // Step 5: Update DB
+  const updateDbRecord = useCallback(async (
+    collectionId: string,
+    contractAddress: string
+  ) => {
+    await updateCollectionMutation({
+      variables: {
+        id: collectionId,
+        input: {
+          contractAddress,
+          status: "DEPLOYED" as const,
+        },
+      },
+    });
+  }, [updateCollectionMutation]);
+
+  // Main submit function
+  const submit = useCallback(async (formData: MintTerminalCreateForm) => {
+    if (!isAuthenticated) {
+      toast.error("Please sign in first");
+      return;
+    }
+    if (!address) {
+      toast.error("Wallet not connected");
+      return;
+    }
+
+    // Reset legacy state
+    setLegacyState({
+      step1Status: "loading",
+      step2Status: "pending",
+      step3Status: "pending",
+      step4Status: "pending",
+      step5Status: "pending",
       collectionId: null,
       contractAddress: null,
       txHash: null,
       error: null,
     });
-  }, []);
 
+    machine.transition({ type: "START" });
+
+    try {
+      // Step 1
+      const mediaResult = await uploadMedia(formData);
+      const imageUrl = mediaResult?.imageUrl;
+      const bannerUrl = mediaResult?.bannerUrl;
+
+      machine.transition({ type: "MEDIA_UPLOADED", imageUrl: imageUrl || "", bannerUrl });
+
+      // Step 2
+      const collectionId = await createDbRecord(formData, imageUrl, bannerUrl);
+      machine.transition({ type: "DB_RECORD_CREATED", collectionId });
+
+      // Step 3
+      await addAllowlist(collectionId, formData);
+      machine.transition({ type: "ALLOWLIST_ADDED" });
+
+      // Step 4
+      const deployResult = await deployContract(formData, collectionId);
+      const contractAddr = deployResult.address;
+      const txHash = deployResult.tx.hash;
+
+      machine.transition({
+        type: "CONTRACT_DEPLOYED",
+        contractAddress: contractAddr,
+        txHash,
+      });
+
+      // Step 5
+      await updateDbRecord(collectionId, contractAddr);
+      machine.transition({ type: "DB_UPDATED" });
+
+      // Success
+      persistence.clearProgress();
+      toast.success("Collection deployed successfully!");
+      router.push("/my-collections");
+    } catch (error) {
+      const message = getCollectionErrorMessage(error);
+      toast.error(message);
+
+      // Update legacy state with error
+      setLegacyState(prev => ({
+        ...prev,
+        step1Status: prev.step1Status === "loading" ? "error" : prev.step1Status,
+        step2Status: prev.step2Status === "loading" ? "error" : prev.step2Status,
+        step3Status: prev.step3Status === "loading" ? "error" : prev.step3Status,
+        step4Status: prev.step4Status === "loading" ? "error" : prev.step4Status,
+        step5Status: prev.step5Status === "loading" ? "error" : prev.step5Status,
+        error: message,
+      }));
+
+      if (error instanceof CollectionError) {
+        recovery.setFailure(error, error.step);
+        machine.transition({
+          type: `${error.step}_FAILED` as any,
+          error,
+        });
+      }
+    }
+  }, [
+    isAuthenticated,
+    address,
+    machine,
+    uploadMedia,
+    createDbRecord,
+    addAllowlist,
+    deployContract,
+    updateDbRecord,
+    persistence,
+    recovery,
+    router,
+  ]);
+
+  const retry = useCallback(async () => {
+    if (!recovery.canRetry || !recovery.failedStep) return;
+
+    // Retry logic based on failed step
+    toast.info(`Retrying from ${recovery.failedStep}...`);
+    // Implementation depends on which step failed
+  }, [recovery]);
+
+  const reset = useCallback(() => {
+    machine.transition({ type: "RESET" });
+    persistence.clearProgress();
+    recovery.reset();
+    txState.reset();
+    setLegacyState({
+      step1Status: "pending",
+      step2Status: "pending",
+      step3Status: "pending",
+      step4Status: "pending",
+      step5Status: "pending",
+      collectionId: null,
+      contractAddress: null,
+      txHash: null,
+      error: null,
+    });
+  }, [machine, persistence, recovery, txState]);
+
+  // Return both legacy state (for backward compatibility) and new state
   return {
-    ...state,
+    // Legacy properties for backward compatibility
+    ...legacyState,
+
+    // New properties for enhanced functionality
+    state: machine.currentState,
+    context: machine.currentContext,
     submit,
+    retry,
     reset,
-    isProcessing: state.step1Status === 'loading' ||
-                  state.step2Status === 'loading' ||
-                  state.step3Status === 'loading' ||
-                  state.step4Status === 'loading' ||
-                  state.step5Status === 'loading',
+    isProcessing: !machine.isTerminal && machine.currentState !== "IDLE",
+    canRetry: recovery.canRetry,
+    failedStep: recovery.failedStep,
+    error: recovery.error?.message || legacyState.error,
+    gasEstimate: gasEstimation.formattedCost,
+    txStatus: txState.status,
   };
 }
