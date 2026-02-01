@@ -1,14 +1,14 @@
 ---
-title: "Phase 02: State Persistence Layer"
+title: "Phase 05: State Persistence Layer"
 description: "Implement localStorage persistence for collection creation state with resume capability"
 status: pending
 priority: P0
 effort: 4-6h
-dependencies: []
-parallel_group: A
+dependencies: ["Phase 01", "Phase 02", "Phase 03"]
+parallel_group: B
 ---
 
-# Phase 02: State Persistence Layer
+# Phase 05: State Persistence Layer
 
 ## Context Links
 - Parent Plan: [plan.md](./plan.md)
@@ -16,8 +16,8 @@ parallel_group: A
 - Research: [researcher-error-handling-patterns-report.md](../../reports/researcher-error-handling-patterns-report.md)
 
 ## Parallelization Info
-- **Can Run Concurrently With:** Phase 01 (Error Handling)
-- **Must Complete Before:** Phase 05 (Enhanced Hook)
+- **Can Run Concurrently With:** Phase 04 (UI Error Handling)
+- **Must Complete Before:** Phase 12 (Enhanced Hook)
 - **File Dependencies:** None (creates new files)
 
 ## Overview

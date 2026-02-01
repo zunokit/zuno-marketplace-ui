@@ -1,24 +1,24 @@
 ---
-title: "Phase 04: Transaction State Machine"
+title: "Phase 07: Transaction State Machine"
 description: "Implement state machine for transaction flow with replacement detection"
 status: pending
 priority: P1
 effort: 8-10h
-dependencies: ["Phase 01"]
-parallel_group: B
+dependencies: ["Phase 01", "Phase 02", "Phase 03", "Phase 04", "Phase 05"]
+parallel_group: C
 ---
 
-# Phase 04: Transaction State Machine
+# Phase 07: Transaction State Machine
 
 ## Context Links
 - Parent Plan: [plan.md](./plan.md)
 - Brainstorm: [brainstorm-260201-1112-create-collection-comprehensive-flow.md](../../reports/brainstorm-260201-1112-create-collection-comprehensive-flow.md)
 - Research: [researcher-web3-transaction-patterns-report.md](../../reports/researcher-web3-transaction-patterns-report.md)
-- Depends On: [Phase 01: Error Handling](./phase-01-error-handling-infrastructure.md)
+- Depends On: [Phase 01: Error Handling Standards](./phase-01-error-handling-standards.md), [Phase 04: UI Error Handling](./phase-04-ui-error-handling.md)
 
 ## Parallelization Info
-- **Can Run Concurrently With:** Phase 03 (Gas Estimation)
-- **Must Complete Before:** Phase 05 (Enhanced Hook)
+- **Can Run Concurrently With:** Phase 06 (Gas Estimation), Phase 08-11 (Core Implementation)
+- **Must Complete Before:** Phase 12 (Enhanced Hook)
 - **File Dependencies:** Phase 01 (error types)
 
 ## Overview

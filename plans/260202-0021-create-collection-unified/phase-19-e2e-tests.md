@@ -1,13 +1,14 @@
 ---
-title: "Phase 13: E2E Tests"
+title: "Phase 19: E2E Tests"
 description: "End-to-end UI tests"
 status: pending
 priority: P2
 effort: 8-10h
-dependencies: ["Phase 12"]
+dependencies: ["Phase 01-18"]
+parallel_group: E
 ---
 
-# Phase 13: E2E Tests
+# Phase 19: E2E Tests
 
 ## Project
 zuno-marketplace-ui

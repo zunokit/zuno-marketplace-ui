@@ -1,14 +1,14 @@
 ---
-title: "Phase 01: Error Handling & Recovery Infrastructure"
+title: "Phase 04: UI Error Handling & Recovery Infrastructure"
 description: "Create comprehensive error types and recovery mechanisms for collection creation"
 status: pending
 priority: P0
 effort: 4-6h
-dependencies: []
-parallel_group: A
+dependencies: ["Phase 01", "Phase 02", "Phase 03"]
+parallel_group: B
 ---
 
-# Phase 01: Error Handling & Recovery Infrastructure
+# Phase 04: UI Error Handling & Recovery Infrastructure
 
 ## Context Links
 - Parent Plan: [plan.md](./plan.md)
@@ -16,9 +16,9 @@ parallel_group: A
 - Research: [researcher-error-handling-patterns-report.md](../../reports/researcher-error-handling-patterns-report.md)
 
 ## Parallelization Info
-- **Can Run Concurrently With:** Phase 02 (State Persistence Layer)
-- **Must Complete Before:** Phase 03, Phase 04, Phase 05
-- **File Dependencies:** None (creates new files)
+- **Can Run Concurrently With:** Phase 05 (State Persistence Layer)
+- **Must Complete Before:** Phase 06, Phase 07, Phase 12
+- **File Dependencies:** Phase 01 (Error Handling Standards)
 
 ## Overview
 

@@ -1,27 +1,27 @@
 ---
-title: "Phase 05: Enhanced Create Collection Hook"
+title: "Phase 12: Enhanced Create Collection Hook"
 description: "Refactor useCreateCollection with error handling, persistence, gas checks, and state machine"
 status: pending
 priority: P0
 effort: 10-12h
-dependencies: ["Phase 01", "Phase 02", "Phase 03", "Phase 04"]
-parallel_group: C
+dependencies: ["Phase 01", "Phase 02", "Phase 03", "Phase 04", "Phase 05", "Phase 06", "Phase 07"]
+parallel_group: D
 ---
 
-# Phase 05: Enhanced Create Collection Hook
+# Phase 12: Enhanced Create Collection Hook
 
 ## Context Links
 - Parent Plan: [plan.md](./plan.md)
 - Brainstorm: [brainstorm-260201-1112-create-collection-comprehensive-flow.md](../../reports/brainstorm-260201-1112-create-collection-comprehensive-flow.md)
 - Depends On:
-  - [Phase 01: Error Handling](./phase-01-error-handling-infrastructure.md)
-  - [Phase 02: State Persistence](./phase-02-state-persistence-layer.md)
-  - [Phase 03: Gas Estimation](./phase-03-gas-estimation.md)
-  - [Phase 04: State Machine](./phase-04-transaction-state-machine.md)
+  - [Phase 04: UI Error Handling](./phase-04-ui-error-handling.md)
+  - [Phase 05: State Persistence](./phase-05-state-persistence.md)
+  - [Phase 06: Gas Estimation](./phase-06-gas-estimation.md)
+  - [Phase 07: State Machine](./phase-07-transaction-state-machine.md)
 
 ## Parallelization Info
 - **Can Run Concurrently With:** None
-- **Must Complete Before:** Phase 06 (UI Components)
+- **Must Complete Before:** Phase 16 (UI Components)
 - **File Dependencies:** All previous phases
 
 ## Overview

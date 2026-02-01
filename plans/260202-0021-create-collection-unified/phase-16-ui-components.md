@@ -1,24 +1,24 @@
 ---
-title: "Phase 06: UI Components & Feedback"
+title: "Phase 16: UI Components & Feedback"
 description: "Create progress indicators, error displays, and retry UI for collection creation"
 status: pending
 priority: P1
 effort: 8-10h
-dependencies: ["Phase 05"]
-parallel_group: D
+dependencies: ["Phase 12", "Phase 13"]
+parallel_group: E
 ---
 
-# Phase 06: UI Components & Feedback
+# Phase 16: UI Components & Feedback
 
 ## Context Links
 - Parent Plan: [plan.md](./plan.md)
 - Brainstorm: [brainstorm-260201-1112-create-collection-comprehensive-flow.md](../../reports/brainstorm-260201-1112-create-collection-comprehensive-flow.md)
-- Depends On: [Phase 05: Enhanced Hook](./phase-05-enhanced-hook.md)
+- Depends On: [Phase 12: Enhanced Hook](./phase-12-enhanced-hook.md)
 
 ## Parallelization Info
 - **Can Run Concurrently With:** None
-- **Must Complete Before:** Phase 07 (Testing)
-- **File Dependencies:** Phase 05 (uses enhanced hook)
+- **Must Complete Before:** Phase 17-19 (Testing)
+- **File Dependencies:** Phase 12 (uses enhanced hook)
 
 ## Overview
 

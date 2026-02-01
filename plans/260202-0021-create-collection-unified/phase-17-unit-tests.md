@@ -1,13 +1,14 @@
 ---
-title: "Phase 11: Unit Tests"
+title: "Phase 17: Unit Tests"
 description: "Unit tests for all projects"
 status: pending
 priority: P2
 effort: 12-16h
-dependencies: []
+dependencies: ["Phase 01-16"]
+parallel_group: E
 ---
 
-# Phase 11: Unit Tests
+# Phase 17: Unit Tests
 
 ## Projects
 All 6 projects

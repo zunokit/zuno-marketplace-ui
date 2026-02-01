@@ -1,13 +1,14 @@
 ---
-title: "Phase 12: Integration Tests"
+title: "Phase 18: Integration Tests"
 description: "Cross-project integration tests"
 status: pending
 priority: P2
 effort: 10-12h
-dependencies: ["Phase 11"]
+dependencies: ["Phase 01-16"]
+parallel_group: E
 ---
 
-# Phase 12: Integration Tests
+# Phase 18: Integration Tests
 
 ## Overview
 Test integration points between projects.
