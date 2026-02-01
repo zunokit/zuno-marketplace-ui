@@ -149,6 +149,27 @@ Group D (Testing)
 | 09 | api | webhook handlers |
 | 10 | notifications | event consumers |
 
+## Validation Summary
+
+**Validated:** 2026-02-01
+**Questions asked:** 4
+
+### Confirmed Decisions
+
+| Decision | User Choice | Impact |
+|----------|-------------|--------|
+| Implementation Scope | All 6 projects in parallel | Requires full team coordination |
+| Type Sharing | GraphQL schema as source of truth | Update Phase 02 - use GraphQL codegen instead of protobuf |
+| Recovery Strategy | Automatic retry with exponential backoff | Update Phase 01/08 - implement auto-retry with circuit breaker |
+| Timeline | 2-3 weeks (aggressive) | Requires parallel execution, minimal blockers |
+
+### Action Items
+
+- [ ] Update Phase 02: Replace protobuf with GraphQL schema approach
+- [ ] Update Phase 01: Add automatic retry logic specifications
+- [ ] Update Phase 08: Implement exponential backoff in useCreateCollection
+- [ ] Ensure all 6 projects have dedicated resources for parallel execution
+
 ## Success Criteria
 
 - [ ] Collection created end-to-end across all projects
@@ -158,3 +179,4 @@ Group D (Testing)
 - [ ] Database updated via API
 - [ ] Notifications sent
 - [ ] All tests passing
+- [ ] Automatic retry working for transient failures
