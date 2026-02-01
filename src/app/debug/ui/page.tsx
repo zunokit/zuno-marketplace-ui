@@ -1,42 +1,177 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowLeft, Boxes } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Badge } from "@/shared/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
+import { Skeleton } from "@/shared/components/ui/skeleton";
 
-// Import all component sections
-import { ButtonSection } from "./sections/button-section";
-import { InputSection } from "./sections/input-section";
-import { FormSection } from "./sections/form-section";
-import { CardSection } from "./sections/card-section";
-import { AlertSection } from "./sections/alert-section";
-import { BadgeSection } from "./sections/badge-section";
-import { TableSection } from "./sections/table-section";
-import { DialogSection } from "./sections/dialog-section";
-import { DrawerSection } from "./sections/drawer-section";
-import { TabsSection } from "./sections/tabs-section";
-import { AccordionSection } from "./sections/accordion-section";
-import { TooltipSection } from "./sections/tooltip-section";
-import { OverlaySection } from "./sections/overlay-section";
-import { NavigationSection } from "./sections/navigation-section";
-import { LoadingSection } from "./sections/loading-section";
-import { UtilitySection } from "./sections/utility-section";
-import { ChartSection } from "./sections/chart-section";
-import { CalendarSection } from "./sections/calendar-section";
-import { InteractiveSection } from "./sections/interactive-section";
-import { AdvancedLayoutSection } from "./sections/advanced-layout-section";
-import { ToastSection } from "./sections/toast-section";
-import { AlertDialogSection } from "./sections/alert-dialog-section";
+// Dynamically import all component sections for code splitting
+const ButtonSection = dynamic(
+  () => import("./sections/button-section").then(mod => ({ default: mod.ButtonSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const InputSection = dynamic(
+  () => import("./sections/input-section").then(mod => ({ default: mod.InputSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const FormSection = dynamic(
+  () => import("./sections/form-section").then(mod => ({ default: mod.FormSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const CardSection = dynamic(
+  () => import("./sections/card-section").then(mod => ({ default: mod.CardSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const AlertSection = dynamic(
+  () => import("./sections/alert-section").then(mod => ({ default: mod.AlertSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const BadgeSection = dynamic(
+  () => import("./sections/badge-section").then(mod => ({ default: mod.BadgeSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const TableSection = dynamic(
+  () => import("./sections/table-section").then(mod => ({ default: mod.TableSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const DialogSection = dynamic(
+  () => import("./sections/dialog-section").then(mod => ({ default: mod.DialogSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const DrawerSection = dynamic(
+  () => import("./sections/drawer-section").then(mod => ({ default: mod.DrawerSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const TabsSection = dynamic(
+  () => import("./sections/tabs-section").then(mod => ({ default: mod.TabsSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const AccordionSection = dynamic(
+  () => import("./sections/accordion-section").then(mod => ({ default: mod.AccordionSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const TooltipSection = dynamic(
+  () => import("./sections/tooltip-section").then(mod => ({ default: mod.TooltipSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const OverlaySection = dynamic(
+  () => import("./sections/overlay-section").then(mod => ({ default: mod.OverlaySection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const NavigationSection = dynamic(
+  () => import("./sections/navigation-section").then(mod => ({ default: mod.NavigationSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const LoadingSection = dynamic(
+  () => import("./sections/loading-section").then(mod => ({ default: mod.LoadingSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const UtilitySection = dynamic(
+  () => import("./sections/utility-section").then(mod => ({ default: mod.UtilitySection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const ChartSection = dynamic(
+  () => import("./sections/chart-section").then(mod => ({ default: mod.ChartSection })),
+  {
+    loading: () => <SectionSkeleton />,
+    ssr: false,
+  }
+);
+const CalendarSection = dynamic(
+  () => import("./sections/calendar-section").then(mod => ({ default: mod.CalendarSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const InteractiveSection = dynamic(
+  () => import("./sections/interactive-section").then(mod => ({ default: mod.InteractiveSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const AdvancedLayoutSection = dynamic(
+  () =>
+    import("./sections/advanced-layout-section").then(mod => ({
+      default: mod.AdvancedLayoutSection,
+    })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const ToastSection = dynamic(
+  () => import("./sections/toast-section").then(mod => ({ default: mod.ToastSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+const AlertDialogSection = dynamic(
+  () =>
+    import("./sections/alert-dialog-section").then(mod => ({ default: mod.AlertDialogSection })),
+  {
+    loading: () => <SectionSkeleton />,
+  }
+);
+
+function SectionSkeleton() {
+  return (
+    <div className="space-y-4">
+      <Skeleton className="h-8 w-3/4" />
+      <Skeleton className="h-32 w-full" />
+      <Skeleton className="h-32 w-full" />
+    </div>
+  );
+}
 
 interface Section {
   id: string;
   title: string;
   description: string;
   component: React.ComponentType;
-  category: "input" | "display" | "feedback" | "navigation" | "layout" | "utility" | "data-viz" | "interactive";
+  category:
+    | "input"
+    | "display"
+    | "feedback"
+    | "navigation"
+    | "layout"
+    | "utility"
+    | "data-viz"
+    | "interactive";
 }
 
 const sections: Section[] = [
@@ -206,12 +341,32 @@ const sections: Section[] = [
 
 const categories = [
   { id: "all", label: "All Components", count: sections.length },
-  { id: "input", label: "Input & Forms", count: sections.filter(s => s.category === "input").length },
+  {
+    id: "input",
+    label: "Input & Forms",
+    count: sections.filter(s => s.category === "input").length,
+  },
   { id: "display", label: "Display", count: sections.filter(s => s.category === "display").length },
-  { id: "feedback", label: "Feedback", count: sections.filter(s => s.category === "feedback").length },
-  { id: "navigation", label: "Navigation", count: sections.filter(s => s.category === "navigation").length },
-  { id: "data-viz", label: "Data Visualization", count: sections.filter(s => s.category === "data-viz").length },
-  { id: "interactive", label: "Interactive", count: sections.filter(s => s.category === "interactive").length },
+  {
+    id: "feedback",
+    label: "Feedback",
+    count: sections.filter(s => s.category === "feedback").length,
+  },
+  {
+    id: "navigation",
+    label: "Navigation",
+    count: sections.filter(s => s.category === "navigation").length,
+  },
+  {
+    id: "data-viz",
+    label: "Data Visualization",
+    count: sections.filter(s => s.category === "data-viz").length,
+  },
+  {
+    id: "interactive",
+    label: "Interactive",
+    count: sections.filter(s => s.category === "interactive").length,
+  },
   { id: "layout", label: "Layout", count: sections.filter(s => s.category === "layout").length },
   { id: "utility", label: "Utility", count: sections.filter(s => s.category === "utility").length },
 ];
@@ -219,7 +374,6 @@ const categories = [
 export default function UIComponentsPage() {
   return (
     <div className="min-h-screen bg-background overflow-visible">
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Intro */}
         <div className="space-y-4 mb-8">
@@ -239,15 +393,11 @@ export default function UIComponentsPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="p-4 rounded-lg bg-card border border-border-subtle">
-              <p className="text-2xl font-bold text-foreground">
-                {sections.length}
-              </p>
+              <p className="text-2xl font-bold text-foreground">{sections.length}</p>
               <p className="text-sm text-muted-foreground">Components</p>
             </div>
             <div className="p-4 rounded-lg bg-card border border-border-subtle">
-              <p className="text-2xl font-bold text-foreground">
-                {categories.length - 1}
-              </p>
+              <p className="text-2xl font-bold text-foreground">{categories.length - 1}</p>
               <p className="text-sm text-muted-foreground">Categories</p>
             </div>
             <div className="p-4 rounded-lg bg-card border border-border-subtle">
@@ -264,7 +414,7 @@ export default function UIComponentsPage() {
         {/* Tabs: block layout only, no flex — tránh scroll lồng trong main */}
         <Tabs defaultValue="all" className="w-full !block">
           <TabsList className="w-full justify-start overflow-x-auto flex-wrap h-auto gap-2 bg-transparent p-0 mb-8">
-            {categories.map((category) => (
+            {categories.map(category => (
               <TabsTrigger
                 key={category.id}
                 value={category.id}
@@ -278,14 +428,17 @@ export default function UIComponentsPage() {
             ))}
           </TabsList>
 
-          {categories.map((category) => {
-            const categorySections = category.id === "all"
-              ? sections
-              : sections.filter(s => s.category === category.id);
+          {categories.map(category => {
+            const categorySections =
+              category.id === "all" ? sections : sections.filter(s => s.category === category.id);
 
             return (
-              <TabsContent key={category.id} value={category.id} className="space-y-12 mt-8 !block flex-none min-h-0 overflow-visible">
-                {categorySections.map((section) => {
+              <TabsContent
+                key={category.id}
+                value={category.id}
+                className="space-y-12 mt-8 !block flex-none min-h-0 overflow-visible"
+              >
+                {categorySections.map(section => {
                   const Component = section.component;
                   return (
                     <section key={section.id} id={section.id}>
@@ -298,9 +451,7 @@ export default function UIComponentsPage() {
                             {section.category}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground">
-                          {section.description}
-                        </p>
+                        <p className="text-sm text-muted-foreground">{section.description}</p>
                       </div>
                       <Component />
                     </section>

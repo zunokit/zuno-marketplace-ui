@@ -33,17 +33,17 @@ export function useAuth() {
       try {
         // First, try to refresh session using HttpOnly cookie
         // This will restore the accessToken if user has a valid refresh token
-        try {
-          const { data: refreshData } = await refreshSession();
-          if (refreshData?.refreshSession?.accessToken) {
-            // Store the new access token
-            graphqlClient.setAccessToken(refreshData.refreshSession.accessToken);
-            console.log("[Auth] Session refreshed successfully");
-          }
-        } catch (refreshError) {
+        const refreshPromise = refreshSession().catch((error: unknown) => {
           // Refresh failed - this is okay, user might not have a valid session
-          // Continue to check with getMe() anyway
-          console.log("[Auth] No valid refresh token, user needs to sign in");
+          console.log("[Auth] No valid refresh token, user needs to sign in", error);
+          return null;
+        });
+
+        const refreshResult = await refreshPromise;
+        if (refreshResult?.data?.refreshSession?.accessToken) {
+          // Store the new access token
+          graphqlClient.setAccessToken(refreshResult.data.refreshSession.accessToken);
+          console.log("[Auth] Session refreshed successfully");
         }
 
         // Now try to get user data
