@@ -21,12 +21,12 @@ export const publicNavItems: NavItem[] = [
   {
     id: "marketplace",
     label: "Marketplace",
-    href: "/explore",
+    href: "/marketplace",
     hasDropdown: true,
     dropdownItems: [
       {
         label: "Explore All",
-        href: "/explore",
+        href: "/marketplace",
         description: "Browse all available NFTs",
         icon: "Grid3x3",
       },
@@ -54,7 +54,7 @@ export const publicNavItems: NavItem[] = [
       },
       {
         label: "Top Sales",
-        href: "/explore?sort=price-high",
+        href: "/marketplace?sort=price-high",
         description: "Highest value NFTs",
         icon: "DollarSign",
       },
@@ -94,41 +94,6 @@ export const publicNavItems: NavItem[] = [
         icon: "Rocket",
         badge: "5 New",
         badgeVariant: "secondary",
-      },
-    ],
-    requiresAuth: false,
-  },
-  {
-    id: "activity",
-    label: "Activity",
-    href: "/activity",
-    hasDropdown: true,
-    dropdownItems: [
-      {
-        label: "All Activity",
-        href: "/activity",
-        description: "Real-time market activity",
-        icon: "Activity",
-      },
-      {
-        label: "Rankings",
-        href: "/stats/rankings",
-        description: "Top performers by volume",
-        icon: "BarChart3",
-      },
-      {
-        label: "Analytics",
-        href: "/stats/analytics",
-        description: "Deep market insights",
-        icon: "ChartLine",
-        badge: "Pro",
-        badgeVariant: "default",
-      },
-      {
-        label: "My Activity",
-        href: "/profile/activity",
-        description: "Your transaction history",
-        icon: "User",
       },
     ],
     requiresAuth: false,

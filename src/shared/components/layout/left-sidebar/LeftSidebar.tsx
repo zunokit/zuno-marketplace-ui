@@ -234,12 +234,6 @@ export default function LeftSidebar() {
           <NavItem href="/swap" icon={<SwapIcon />} label="Swap" isActive={isActive("/swap")} />
           <NavItem href="/drops" icon={<DropsIcon />} label="Drops" isActive={isActive("/drops")} />
           <NavItem
-            href="/activity"
-            icon={<ActivityIcon />}
-            label="Activity"
-            isActive={isActive("/activity")}
-          />
-          <NavItem
             href="/rewards"
             icon={<RewardsIcon />}
             label="Rewards"

@@ -318,13 +318,6 @@ export default function TopNav() {
               onClick={() => setIsMenuOpen(false)}
             />
             <MobileNavItem
-              href="/activity"
-              icon={<ActivityIcon />}
-              label="Activity"
-              isActive={pathname?.startsWith("/activity")}
-              onClick={() => setIsMenuOpen(false)}
-            />
-            <MobileNavItem
               href="/studio"
               icon={<StudioIcon />}
               label="Studio"

@@ -14,7 +14,6 @@ import {
   Image as ImageIcon,
   Users,
   Hash,
-  Wallet,
   ArrowRight,
   Trophy,
   Star,
@@ -76,7 +75,6 @@ const categories = [
   { id: "collections", label: "Collections", icon: ImageIcon },
   { id: "users", label: "Users", icon: Users },
   { id: "items", label: "Items", icon: Hash },
-  { id: "wallets", label: "Wallets", icon: Wallet },
 ];
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
@@ -131,7 +129,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               autoFocus
               value={searchTerm}
               onChange={e => handleSearch(e.target.value)}
-              placeholder="Search NFTs, collections, creators and wallets..."
+              placeholder="Search NFTs, collections and creators..."
               className="pl-12 pr-12 h-12 text-base border border-border-subtle dark:border-border-subtle focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-[8px]"
             />
             <button
