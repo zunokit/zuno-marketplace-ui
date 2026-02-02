@@ -126,10 +126,10 @@ Group E (UI Components & Testing)
 | 05 | B | UI | 4-6h | completed | State persistence layer |
 | 06 | C | UI | 6-8h | completed | Gas estimation & validation |
 | 07 | C | UI | 8-10h | completed | Transaction state machine |
-| 08 | C | SDK | 8-10h | pending | Collection module enhancements |
-| 09 | C | API | 10-12h | pending | Collection service implementation |
-| 10 | C | Indexer | 8-10h | pending | Event handlers for ERC721 |
-| 11 | C | Metadata | 6-8h | pending | IPFS upload integration |
+| 08 | C | SDK | 8-10h | completed | Collection module enhancements |
+| 09 | C | API | 10-12h | completed | Collection service implementation |
+| 10 | C | Indexer | 8-10h | completed | Event handlers for ERC721 |
+| 11 | C | Metadata | 6-8h | completed | IPFS upload integration |
 | 12 | D | UI | 10-12h | completed | Enhanced create collection hook |
 | 13 | D | UI+SDK | 8-10h | pending | UI-SDK integration |
 | 14 | D | API+Indexer | 6-8h | pending | API-Indexer synchronization |
