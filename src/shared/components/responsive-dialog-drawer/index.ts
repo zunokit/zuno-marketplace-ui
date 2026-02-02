@@ -1,1 +1,4 @@
-export { ResponsiveDialogDrawer, type ResponsiveDialogDrawerProps } from "./responsive-dialog-drawer";
+export {
+  ResponsiveDialogDrawer,
+  type ResponsiveDialogDrawerProps,
+} from "./responsive-dialog-drawer";

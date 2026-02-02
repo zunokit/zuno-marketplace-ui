@@ -96,12 +96,12 @@ export function CollectionProcess({
           <div
             key={index}
             className={`flex items-start gap-3 p-3 rounded-lg ${step.status === "loading"
-                ? "bg-primary/10"
-                : step.status === "error"
-                  ? "bg-destructive/10"
-                  : step.status === "success"
-                    ? "bg-green-500/10"
-                    : "bg-muted/50"
+              ? "bg-primary/10"
+              : step.status === "error"
+                ? "bg-destructive/10"
+                : step.status === "success"
+                  ? "bg-green-500/10"
+                  : "bg-muted/50"
               }`}
           >
             <StepIcon status={step.status} />
