@@ -131,9 +131,9 @@ Group E (UI Components & Testing)
 | 10 | C | Indexer | 8-10h | completed | Event handlers for ERC721 |
 | 11 | C | Metadata | 6-8h | completed | IPFS upload integration |
 | 12 | D | UI | 10-12h | completed | Enhanced create collection hook |
-| 13 | D | UI+SDK | 8-10h | pending | UI-SDK integration |
-| 14 | D | API+Indexer | 6-8h | pending | API-Indexer synchronization |
-| 15 | D | Notifications | 4-6h | pending | Webhook notifications |
+| 13 | D | UI+SDK | 8-10h | completed | UI-SDK integration |
+| 14 | D | API+Indexer | 6-8h | completed | API-Indexer synchronization |
+| 15 | D | Notifications | 4-6h | completed | Webhook notifications |
 | 16 | E | UI | 8-10h | completed | UI components & feedback |
 | 17 | E | All | 10-12h | pending | Unit tests |
 | 18 | E | All | 12-16h | pending | Cross-project integration tests |
