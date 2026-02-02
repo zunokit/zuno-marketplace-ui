@@ -12,9 +12,34 @@ import type { MintTerminalCreateForm } from "@/shared/types/mint";
 import { MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { useCreateCollection } from "../hooks/useCreateCollection";
+import { useCreateCollection } from "../hooks/use-create-collection";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+const DEFAULT_FORM_VALUES: MintTerminalCreateForm = {
+  chain: "sepolia",
+  name: "My Awesome Collection",
+  symbol: "MAC",
+  collectionImage: undefined,
+  artworkMode: "ERC721",
+  mintStartAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+  description: "A unique NFT collection with amazing artwork and exclusive benefits for holders.",
+  sameArtworkImage: undefined,
+  metadataBaseUrl: "",
+  mintPrice: "0.01",
+  royaltyPercent: 2.5,
+  maxSupply: 10000,
+  mintLimitPerWallet: 10,
+  stages: [
+    {
+      public: {
+        price: "0.01",
+        duration: null,
+      },
+    },
+  ],
+  agreeTos: false,
+};
 
 export default function CollectionForm() {
   const { isAuthenticated, isWalletConnected } = useAuth();
@@ -37,34 +62,11 @@ export default function CollectionForm() {
   const form = useForm<MintTerminalCreateForm>({
     resolver: zodResolver(MintTerminalCreateFormSchema),
     mode: "onChange",
-    defaultValues: {
-      chain: "sepolia",
-      name: "",
-      symbol: "",
-      collectionImage: undefined,
-      artworkMode: "ERC721",
-      mintStartAt: new Date(Date.now()).toISOString(),
-      description: "",
-      sameArtworkImage: undefined,
-      metadataBaseUrl: "",
-      mintPrice: "0",
-      royaltyPercent: 0,
-      maxSupply: null,
-      mintLimitPerWallet: null,
-      stages: [
-        {
-          public: {
-            price: "0",
-            duration: null,
-          },
-        },
-      ],
-      agreeTos: true,
-    },
+    defaultValues: DEFAULT_FORM_VALUES,
   });
 
   const handleClearForm = () => {
-    form.reset();
+    form.reset(DEFAULT_FORM_VALUES);
     resetProcess();
   };
 
@@ -86,15 +88,16 @@ export default function CollectionForm() {
     await submit(data);
   };
 
-  // Close dialog on error after 3s
+  // Close dialog on error after 3s and reset state
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
         setIsDialogOpen(false);
+        resetProcess();
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [error]);
+  }, [error, resetProcess]);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -155,7 +158,12 @@ export default function CollectionForm() {
 
       <CollectionProcess
         isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open);
+          if (!open) {
+            resetProcess();
+          }
+        }}
         step1Status={step1Status}
         step2Status={step2Status}
         step3Status={step3Status}

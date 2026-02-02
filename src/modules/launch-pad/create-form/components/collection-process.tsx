@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { CheckCircle2, Loader2, XCircle, Circle } from "lucide-react";
-import type { StepStatus } from "../hooks/useCreateCollection";
+import type { StepStatus } from "../hooks/use-create-collection";
 
 interface CollectionProcessProps {
   isOpen: boolean;
@@ -74,10 +74,10 @@ export function CollectionProcess({
   ];
 
   const allDone = step1Status === 'success' &&
-                  step2Status === 'success' &&
-                  step3Status === 'success' &&
-                  step4Status === 'success' &&
-                  step5Status === 'success';
+    step2Status === 'success' &&
+    step3Status === 'success' &&
+    step4Status === 'success' &&
+    step5Status === 'success';
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -92,15 +92,14 @@ export function CollectionProcess({
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`flex items-start gap-3 p-3 rounded-lg ${
-                step.status === 'loading'
+              className={`flex items-start gap-3 p-3 rounded-lg ${step.status === 'loading'
                   ? 'bg-primary/10'
                   : step.status === 'error'
                     ? 'bg-destructive/10'
                     : step.status === 'success'
                       ? 'bg-green-500/10'
                       : 'bg-muted/50'
-              }`}
+                }`}
             >
               <StepIcon status={step.status} />
               <div className="flex-1">

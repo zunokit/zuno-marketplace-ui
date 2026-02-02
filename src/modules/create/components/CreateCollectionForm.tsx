@@ -25,17 +25,17 @@ import { Upload, Info, AlertCircle, Plus, Trash2 } from "lucide-react";
 
 export function CreateCollectionForm() {
   const [formData, setFormData] = useState({
-    name: "",
-    symbol: "",
-    description: "",
-    category: "",
+    name: "My Awesome Collection",
+    symbol: "MAC",
+    description: "A unique NFT collection with amazing artwork and exclusive benefits for holders.",
+    category: "art",
     website: "",
     twitter: "",
     discord: "",
     royaltyPercentage: "2.5",
     royaltyAddress: "",
-    maxSupply: "",
-    mintPrice: "",
+    maxSupply: "10000",
+    mintPrice: "0.08",
     revealType: "instant",
     enableWhitelist: false,
     enablePresale: false,
