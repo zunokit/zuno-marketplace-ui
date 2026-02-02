@@ -258,11 +258,10 @@ export default function MintForm() {
                 aria-hidden="true"
                 className={cn(
                   "transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active",
-                  !agreedToTerms && "bg-transparent border-input",
-                  agreedToTerms && "bg-button-secondary border-primary"
+                  !agreedToTerms ? "bg-transparent border-input" : "bg-button-secondary border-primary"
                 )}
               >
-                {agreedToTerms && (
+                {agreedToTerms ? (
                   <svg
                     stroke="currentColor"
                     fill="none"
@@ -277,7 +276,7 @@ export default function MintForm() {
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                )}
+                ) : null}
               </span>
             </div>
 

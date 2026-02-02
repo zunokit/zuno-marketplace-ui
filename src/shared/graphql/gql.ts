@@ -4,20 +4,20 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 
 const documents = {};
 /**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  *
  *
  * @example
  * ```ts
- * const query = graphql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
+ * const query = gql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
  * ```
  *
  * The query argument is unknown!
  * Please regenerate the types.
  */
-export function graphql(source: string): unknown;
+export function gql(source: string): unknown;
 
-export function graphql(source: string) {
+export function gql(source: string) {
   return (documents as any)[source] ?? {};
 }
 

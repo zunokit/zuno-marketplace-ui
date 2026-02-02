@@ -1,4 +1,4 @@
 export {
   ResponsivePopoverDrawer,
   type ResponsivePopoverDrawerProps,
-} from "./ResponsivePopoverDrawer";
+} from "./responsive-popover-drawer";

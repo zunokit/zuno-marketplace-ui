@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/shared/components/ui/button";
 import Link from "next/link";
-import { BaseCarousel } from "@/shared/components/carousel/BaseCarousel";
-import { AuctionCard } from "@/modules/product-discovery/live-auctions/components/AuctionCard";
+import { BaseCarousel } from "@/shared/components/carousel/base-carousel";
+import { AuctionCard } from "@/modules/product-discovery/live-auctions/components/auction-card";
 
 interface Auction {
   id: string;

@@ -153,7 +153,7 @@ export const MintTerminalCreateFormSchema = z
     stages: z.array(MintStageSchema).min(1, "At least 1 block stage (public is required)"),
 
     // Legal
-    agreeTos: z.literal(true, {
+    agreeTos: z.boolean().refine(val => val === true, {
       message: "You must agree to the Terms of Service to continue",
     }),
   })
