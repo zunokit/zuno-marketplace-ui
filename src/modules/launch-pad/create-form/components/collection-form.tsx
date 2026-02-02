@@ -27,7 +27,7 @@ const DEFAULT_FORM_VALUES: MintTerminalCreateForm = {
   sameArtworkImage: undefined,
   metadataBaseUrl: "",
   mintPrice: "0.01",
-  royaltyPercent: 2.5,
+  royaltyPercent: 10,
   maxSupply: 10000,
   mintLimitPerWallet: 10,
   stages: [
@@ -71,26 +71,47 @@ export default function CollectionForm() {
   };
 
   const onSubmit = async (data: MintTerminalCreateForm) => {
+    console.log("🚀 [CollectionForm] Form submission started");
+    console.log("🔍 [CollectionForm] Form Data:", {
+      name: data.name,
+      symbol: data.symbol,
+      chain: data.chain,
+      artworkMode: data.artworkMode,
+      maxSupply: data.maxSupply,
+    });
+
     // Validate authentication
     if (!isWalletConnected) {
+      console.warn("⚠️ [CollectionForm] Wallet not connected");
       toast.error("Please connect your wallet first");
       return;
     }
 
     if (!isAuthenticated) {
+      console.warn("⚠️ [CollectionForm] User not authenticated");
       toast.error("Please sign in with your wallet");
       return;
     }
 
     // Form validation is handled by zodResolver
     // Open progress dialog and submit
+    console.log("✅ [CollectionForm] Validation passed, opening dialog and submitting...");
     setIsDialogOpen(true);
     await submit(data);
   };
 
+  // Debug: Track step 2 status changes
+  useEffect(() => {
+    console.log("🔍 [CollectionForm] Step 2 Status Changed:", step2Status);
+    if (step2Status === "error") {
+      console.error("❌ [CollectionForm] Step 2 Failed - Current Error:", error);
+    }
+  }, [step2Status, error]);
+
   // Close dialog on error after 3s and reset state
   useEffect(() => {
     if (error) {
+      console.error("❌ [CollectionForm] Error detected, will close dialog in 3s:", error);
       const timer = setTimeout(() => {
         setIsDialogOpen(false);
         resetProcess();
