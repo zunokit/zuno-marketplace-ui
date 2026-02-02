@@ -135,9 +135,9 @@ Group E (UI Components & Testing)
 | 14 | D | API+Indexer | 6-8h | completed | API-Indexer synchronization |
 | 15 | D | Notifications | 4-6h | completed | Webhook notifications |
 | 16 | E | UI | 8-10h | completed | UI components & feedback |
-| 17 | E | All | 10-12h | completed | Unit tests |
-| 18 | E | All | 12-16h | completed | Cross-project integration tests |
-| 19 | E | UI | 8-10h | completed | E2E UI tests |
+| 17 | E | All | 10-12h | pending | Unit tests (deferred) |
+| 18 | E | All | 12-16h | pending | Cross-project integration tests (deferred) |
+| 19 | E | UI | 8-10h | pending | E2E UI tests (deferred) |
 
 **Total Effort:** 140-180 hours
 
