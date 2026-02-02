@@ -4,7 +4,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Button } from "@/shared/components/ui/button";
 import { Wallet, ChevronDown, LogIn } from "lucide-react";
 import Image from "next/image";
-import { SignInButton } from "@/shared/components/auth/SignInButton";
+import { SignInButton } from "@/shared/components/auth/sign-in-button";
 
 export function ConnectWalletButton() {
   return (

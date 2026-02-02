@@ -3,7 +3,7 @@
 import { useAccount, useSignMessage } from "wagmi";
 import { SiweMessage } from "siwe";
 import { Button } from "@/shared/components/ui/button";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useAuth } from "@/shared/hooks/use-auth";
 import { authLogger } from "@/shared/lib/logger";
 import { useGetNonceLazyQuery, useVerifySiweMutation, useLogoutMutation } from "@/shared/graphql";
 import { graphqlClient } from "@/shared/lib/graphql-client";

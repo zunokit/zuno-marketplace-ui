@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { ConnectWalletButton } from "@/shared/components/wallet/ConnectWalletButton";
+import { ConnectWalletButton } from "@/shared/components/wallet/connect-wallet-button";
 import Link from "next/link";
 import Image from "next/image";
 import { useScroll } from "@/shared/hooks/use-scroll";

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import ClientWrapper from "./AppWrapper";
+import ClientWrapper from "./app-wrapper";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";

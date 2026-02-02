@@ -4,8 +4,8 @@ import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAuth } from "@/shared/hooks/useAuth";
-import { useMediaUpload } from "@/shared/hooks/useMediaUpload";
+import { useAuth } from "@/shared/hooks/use-auth";
+import { useMediaUpload } from "@/shared/hooks/use-media-upload";
 import { useTransactionState } from "@/shared/hooks/use-transaction-state";
 import {
   useCreateCollectionMutation,

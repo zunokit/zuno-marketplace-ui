@@ -1,8 +1,8 @@
 "use client";
 
 import { useGetMyCollectionsQuery } from "@/shared/graphql";
-import { useAuth } from "@/shared/hooks/useAuth";
-import { CollectionCard } from "@/modules/collections/components/CollectionCard";
+import { useAuth } from "@/shared/hooks/use-auth";
+import { CollectionCard } from "@/modules/collections/components/collection-card";
 import { Button } from "@/shared/components/ui/button";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 import { Plus } from "lucide-react";

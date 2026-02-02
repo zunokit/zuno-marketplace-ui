@@ -1,14 +1,14 @@
 "use client";
-import MobileMenu from "@/shared/components/layout/nav-bar/MobileMenu";
-import NavDropdown from "@/shared/components/layout/nav-bar/NavDropdown";
-import SearchBar from "@/shared/components/layout/nav-bar/SearchBar";
+import MobileMenu from "@/shared/components/layout/nav-bar/mobile-menu";
+import NavDropdown from "@/shared/components/layout/nav-bar/nav-dropdown";
+import SearchBar from "@/shared/components/layout/nav-bar/search-bar";
 import { useIsMobile } from "@/shared/hooks/use-mobile";
 import { useScroll } from "@/shared/hooks/use-scroll";
 import { getNavItems } from "@/shared/utils/menu";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/shared/utils/tailwind-utils";
-import { ConnectWalletButton } from "@/shared/components/wallet/ConnectWalletButton";
+import { ConnectWalletButton } from "@/shared/components/wallet/connect-wallet-button";
 
 export default function Header() {
   const isMobile = useIsMobile();

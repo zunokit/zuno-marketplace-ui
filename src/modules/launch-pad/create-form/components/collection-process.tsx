@@ -1,6 +1,6 @@
 "use client";
 
-import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer/ResponsiveDialogDrawer";
+import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer/responsive-dialog-drawer";
 import { CheckCircle2, Loader2, XCircle, Circle } from "lucide-react";
 import type { StepStatus } from "../hooks/use-create-collection";
 

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BaseCarousel } from "@/shared/components/carousel/BaseCarousel";
-import { CollectionCard } from "@/modules/product-discovery/collection-carousel/components/CollectionCard";
+import { BaseCarousel } from "@/shared/components/carousel/base-carousel";
+import { CollectionCard } from "@/modules/product-discovery/collection-carousel/components/collection-card";
 import { Collection } from "@/shared/types/collection";
 import { makeMockCollections } from "@/shared/utils/mock/mockCollection";
 

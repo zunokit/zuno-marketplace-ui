@@ -5,7 +5,7 @@ import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/shared/utils/tailwind-utils";
 import { useRef, useState, useEffect } from "react";
-import SearchModal from "@/shared/components/layout/search/SearchModal";
+import SearchModal from "@/shared/components/layout/search/search-modal";
 
 type SearchBarProps = {
   isMobile: boolean;

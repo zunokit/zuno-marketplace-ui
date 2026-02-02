@@ -3,9 +3,9 @@
 import { LeftSidebar } from "@/shared/components/layout/left-sidebar";
 import { TopNav } from "@/shared/components/layout/top-nav";
 import { ThemeProvider } from "@/shared/components/theme-provider";
-import { Web3Provider } from "@/shared/providers/Web3Provider";
+import { Web3Provider } from "@/shared/providers/web3-provider";
 import { ReactNode } from "react";
-import { AppFooter } from "@/shared/components/layout/AppFooter";
+import { AppFooter } from "@/shared/components/layout/app-footer";
 import { ApolloProvider } from "@apollo/client/react";
 import { apolloWrapper } from "@/shared/lib/apollo/apollo-wrapper";
 import MarketplaceSelectionBarWrapper from "@/modules/marketplace/components/marketplace-selection-bar-wrapper";

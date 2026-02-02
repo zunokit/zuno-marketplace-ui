@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import type { MintTerminalCreateForm } from "@/shared/types/mint";
 import { MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useAuth } from "@/shared/hooks/use-auth";
 import { useCreateCollection } from "../hooks/use-create-collection";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
