@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ClientWrapper from "./app-wrapper";
 import { Toaster } from "@/shared/components/ui/sonner";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -117,7 +116,6 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <ClientWrapper>{children}</ClientWrapper>
         <Toaster />
-        <SpeedInsights />
       </body>
     </html>
   );
