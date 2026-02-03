@@ -29,7 +29,7 @@ export default function Wrapper({ children }: { children: ReactNode }) {
               </main>
 
               {/* Bottom Action Bar + Footer - in document flow, not fixed */}
-              <div className="shrink-0">
+              <div className="shrink-0 relative z-40">
                 <MarketplaceSelectionBarWrapper />
                 <AppFooter />
               </div>
