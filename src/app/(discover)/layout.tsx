@@ -1,8 +1,8 @@
 "use client";
 
 import { Suspense, createContext, useContext, useState } from "react";
-import ChainMenu from "@/modules/chain/chain-menu/ChainMenu";
-import ChainTabsSkeleton from "@/modules/chain/chain-menu/ChainMenuSke";
+import ChainMenu from "@/modules/chain/chain-menu/chain-menu";
+import ChainTabsSkeleton from "@/modules/chain/chain-menu/chain-menu-ske";
 import { RightSidebar } from "@/modules/product-discovery/right-sidebar";
 import { mockSidebarCollections, mockTrendingTokens } from "@/shared/utils/mock/sidebarData";
 import { cn } from "@/shared/utils/tailwind-utils";

@@ -4,7 +4,7 @@ import { Package } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 import { type Nft } from "@/modules/marketplace/types";
 import MarketplaceNFTCard from "@/modules/marketplace/components/marketplace-nft-card";
-import { InfiniteScrollTrigger } from "@/shared/components/InfiniteScrollTrigger";
+import { InfiniteScrollTrigger } from "@/shared/components/infinite-scroll-trigger";
 
 interface MarketplaceNFTGridProps {
   type: "buyer" | "seller";

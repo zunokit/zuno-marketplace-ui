@@ -5,9 +5,7 @@
 export const ROUTES = {
   // Public routes
   HOME: "/",
-  EXPLORE: "/explore",
   MARKETPLACE: "/marketplace",
-  ACTIVITY: "/activity",
 
   // Collections
   COLLECTIONS: "/collections",
@@ -21,7 +19,6 @@ export const ROUTES = {
   AUCTION_DETAIL: (id: string) => `/auctions/${id}`,
 
   // Creator
-  CREATE: "/create",
   MINT: "/mint",
 
   // Launchpad
@@ -33,10 +30,6 @@ export const ROUTES = {
   PROFILE_OWNED: (address: string) => `/profile/${address}?tab=owned`,
   PROFILE_CREATED: (address: string) => `/profile/${address}?tab=created`,
   PROFILE_ACTIVITY: (address: string) => `/profile/${address}?tab=activity`,
-  WALLETS: "/wallets",
-
-  // Analytics
-  STATS: "/stats",
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;

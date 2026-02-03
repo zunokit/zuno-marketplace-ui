@@ -15,7 +15,7 @@ import { HelpCircle, MoreVertical, Plus } from "lucide-react";
 import { AllowlistStage } from "@/modules/launch-pad/create-form/components/allowlist-stage";
 import { PublicStage } from "@/modules/launch-pad/create-form/components/public-stage";
 import { FormField, FormItem, FormControl, FormMessage } from "@/shared/components/ui/form";
-import { DateTimePicker24h } from "@/shared/components/date-time/DateTimePicker24h";
+import { DateTimePicker24h } from "@/shared/components/date-time/date-time-picker-24h";
 import { useFormContext } from "react-hook-form";
 
 export function MintDetails() {

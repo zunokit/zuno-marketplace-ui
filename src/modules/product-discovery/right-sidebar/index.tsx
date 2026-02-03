@@ -1,1 +1,1 @@
-export { RightSidebar } from "./components/RightSidebar";
+export { RightSidebar } from "./components/right-sidebar";

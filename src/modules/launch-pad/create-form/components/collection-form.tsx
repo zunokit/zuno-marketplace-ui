@@ -8,51 +8,92 @@ import { ArtSection } from "@/modules/launch-pad/create-form/components/art-sect
 import { MintDetails } from "@/modules/launch-pad/create-form/components/mint-details";
 import { CollectionProcess } from "@/modules/launch-pad/create-form/components/collection-process";
 import { useForm } from "react-hook-form";
-import { MintTerminalCreateForm, MintTerminalCreateFormSchema } from "@/shared/types/mint";
+import type { MintTerminalCreateForm } from "@/shared/types/mint";
+import { MintTerminalCreateFormSchema } from "@/shared/types/mint";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/shared/hooks/use-auth";
+import { useCreateCollection } from "../hooks/use-create-collection";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+const DEFAULT_FORM_VALUES: MintTerminalCreateForm = {
+  chain: "sepolia",
+  name: "My Awesome Collection",
+  symbol: "MAC",
+  collectionImage: undefined,
+  artworkMode: "ERC721",
+  mintStartAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+  description: "A unique NFT collection with amazing artwork and exclusive benefits for holders.",
+  sameArtworkImage: undefined,
+  metadataBaseUrl: "",
+  mintPrice: "0.01",
+  royaltyPercent: 10,
+  maxSupply: 10000,
+  mintLimitPerWallet: 10,
+  stages: [
+    {
+      public: {
+        price: "0.01",
+        duration: null,
+      },
+    },
+  ],
+  agreeTos: false,
+};
 
 export default function CollectionForm() {
+  const { isAuthenticated, isWalletConnected } = useAuth();
+  const {
+    step1Status,
+    step2Status,
+    step3Status,
+    step4Status,
+    step5Status,
+    txHash,
+    contractAddress,
+    submit,
+    reset: resetProcess,
+    isProcessing,
+    error
+  } = useCreateCollection();
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const form = useForm<MintTerminalCreateForm>({
     resolver: zodResolver(MintTerminalCreateFormSchema),
-    mode: "onChange", // Trigger validation on change
-    defaultValues: {
-      chain: "sepolia", // Set a default chain instead of empty string
-      name: "",
-      symbol: "",
-      collectionImage: undefined, // Don't set to null, let it be undefined
-      artworkMode: "ERC721", // Default to ERC721
-      mintStartAt: new Date(Date.now()).toISOString(), // 5 minutes from now
-      description: "",
-      sameArtworkImage: undefined, // Don't set to null, let it be undefined
-      metadataBaseUrl: "", // Empty string is fine for ERC721 artwork mode
-      mintPrice: "0",
-      royaltyPercent: 0,
-      maxSupply: null,
-      mintLimitPerWallet: null,
-      stages: [
-        {
-          public: {
-            price: "0",
-            duration: null,
-          },
-        },
-      ],
-      agreeTos: true,
-    },
+    mode: "onChange",
+    defaultValues: DEFAULT_FORM_VALUES,
   });
 
   const handleClearForm = () => {
-    form.reset();
+    form.reset(DEFAULT_FORM_VALUES);
+    resetProcess();
   };
 
-  const onSubmit = (data: MintTerminalCreateForm) => {
-    const { success, error } = MintTerminalCreateFormSchema.safeParse(data);
-    if (!success) {
-      console.log(error);
+  const onSubmit = async (data: MintTerminalCreateForm) => {
+    if (!isWalletConnected) {
+      toast.error("Please connect your wallet first");
       return;
     }
-    console.log(data);
+
+    if (!isAuthenticated) {
+      toast.error("Please sign in with your wallet");
+      return;
+    }
+
+    setIsDialogOpen(true);
+    await submit(data);
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setIsDialogOpen(false);
+        resetProcess();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, resetProcess]);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -92,17 +133,40 @@ export default function CollectionForm() {
           <Button
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-            disabled={form.formState.isSubmitting || !form.formState.isValid}
+            disabled={
+              form.formState.isSubmitting ||
+              !form.formState.isValid ||
+              isProcessing ||
+              !isWalletConnected
+            }
           >
-            {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+            {!isWalletConnected
+              ? "Connect Wallet"
+              : !isAuthenticated
+                ? "Sign In Required"
+                : isProcessing
+                  ? "Creating..."
+                  : "Create Collection"
+            }
           </Button>
         </form>
       </Form>
+
       <CollectionProcess
-        isOpen={false}
-        onOpenChange={() => {}}
-        step1Status={"pending"}
-        step2Status={"pending"}
+        isOpen={isDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open);
+          if (!open) {
+            resetProcess();
+          }
+        }}
+        step1Status={step1Status}
+        step2Status={step2Status}
+        step3Status={step3Status}
+        step4Status={step4Status}
+        step5Status={step5Status}
+        txHash={txHash}
+        contractAddress={contractAddress}
       />
     </div>
   );

@@ -129,10 +129,12 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="POND"
+                        maxLength={10}
                         className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
+                    <p className="text-xs text-muted-foreground mt-1">Max 10 characters</p>
                     <FormMessage className="text-destructive" />
                   </FormItem>
                 )}
