@@ -232,11 +232,10 @@ export function RightSidebar({
 
       <aside
         className={cn(
-          "fixed top-10 sm:top-11 lg:top-12 right-0",
-          "hidden h-[calc(100vh-40px)] sm:h-[calc(100vh-44px)] lg:h-[calc(100vh-48px)]",
+          "fixed top-10 sm:top-11 lg:top-12 right-0 bottom-12",
+          "hidden lg:flex lg:flex-col",
           "flex-shrink-0 border-l border-border-subtle bg-background",
-          "transition-all duration-700 ease-in-out",
-          "lg:flex lg:flex-col overflow-hidden z-30",
+          "transition-all duration-700 ease-in-out overflow-hidden z-30",
           isCollapsed ? "w-0 border-l-0" : "w-[420px]"
         )}
         role="complementary"
@@ -425,147 +424,68 @@ export function RightSidebar({
         >
           {activeTab === "nfts"
             ? collections.map(collection => {
-                const floorPrice = 0.5 + Math.random() * 5;
-                const priceChange = (Math.random() - 0.5) * 50;
-                const currency = "ETH";
+              const floorPrice = 0.5 + Math.random() * 5;
+              const priceChange = (Math.random() - 0.5) * 50;
+              const currency = "ETH";
 
-                return viewMode === "compact" ? (
-                  // Compact View (60px rows with chain badge)
-                  <Link
-                    key={collection.id}
-                    href={`/collections/${collection.slug}`}
-                    className="cursor-pointer no-underline disabled:pointer-events-none disabled:opacity-40"
+              return viewMode === "compact" ? (
+                // Compact View (60px rows with chain badge)
+                <Link
+                  key={collection.id}
+                  href={`/collections/${collection.slug}`}
+                  className="cursor-pointer no-underline disabled:pointer-events-none disabled:opacity-40"
+                >
+                  <div
+                    className={cn(
+                      "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
+                      "hover:bg-frosted-1 active:bg-frosted-2",
+                      "h-[60px] text-sm gap-2"
+                    )}
+                    role="row"
                   >
+                    {/* Collection Info Cell */}
                     <div
-                      className={cn(
-                        "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
-                        "hover:bg-frosted-1 active:bg-frosted-2",
-                        "h-[60px] text-sm gap-2"
-                      )}
-                      role="row"
+                      className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start overflow-visible w-[100px] grow"
+                      role="cell"
                     >
-                      {/* Collection Info Cell */}
-                      <div
-                        className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start overflow-visible w-[100px] grow"
-                        role="cell"
-                      >
-                        <div className="flex items-center gap-3 w-auto max-w-full">
-                          {/* Image with Chain Badge */}
-                          <div
-                            className="relative inline-block shrink-0"
-                            style={{ width: 40, height: 40 }}
-                          >
-                            <Image
-                              src={collection.imageUrl || "/placeholder.svg"}
-                              alt={collection.name}
-                              width={40}
-                              height={40}
-                              className="aspect-square overflow-hidden min-h-10 min-w-10 shrink-0 rounded object-cover"
-                            />
-                            {/* Chain Badge */}
-                            <div className="flex flex-col justify-center items-center absolute overflow-hidden right-[-3px] bottom-[-3px] size-4 rounded bg-frosted-2 p-0">
-                              <EthereumIcon />
-                            </div>
-                          </div>
-                          {/* Name and Verified Badge */}
-                          <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
-                            <div className="flex items-center min-w-0 gap-1">
-                              <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
-                                <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
-                                  {collection.name}
-                                </span>
-                              </div>
-                              {collection.isVerified && <VerifiedBadge />}
-                            </div>
+                      <div className="flex items-center gap-3 w-auto max-w-full">
+                        {/* Image with Chain Badge */}
+                        <div
+                          className="relative inline-block shrink-0"
+                          style={{ width: 40, height: 40 }}
+                        >
+                          <Image
+                            src={collection.imageUrl || "/placeholder.svg"}
+                            alt={collection.name}
+                            width={40}
+                            height={40}
+                            className="aspect-square overflow-hidden min-h-10 min-w-10 shrink-0 rounded object-cover"
+                          />
+                          {/* Chain Badge */}
+                          <div className="flex flex-col justify-center items-center absolute overflow-hidden right-[-3px] bottom-[-3px] size-4 rounded bg-frosted-2 p-0">
+                            <EthereumIcon />
                           </div>
                         </div>
-                      </div>
-
-                      {/* Floor Price Cell */}
-                      <div
-                        className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[125px] justify-end whitespace-nowrap"
-                        role="cell"
-                      >
-                        <div className="flex flex-col min-w-0 items-end font-mono">
-                          <div className="max-w-full truncate break-all">
-                            <div className="inline-flex">
-                              <div className="items-center inline-flex gap-1 truncate cursor-pointer">
-                                <span className="font-mono text-foreground">
-                                  {floorPrice.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  })}
-                                </span>
-                                <span className="text-os-gray-300 font-mono">&nbsp;{currency}</span>
-                              </div>
+                        {/* Name and Verified Badge */}
+                        <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
+                          <div className="flex items-center min-w-0 gap-1">
+                            <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
+                              <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
+                                {collection.name}
+                              </span>
                             </div>
-                          </div>
-                          <div className="inline-flex">
-                            <span
-                              className={cn(
-                                "font-mono",
-                                priceChange >= 0 ? "text-success" : "text-destructive"
-                              )}
-                            >
-                              {priceChange >= 0 ? "+" : ""}
-                              {priceChange.toFixed(1)}%
-                            </span>
+                            {collection.isVerified && <VerifiedBadge />}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                ) : (
-                  // Expanded View (32px rows, no chain badge, 3 columns)
-                  <Link
-                    key={collection.id}
-                    href={`/collections/${collection.slug}`}
-                    className="cursor-pointer no-underline disabled:pointer-events-none disabled:opacity-40"
-                  >
-                    <div
-                      className={cn(
-                        "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
-                        "hover:bg-frosted-1 active:bg-frosted-2",
-                        "h-8 text-sm gap-4"
-                      )}
-                      role="row"
-                    >
-                      {/* Collection Info Cell */}
-                      <div
-                        className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start w-[100px] grow overflow-hidden"
-                        role="cell"
-                      >
-                        <div className="flex items-center gap-2 w-auto max-w-full">
-                          {/* Image (smaller, no chain badge) */}
-                          <div className="relative inline-block shrink-0">
-                            <Image
-                              src={collection.imageUrl || "/placeholder.svg"}
-                              alt={collection.name}
-                              width={24}
-                              height={24}
-                              className="aspect-square overflow-hidden size-6 min-h-6 min-w-6 shrink-0 rounded object-cover"
-                            />
-                            <div className="absolute inset-0 inset-shadow-border rounded" />
-                          </div>
-                          {/* Name and Verified Badge */}
-                          <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
-                            <div className="flex items-center min-w-0 gap-1">
-                              <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
-                                <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
-                                  {collection.name}
-                                </span>
-                              </div>
-                              {collection.isVerified && <VerifiedBadge size="small" />}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      {/* Floor Price Cell */}
-                      <div
-                        className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[104px] justify-end whitespace-nowrap font-mono"
-                        role="cell"
-                      >
+                    {/* Floor Price Cell */}
+                    <div
+                      className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[125px] justify-end whitespace-nowrap"
+                      role="cell"
+                    >
+                      <div className="flex flex-col min-w-0 items-end font-mono">
                         <div className="max-w-full truncate break-all">
                           <div className="inline-flex">
                             <div className="items-center inline-flex gap-1 truncate cursor-pointer">
@@ -579,13 +499,6 @@ export function RightSidebar({
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      {/* % Change Cell */}
-                      <div
-                        className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[60px] justify-end whitespace-nowrap font-mono"
-                        role="cell"
-                      >
                         <div className="inline-flex">
                           <span
                             className={cn(
@@ -599,98 +512,16 @@ export function RightSidebar({
                         </div>
                       </div>
                     </div>
-                  </Link>
-                );
-              })
-            : tokens.map(token =>
-                viewMode === "compact" ? (
-                  // Compact View (60px rows with chain badge)
-                  <div
-                    key={token.id}
-                    className={cn(
-                      "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
-                      "hover:bg-frosted-1 active:bg-frosted-2",
-                      "h-[60px] text-sm gap-2"
-                    )}
-                    role="row"
-                  >
-                    {/* Token Info Cell */}
-                    <div
-                      className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start overflow-visible w-[100px] grow"
-                      role="cell"
-                    >
-                      <div className="flex items-center gap-3 w-auto max-w-full">
-                        {/* Image with Chain Badge */}
-                        <div
-                          className="relative inline-block shrink-0"
-                          style={{ width: 40, height: 40 }}
-                        >
-                          <Image
-                            src={token.icon || "/placeholder.svg"}
-                            alt={token.name}
-                            width={40}
-                            height={40}
-                            className="aspect-square overflow-hidden min-h-10 min-w-10 shrink-0 rounded-full object-cover"
-                          />
-                          {/* Chain Badge */}
-                          <div className="flex flex-col justify-center items-center absolute overflow-hidden right-[-3px] bottom-[-3px] size-4 rounded bg-frosted-2 p-0">
-                            <EthereumIcon />
-                          </div>
-                        </div>
-                        {/* Name and Verified Badge */}
-                        <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
-                          <div className="flex items-center min-w-0 gap-1">
-                            <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
-                              <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
-                                {token.name}
-                              </span>
-                            </div>
-                            {token.verified && <VerifiedBadge />}
-                          </div>
-                          <span className="text-xs text-os-gray-300">{token.symbol}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Price Cell */}
-                    <div
-                      className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[125px] justify-end whitespace-nowrap"
-                      role="cell"
-                    >
-                      <div className="flex flex-col min-w-0 items-end font-mono">
-                        <div className="max-w-full truncate break-all">
-                          <div className="inline-flex">
-                            <div className="items-center inline-flex gap-1 truncate cursor-pointer">
-                              <span className="font-mono text-foreground">
-                                {token.price < 0.01 ? "< " : ""}$
-                                {token.price < 0.01
-                                  ? token.price.toFixed(6)
-                                  : token.price.toLocaleString(undefined, {
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 4,
-                                    })}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="inline-flex">
-                          <span
-                            className={cn(
-                              "font-mono",
-                              token.priceChange >= 0 ? "text-success" : "text-destructive"
-                            )}
-                          >
-                            {token.priceChange >= 0 ? "+" : ""}
-                            {token.priceChange}%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                ) : (
-                  // Expanded View (32px rows, no chain badge, 3 columns)
+                </Link>
+              ) : (
+                // Expanded View (32px rows, no chain badge, 3 columns)
+                <Link
+                  key={collection.id}
+                  href={`/collections/${collection.slug}`}
+                  className="cursor-pointer no-underline disabled:pointer-events-none disabled:opacity-40"
+                >
                   <div
-                    key={token.id}
                     className={cn(
                       "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
                       "hover:bg-frosted-1 active:bg-frosted-2",
@@ -698,7 +529,7 @@ export function RightSidebar({
                     )}
                     role="row"
                   >
-                    {/* Token Info Cell */}
+                    {/* Collection Info Cell */}
                     <div
                       className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start w-[100px] grow overflow-hidden"
                       role="cell"
@@ -707,29 +538,29 @@ export function RightSidebar({
                         {/* Image (smaller, no chain badge) */}
                         <div className="relative inline-block shrink-0">
                           <Image
-                            src={token.icon || "/placeholder.svg"}
-                            alt={token.name}
+                            src={collection.imageUrl || "/placeholder.svg"}
+                            alt={collection.name}
                             width={24}
                             height={24}
-                            className="aspect-square overflow-hidden size-6 min-h-6 min-w-6 shrink-0 rounded-full object-cover"
+                            className="aspect-square overflow-hidden size-6 min-h-6 min-w-6 shrink-0 rounded object-cover"
                           />
-                          <div className="absolute inset-0 inset-shadow-border rounded-full" />
+                          <div className="absolute inset-0 inset-shadow-border rounded" />
                         </div>
                         {/* Name and Verified Badge */}
                         <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
                           <div className="flex items-center min-w-0 gap-1">
                             <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
                               <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
-                                {token.name}
+                                {collection.name}
                               </span>
                             </div>
-                            {token.verified && <VerifiedBadge size="small" />}
+                            {collection.isVerified && <VerifiedBadge size="small" />}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Price Cell */}
+                    {/* Floor Price Cell */}
                     <div
                       className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[104px] justify-end whitespace-nowrap font-mono"
                       role="cell"
@@ -738,14 +569,12 @@ export function RightSidebar({
                         <div className="inline-flex">
                           <div className="items-center inline-flex gap-1 truncate cursor-pointer">
                             <span className="font-mono text-foreground">
-                              {token.price < 0.01 ? "< " : ""}$
-                              {token.price < 0.01
-                                ? token.price.toFixed(6)
-                                : token.price.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 4,
-                                  })}
+                              {floorPrice.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
+                            <span className="text-os-gray-300 font-mono">&nbsp;{currency}</span>
                           </div>
                         </div>
                       </div>
@@ -760,6 +589,93 @@ export function RightSidebar({
                         <span
                           className={cn(
                             "font-mono",
+                            priceChange >= 0 ? "text-success" : "text-destructive"
+                          )}
+                        >
+                          {priceChange >= 0 ? "+" : ""}
+                          {priceChange.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })
+            : tokens.map(token =>
+              viewMode === "compact" ? (
+                // Compact View (60px rows with chain badge)
+                <div
+                  key={token.id}
+                  className={cn(
+                    "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
+                    "hover:bg-frosted-1 active:bg-frosted-2",
+                    "h-[60px] text-sm gap-2"
+                  )}
+                  role="row"
+                >
+                  {/* Token Info Cell */}
+                  <div
+                    className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start overflow-visible w-[100px] grow"
+                    role="cell"
+                  >
+                    <div className="flex items-center gap-3 w-auto max-w-full">
+                      {/* Image with Chain Badge */}
+                      <div
+                        className="relative inline-block shrink-0"
+                        style={{ width: 40, height: 40 }}
+                      >
+                        <Image
+                          src={token.icon || "/placeholder.svg"}
+                          alt={token.name}
+                          width={40}
+                          height={40}
+                          className="aspect-square overflow-hidden min-h-10 min-w-10 shrink-0 rounded-full object-cover"
+                        />
+                        {/* Chain Badge */}
+                        <div className="flex flex-col justify-center items-center absolute overflow-hidden right-[-3px] bottom-[-3px] size-4 rounded bg-frosted-2 p-0">
+                          <EthereumIcon />
+                        </div>
+                      </div>
+                      {/* Name and Verified Badge */}
+                      <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
+                        <div className="flex items-center min-w-0 gap-1">
+                          <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
+                            <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
+                              {token.name}
+                            </span>
+                          </div>
+                          {token.verified && <VerifiedBadge />}
+                        </div>
+                        <span className="text-xs text-os-gray-300">{token.symbol}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Price Cell */}
+                  <div
+                    className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[125px] justify-end whitespace-nowrap"
+                    role="cell"
+                  >
+                    <div className="flex flex-col min-w-0 items-end font-mono">
+                      <div className="max-w-full truncate break-all">
+                        <div className="inline-flex">
+                          <div className="items-center inline-flex gap-1 truncate cursor-pointer">
+                            <span className="font-mono text-foreground">
+                              {token.price < 0.01 ? "< " : ""}$
+                              {token.price < 0.01
+                                ? token.price.toFixed(6)
+                                : token.price.toLocaleString(undefined, {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 4,
+                                })}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="inline-flex">
+                        <span
+                          className={cn(
+                            "font-mono",
                             token.priceChange >= 0 ? "text-success" : "text-destructive"
                           )}
                         >
@@ -769,8 +685,91 @@ export function RightSidebar({
                       </div>
                     </div>
                   </div>
-                )
-              )}
+                </div>
+              ) : (
+                // Expanded View (32px rows, no chain badge, 3 columns)
+                <div
+                  key={token.id}
+                  className={cn(
+                    "inline-flex relative w-max min-w-full items-center rounded group cursor-pointer",
+                    "hover:bg-frosted-1 active:bg-frosted-2",
+                    "h-8 text-sm gap-4"
+                  )}
+                  role="row"
+                >
+                  {/* Token Info Cell */}
+                  <div
+                    className="flex items-center shrink-0 first:pl-2 last:pr-2 justify-start w-[100px] grow overflow-hidden"
+                    role="cell"
+                  >
+                    <div className="flex items-center gap-2 w-auto max-w-full">
+                      {/* Image (smaller, no chain badge) */}
+                      <div className="relative inline-block shrink-0">
+                        <Image
+                          src={token.icon || "/placeholder.svg"}
+                          alt={token.name}
+                          width={24}
+                          height={24}
+                          className="aspect-square overflow-hidden size-6 min-h-6 min-w-6 shrink-0 rounded-full object-cover"
+                        />
+                        <div className="absolute inset-0 inset-shadow-border rounded-full" />
+                      </div>
+                      {/* Name and Verified Badge */}
+                      <div className="flex flex-col justify-center order-2 min-w-0 overflow-hidden flex-auto items-start self-stretch">
+                        <div className="flex items-center min-w-0 gap-1">
+                          <div className="max-w-full truncate break-all min-w-0 flex-1 leading-tight">
+                            <span className="leading-normal font-normal text-foreground text-sm cursor-pointer">
+                              {token.name}
+                            </span>
+                          </div>
+                          {token.verified && <VerifiedBadge size="small" />}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Price Cell */}
+                  <div
+                    className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[104px] justify-end whitespace-nowrap font-mono"
+                    role="cell"
+                  >
+                    <div className="max-w-full truncate break-all">
+                      <div className="inline-flex">
+                        <div className="items-center inline-flex gap-1 truncate cursor-pointer">
+                          <span className="font-mono text-foreground">
+                            {token.price < 0.01 ? "< " : ""}$
+                            {token.price < 0.01
+                              ? token.price.toFixed(6)
+                              : token.price.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 4,
+                              })}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* % Change Cell */}
+                  <div
+                    className="flex items-center shrink-0 grow-0 overflow-hidden first:pl-2 last:pr-2 w-[60px] justify-end whitespace-nowrap font-mono"
+                    role="cell"
+                  >
+                    <div className="inline-flex">
+                      <span
+                        className={cn(
+                          "font-mono",
+                          token.priceChange >= 0 ? "text-success" : "text-destructive"
+                        )}
+                      >
+                        {token.priceChange >= 0 ? "+" : ""}
+                        {token.priceChange}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
         </div>
       </aside>
     </>
