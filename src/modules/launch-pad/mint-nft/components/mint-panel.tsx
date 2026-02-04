@@ -49,7 +49,7 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
   const shouldShowHistoryTab = isConnected && (hasHistoryData || activeTab === "history");
 
   return (
-    <div className="space-y-5 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-secondary dark:bg-dialog h-full p-4 rounded-xl">
+    <div className="space-y-5 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-secondary dark:bg-card text-foreground h-full p-4 rounded-xl">
       <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
         {shouldShowHistoryTab && (
           <TabsList
@@ -138,11 +138,10 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                               )}
                               <div className="absolute top-2 right-2">
                                 <span
-                                  className={`px-2 py-1 text-xs rounded-full font-medium ${
-                                    nft.status === "COMPLETED"
+                                  className={`px-2 py-1 text-xs rounded-full font-medium ${nft.status === "COMPLETED"
                                       ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
                                       : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
-                                  }`}
+                                    }`}
                                 >
                                   {nft.status}
                                 </span>

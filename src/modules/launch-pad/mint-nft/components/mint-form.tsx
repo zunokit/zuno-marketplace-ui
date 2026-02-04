@@ -41,10 +41,10 @@ export default function MintForm() {
   const maxQuantity =
     isERC1155 && selectedEditionData
       ? Math.min(
-          selectedEditionData.remaining,
-          selectedEditionData.perWalletLimit,
-          10 // per-transaction limit
-        )
+        selectedEditionData.remaining,
+        selectedEditionData.perWalletLimit,
+        10 // per-transaction limit
+      )
       : SUPPORTS_BATCH
         ? MINT_LIMIT
         : 1;
@@ -118,11 +118,11 @@ export default function MintForm() {
       {/* Price and Amount */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-secondary text-xs md:text-sm font-semibold">Price</p>
+          <p className="text-muted-foreground text-xs md:text-sm font-semibold">Price</p>
           <span className="md:text-[24px] font-bold text-wrap min-w-0 break-all text-foreground">
             {mintPrice} SOL
           </span>
-          <span className="text-xs md:text-sm text-secondary ml-1 md:ml-2">
+          <span className="text-xs md:text-sm text-muted-foreground ml-1 md:ml-2">
             (${totalPriceInUsd})
           </span>
         </div>
@@ -156,7 +156,7 @@ export default function MintForm() {
           <div className="group flex w-full">
             <div className="w-full">
               <input
-                className="focus:outline-none size-full px-1 py-0 text text-center bg-transparent outline-none text-base text-secondary"
+                className="focus:outline-none size-full px-1 py-0 text text-center bg-transparent outline-none text-base text-foreground"
                 placeholder="1"
                 type="text"
                 value={amount}
@@ -194,18 +194,18 @@ export default function MintForm() {
 
       {/* Fees */}
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between text-xs text-secondary">
+        <div className="flex justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-x-1">
             <span>Mint Fee</span>
           </div>
-          <div className="font-fira flex items-center gap-1">
+          <div className="font-fira flex items-center gap-1 text-foreground">
             <span className="text text-right">{mintFee}</span>{" "}
             <span className="text-left" style={{ width: "3ch" }}>
               SOL
             </span>
           </div>
         </div>
-        <div className="flex justify-between gap-x-1 md:gap-[unset] text-xs text-secondary">
+        <div className="flex justify-between gap-x-1 md:gap-[unset] text-xs text-muted-foreground">
           <div className="flex items-center gap-x-1">
             <span>Protocol fee</span>
             <div className="cursor-default">
@@ -227,7 +227,7 @@ export default function MintForm() {
               </svg>
             </div>
           </div>
-          <div className="font-fira flex items-center gap-1">
+          <div className="font-fira flex items-center gap-1 text-foreground">
             <span className="text text-right">{protocolFee}</span>{" "}
             <span className="text-left" style={{ width: "3ch" }}>
               SOL
@@ -237,7 +237,7 @@ export default function MintForm() {
       </div>
 
       {/* Priority Fee */}
-      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-secondary [&>div]:!text-xs pt-0">
+      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-muted-foreground [&>div]:!text-xs pt-0">
         <div>
           Priority fee (<span className="underline cursor-pointer">Standard</span>)
         </div>
@@ -282,10 +282,10 @@ export default function MintForm() {
 
             <div className="empty:hidden"></div>
           </label>
-          <p className="text-xs text-secondary leading-tight">
+          <p className="text-xs text-muted-foreground leading-tight">
             By clicking &quot;mint&quot;, you agree to the{" "}
             <a
-              className="font-bold hover:text-secondary text-primary"
+              className="font-bold hover:text-muted-foreground text-foreground"
               href="https://magiceden.io/legal-policies/terms"
               target="_blank"
               rel="noreferrer noopener"

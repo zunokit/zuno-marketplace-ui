@@ -17,7 +17,7 @@ export default function MintStatus() {
       <div className="flex space-x-4 items-center justify-between">
         <div className="basis-1/2 flex items-center space-x-3 overflow-hidden">
           {/* Not Eligible Badge - Keeping it static for now as per HTML design unless we have logic */}
-          <div className="w-fit flex items-center justify-center min-h-6 text-xs rounded-full border border-labels-neutral text-labels-neutral min-w-fit py-1 px-1.5 max-lg:hidden bg-transparent">
+          <div className="w-fit flex items-center justify-center min-h-6 text-xs rounded-full border border-border text-muted-foreground min-w-fit py-1 px-1.5 max-lg:hidden bg-transparent">
             <div className="cursor-default">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +81,11 @@ export default function MintStatus() {
 
         <div className="basis-1/2">
           <div className="flex flex-col gap-1 grow">
-            <div className="flex items-center justify-between gap-x-5 text-xs text-secondary">
+            <div className="flex items-center justify-between gap-x-5 text-xs text-muted-foreground">
               <span className="max-md:hidden max-w-[70px] truncate">Total Minted</span>
               <div className="flex gap-x-1 max-md:w-full md:items-center">
-                <span className="text-primary font-bold max-md:mr-auto">{percentMinted}%</span>
-                <span>
+                <span className="text-foreground font-bold max-md:mr-auto">{percentMinted}%</span>
+                <span className="text-foreground">
                   {totalMinted} / {maxSupply}
                 </span>
               </div>

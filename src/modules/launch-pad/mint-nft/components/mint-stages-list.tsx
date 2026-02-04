@@ -44,7 +44,7 @@ export default function MintStagesList() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       stroke="currentColor"
-                      className="text-secondary"
+                      className="text-muted-foreground"
                       color="currentColor"
                     >
                       <path d="M8 11C8.13807 11 8.25 11.1119 8.25 11.25C8.25 11.3881 8.13807 11.5 8 11.5C7.86193 11.5 7.75 11.3881 7.75 11.25C7.75 11.1119 7.86193 11 8 11Z"></path>
@@ -55,26 +55,26 @@ export default function MintStagesList() {
                 </div>
               </div>
             </div>
-            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-primary text-sm font-medium uppercase">
-              <span className="text-secondary text-xs">Ended</span>
+            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-foreground text-sm font-medium uppercase">
+              <span className="text-muted-foreground text-xs">Ended</span>
             </div>
           </div>
           <div className="flex gap-1.5 items-center justify-between">
             <div className="flex gap-2.5 tracking-wide text-xs">
               <div className="flex items-center space-x-1.5 text-xs">
-                <span className="break-all text-secondary">Price:</span>
+                <span className="break-all text-muted-foreground">Price:</span>
                 <div className="cursor-default inline-block">
-                  <span className="text-primary">0.39</span>
-                  <span className="ml-1 text-secondary">SOL</span>
+                  <span className="text-foreground">0.39</span>
+                  <span className="ml-1 text-muted-foreground">SOL</span>
                 </div>
               </div>
               <div className="flex items-center gap-x-1">
-                <span className="text-secondary">Minted:</span>
-                <span className="text-primary">67</span>
+                <span className="text-muted-foreground">Minted:</span>
+                <span className="text-foreground">67</span>
               </div>
             </div>
           </div>
-          <div className="flex gap-1 text-primary tracking-wide text-sm flex-col">
+          <div className="flex gap-1 text-foreground tracking-wide text-sm flex-col">
             <div className="h-1.5 rounded-full bg-layer-04 overflow-hidden">
               <div
                 className="bg-brand rounded-full h-full"
@@ -85,9 +85,9 @@ export default function MintStagesList() {
                 style={{ width: "16.75%" }}
               ></div>
             </div>
-            <div className="flex justify-between text-secondary text-xs">
+            <div className="flex justify-between text-muted-foreground text-xs">
               <span>Minted during stage</span>
-              <span>
+              <span className="text-foreground">
                 <b>16% </b>(67/400)
               </span>
             </div>
@@ -132,7 +132,7 @@ export default function MintStagesList() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       stroke="currentColor"
-                      className="text-secondary"
+                      className="text-muted-foreground"
                       color="currentColor"
                     >
                       <path d="M8 11C8.13807 11 8.25 11.1119 8.25 11.25C8.25 11.3881 8.13807 11.5 8 11.5C7.86193 11.5 7.75 11.3881 7.75 11.25C7.75 11.1119 7.86193 11 8 11Z"></path>
@@ -143,28 +143,28 @@ export default function MintStagesList() {
                 </div>
               </div>
             </div>
-            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-primary text-sm font-medium uppercase">
-              <span className="text-secondary text-xs">Ended</span>
+            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-foreground text-sm font-medium uppercase">
+              <span className="text-muted-foreground text-xs">Ended</span>
             </div>
           </div>
           <div className="flex gap-1.5 items-center justify-between">
             <div className="flex gap-2.5 tracking-wide text-xs">
               <div className="">
                 <div className="flex items-center gap-x-1">
-                  <span className="text-secondary">Mint Limit:</span>
-                  <span className="text-primary">2</span>
+                  <span className="text-muted-foreground">Mint Limit:</span>
+                  <span className="text-foreground">2</span>
                 </div>
               </div>
               <div className="flex items-center space-x-1.5 text-xs">
-                <span className="break-all text-secondary">Price:</span>
+                <span className="break-all text-muted-foreground">Price:</span>
                 <div className="cursor-default inline-block">
-                  <span className="text-primary">0.39</span>
-                  <span className="ml-1 text-secondary">SOL</span>
+                  <span className="text-foreground">0.39</span>
+                  <span className="ml-1 text-muted-foreground">SOL</span>
                 </div>
               </div>
               <div className="flex items-center gap-x-1">
-                <span className="text-secondary">Minted:</span>
-                <span className="text-primary">29</span>
+                <span className="text-muted-foreground">Minted:</span>
+                <span className="text-foreground">29</span>
               </div>
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function MintStagesList() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       stroke="currentColor"
-                      className="text-secondary"
+                      className="text-muted-foreground"
                       color="currentColor"
                     >
                       <path d="M8 11C8.13807 11 8.25 11.1119 8.25 11.25C8.25 11.3881 8.13807 11.5 8 11.5C7.86193 11.5 7.75 11.3881 7.75 11.25C7.75 11.1119 7.86193 11 8 11Z"></path>
@@ -251,10 +251,10 @@ export default function MintStagesList() {
                 </div>
               </div>
             </div>
-            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-primary text-sm font-medium uppercase">
-              <span className="text-xs text-primary">Ends</span>
+            <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-foreground text-sm font-medium uppercase">
+              <span className="text-xs text-foreground">Ends</span>
               <div className="cursor-default">
-                <span className="bg-layer-01 text-primary font-semibold p-2 rounded-md uppercase text-xs">
+                <span className="bg-layer-01 text-foreground font-semibold p-2 rounded-md uppercase text-xs">
                   Dec 19
                 </span>
               </div>
@@ -264,15 +264,15 @@ export default function MintStagesList() {
             <div className="flex gap-2.5 tracking-wide text-xs">
               <div className="">
                 <div className="flex items-center gap-x-1 max-lg:hidden">
-                  <span className="text-secondary">Mint Limit:</span>
-                  <span className="text-primary">5</span>
+                  <span className="text-muted-foreground">Mint Limit:</span>
+                  <span className="text-foreground">5</span>
                 </div>
               </div>
               <div className="flex items-center space-x-1.5 text-xs">
-                <span className="break-all text-secondary">Price:</span>
+                <span className="break-all text-muted-foreground">Price:</span>
                 <div className="cursor-default inline-block">
-                  <span className="text-primary">0.2</span>
-                  <span className="ml-1 text-secondary">SOL</span>
+                  <span className="text-foreground">0.2</span>
+                  <span className="ml-1 text-muted-foreground">SOL</span>
                 </div>
               </div>
             </div>

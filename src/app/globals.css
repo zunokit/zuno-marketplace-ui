@@ -419,7 +419,7 @@ html:not(.dark) {
   --secondary: oklch(0.269 0 0); /* Dark gray */
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.12 0.01 280); /* Very dark purple-tinted #1a1525 equivalent */
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.82 0 0); /* Lighter gray for readable labels on dark panels */
   --accent: oklch(0.269 0 0); /* Dark gray */
   --accent-foreground: oklch(0.985 0 0);
 
