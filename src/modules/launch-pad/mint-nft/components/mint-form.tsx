@@ -302,7 +302,7 @@ export default function MintForm() {
             type="button"
             onClick={handleButtonClick}
             disabled={buttonState.disabled}
-            className="py-0 px-3 inline-flex justify-center items-center rounded text-sm transition bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active disabled:bg-button-primary-disabled text-on-brand disabled:text-disabled-on-brand w-full min-w-[150px] h-auto min-h-[44px]"
+            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-medium transition bg-os-epic hover:bg-os-epic/90 active:bg-os-epic/80 text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-auto min-h-[44px]"
           >
             {buttonState.icon}
             {buttonState.text}
@@ -316,13 +316,12 @@ export default function MintForm() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            stroke="rgb(var(--brand))"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            className="shrink-0"
-            color="rgb(var(--brand))"
+            className="shrink-0 text-os-epic"
             width="20"
             height="20"
           >

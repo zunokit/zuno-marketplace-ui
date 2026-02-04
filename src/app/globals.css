@@ -477,6 +477,11 @@ html:not(.dark) {
   --color-os-gray-300: #acadae;
 }
 
+/* Mint panel: magenta accent for progress bar, CTA, lock icon */
+[data-mint-panel] {
+  --brand: 211, 88, 255;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

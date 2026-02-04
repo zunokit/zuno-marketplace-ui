@@ -7,8 +7,8 @@ export default function MintStagesList() {
     <div className="bg-layer-01 p-4 space-y-4 rounded-xl">
       <div className="space-y-4">
         {/* OG Stage - Ended */}
-        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative border border-border-subtle">
-          <div className="bg-layer-01/70 rounded-2xl absolute inset-0 z-50"></div>
+        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative border border-border-subtle overflow-hidden">
+          <div className="absolute inset-0 z-50 rounded-2xl bg-black/55 dark:bg-black/65 backdrop-blur-[3px] pointer-events-none" aria-hidden />
           <div className="flex justify-between items-center">
             <div className="basis-1/2 flex items-center space-x-2">
               <div className="cursor-default">
@@ -77,7 +77,7 @@ export default function MintStagesList() {
           <div className="flex gap-1 text-foreground tracking-wide text-sm flex-col">
             <div className="h-1.5 rounded-full bg-layer-04 overflow-hidden">
               <div
-                className="bg-brand rounded-full h-full"
+                className="bg-os-epic rounded-full h-full"
                 role="progressbar"
                 aria-valuemax={100}
                 aria-valuemin={0}
@@ -95,8 +95,8 @@ export default function MintStagesList() {
         </div>
 
         {/* Whitelist Stage - Ended */}
-        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative border border-border-subtle">
-          <div className="bg-layer-01/70 rounded-2xl absolute inset-0 z-50"></div>
+        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative border border-border-subtle overflow-hidden">
+          <div className="absolute inset-0 z-50 rounded-2xl bg-black/55 dark:bg-black/65 backdrop-blur-[3px] pointer-events-none" aria-hidden />
           <div className="flex justify-between items-center">
             <div className="basis-1/2 flex items-center space-x-2">
               <div className="cursor-default">
@@ -170,12 +170,11 @@ export default function MintStagesList() {
           </div>
         </div>
 
-        {/* Public Stage - Active (Duplicate visual from MintStatus? No, in HTML it shows Public again as a card) */}
-        {/* The HTML has a 3rd card for "Public" which looks active (no grey overlay, different border color) */}
-        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative bg-layer-03 border border-interactive-hover">
+        {/* Public Stage - Active */}
+        <div className="rounded-lg border-solid p-3 flex flex-col gap-6 relative bg-card dark:bg-card border-2 border-border-medium dark:border-border-strong shadow-md ring-2 ring-os-epic/20">
           <div className="flex justify-between items-center">
             <div className="basis-1/2 flex items-center space-x-2">
-              <div className="w-fit flex items-center justify-center min-h-6 text-xs rounded-full border border-labels-neutral text-labels-neutral min-w-fit py-1 px-1.5 max-lg:hidden bg-transparent">
+              <div className="w-fit flex items-center justify-center min-h-6 text-xs rounded-full border border-border text-muted-foreground min-w-fit py-1 px-1.5 max-lg:hidden bg-transparent">
                 <div className="cursor-default">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -227,8 +226,8 @@ export default function MintStagesList() {
                       className="shrink-0 relative flex items-center justify-center h-[8px] w-[8px]"
                       aria-hidden="true"
                     >
-                      <span className="absolute rounded-full bg-support-positive animate-ping [animation-duration:2s] h-[10px] w-[10px]"></span>
-                      <span className="relative block rounded-full bg-support-positive h-[8px] w-[8px]"></span>
+                      <span className="absolute rounded-full bg-os-success animate-ping [animation-duration:2s] h-[10px] w-[10px]"></span>
+                      <span className="relative block rounded-full bg-os-success h-[8px] w-[8px]"></span>
                     </span>
                     <span className="ml-1 capitalize truncate max-w-[90px]">Public</span>
                     <svg
@@ -252,11 +251,12 @@ export default function MintStagesList() {
               </div>
             </div>
             <div className="basis-1/2 flex flex-row gap-2 tracking-wide text-center items-center flex-wrap justify-end text-foreground text-sm font-medium uppercase">
-              <span className="text-xs text-foreground">Ends</span>
-              <div className="cursor-default">
-                <span className="bg-layer-01 text-foreground font-semibold p-2 rounded-md uppercase text-xs">
-                  Dec 19
-                </span>
+              <span className="text-xs text-foreground mr-1.5">Ends</span>
+              <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                <span className="bg-white/10 dark:bg-white/10 text-foreground font-medium px-2 py-1 rounded text-xs tabular-nums">06d</span>
+                <span className="bg-white/10 dark:bg-white/10 text-foreground font-medium px-2 py-1 rounded text-xs tabular-nums">21h</span>
+                <span className="bg-white/10 dark:bg-white/10 text-foreground font-medium px-2 py-1 rounded text-xs tabular-nums">04m</span>
+                <span className="bg-white/10 dark:bg-white/10 text-foreground font-medium px-2 py-1 rounded text-xs tabular-nums">40s</span>
               </div>
             </div>
           </div>

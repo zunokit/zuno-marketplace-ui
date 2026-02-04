@@ -71,8 +71,8 @@ export default function MintStatus() {
                 className="shrink-0 relative flex items-center justify-center h-[8px] w-[8px]"
                 aria-hidden="true"
               >
-                <span className="absolute rounded-full bg-support-positive animate-ping [animation-duration:2s] h-[10px] w-[10px]"></span>
-                <span className="relative block rounded-full bg-support-positive h-[8px] w-[8px]"></span>
+                <span className="absolute rounded-full bg-os-success animate-ping [animation-duration:2s] h-[10px] w-[10px]"></span>
+                <span className="relative block rounded-full bg-os-success h-[8px] w-[8px]"></span>
               </span>
               <span className="ml-1 capitalize truncate max-w-[100px]">{stageName}</span>
             </div>
@@ -90,9 +90,9 @@ export default function MintStatus() {
                 </span>
               </div>
             </div>
-            <div className="bg-button-secondary h-1.5 rounded-full overflow-hidden">
+            <div className="bg-white/10 dark:bg-white/10 h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-brand rounded-full h-full"
+                className="bg-os-epic rounded-full h-full"
                 role="progressbar"
                 aria-valuemax={100}
                 aria-valuemin={0}

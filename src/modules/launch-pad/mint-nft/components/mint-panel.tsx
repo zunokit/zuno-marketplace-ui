@@ -70,7 +70,7 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
           </TabsList>
         )}
 
-        <TabsContent value="mint" className="space-y-5">
+        <TabsContent value="mint" className="space-y-5 mint-panel" data-mint-panel>
           {/* Top Section: Social Links (Desktop only) */}
           <MintSocialLinks />
 
@@ -139,8 +139,8 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
                               <div className="absolute top-2 right-2">
                                 <span
                                   className={`px-2 py-1 text-xs rounded-full font-medium ${nft.status === "COMPLETED"
-                                      ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
-                                      : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
+                                    ? "bg-success/10 text-success dark:bg-success/10 dark:text-success"
+                                    : "bg-warning/10 text-warning dark:bg-warning/10 dark:text-warning"
                                     }`}
                                 >
                                   {nft.status}
