@@ -33,6 +33,9 @@ export function CollectionMediaShowcase({ onImageChange }: CollectionMediaShowca
       {showCarousel && (
         <CollectionImageCarousel initialIndex={carouselIndex} onClose={handleCloseCarousel} />
       )}
+      <>
+      {/* The info in here */}
+      </>
     </>
   );
 }

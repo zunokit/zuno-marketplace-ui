@@ -1,5 +1,4 @@
 "use client";
-import CollectionOverviewTabs from "@/modules/launch-pad/mint-nft/components/collection-overview-tabs";
 import { CollectionMediaShowcase } from "@/modules/launch-pad/mint-nft/components/collection-media-showcase";
 import MintPanel from "@/modules/launch-pad/mint-nft/components/mint-panel";
 import ExploreCollectionButton from "@/modules/launch-pad/mint-nft/components/explore-collection-button";
@@ -9,7 +8,7 @@ import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state
 
 type MintNFTProps = { slug: string };
 
-export default function MintNFT({}: MintNFTProps) {
+export default function MintNFT({ }: MintNFTProps) {
   const { theme } = useTheme();
   const { currentImage, setCurrentImage } = useMintState();
 
@@ -39,7 +38,6 @@ export default function MintNFT({}: MintNFTProps) {
           </div>
         </div>
       </div>
-      <CollectionOverviewTabs />
     </>
   );
 }
