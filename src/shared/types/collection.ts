@@ -59,6 +59,26 @@ export interface PublicMint {
   mintPrice?: string; // e.g., "0.1 ETH", "2 SOL"
 }
 
+export interface CollectionOverview {
+  description?: string;
+  sections?: OverviewSection[];
+}
+
+export interface OverviewSection {
+  title: string;
+  content: string;
+  listItems?: string[];
+}
+
+export interface CollectionUtility {
+  items?: UtilityItem[];
+}
+
+export interface UtilityItem {
+  title: string;
+  description: string;
+}
+
 export interface ChainBinding {
   chainId: CAIP2; // ví dụ "eip155:1"
   tokenStandard: TokenStandard; // ERC721/1155/SPL/ORDINALS...
