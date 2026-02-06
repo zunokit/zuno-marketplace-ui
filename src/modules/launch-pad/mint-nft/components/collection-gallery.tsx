@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { Expand } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 interface CollectionGalleryProps {
@@ -19,7 +19,7 @@ export default function CollectionGallery({
 }: CollectionGalleryProps) {
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CollectionGallery from "@/modules/launch-pad/mint-nft/components/collection-gallery";
 import CollectionImageCarousel from "@/modules/launch-pad/mint-nft/components/collection-image-carousel";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 interface CollectionMediaShowcaseProps {
   onImageChange?: (imageUrl: string) => void;
@@ -15,7 +15,7 @@ export function CollectionMediaShowcase({ onImageChange }: CollectionMediaShowca
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
 
   const handleOpenCarousel = (index: number) => {

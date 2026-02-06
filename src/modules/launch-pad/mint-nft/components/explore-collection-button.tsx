@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 export default function ExploreCollectionButton() {
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
   return (
     <div className="w-full bg-secondary dark:bg-card p-3 rounded-xs">

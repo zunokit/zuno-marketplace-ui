@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 interface CollectionImageCarouselProps {
   initialIndex: number;
@@ -18,7 +18,7 @@ export default function CollectionImageCarousel({
 }: CollectionImageCarouselProps) {
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
