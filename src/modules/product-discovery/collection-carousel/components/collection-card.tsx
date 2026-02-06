@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
-import { type Collection } from "@/shared/types/collection";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { getCollectionStatus } from "@/shared/utils/collection";
+import type { Collection } from "@/shared/graphql/schema.generated";
 
 interface CollectionCardProps {
   item: Collection;
@@ -12,38 +12,52 @@ interface CollectionCardProps {
   onMouseLeave: () => void;
 }
 
+// Map GraphQL status to UI status format
+const mapStatusToUI = (status: Collection["status"]): "upcoming" | "live" | "ended" | "paused" => {
+  switch (status) {
+    case "PENDING": return "upcoming";
+    case "DEPLOYED": return "live";
+    case "FAILED": return "paused";
+    case "ARCHIVED": return "ended";
+    default: return "upcoming";
+  }
+};
+
 export function CollectionCard({
   item,
   isHovered,
   onMouseEnter,
   onMouseLeave,
 }: CollectionCardProps) {
+  // Map GraphQL fields to UI format for getCollectionStatus
+  const uiStatus = mapStatusToUI(item.status);
+
   const { isLive, isUpcoming, statusText, statusColor } = getCollectionStatus({
-    status: item.status || "upcoming",
-    mintStartDate: item.mintStartDate?.toString(),
-    publicMint: item.publicMint
-      ? {
-          startDate: item.mintStartDate?.toString(),
-          endDate: item.mintEndDate?.toString(),
-          mintPrice: item.mintPrice,
-        }
-      : undefined,
-    totalMinted: (item.totalMinted || 0).toString(),
-    maxSupply: (item.maxSupply || 0).toString(),
+    status: uiStatus,
+    mintStartDate: item.mintStartTime ?? undefined,
+    publicMint: item.mintStartTime ? {
+      startDate: item.mintStartTime,
+      endDate: item.allowlistStageEnd ?? undefined,
+      mintPrice: item.mintPricePublic ?? undefined,
+    } : undefined,
+    totalMinted: item.totalMinted.toString(),
+    maxSupply: (item.maxSupply ?? 0).toString(),
   });
 
-  const imageSrc = `${item.imageUrl || "/placeholder.svg"}`;
+  const imageSrc = item.imageUrl ?? "/placeholder.svg";
   const fallbackSrc = "https://placehold.co/300x200";
 
   const handleCardClick = () => {
-    if (isLive) {
+    if (isLive && item.slug) {
       redirect(`/marketplace/${item.slug}`);
     }
   };
 
   const handleMintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    redirect(`/mint/${item.slug}`);
+    if (item.slug) {
+      redirect(`/mint/${item.slug}`);
+    }
   };
 
   return (
@@ -102,7 +116,7 @@ export function CollectionCard({
                   PRICE
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
-                  {item.mintPrice || "N/A"}
+                  {item.mintPricePublic || "N/A"}
                 </p>
               </div>
               <div>
@@ -110,7 +124,7 @@ export function CollectionCard({
                   ITEMS
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
-                  {item.maxSupply}
+                  {item.maxSupply ?? "N/A"}
                 </p>
               </div>
               <div>
