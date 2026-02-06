@@ -121,6 +121,8 @@ export const MintTerminalCreateFormSchema = z
     name: z.string().min(1, "name is required"),
     symbol: z.string().min(1, "symbol is required"),
     collectionImage: FileSchema.optional(), // khuyến nghị 800×800 .jpg
+    bannerImage: FileSchema.optional(), // Banner image: 1500x500px recommended
+    featuredImage: FileSchema.optional(), // Featured image: 1200x800px recommended
     artworkMode: ArtworkModeSchema,
     mintStartAt: IsoDate, // ISO 8601
 
