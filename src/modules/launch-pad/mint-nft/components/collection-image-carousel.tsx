@@ -57,7 +57,7 @@ export default function CollectionImageCarousel({
   if (!collection) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 dark:bg-black/95 flex items-center justify-center">
+    <div className=" fixed inset-0 z-50 bg-black/90 dark:bg-black/95 flex items-center justify-center">
       <div className="absolute top-5 right-5 z-20">
         <Button
           variant="ghost"

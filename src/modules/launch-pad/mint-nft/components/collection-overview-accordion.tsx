@@ -15,12 +15,12 @@ export function CollectionOverviewAccordion({
 }: CollectionOverviewProps) {
   return (
     <div className={cn("px-6 py-4 space-y-4", className)}>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="multiple" defaultValue={["overview"]} className="w-full">
         <AccordionItem value="overview" className="!border-primary !bg-transparent border-0">
-          <AccordionTrigger className="hover:no-underline cursor-pointer [&>svg]:text-foreground">
+          <AccordionTrigger className="hover:no-underline cursor-pointer [&>svg]:text-foreground py-2">
             <h2 className="text-xl font-bold text-wrap">Overview</h2>
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="pb-4">
             <div className="text">
               {/* Description */}
               <p className="text-sm leading-normal mb-5 last:mb-0">

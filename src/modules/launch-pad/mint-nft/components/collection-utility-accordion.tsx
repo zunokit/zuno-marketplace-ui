@@ -15,12 +15,12 @@ export function CollectionUtilityAccordion({
 }: CollectionUtilityProps) {
   return (
     <div className={cn("px-6 py-4 space-y-4", className)}>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="multiple" defaultValue={["utility"]} className="w-full">
         <AccordionItem value="utility" className="!border-primary !bg-transparent border-0">
-          <AccordionTrigger className="hover:no-underline cursor-pointer [&>svg]:text-foreground">
+          <AccordionTrigger className="hover:no-underline cursor-pointer [&>svg]:text-foreground py-2">
             <h2 className="text-xl font-bold text-wrap">{data.title}</h2>
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="pb-4">
             <div className="text">
               <ol className="ml-4 pb-6 last:pb-0" style={{ listStyle: "outside" }}>
                 {data.items.map((item, index) => (

@@ -1,7 +1,6 @@
 "use client";
 import { CollectionMediaShowcase } from "@/modules/launch-pad/mint-nft/components/collection-media-showcase";
 import MintPanel from "@/modules/launch-pad/mint-nft/components/mint-panel";
-import ExploreCollectionButton from "@/modules/launch-pad/mint-nft/components/explore-collection-button";
 import { useTheme } from "next-themes";
 import MintNFTSkeleton from "@/modules/launch-pad/mint-nft/components/mint-nft-skeleton";
 import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
@@ -30,11 +29,10 @@ export default function MintNFT({ }: MintNFTProps) {
             }}
           />
         )}
-        <div className="flex md:flex-row items-center gap-10 flex-col">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 p-10">
           <CollectionMediaShowcase onImageChange={setCurrentImage} />
-          <div className="flex flex-1 flex-col gap-5 z-1 mb-auto">
+          <div className="mb-auto w-1/3">
             <MintPanel currentGalleryImage={currentImage} />
-            <ExploreCollectionButton />
           </div>
         </div>
       </div>

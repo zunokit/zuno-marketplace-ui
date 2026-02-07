@@ -44,7 +44,7 @@ export default function CollectionGallery({
   return (
     <div
       className={cn(
-        "bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-[8px] relative w-full max-w-full overflow-hidden xl:max-w-2xl border border-border-subtle",
+        " bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-[8px] relative overflow-hidden xl:max-w-2xl border border-border-subtle",
         hasThumbnails && "p-5"
       )}
     >
