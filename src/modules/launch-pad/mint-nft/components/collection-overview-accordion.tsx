@@ -17,7 +17,7 @@ export function CollectionOverviewAccordion({
     <div className={cn("px-6 py-4 space-y-4", className)}>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="overview" className="!border-primary !bg-transparent border-0">
-          <AccordionTrigger className="hover:underline hover:no-underline [&>svg]:text-foreground">
+          <AccordionTrigger className="hover:no-underline cursor-pointer [&>svg]:text-foreground">
             <h2 className="text-xl font-bold text-wrap">Overview</h2>
           </AccordionTrigger>
           <AccordionContent>

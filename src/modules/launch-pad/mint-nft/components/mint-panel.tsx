@@ -7,7 +7,6 @@ import MintStatus from "@/modules/launch-pad/mint-nft/components/mint-status";
 import MintForm from "@/modules/launch-pad/mint-nft/components/mint-form";
 import MintSocialLinks from "@/modules/launch-pad/mint-nft/components/mint-social-links";
 import MintStagesList from "@/modules/launch-pad/mint-nft/components/mint-stages-list";
-import MintAccordions from "@/modules/launch-pad/mint-nft/components/mint-accordions";
 
 import {
   Dialog,
@@ -49,45 +48,42 @@ export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
   const shouldShowHistoryTab = isConnected && (hasHistoryData || activeTab === "history");
 
   return (
-    <div className="space-y-5 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-secondary dark:bg-card text-foreground h-full p-4 rounded-xl">
+    <div className="space-y-4 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-[#1a1a1a] text-foreground h-full p-4 rounded-xl border border-white/[0.08]">
       <Tabs defaultValue="mint" className="w-full" onValueChange={setActiveTab} value={activeTab}>
         {shouldShowHistoryTab && (
           <TabsList
-            className={`grid w-full mb-4 bg-background border border-border-subtle dark:bg-muted dark:border-border-subtle grid-cols-2`}
+            className="grid w-full mb-4 bg-[#252525] border border-white/[0.08] grid-cols-2"
           >
             <TabsTrigger
               value="mint"
-              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
+              className="data-[state=active]:bg-[#ff1a75] data-[state=active]:text-white text-sm"
             >
               Mint
             </TabsTrigger>
             <TabsTrigger
               value="history"
-              className="data-[state=active]:bg-primary dark:data-[state=active]:bg-primary data-[state=active]:text-foreground text-sm"
+              className="data-[state=active]:bg-[#ff1a75] data-[state=active]:text-white text-sm"
             >
               History
             </TabsTrigger>
           </TabsList>
         )}
 
-        <TabsContent value="mint" className="space-y-5 mint-panel" data-mint-panel>
+        <TabsContent value="mint" className="space-y-4 mint-panel" data-mint-panel>
           {/* Top Section: Social Links (Desktop only) */}
           <MintSocialLinks />
 
           {/* Main Box: Status & Form */}
-          <div className="border-dark flex flex-col gap-y-4">
+          <div className="flex flex-col gap-y-4">
             <MintStatus />
 
-            <div className="bg-layer-03 p-4 rounded space-y-4">
+            <div className="bg-[#252525] p-4 rounded-lg space-y-4 border border-white/[0.08]">
               <MintForm />
             </div>
           </div>
 
           {/* Previous Stages List */}
           <MintStagesList />
-
-          {/* Accordions (Mobile only) */}
-          <MintAccordions />
         </TabsContent>
 
         {shouldShowHistoryTab && (

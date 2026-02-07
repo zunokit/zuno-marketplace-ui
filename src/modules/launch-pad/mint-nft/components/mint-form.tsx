@@ -3,7 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
-import { Loader2, Wallet, Sparkles, Package, AlertTriangle } from "lucide-react";
+import { Loader2, Wallet, Sparkles, Package, AlertTriangle, Lock, CircleHelp } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 export default function MintForm() {
@@ -302,7 +302,7 @@ export default function MintForm() {
             type="button"
             onClick={handleButtonClick}
             disabled={buttonState.disabled}
-            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-medium transition bg-os-epic hover:bg-os-epic/90 active:bg-os-epic/80 text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-auto min-h-[44px]"
+            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#ff1a75] hover:bg-[#e61766] active:bg-[#cc145a] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-12 shadow-[0_0_20px_rgba(255,26,117,0.3)]"
           >
             {buttonState.icon}
             {buttonState.text}
@@ -312,24 +312,8 @@ export default function MintForm() {
 
       {/* Trading Lock Notice - from HTML */}
       <div className="overflow-hidden" style={{ height: "auto", opacity: 1 }}>
-        <div className="flex bg-layer-01 rounded-md p-2 text-xs gap-2 items-center mt-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            className="shrink-0 text-os-epic"
-            width="20"
-            height="20"
-          >
-            <path stroke="none" d="M0 0h24v24H0z"></path>
-            <rect width="14" height="10" x="5" y="11" rx="2"></rect>
-            <circle cx="12" cy="16" r="1"></circle>
-            <path d="M8 11V7a4 4 0 018 0v4"></path>
-          </svg>
+        <div className="flex bg-[#1f1f1f] rounded-md p-3 text-xs gap-2 items-center mt-3 border border-white/[0.08]">
+          <Lock className="shrink-0 text-[#ff1a75]" size={20} />
           <span className="text-xs text-foreground">
             Collection is locked from trading until all items have been minted.
           </span>
