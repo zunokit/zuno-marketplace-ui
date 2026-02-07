@@ -116,19 +116,21 @@ export default function MintForm() {
   return (
     <div className="space-y-2">
       {/* Price and Amount */}
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-2">
+        <div className="min-w-0 flex-1">
           <p className="text-muted-foreground text-xs md:text-sm font-semibold">Price</p>
-          <span className="md:text-[24px] font-bold text-wrap min-w-0 break-all text-foreground">
-            {mintPrice} SOL
-          </span>
-          <span className="text-xs md:text-sm text-muted-foreground ml-1 md:ml-2">
-            (${totalPriceInUsd})
-          </span>
+          <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground break-all">
+              {mintPrice} SOL
+            </span>
+            <span className="text-xs md:text-sm text-muted-foreground">
+              (${totalPriceInUsd})
+            </span>
+          </div>
         </div>
 
         {/* Amount Stepper */}
-        <div className="flex items-center justify-between rounded overflow-hidden outline-none bg-input border border-interactive min-w-[150px] h-10 w-32">
+        <div className="flex items-center justify-between rounded overflow-hidden outline-none bg-input border border-interactive h-10 w-28 sm:w-32 flex-shrink-0">
           <div className="shrink-0 h-full flex p-1">
             <button
               type="button"
@@ -194,21 +196,19 @@ export default function MintForm() {
 
       {/* Fees */}
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between text-xs text-muted-foreground">
+        <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
             <span>Mint Fee</span>
           </div>
-          <div className="font-fira flex items-center gap-1 text-foreground">
-            <span className="text text-right">{mintFee}</span>{" "}
-            <span className="text-left" style={{ width: "3ch" }}>
-              SOL
-            </span>
+          <div className="font-fira flex items-center gap-1 text-foreground flex-shrink-0">
+            <span className="text-right">{mintFee}</span>{" "}
+            <span className="text-left">SOL</span>
           </div>
         </div>
-        <div className="flex justify-between gap-x-1 md:gap-[unset] text-xs text-muted-foreground">
+        <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
             <span>Protocol fee</span>
-            <div className="cursor-default">
+            <div className="cursor-default flex-shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -227,11 +227,9 @@ export default function MintForm() {
               </svg>
             </div>
           </div>
-          <div className="font-fira flex items-center gap-1 text-foreground">
-            <span className="text text-right">{protocolFee}</span>{" "}
-            <span className="text-left" style={{ width: "3ch" }}>
-              SOL
-            </span>
+          <div className="font-fira flex items-center gap-1 text-foreground flex-shrink-0">
+            <span className="text-right">{protocolFee}</span>{" "}
+            <span className="text-left">SOL</span>
           </div>
         </div>
       </div>
@@ -245,8 +243,8 @@ export default function MintForm() {
 
       {/* Terms and Button */}
       <div className="flex flex-col pt-2 space-y-2.5">
-        <div className="flex gap-x-3 items-center mb-2">
-          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer">
+        <div className="flex gap-3 items-start">
+          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer flex-shrink-0 mt-0.5">
             <div className="relative">
               <input
                 type="checkbox"
@@ -282,14 +280,13 @@ export default function MintForm() {
 
             <div className="empty:hidden"></div>
           </label>
-          <p className="text-xs text-muted-foreground leading-tight">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             By clicking &quot;mint&quot;, you agree to the{" "}
             <a
               className="font-bold hover:text-muted-foreground text-foreground"
               href="https://magiceden.io/legal-policies/terms"
               target="_blank"
               rel="noreferrer noopener"
-              style={{ lineHeight: 1 }}
             >
               Magic Eden Terms of Service
             </a>

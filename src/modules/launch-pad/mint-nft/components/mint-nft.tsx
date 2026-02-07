@@ -29,9 +29,9 @@ export default function MintNFT({ }: MintNFTProps) {
             }}
           />
         )}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 p-10">
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-6 lg:gap-10 p-4 lg:p-10">
           <CollectionMediaShowcase onImageChange={setCurrentImage} />
-          <div className="mb-auto w-1/3">
+          <div className="w-full lg:w-[380px] flex-shrink-0">
             <MintPanel currentGalleryImage={currentImage} />
           </div>
         </div>

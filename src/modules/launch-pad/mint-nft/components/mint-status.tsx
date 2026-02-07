@@ -15,8 +15,8 @@ export default function MintStatus() {
 
   return (
     <div className="bg-[#252525] p-4 rounded-lg border border-white/[0.08] space-y-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {/* Not Eligible Badge */}
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground border border-white/[0.08] rounded-full px-2 py-1">
             <Lock size={14} />
@@ -35,7 +35,7 @@ export default function MintStatus() {
 
         {/* Total Minted */}
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground hidden md:block">Total Minted</span>
+          <span className="text-xs text-muted-foreground hidden sm:block">Total Minted</span>
           <div className="flex items-center gap-1">
             <span className="text-sm font-bold text-[#ff1a75]">{percentMinted}%</span>
             <span className="text-xs text-muted-foreground">{totalMinted} / {maxSupply}</span>
