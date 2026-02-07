@@ -18,7 +18,7 @@ export default function MintNFT({ }: MintNFTProps) {
       <div className="relative">
         {currentImage && (
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage: `url(${currentImage})`,
               backgroundSize: "cover",

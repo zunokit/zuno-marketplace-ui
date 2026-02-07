@@ -35,7 +35,7 @@ export function CollectionMediaShowcase({ onImageChange }: CollectionMediaShowca
   };
   if (!collection) return null;
   return (
-    <div className="flex flex-1 w-2/3 flex-col gap-5">
+    <div className="flex flex-1 w-2/3 flex-col gap-5 max-w-2xl">
       <CollectionGallery onOpenCarousel={handleOpenCarousel} onImageChange={onImageChange} />
       {showCarousel && (
         <CollectionImageCarousel initialIndex={carouselIndex} onClose={handleCloseCarousel} />
