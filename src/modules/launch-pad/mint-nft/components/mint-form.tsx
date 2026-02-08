@@ -213,7 +213,7 @@ export default function MintForm() {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="none"
-                color="#998CA6"
+                className="text-muted-foreground"
                 width="14"
                 height="14"
               >
@@ -309,7 +309,7 @@ export default function MintForm() {
 
       {/* Trading Lock Notice - from HTML */}
       <div className="overflow-hidden" style={{ height: "auto", opacity: 1 }}>
-        <div className="flex bg-[#1f1f1f] rounded-md p-3 text-xs gap-2 items-center mt-3 border border-white/[0.08]">
+        <div className="flex bg-muted rounded-md p-3 text-xs gap-2 items-center mt-3 border border-border-subtle">
           <Lock className="shrink-0 text-[#ff1a75]" size={20} />
           <span className="text-xs text-foreground">
             Collection is locked from trading until all items have been minted.

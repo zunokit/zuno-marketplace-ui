@@ -43,7 +43,7 @@ export default function MintSocialLinks() {
             href={websiteUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-[#2a2a2a] hover:bg-[#333] border border-white/[0.08] text-muted-foreground hover:text-foreground"
+            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-secondary hover:bg-frosted-2 border border-border-subtle text-muted-foreground hover:text-foreground"
           >
             <Globe size={14} />
           </a>
@@ -54,7 +54,7 @@ export default function MintSocialLinks() {
             href={twitterUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-[#2a2a2a] hover:bg-[#333] border border-white/[0.08] text-muted-foreground hover:text-foreground"
+            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-secondary hover:bg-frosted-2 border border-border-subtle text-muted-foreground hover:text-foreground"
           >
             <Twitter size={14} />
           </a>
@@ -65,7 +65,7 @@ export default function MintSocialLinks() {
             href={discordUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-[#2a2a2a] hover:bg-[#333] border border-white/[0.08] text-muted-foreground hover:text-foreground"
+            className="w-8 h-8 flex items-center justify-center transition-colors rounded-full bg-secondary hover:bg-frosted-2 border border-border-subtle text-muted-foreground hover:text-foreground"
           >
             <svg
               stroke="currentColor"

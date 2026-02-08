@@ -14,17 +14,17 @@ export default function MintStatus() {
   const stageName = activeStageData?.getActiveStage?.isPublicMint ? "Public" : "Allowlist";
 
   return (
-    <div className="bg-[#252525] p-4 rounded-lg border border-white/[0.08] space-y-3">
+    <div className="bg-secondary p-4 rounded-lg border border-border-subtle space-y-3">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex items-center gap-2 flex-wrap">
           {/* Not Eligible Badge */}
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground border border-white/[0.08] rounded-full px-2 py-1">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground border border-border-subtle rounded-full px-2 py-1">
             <Lock size={14} />
             <span>Not Eligible</span>
           </div>
 
           {/* Active Stage Indicator */}
-          <div className="flex items-center gap-1.5 bg-[#2a2a2a] rounded-full px-2 py-1">
+          <div className="flex items-center gap-1.5 bg-muted rounded-full px-2 py-1">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -44,7 +44,7 @@ export default function MintStatus() {
       </div>
 
       {/* Progress Bar */}
-      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-muted rounded-full overflow-hidden">
         <div
           className="h-full bg-gradient-to-r from-[#ff1a75] to-[#ff4d94] rounded-full transition-all duration-500"
           role="progressbar"

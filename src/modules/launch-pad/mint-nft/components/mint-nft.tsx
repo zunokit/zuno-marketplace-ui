@@ -1,15 +1,30 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { CollectionMediaShowcase } from "@/modules/launch-pad/mint-nft/components/collection-media-showcase";
+import { CollectionInfoSection } from "@/modules/launch-pad/mint-nft/components/collection-info-section";
 import MintPanel from "@/modules/launch-pad/mint-nft/components/mint-panel";
 import { useTheme } from "next-themes";
 import MintNFTSkeleton from "@/modules/launch-pad/mint-nft/components/mint-nft-skeleton";
 import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
+import type { CollectionOverviewData, CollectionUtilityData } from "@/shared/types/collection-info.types";
+import type { Collection } from "@/shared/types";
 
 type MintNFTProps = { slug: string };
 
-export default function MintNFT({ }: MintNFTProps) {
+export default function MintNFT({}: MintNFTProps) {
   const { theme } = useTheme();
   const { currentImage, setCurrentImage } = useMintState();
+  const [collection, setCollection] = useState<Collection | null>(null);
+  const [overview, setOverview] = useState<CollectionOverviewData | null>(null);
+  const [utility, setUtility] = useState<CollectionUtilityData | null>(null);
+
+  useEffect(() => {
+    setCollection(collectionFaker.collection());
+    setOverview(collectionFaker.collectionOverviewData());
+    setUtility(collectionFaker.collectionUtilityData());
+  }, []);
 
   if (false) return <MintNFTSkeleton />;
 
@@ -30,9 +45,18 @@ export default function MintNFT({ }: MintNFTProps) {
           />
         )}
         <div className="flex flex-col lg:flex-row items-start justify-center gap-6 lg:gap-10 p-4 lg:p-10">
-          <CollectionMediaShowcase onImageChange={setCurrentImage} />
+          <CollectionMediaShowcase
+            collection={collection}
+            overview={overview}
+            utility={utility}
+            onImageChange={setCurrentImage}
+          />
           <div className="w-full lg:w-[380px] flex-shrink-0">
             <MintPanel currentGalleryImage={currentImage} />
+          </div>
+          {/* Mobile: info section below mint panel */}
+          <div className="w-full lg:hidden">
+            <CollectionInfoSection overview={overview} utility={utility} />
           </div>
         </div>
       </div>
