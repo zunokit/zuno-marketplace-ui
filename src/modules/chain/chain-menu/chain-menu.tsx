@@ -7,6 +7,7 @@ import { cn } from "@/shared/utils/tailwind-utils";
 import Image from "next/image";
 import { mockChains } from "@/shared/utils/mock/mockChain";
 import { useScroll } from "@/shared/hooks/use-scroll";
+import { ROUTES } from "@/shared/constants/routes";
 
 interface ChainMenuProps {
   onToggleSidebar?: () => void;
@@ -75,7 +76,7 @@ export default function ChainMenu({
             <div className="flex items-center gap-1.5">
               {/* All Chains Button */}
               <Link
-                href="/"
+                href={ROUTES.HOME}
                 className={cn(
                   baseButtonStyles,
                   selectedChain === "all" ? activeButtonStyles : inactiveButtonStyles
@@ -92,7 +93,7 @@ export default function ChainMenu({
                 return (
                   <Link
                     key={chain.id}
-                    href={`/discover/${chain.slug}`}
+                    href={ROUTES.DISCOVER_CHAIN(chain.slug)}
                     className={cn(
                       baseButtonStyles,
                       isActive ? activeButtonStyles : inactiveButtonStyles
