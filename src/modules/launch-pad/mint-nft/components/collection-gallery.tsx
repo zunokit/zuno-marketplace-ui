@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { Expand } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 interface CollectionGalleryProps {
@@ -19,7 +19,7 @@ export default function CollectionGallery({
 }: CollectionGalleryProps) {
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,7 +44,7 @@ export default function CollectionGallery({
   return (
     <div
       className={cn(
-        "bg-gradient-to-b from-secondary to-background dark:from-card dark:to-card rounded-[8px] relative w-full max-w-full overflow-hidden xl:max-w-2xl border border-border-subtle",
+        " bg-linear-to-b from-secondary to-background dark:from-card dark:to-card rounded-os-xl relative overflow-hidden xl:max-w-2xl border border-border-subtle",
         hasThumbnails && "p-5"
       )}
     >
@@ -52,7 +52,7 @@ export default function CollectionGallery({
         <Button
           variant="ghost"
           size="icon"
-          className="bg-muted dark:bg-card border border-border-subtle text-foreground dark:text-foreground hover:bg-secondary dark:hover:bg-card/80 rounded-[6px] h-10 w-10 cursor-pointer"
+          className="bg-muted dark:bg-card border border-border-subtle text-foreground dark:text-foreground hover:bg-secondary dark:hover:bg-card/80 rounded-os-lg h-10 w-10 cursor-pointer"
           onClick={() => onOpenCarousel(currentIndex)}
           aria-label={`Open carousel at image ${currentIndex + 1} of ${collection.name}`}
         >
@@ -60,7 +60,7 @@ export default function CollectionGallery({
         </Button>
       </div>
       <div
-        className="aspect-[4/5] relative rounded-[6px] overflow-hidden"
+        className="aspect-4/5 relative rounded-os-lg overflow-hidden"
         style={{ width: "100%", height: "auto" }}
       >
         <Image
@@ -80,7 +80,7 @@ export default function CollectionGallery({
             {displayedThumbnails.map((img, index) => (
               <div
                 key={index}
-                className={`flex-shrink-0 w-24 h-24 relative rounded-[6px] overflow-hidden cursor-pointer border-2 transition-all duration-200 hover:opacity-90 dark:hover:opacity-80 ${
+                className={`shrink-0 w-24 h-24 relative rounded-os-lg overflow-hidden cursor-pointer border-2 transition-all duration-200 hover:opacity-90 dark:hover:opacity-80 ${
                   index === currentIndex
                     ? "border-purple-500 dark:border-purple-400"
                     : "border-transparent"
