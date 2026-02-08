@@ -1,7 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { BaseCarousel } from "@/shared/components/carousel/base-carousel";
+import {
+  BaseCarousel,
+  type CarouselItemData,
+} from "@/shared/components/carousel/base-carousel";
 import { CollectionCard } from "@/modules/product-discovery/collection-carousel/components/collection-card";
 import { useGetCollectionsQuery } from "@/shared/graphql/hooks.generated";
 import type { Collection } from "@/shared/graphql/schema.generated";
@@ -39,9 +42,10 @@ export function CollectionCarousel() {
 
   // Loading state - show skeleton cards
   if (loading) {
-    const skeletonItems = Array.from({ length: 5 }, (_, i) => ({
-      id: `skeleton-${i}`,
-    })) as Collection[];
+    const skeletonItems: CarouselItemData[] = Array.from(
+      { length: 5 },
+      (_, i) => ({ id: `skeleton-${i}` })
+    );
 
     return (
       <BaseCarousel
@@ -89,8 +93,8 @@ export function CollectionCarousel() {
   }
 
   return (
-    <BaseCarousel
-      items={collections as any}
+    <BaseCarousel<Collection>
+      items={collections}
       renderItem={renderCollectionCard}
       autoplayDelay={2000}
       showNavigation={true}
