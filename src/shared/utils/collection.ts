@@ -11,9 +11,13 @@ const API_STATUS_TO_UI: Record<ApiCollectionStatus, CollectionUIStatus> = {
   ARCHIVED: "ended",
 };
 
-/** Map API/GraphQL collection status to UI display status. */
-export function mapStatusToUI(status: ApiCollectionStatus): CollectionUIStatus {
-  return API_STATUS_TO_UI[status];
+/** Map API/GraphQL collection status to UI display status. Handles unknown (e.g. "%future added value") by returning "upcoming". */
+export function mapStatusToUI(
+  status: ApiCollectionStatus | string
+): CollectionUIStatus {
+  return status in API_STATUS_TO_UI
+    ? API_STATUS_TO_UI[status as ApiCollectionStatus]
+    : "upcoming";
 }
 
 type CollectionStatusInput = {

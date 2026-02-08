@@ -7,7 +7,7 @@ import {
 } from "@/shared/components/carousel/base-carousel";
 import { CollectionCard } from "@/modules/product-discovery/collection-carousel/components/collection-card";
 import { useGetCollectionsQuery } from "@/shared/graphql/hooks.generated";
-import type { Collection } from "@/shared/graphql/schema.generated";
+import type { CollectionListItem } from "@/modules/product-discovery/collection-carousel/types";
 
 export function CollectionCarousel() {
   // Fetch collections from backend
@@ -27,7 +27,7 @@ export function CollectionCarousel() {
 
 
   const renderCollectionCard = (
-    item: Collection,
+    item: CollectionListItem,
     isHovered: boolean,
     onMouseEnter: () => void,
     onMouseLeave: () => void
@@ -93,7 +93,7 @@ export function CollectionCarousel() {
   }
 
   return (
-    <BaseCarousel<Collection>
+    <BaseCarousel<CollectionListItem>
       items={collections}
       renderItem={renderCollectionCard}
       autoplayDelay={2000}

@@ -4,10 +4,10 @@ import { Button } from "@/shared/components/ui/button";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { getCollectionStatus, mapStatusToUI } from "@/shared/utils/collection";
-import type { Collection } from "@/shared/graphql/schema.generated";
+import type { CollectionListItem } from "@/modules/product-discovery/collection-carousel/types";
 
 interface CollectionCardProps {
-  item: Collection;
+  item: CollectionListItem;
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
@@ -62,7 +62,7 @@ export function CollectionCard({
     >
       <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0">
         <div className="flex flex-col h-full">
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <div className="relative aspect-4/3 w-full overflow-hidden">
             <Image
               src={imageSrc}
               alt={item.name}
@@ -76,7 +76,7 @@ export function CollectionCard({
             />
             {(isLive || isUpcoming) && (
               <div
-                className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 h-16 flex items-end transform transition-transform duration-300 ${
+                className={`absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 to-transparent p-2 h-16 flex items-end transform transition-transform duration-300 ${
                   isHovered ? "translate-y-0" : "translate-y-full"
                 }`}
               >
