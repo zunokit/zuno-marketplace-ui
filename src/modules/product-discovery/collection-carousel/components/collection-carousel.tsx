@@ -39,9 +39,13 @@ export function CollectionCarousel() {
 
   // Loading state - show skeleton cards
   if (loading) {
+    const skeletonItems = Array.from({ length: 5 }, (_, i) => ({
+      id: `skeleton-${i}`,
+    })) as Collection[];
+
     return (
       <BaseCarousel
-        items={Array.from({ length: 5 }) as Collection[]}
+        items={skeletonItems}
         renderItem={() => (
           <div className="animate-pulse bg-muted rounded-lg h-64 w-full" />
         )}

@@ -292,8 +292,8 @@ query GetMyCollections($page: Int, $limit: Int) {
 query GetCollections(
   $page: Int
   $limit: Int
-  $sortBy: String
-  $sortOrder: String
+  $sortBy: CollectionSortField
+  $sortOrder: SortOrder
   $category: String
   $chainId: String
   $isVerified: Boolean
