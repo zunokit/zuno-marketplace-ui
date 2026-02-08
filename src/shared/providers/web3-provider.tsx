@@ -21,11 +21,8 @@ const queryClient = new QueryClient({
 
 const zunoConfig: ZunoSDKConfig = {
   apiKey: process.env.NEXT_PUBLIC_ZUNO_API_KEY || "",
-  network: (process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID
-    ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID)
-    : 31337) as number | "mainnet" | "sepolia" | "polygon" | "arbitrum",
-  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL,
-  apiUrl: process.env.NEXT_PUBLIC_API_URL,
+  network: parseInt(process.env.NEXT_PUBLIC_DEFAULT_CHAIN_ID || "31337"),
+  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL || "",
 };
 
 export function Web3Provider({ children }: { children: ReactNode }) {

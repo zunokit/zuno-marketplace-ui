@@ -5,22 +5,19 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { Expand } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { collectionFaker } from "@/shared/utils/mock/fakers";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 interface CollectionGalleryProps {
+  collection: Collection | null;
   onOpenCarousel: (index: number) => void;
   onImageChange?: (imageUrl: string) => void;
 }
 
 export default function CollectionGallery({
+  collection,
   onOpenCarousel,
   onImageChange,
 }: CollectionGalleryProps) {
-  const [collection, setCollection] = useState<Collection | null>(null);
-  useEffect(() => {
-    setCollection(collectionFaker.collection());
-  }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [thumbnailLimit, setThumbnailLimit] = useState(3);

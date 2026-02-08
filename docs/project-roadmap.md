@@ -1,7 +1,7 @@
 # Zuno Marketplace UI - Project Roadmap
 
 **Version**: 0.1.0
-**Last Updated**: 2026-01-31
+**Last Updated**: 2026-02-08
 **Status**: Active Development
 
 ---
@@ -40,9 +40,11 @@
 | Feature | Status | Priority | Est. Completion |
 |---------|--------|----------|-----------------|
 | Project documentation | In Progress | P0 | Jan 2026 |
-| GraphQL schema integration | Pending | P0 | Feb 2026 |
-| NFT discovery page | In Progress | P0 | Feb 2026 |
-| Collection browsing | In Progress | P0 | Feb 2026 |
+| GraphQL schema integration | Completed | P0 | Feb 2026 |
+| NFT discovery page | Completed | P0 | Feb 2026 |
+| Collection browsing | Completed | P0 | Feb 2026 |
+| Launchpad integration | Completed | P0 | Feb 2026 |
+| SDK mint integration | Completed | P0 | Feb 2026 |
 | Wallet connection polish | In Progress | P1 | Feb 2026 |
 | Basic NFT detail view | Pending | P0 | Mar 2026 |
 | Responsive design audit | Pending | P1 | Mar 2026 |
@@ -187,7 +189,7 @@
 
 | Item | Impact | Priority | Plan to Address |
 |------|--------|----------|-----------------|
-| Mock data usage | Medium | P1 | Replace with real API calls |
+| Mock data usage | Low | P1 | Replaced with real API calls - Launchpad complete |
 | Limited test coverage | High | P0 | Add comprehensive tests |
 | No E2E tests | Medium | P1 | Implement Playwright |
 | Bundle size unoptimized | Medium | P2 | Code splitting audit |
