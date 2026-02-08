@@ -1,184 +1,71 @@
 /**
- * Logger
- * Structured logging utility with namespace support
+ * Pino Logger
+ * Structured logging with prefix support and environment-based configuration
  */
 
-import * as Sentry from "@sentry/nextjs";
+import pino from "pino";
+import { createSentryTransport } from "./pino-sentry-transport";
 
-type LogLevel = "debug" | "info" | "warn" | "error";
+const isEdge = typeof (globalThis as { EdgeRuntime?: string }).EdgeRuntime !== "undefined";
+const isDev = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production";
 
-interface LogContext {
-  [key: string]: unknown;
-}
-
-class Logger {
-  private isDevelopment = process.env.NODE_ENV === "development";
-  private minLevel: LogLevel = this.isDevelopment ? "debug" : "info";
-  private namespace: string;
-
-  private levels: Record<LogLevel, number> = {
-    debug: 0,
-    info: 1,
-    warn: 2,
-    error: 3,
-  };
-
-  constructor(namespace: string = "App") {
-    this.namespace = namespace;
-  }
-
-  private shouldLog(level: LogLevel): boolean {
-    return this.levels[level] >= this.levels[this.minLevel];
-  }
-
-  private formatMessage(level: LogLevel, message: string, context?: LogContext): string {
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [${this.namespace}] [${level.toUpperCase()}]`;
-    return `${prefix} ${message}`;
-  }
-
-  debug(message: string, context?: LogContext): void {
-    if (this.shouldLog("debug")) {
-      const formatted = this.formatMessage("debug", message);
-      if (context) {
-        console.debug(formatted, context);
-      } else {
-        console.debug(formatted);
+// Base configuration
+const baseConfig = {
+  level: process.env.LOG_LEVEL || (isDev ? "debug" : "info"),
+  sync: true, // Required for React Server Components
+  base: {
+    service: "zuno-marketplace",
+    version: process.env.NEXT_PUBLIC_APP_VERSION,
+    env: process.env.NODE_ENV,
+  },
+  redact: {
+    paths: [
+      "req.headers.authorization",
+      "req.headers.cookie",
+      "password",
+      "token",
+      "apiKey",
+      "secret",
+      "*.password",
+      "*.token",
+    ],
+    censor: "[REDACTED]",
+  },
+  formatters: {
+    level: (label: string) => ({ level: label }),
+    log: (obj: Record<string, unknown>) => {
+      // If prefix exists, prepend it to msg for display
+      if (obj.prefix && typeof obj.msg === "string") {
+        return { ...obj, msg: `[${obj.prefix}] ${obj.msg}` };
       }
-    }
-  }
+      return obj;
+    },
+  },
+};
 
-  info(message: string, context?: LogContext): void {
-    if (this.shouldLog("info")) {
-      const formatted = this.formatMessage("info", message);
-      if (context) {
-        console.info(formatted, context);
-      } else {
-        console.info(formatted);
-      }
-    }
-  }
-
-  warn(message: string, context?: LogContext): void {
-    if (this.shouldLog("warn")) {
-      const formatted = this.formatMessage("warn", message);
-      if (context) {
-        console.warn(formatted, context);
-      } else {
-        console.warn(formatted);
-      }
-    }
-  }
-
-  error(message: string, error?: Error | unknown, context?: LogContext): void {
-    if (this.shouldLog("error")) {
-      const formatted = this.formatMessage("error", message);
-
-      if (error instanceof Error) {
-        console.error(formatted, {
-          error: {
-            message: error.message,
-            stack: error.stack,
-            name: error.name,
+// Runtime-specific configuration
+const config = {
+  ...baseConfig,
+  ...(isEdge ? { base: undefined } : {}),
+  ...(isDev && !isEdge
+    ? {
+        transport: {
+          target: "pino-pretty",
+          options: {
+            colorize: true,
+            translateTime: "HH:MM:ss",
+            ignore: "pid,hostname",
           },
-          ...context,
-        });
-      } else if (error) {
-        console.error(formatted, { error, ...context });
-      } else if (context) {
-        console.error(formatted, context);
-      } else {
-        console.error(formatted);
+        },
       }
+    : {}),
+};
 
-      // Send to Sentry in production
-      if (!this.isDevelopment) {
-        Sentry.withScope(scope => {
-          scope.setTag("namespace", this.namespace);
-          if (context) {
-            scope.setContext("logContext", context);
-          }
-          if (error instanceof Error) {
-            Sentry.captureException(error);
-          } else {
-            Sentry.captureMessage(message, "error");
-          }
-        });
-      }
-    }
-  }
+// Create logger with Sentry transport in production
+export const logger = isProduction && !isEdge
+  ? pino(config, createSentryTransport())
+  : pino(config);
 
-  group(label: string): void {
-    if (this.isDevelopment) {
-      console.group(`[${this.namespace}] ${label}`);
-    }
-  }
-
-  groupEnd(): void {
-    if (this.isDevelopment) {
-      console.groupEnd();
-    }
-  }
-
-  time(label: string): void {
-    if (this.isDevelopment) {
-      console.time(`[${this.namespace}] ${label}`);
-    }
-  }
-
-  timeEnd(label: string): void {
-    if (this.isDevelopment) {
-      console.timeEnd(`[${this.namespace}] ${label}`);
-    }
-  }
-
-  /**
-   * Log API request
-   */
-  logRequest(method: string, endpoint: string, params?: Record<string, unknown>): void {
-    this.debug(`API Request: ${method} ${endpoint}`, params);
-  }
-
-  /**
-   * Log API response
-   */
-  logResponse(method: string, endpoint: string, status: number, duration: number): void {
-    this.debug(`API Response: ${method} ${endpoint}`, {
-      status,
-      duration: `${duration}ms`,
-    });
-  }
-
-  /**
-   * Log performance metric
-   */
-  logPerformance(metric: string, value: number, context?: LogContext): void {
-    this.info(`Performance: ${metric}`, { value, ...context });
-  }
-
-  /**
-   * Log user action
-   */
-  logUserAction(action: string, context?: LogContext): void {
-    this.info(`User Action: ${action}`, context);
-  }
-
-  /**
-   * Log blockchain transaction
-   */
-  logTransaction(
-    type: "sent" | "confirmed" | "failed",
-    txHash?: string,
-    context?: LogContext
-  ): void {
-    this.info(`Transaction ${type}`, { txHash, ...context });
-  }
-}
-
-// Create logger instances for different modules
-export const logger = new Logger();
-export const authLogger = new Logger("Auth");
-export const graphqlLogger = new Logger("GraphQL");
-export const createLogger = (namespace: string) => new Logger(namespace);
-
-export default Logger;
+// Export default for convenience
+export default logger;

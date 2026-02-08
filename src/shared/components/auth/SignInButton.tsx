@@ -4,7 +4,7 @@ import { useAccount, useSignMessage } from "wagmi";
 import { SiweMessage } from "siwe";
 import { Button } from "@/shared/components/ui/button";
 import { useAuth } from "@/shared/hooks/use-auth";
-import { authLogger } from "@/shared/lib/logger";
+import { logger } from "@/shared/lib/logger";
 import { useGetNonceLazyQuery, useVerifySiweMutation, useLogoutMutation } from "@/shared/graphql";
 import { graphqlClient } from "@/shared/lib/graphql-client";
 
@@ -22,12 +22,12 @@ export function SignInButton() {
 
   const handleSignIn = async () => {
     if (!address || !chainId) {
-      authLogger.error("No wallet connected");
+      logger.error({ prefix: "Auth" }, "No wallet connected");
       return;
     }
 
     try {
-      authLogger.info("Starting SIWE authentication", { address });
+      logger.info({ prefix: "Auth", address }, "Starting SIWE authentication");
 
       const domain = window.location.host;
       const accountId = address;
@@ -81,15 +81,15 @@ export function SignInButton() {
         window.dispatchEvent(new CustomEvent("auth:login"));
       }
 
-      authLogger.info("Sign in successful");
+      logger.info({ prefix: "Auth" }, "Sign in successful");
     } catch (error) {
-      authLogger.error("Sign in failed", error);
+      logger.error({ prefix: "Auth", err: error }, "Sign in failed");
     }
   };
 
   const handleSignOut = async () => {
     try {
-      authLogger.info("User signing out");
+      logger.info({ prefix: "Auth" }, "User signing out");
 
       // Call logout mutation
       await logout();
@@ -102,7 +102,7 @@ export function SignInButton() {
         window.dispatchEvent(new CustomEvent("auth:logout"));
       }
     } catch (error) {
-      authLogger.error("Logout failed", error);
+      logger.error({ prefix: "Auth", err: error }, "Logout failed");
     }
   };
 
