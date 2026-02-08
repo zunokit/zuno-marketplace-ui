@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/shared/components/ui/button";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 interface CollectionImageCarouselProps {
   initialIndex: number;
@@ -18,7 +18,7 @@ export default function CollectionImageCarousel({
 }: CollectionImageCarouselProps) {
   const [collection, setCollection] = useState<Collection | null>(null);
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
@@ -57,7 +57,7 @@ export default function CollectionImageCarousel({
   if (!collection) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 dark:bg-black/95 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-overlay flex items-center justify-center">
       <div className="absolute top-5 right-5 z-20">
         <Button
           variant="ghost"
@@ -75,7 +75,7 @@ export default function CollectionImageCarousel({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-5 z-10 rounded-full bg-black/50 dark:bg-card/10 hover:bg-black/70 dark:hover:bg-card/20 text-foreground h-12 w-12"
+            className="absolute left-5 z-10 rounded-full bg-secondary/80 hover:bg-secondary text-foreground h-12 w-12"
             onClick={handlePrevious}
           >
             <ChevronLeft className="h-8 w-8" />
@@ -98,7 +98,7 @@ export default function CollectionImageCarousel({
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-5 z-10 rounded-full bg-black/50 dark:bg-card/10 hover:bg-black/70 dark:hover:bg-card/20 text-foreground h-12 w-12"
+            className="absolute right-5 z-10 rounded-full bg-secondary/80 hover:bg-secondary text-foreground h-12 w-12"
             onClick={handleNext}
           >
             <ChevronRight className="h-8 w-8" />

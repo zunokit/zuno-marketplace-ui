@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { BaseCarousel } from "@/shared/components/carousel/base-carousel";
 import { CollectionCard } from "@/modules/product-discovery/collection-carousel/components/collection-card";
 import { Collection } from "@/shared/types/collection";
-import { makeMockCollections } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 export function CollectionCarousel() {
   const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
-    setCollections(makeMockCollections(10));
+    setCollections(collectionFaker.collections(10));
   }, []);
 
   const renderCollectionCard = (
