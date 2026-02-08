@@ -3,6 +3,8 @@
  * Centralized error handling and logging
  */
 
+import { logger } from "./logger";
+
 export class AppError extends Error {
   constructor(
     message: string,
@@ -52,7 +54,7 @@ export function handleError(error: unknown): AppError {
 }
 
 /**
- * Log error to console (in development) or monitoring service (in production)
+ * Log error using Pino logger
  */
 export function logError(error: AppError | Error, context?: Record<string, unknown>): void {
   const errorInfo = {
@@ -67,13 +69,7 @@ export function logError(error: AppError | Error, context?: Record<string, unkno
     ...context,
   };
 
-  if (process.env.NODE_ENV === "development") {
-    console.error("Error:", errorInfo);
-  } else {
-    // TODO: Send to monitoring service (Sentry, etc.)
-    // Sentry.captureException(error, { extra: errorInfo });
-    console.error("Error:", errorInfo);
-  }
+  logger.error({ prefix: "Error", err: errorInfo }, error.message);
 }
 
 /**

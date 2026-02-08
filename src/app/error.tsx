@@ -13,9 +13,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    logger.error("Page Error", error, {
-      digest: error.digest,
-    });
+    logger.error({ prefix: "Error", digest: error.digest, err: error }, "Page Error");
   }, [error]);
 
   return (
