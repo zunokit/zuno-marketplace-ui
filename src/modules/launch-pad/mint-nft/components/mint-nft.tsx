@@ -30,28 +30,35 @@ export default function MintNFT({}: MintNFTProps) {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative min-h-[60vh] bg-background">
+        {/* Base: theme-aware background. Layer 1: blurred collection image. Layer 2: soft gradient so content sits on a readable base. */}
         {currentImage && (
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: `url(${currentImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              filter: `blur(50px) brightness(${theme === "dark" ? "0.3" : "0.5"})`,
-              opacity: theme === "dark" ? "0.7" : "0.5",
-            }}
-          />
+          <>
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${currentImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                filter: `blur(48px) brightness(${theme === "dark" ? "0.35" : "0.55"})`,
+                opacity: theme === "dark" ? "0.65" : "0.45",
+              }}
+            />
+            <div
+              className="absolute inset-0 pointer-events-none bg-linear-to-b from-background/70 via-background/40 to-background"
+              aria-hidden
+            />
+          </>
         )}
-        <div className="flex flex-col lg:flex-row items-start justify-center gap-6 lg:gap-10 p-4 lg:p-10">
+        <div className="relative flex flex-col lg:flex-row items-start justify-center gap-6 lg:gap-10 p-4 lg:p-10">
           <CollectionMediaShowcase
             collection={collection}
             overview={overview}
             utility={utility}
             onImageChange={setCurrentImage}
           />
-          <div className="w-full lg:w-[380px] flex-shrink-0">
+          <div className="w-full lg:w-[380px] shrink-0">
             <MintPanel currentGalleryImage={currentImage} />
           </div>
           {/* Mobile: info section below mint panel */}

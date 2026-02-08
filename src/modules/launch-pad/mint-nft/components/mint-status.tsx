@@ -26,7 +26,7 @@ export default function MintStatus() {
           {/* Active Stage Indicator */}
           <div className="flex items-center gap-1.5 bg-muted rounded-full px-2 py-1">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500/75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
             <span className="text-sm text-foreground capitalize">{stageName}</span>
@@ -46,7 +46,7 @@ export default function MintStatus() {
       {/* Progress Bar */}
       <div className="h-1.5 bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#ff1a75] to-[#ff4d94] rounded-full transition-all duration-500"
+          className="h-full bg-linear-to-r from-[#ff1a75] to-[#ff4d94] rounded-full transition-all duration-500"
           role="progressbar"
           aria-valuemax={100}
           aria-valuemin={0}

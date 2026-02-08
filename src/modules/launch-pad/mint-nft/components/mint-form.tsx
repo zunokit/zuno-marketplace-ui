@@ -130,7 +130,7 @@ export default function MintForm() {
         </div>
 
         {/* Amount Stepper */}
-        <div className="flex items-center justify-between rounded overflow-hidden outline-none bg-input border border-interactive h-10 w-28 sm:w-32 flex-shrink-0">
+        <div className="flex items-center justify-between rounded overflow-hidden outline-hidden bg-input border border-interactive h-10 w-28 sm:w-32 shrink-0">
           <div className="shrink-0 h-full flex p-1">
             <button
               type="button"
@@ -158,7 +158,7 @@ export default function MintForm() {
           <div className="group flex w-full">
             <div className="w-full">
               <input
-                className="focus:outline-none size-full px-1 py-0 text text-center bg-transparent outline-none text-base text-foreground"
+                className="focus:outline-hidden size-full px-1 py-0 text text-center bg-transparent outline-hidden text-base text-foreground"
                 placeholder="1"
                 type="text"
                 value={amount}
@@ -200,7 +200,7 @@ export default function MintForm() {
           <div className="flex items-center gap-x-1">
             <span>Mint Fee</span>
           </div>
-          <div className="font-fira flex items-center gap-1 text-foreground flex-shrink-0">
+          <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
             <span className="text-right">{mintFee}</span>{" "}
             <span className="text-left">SOL</span>
           </div>
@@ -208,7 +208,7 @@ export default function MintForm() {
         <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
             <span>Protocol fee</span>
-            <div className="cursor-default flex-shrink-0">
+            <div className="cursor-default shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -227,7 +227,7 @@ export default function MintForm() {
               </svg>
             </div>
           </div>
-          <div className="font-fira flex items-center gap-1 text-foreground flex-shrink-0">
+          <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
             <span className="text-right">{protocolFee}</span>{" "}
             <span className="text-left">SOL</span>
           </div>
@@ -235,7 +235,7 @@ export default function MintForm() {
       </div>
 
       {/* Priority Fee */}
-      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-muted-foreground [&>div]:!text-xs pt-0">
+      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-muted-foreground [&>div]:text-xs! pt-0">
         <div>
           Priority fee (<span className="underline cursor-pointer">Standard</span>)
         </div>
@@ -244,7 +244,7 @@ export default function MintForm() {
       {/* Terms and Button */}
       <div className="flex flex-col pt-2 space-y-2.5">
         <div className="flex gap-3 items-start">
-          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer flex-shrink-0 mt-0.5">
+          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer shrink-0 mt-0.5">
             <div className="relative">
               <input
                 type="checkbox"
