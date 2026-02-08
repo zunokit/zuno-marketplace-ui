@@ -22,6 +22,7 @@ export function CollectionCarousel() {
     return data?.collections?.items ?? [];
   }, [data]);
 
+
   const renderCollectionCard = (
     item: Collection,
     isHovered: boolean,

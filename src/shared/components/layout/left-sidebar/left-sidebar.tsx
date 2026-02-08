@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/utils/tailwind-utils";
+import { ROUTES } from "@/shared/constants/routes";
 
 const DiscoverIcon = () => (
   <svg
@@ -25,53 +26,23 @@ const CollectionsIcon = () => (
   </svg>
 );
 
-const TokensIcon = () => (
+const AuctionsIcon = () => (
   <svg
     className="fill-current size-5 shrink-0"
     viewBox="0 -960 960 960"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z" />
+    <path d="M280-280v-280h80v280h-80Zm320 0v-280h80v280h-80ZM160-120v-60h640v60H160Zm120-180v-280q0-33 23.5-56.5T360-660h240q33 0 56.5 23.5T680-580v280H160Zm0-80h520v-200H160v200Z" />
   </svg>
 );
 
-const SwapIcon = () => (
+const LaunchpadIcon = () => (
   <svg
     className="fill-current size-5 shrink-0"
     viewBox="0 -960 960 960"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M240-200 80-360l56-58 64 64v-286q0-66 47-113t113-47q66 0 113 47t47 113v280q0 33 23.5 56.5T600-280q33 0 56.5-23.5T680-360v-286l-64 64-56-58 160-160 160 160-56 58-64-64v286q0 66-47 113t-113 47q-66 0-113-47t-47-113v-280q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640v286l64-64 56 58-160 160Z" />
-  </svg>
-);
-
-const DropsIcon = () => (
-  <svg
-    className="fill-current size-5 shrink-0"
-    viewBox="0 -960 960 960"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z" />
-  </svg>
-);
-
-const ActivityIcon = () => (
-  <svg
-    className="fill-current size-5 shrink-0"
-    viewBox="0 -960 960 960"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M100-180v-121.54h121.54V-180H100Zm216.92 0v-121.54H860V-180H316.92ZM100-419.23v-121.54h121.54v121.54H100Zm216.92 0v-121.54H860v121.54H316.92ZM100-658.46V-780h121.54v121.54H100Zm216.92 0V-780H860v121.54H316.92Z" />
-  </svg>
-);
-
-const RewardsIcon = () => (
-  <svg
-    className="fill-current size-5 shrink-0"
-    viewBox="0 -960 960 960"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M480-80q-61 0-125-22t-116-60q-52-38-85.5-89T120-360v-120l160 120-62 62q29 51 92 88t130 47v-357H320v-80h120v-47q-35-13-57.5-43.5T360-760q0-50 35-85t85-35q50 0 85 35t35 85q0 39-22.5 69.5T520-647v47h120v80H520v357q67-10 130-47t92-88l-62-62 160-120v120q0 58-33.5 109T721-162q-52 38-116 60T480-80Zm0-640q17 0 28.5-11.5T520-760q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760q0 17 11.5 28.5T480-720Z" />
+    <path d="M480-120 120-360v-240l360-240 360 240v240L480-120Zm0-84 276-204v-152L480-522 204-660v152l276 204Zm0-336 144-96-144-96-144 96 144 96Zm-80 236v-160l-120 80 120 80Zm160 0 120-80-120-80v160ZM200-360l120-80v-80L200-360Zm560 0v-80l-120 80 120 80ZM340-660l120-80-120-80v160Zm280 0v-160l-120 80 120 80Z" />
   </svg>
 );
 
@@ -217,43 +188,57 @@ export default function LeftSidebar() {
             </span>
           </Link>
 
-          {/* Main Navigation */}
-          <NavItem href="/" icon={<DiscoverIcon />} label="Discover" isActive={isActive("/")} />
+          {/* Main Navigation - matches app routes */}
+          <NavItem href={ROUTES.HOME} icon={<DiscoverIcon />} label="Discover" isActive={isActive(ROUTES.HOME)} />
           <NavItem
-            href="/collections"
+            href={ROUTES.COLLECTIONS}
             icon={<CollectionsIcon />}
             label="Collections"
-            isActive={isActive("/collections")}
+            isActive={isActive(ROUTES.COLLECTIONS)}
           />
           <NavItem
-            href="/tokens"
-            icon={<TokensIcon />}
-            label="Tokens"
-            isActive={isActive("/tokens")}
-          />
-          <NavItem href="/swap" icon={<SwapIcon />} label="Swap" isActive={isActive("/swap")} />
-          <NavItem href="/drops" icon={<DropsIcon />} label="Drops" isActive={isActive("/drops")} />
-          <NavItem
-            href="/rewards"
-            icon={<RewardsIcon />}
-            label="Rewards"
-            isActive={isActive("/rewards")}
+            href={ROUTES.AUCTIONS}
+            icon={<AuctionsIcon />}
+            label="Auctions"
+            isActive={isActive(ROUTES.AUCTIONS)}
           />
           <NavItem
-            href="/studio"
+            href={ROUTES.LAUNCHPAD}
+            icon={<LaunchpadIcon />}
+            label="Launchpad"
+            isActive={isActive(ROUTES.LAUNCHPAD)}
+          />
+          <NavItem
+            href={ROUTES.MINT}
             icon={<StudioIcon />}
-            label="Studio"
-            isActive={isActive("/studio")}
+            label="Mint"
+            isActive={isActive(ROUTES.MINT)}
           />
 
-          {/* Collapsible Sections */}
-          <CollapsibleNavItem icon={<ProfileIcon />} label="Profile" />
+          {/* User */}
+          <NavItem
+            href={ROUTES.PROFILE_ME}
+            icon={<ProfileIcon />}
+            label="Profile"
+            isActive={pathname?.startsWith("/profile")}
+          />
+          <NavItem
+            href={ROUTES.MY_COLLECTIONS}
+            icon={<CollectionsIcon />}
+            label="My Collections"
+            isActive={isActive(ROUTES.MY_COLLECTIONS)}
+          />
 
           {/* Separator */}
           <div className="h-px w-full bg-border-subtle my-1" />
 
+          <NavItem
+            href={ROUTES.PROFILE_SETTINGS}
+            icon={<SettingsIcon />}
+            label="Settings"
+            isActive={isActive(ROUTES.PROFILE_SETTINGS)}
+          />
           <CollapsibleNavItem icon={<ResourcesIcon />} label="Resources" />
-          <CollapsibleNavItem icon={<SettingsIcon />} label="Settings" />
 
           {/* Support */}
           <button
