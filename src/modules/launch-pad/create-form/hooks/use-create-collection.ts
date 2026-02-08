@@ -79,19 +79,36 @@ export function useCreateCollection() {
   // Step 1: Upload Media
   const uploadMedia = useCallback(
     async (formData: MintTerminalCreateForm) => {
-      if (!formData.collectionImage) {
-        return { imageUrl: undefined, bannerUrl: undefined };
+      const uploads: Promise<string | undefined>[] = [];
+
+      if (formData.collectionImage) {
+        uploads.push(uploadFile(formData.collectionImage));
+      } else {
+        uploads.push(Promise.resolve(undefined));
       }
 
-      const imageUrl = await uploadFile(formData.collectionImage!);
-      return { imageUrl, bannerUrl: undefined };
+      if (formData.bannerImage) {
+        uploads.push(uploadFile(formData.bannerImage));
+      } else {
+        uploads.push(Promise.resolve(undefined));
+      }
+
+      if (formData.featuredImage) {
+        uploads.push(uploadFile(formData.featuredImage));
+      } else {
+        uploads.push(Promise.resolve(undefined));
+      }
+
+      const [imageUrl, bannerUrl, featuredImageUrl] = await Promise.all(uploads);
+
+      return { imageUrl, bannerUrl, featuredImageUrl };
     },
     [uploadFile]
   );
 
   // Step 2: Create DB Record
   const createDbRecord = useCallback(
-    async (formData: MintTerminalCreateForm, imageUrl?: string, bannerUrl?: string) => {
+    async (formData: MintTerminalCreateForm, imageUrl?: string, bannerUrl?: string, featuredImageUrl?: string) => {
       const chainIdStr = CHAIN_ID_MAP[formData.chain] || "eip155:31337";
       const tokenStandard: ApiTokenStandard =
         formData.artworkMode === "ERC721" ? "ERC721" : "ERC1155";
@@ -119,6 +136,7 @@ export function useCreateCollection() {
         deployerAddress: address!,
         imageUrl: imageUrl || "",
         bannerUrl,
+        featuredImageUrl,
         baseUri: formData.metadataBaseUrl || `https://metadata.example.com/${formData.symbol}/`,
         maxSupply: formData.maxSupply ? Number(formData.maxSupply) : 10000,
         mintPriceAllowlist: stage?.presale?.price || "0",
@@ -278,10 +296,11 @@ export function useCreateCollection() {
         const mediaResult = await uploadMedia(formData);
         const imageUrl = mediaResult?.imageUrl;
         const bannerUrl = mediaResult?.bannerUrl;
+        const featuredImageUrl = mediaResult?.featuredImageUrl;
         setState(prev => ({ ...prev, step1Status: "success", step2Status: "loading" }));
 
         // Step 2: Create DB Record
-        const collectionId = await createDbRecord(formData, imageUrl, bannerUrl);
+        const collectionId = await createDbRecord(formData, imageUrl, bannerUrl, featuredImageUrl);
         setState(prev => ({
           ...prev,
           step2Status: "success",
