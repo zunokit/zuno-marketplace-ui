@@ -1,0 +1,62 @@
+<div class="m_fe19b709 !border-primary text !bg-transparent !border-0 m_9bd7b098 mantine-Accordion-item" data-active="true"><button class="mantine-focus-auto m_6939a5e9 bg-transparent hover:bg-transparent pl-5 m_4ba585b8 mantine-Accordion-control !pl-4 m_87cf2631 mantine-UnstyledButton-root" data-accordion-control="true" data-active="true" data-chevron-position="right" type="button" aria-expanded="true" aria-controls="mantine-gf0pjiybv-panel-item-1" id="mantine-gf0pjiybv-control-item-1"><span class="ml-5 w-6 justify-center m_3f35ae96 mantine-Accordion-chevron" data-rotate="true" data-position="right"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="rotate-180" color="currentColor" width="20" height="20" xmlns="http://www.w3.org/2000/svg" style="color: currentcolor;"><path d="m18 15-6-6-6 6"></path></svg></span><span class="text-sm text py-4 m_df3ffa0f mantine-Accordion-label"><h2 class="text-xl font-bold text-wrap">Overview</h2></span></button><div class="m_df78851f mantine-Accordion-panel" aria-hidden="false" role="region" id="mantine-gf0pjiybv-panel-item-1" aria-labelledby="mantine-gf0pjiybv-control-item-1" style="box-sizing: border-box; opacity: 1; transition: opacity 200ms;"><div class="m_4ba554d4 mantine-Accordion-content"><div class="text-secondary"><p class="text-sm leading-normal mb-5 last:mb-0">Meta Racing Pilots is a playable PFP NFT collection where each Pilot defines race strategy and enhances car performance. A Pilot is a necessary asset for entering races and plays a key role in determining the outcome of every competition.</p>
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>The Role of Pilots in Gameplay</strong></em></p>
+<p class="text-sm leading-normal mb-5 last:mb-0">In Meta Racing, the Pilot acts as the strategic core of each race:</p>
+<ol class="ml-4 pb-6 last:pb-0" depth="0" style="list-style: outside;">
+<li class="my-0 text-sm" index="0">Determines strategic buffs and performance boosts during races</li>
+<li class="my-0 text-sm" index="1">Significantly influences the car’s overall performance</li>
+<li class="my-0 text-sm" index="2">Required to participate in any race</li>
+</ol>
+<p class="text-sm leading-normal mb-5 last:mb-0">Without a Pilot, cars cannot enter the track, making each Pilot essential to gameplay.</p>
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>RPG Progression &amp; Custom Builds</strong></em></p>
+<p class="text-sm leading-normal mb-5 last:mb-0">Every Pilot is unique and develops through an RPG-style progression system:</p>
+<ol class="ml-4 pb-6 last:pb-0" depth="0" style="list-style: outside;">
+<li class="my-0 text-sm" index="0">Free allocation of skill points to create custom builds</li>
+<li class="my-0 text-sm" index="1">Multiple strategic paths depending on playstyle</li>
+<li class="my-0 text-sm" index="2">Progression through races or a dedicated in-game academy</li>
+</ol>
+<p class="text-sm leading-normal mb-5 last:mb-0">Pilot rarity defines starting attributes and the maximum progression cap, giving each Pilot a distinct long-term gameplay role.</p>
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Flexible Usage &amp; Team Play</strong></em></p>
+<p class="text-sm leading-normal mb-5 last:mb-0">Pilots can be used in multiple ways within the Meta Racing ecosystem:</p>
+<ol class="ml-4 pb-6 last:pb-0" depth="0" style="list-style: outside;">
+<li class="my-0 text-sm" index="0">Actively race and develop Pilots through gameplay</li>
+<li class="my-0 text-sm" index="1">Build balanced teams for different race formats</li>
+<li class="my-0 text-sm" index="2">Make Pilots available to other players when not in use</li>
+</ol>
+<p class="text-sm leading-normal mb-5 last:mb-0">This flexibility supports a dynamic and evolving in-game environment.</p>
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>The Meta Racing Ecosystem</strong></em></p>
+<p class="text-sm leading-normal mb-5 last:mb-0">The Meta Racing Pilots collection is built on The chain Solana and is available on an NFT marketplace, enabling fast transactions and easy access. Minting a Pilot is the first step toward shaping your racing strategy, developing your team, and progressing in the competitive world of Meta Racing.</p>
+<h3 class="text !text-lg pt-1 pb-2" level="2">Utility</h3>
+<ol class="ml-4 pb-6 last:pb-0" depth="0" style="list-style: outside;">
+<li class="my-0 text-sm" index="0">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Necessary Gameplay Asset:</strong></em>
+A Pilot is required to enter any race in Meta Racing and earn in races and tournaments</p>
+</li>
+<li class="my-0 text-sm" index="1">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Performance Boosts:</strong></em>
+Pilots provide in-race buffs and attribute modifiers that directly affect car performance and races outcomes.</p>
+</li>
+<li class="my-0 text-sm" index="2">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>RPG-Style Progression System:</strong></em>
+Each Pilot can be upgraded with players freely allocating skill points to create custom builds and strategies.</p>
+</li>
+<li class="my-0 text-sm" index="3">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Rarity-Based Progression Depth:</strong></em>
+Pilot rarity defines starting attributes and the maximum progression cap</p>
+</li>
+<li class="my-0 text-sm" index="4">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Team &amp; Roster Building:</strong></em>
+Players can assemble balanced teams of Pilots optimized for different tracks, race formats, and strategic scenarios.</p>
+</li>
+<li class="my-0 text-sm" index="5">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>Passive Utility via Rental:</strong></em>
+When not actively racing, Pilots can be made available for use by other players, allowing owners to receive in-game token rewards.</p>
+</li>
+<li class="my-0 text-sm" index="6">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>3+ NFT Pilots Holders:</strong></em>
+3+ NFT Pilots Holders will receive a free Car NFT on the game release.</p>
+</li>
+<li class="my-0 text-sm" index="7">
+<p class="text-sm leading-normal mb-5 last:mb-0"><em class="not-italic text-brand"><strong>PFP:</strong></em>
+Pilots are cool pfp and community NFT</p>
+</li>
+</ol></div></div></div></div>

@@ -75,7 +75,10 @@ export function BaseCarousel<T extends CarouselItemData>({
     return () => ro.disconnect();
   }, [api]);
 
-  if (!items.length) return null;
+  // Filter out any null/undefined items
+  const validItems = items.filter((item): item is T => item != null);
+
+  if (!validItems.length) return null;
 
   const getResponsiveBasis = () => {
     const { mobile = 1, tablet = 3, desktop = 5 } = itemsPerView;
@@ -95,7 +98,7 @@ export function BaseCarousel<T extends CarouselItemData>({
         ]}
       >
         <CarouselContent className="-ml-2">
-          {items.map(item => (
+          {validItems.map(item => (
             <CarouselItem key={item.id} className={itemClassName || getResponsiveBasis()}>
               {renderItem(
                 item,

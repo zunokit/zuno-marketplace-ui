@@ -1,5 +1,6 @@
 import { faker } from "../faker-instance";
 import type { Collection, ChainBinding, PublicMint } from "@/shared/types/collection";
+import type { CollectionOverviewData, CollectionUtilityData, OverviewSectionData, UtilityItemData } from "@/shared/types/collection-info.types";
 
 export type MockCollectionKind =
   | "ethereum"
@@ -53,6 +54,66 @@ function publicMint(): PublicMint {
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString(),
     mintPrice: faker.helpers.arrayElement(["0.05 ETH", "0.1 ETH", "0.5 ETH", "1 ETH", "2 SOL", "5 SOL"]),
+  };
+}
+
+/**
+ * Faker for overview sections (old type - for backward compatibility)
+ */
+function overviewSections() {
+  const titles = [
+    "Gameplay Integration",
+    "RPG Progression",
+    "Strategic Building",
+    "Ecosystem Benefits",
+  ];
+
+  return titles.map(title => ({
+    title,
+    content: faker.lorem.paragraphs(2),
+    listItems: Array.from({ length: faker.number.int({ min: 2, max: 4 }) }, () =>
+      faker.lorem.sentence()
+    ),
+  }));
+}
+
+/**
+ * Faker for collection overview (old type - for backward compatibility)
+ */
+function collectionOverview() {
+  return {
+    description: faker.lorem.paragraph(),
+    sections: overviewSections(),
+  };
+}
+
+/**
+ * Faker for utility items (old type - for backward compatibility)
+ */
+function utilityItems() {
+  const utilityTitles = [
+    "Gameplay Access",
+    "Performance Boosts",
+    "Skill Progression",
+    "Team Building",
+    "Passive Income",
+    "Exclusive Rewards",
+    "Community Access",
+    "PFP Display",
+  ];
+
+  return utilityTitles.slice(0, faker.number.int({ min: 4, max: 8 })).map(title => ({
+    title,
+    description: faker.lorem.sentence(),
+  }));
+}
+
+/**
+ * Faker for collection utility (old type - for backward compatibility)
+ */
+function collectionUtility() {
+  return {
+    items: utilityItems(),
   };
 }
 
@@ -128,6 +189,62 @@ function collections(count: number = 5, kind: MockCollectionKind = "ethereum"): 
   return Array.from({ length: count }, () => collection(undefined, kind));
 }
 
+// ============================================================================
+// Collection Info Faker Methods (for accordion components)
+// ============================================================================
+
+/**
+ * Generate overview section with list items
+ */
+function overviewSectionData(title: string, itemCount: number = 3): OverviewSectionData {
+  return {
+    title,
+    items: Array.from({ length: itemCount }, () => faker.lorem.sentence()),
+  };
+}
+
+/**
+ * Generate collection overview data
+ * Content based on Meta Racing Pilots NFT collection
+ */
+function collectionOverviewData(): CollectionOverviewData {
+  return {
+    description: faker.lorem.paragraphs(2),
+    roleInGameplay: overviewSectionData("The Role of Pilots in Gameplay", 3),
+    rpgProgression: overviewSectionData("RPG Progression & Custom Builds", 3),
+    flexibleUsage: overviewSectionData("Flexible Usage & Team Play", 3),
+    ecosystem: faker.lorem.paragraph(),
+  };
+}
+
+/**
+ * Generate utility item with label and description
+ */
+function utilityItemData(): UtilityItemData {
+  const labels = [
+    "Necessary Gameplay Asset",
+    "Performance Boosts",
+    "RPG-Style Progression System",
+    "Rarity-Based Progression Depth",
+    "Team & Roster Building",
+    "Passive Utility via Rental",
+  ];
+  return {
+    label: faker.helpers.arrayElement(labels),
+    description: faker.lorem.sentence(),
+  };
+}
+
+/**
+ * Generate collection utility data
+ */
+function collectionUtilityData(): CollectionUtilityData {
+  return {
+    title: "Utility",
+    items: Array.from({ length: faker.number.int({ min: 5, max: 8 }) }, utilityItemData),
+  };
+}
+
 /**
  * Collection faker module for generating mock collection data
  */
@@ -137,4 +254,9 @@ export const collectionFaker = {
   socialLinks,
   collection,
   collections,
+  overview: collectionOverview,
+  utility: collectionUtility,
+  // Collection info accordion data generators
+  collectionOverviewData,
+  collectionUtilityData,
 };

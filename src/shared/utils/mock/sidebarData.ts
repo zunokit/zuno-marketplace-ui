@@ -1,6 +1,6 @@
-import { makeMockCollections } from "./mockCollection";
+import { collectionFaker } from "./fakers";
 
-export const mockSidebarCollections = makeMockCollections(15, "ethereum");
+export const mockSidebarCollections = collectionFaker.collections(15, "ethereum");
 
 export const mockTrendingTokens = [
   {

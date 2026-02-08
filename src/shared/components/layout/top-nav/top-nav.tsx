@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/shared/components/ui/sheet";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { ROUTES } from "@/shared/constants/routes";
 
 const SearchIcon = () => (
   <svg
@@ -53,23 +54,23 @@ const CollectionsIcon = () => (
   </svg>
 );
 
-const TokensIcon = () => (
+const AuctionsIcon = () => (
   <svg
     className="fill-current size-5 shrink-0"
     viewBox="0 -960 960 960"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z" />
+    <path d="M280-280v-280h80v280h-80Zm320 0v-280h80v280h-80ZM160-120v-60h640v60H160Zm120-180v-280q0-33 23.5-56.5T360-660h240q33 0 56.5 23.5T680-580v280H160Zm0-80h520v-200H160v200Z" />
   </svg>
 );
 
-const ActivityIcon = () => (
+const LaunchpadIcon = () => (
   <svg
     className="fill-current size-5 shrink-0"
     viewBox="0 -960 960 960"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M100-180v-121.54h121.54V-180H100Zm216.92 0v-121.54H860V-180H316.92ZM100-419.23v-121.54h121.54v121.54H100Zm216.92 0v-121.54H860v121.54H316.92ZM100-658.46V-780h121.54v121.54H100Zm216.92 0V-780H860v121.54H316.92Z" />
+    <path d="M480-120 120-360v-240l360-240 360 240v240L480-120Zm0-84 276-204v-152L480-522 204-660v152l276 204Zm0-336 144-96-144-96-144 96 144 96Zm-80 236v-160l-120 80 120 80Zm160 0 120-80-120-80v160ZM200-360l120-80v-80L200-360Zm560 0v-80l-120 80 120 80ZM340-660l120-80-120-80v160Zm280 0v-160l-120 80 120 80Z" />
   </svg>
 );
 
@@ -256,7 +257,7 @@ export default function TopNav() {
 
           {/* Profile Button - hidden on mobile */}
           <Link
-            href="/profile"
+            href={ROUTES.PROFILE_ME}
             aria-label="Profile"
             className={cn(
               "hidden sm:inline-flex items-center justify-center rounded-md h-7 w-7 sm:h-8 sm:w-8 p-1.5",
@@ -295,33 +296,40 @@ export default function TopNav() {
           </SheetHeader>
 
           <div className="flex flex-col p-2 overflow-y-auto">
-            {/* Navigation Items */}
+            {/* Navigation Items - match app routes */}
             <MobileNavItem
-              href="/"
+              href={ROUTES.HOME}
               icon={<DiscoverIcon />}
               label="Discover"
-              isActive={pathname === "/"}
+              isActive={pathname === ROUTES.HOME}
               onClick={() => setIsMenuOpen(false)}
             />
             <MobileNavItem
-              href="/collections"
+              href={ROUTES.COLLECTIONS}
               icon={<CollectionsIcon />}
               label="Collections"
-              isActive={pathname?.startsWith("/collections")}
+              isActive={pathname?.startsWith(ROUTES.COLLECTIONS)}
               onClick={() => setIsMenuOpen(false)}
             />
             <MobileNavItem
-              href="/tokens"
-              icon={<TokensIcon />}
-              label="Tokens"
-              isActive={pathname?.startsWith("/tokens")}
+              href={ROUTES.AUCTIONS}
+              icon={<AuctionsIcon />}
+              label="Auctions"
+              isActive={pathname?.startsWith(ROUTES.AUCTIONS)}
               onClick={() => setIsMenuOpen(false)}
             />
             <MobileNavItem
-              href="/studio"
+              href={ROUTES.LAUNCHPAD}
+              icon={<LaunchpadIcon />}
+              label="Launchpad"
+              isActive={pathname?.startsWith(ROUTES.LAUNCHPAD)}
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <MobileNavItem
+              href={ROUTES.MINT}
               icon={<StudioIcon />}
-              label="Studio"
-              isActive={pathname?.startsWith("/studio")}
+              label="Mint"
+              isActive={pathname?.startsWith(ROUTES.MINT)}
               onClick={() => setIsMenuOpen(false)}
             />
 
@@ -329,17 +337,24 @@ export default function TopNav() {
             <div className="h-px bg-border-subtle my-2" />
 
             <MobileNavItem
-              href="/profile"
+              href={ROUTES.PROFILE_ME}
               icon={<ProfileIcon />}
               label="Profile"
               isActive={pathname?.startsWith("/profile")}
               onClick={() => setIsMenuOpen(false)}
             />
             <MobileNavItem
-              href="/settings"
+              href={ROUTES.MY_COLLECTIONS}
+              icon={<CollectionsIcon />}
+              label="My Collections"
+              isActive={pathname?.startsWith(ROUTES.MY_COLLECTIONS)}
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <MobileNavItem
+              href={ROUTES.PROFILE_SETTINGS}
               icon={<SettingsIcon />}
               label="Settings"
-              isActive={pathname?.startsWith("/settings")}
+              isActive={pathname?.startsWith(ROUTES.PROFILE_SETTINGS)}
               onClick={() => setIsMenuOpen(false)}
             />
           </div>

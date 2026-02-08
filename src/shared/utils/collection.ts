@@ -1,4 +1,24 @@
 import { formatDistanceToNow } from "date-fns";
+import type { ApiCollectionStatus } from "@/shared/types/collection";
+
+/** UI display status for collection (used in cards, filters, etc.) */
+export type CollectionUIStatus = "upcoming" | "live" | "ended" | "paused";
+
+const API_STATUS_TO_UI: Record<ApiCollectionStatus, CollectionUIStatus> = {
+  PENDING: "upcoming",
+  DEPLOYED: "live",
+  FAILED: "paused",
+  ARCHIVED: "ended",
+};
+
+/** Map API/GraphQL collection status to UI display status. Handles unknown (e.g. "%future added value") by returning "upcoming". */
+export function mapStatusToUI(
+  status: ApiCollectionStatus | string
+): CollectionUIStatus {
+  return status in API_STATUS_TO_UI
+    ? API_STATUS_TO_UI[status as ApiCollectionStatus]
+    : "upcoming";
+}
 
 type CollectionStatusInput = {
   status: string;

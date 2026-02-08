@@ -1,12 +1,13 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
-import { type Collection } from "@/shared/types/collection";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import { getCollectionStatus } from "@/shared/utils/collection";
+import { getCollectionStatus, mapStatusToUI } from "@/shared/utils/collection";
+import type { CollectionListItem } from "@/modules/product-discovery/collection-carousel/types";
 
 interface CollectionCardProps {
-  item: Collection;
+  item: CollectionListItem;
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
@@ -18,32 +19,38 @@ export function CollectionCard({
   onMouseEnter,
   onMouseLeave,
 }: CollectionCardProps) {
+  // Map GraphQL fields to UI format for getCollectionStatus
+  const uiStatus = mapStatusToUI(item.status);
+
   const { isLive, isUpcoming, statusText, statusColor } = getCollectionStatus({
-    status: item.status || "upcoming",
-    mintStartDate: item.mintStartDate?.toString(),
-    publicMint: item.publicMint
-      ? {
-          startDate: item.mintStartDate?.toString(),
-          endDate: item.mintEndDate?.toString(),
-          mintPrice: item.mintPrice,
-        }
-      : undefined,
-    totalMinted: (item.totalMinted || 0).toString(),
-    maxSupply: (item.maxSupply || 0).toString(),
+    status: uiStatus,
+    mintStartDate: item.mintStartTime ?? undefined,
+    publicMint: item.mintStartTime ? {
+      startDate: item.mintStartTime,
+      endDate: item.allowlistStageEnd ?? undefined,
+      mintPrice: item.mintPricePublic ?? undefined,
+    } : undefined,
+    totalMinted: (item.totalMinted ?? 0).toString(),
+    maxSupply: (item.maxSupply ?? 0).toString(),
   });
 
-  const imageSrc = `${item.imageUrl || "/placeholder.svg"}`;
   const fallbackSrc = "https://placehold.co/300x200";
+  const [imageSrc, setImageSrc] = useState(() => item.imageUrl ?? "/placeholder.svg");
+  useEffect(() => {
+    setImageSrc(item.imageUrl ?? "/placeholder.svg");
+  }, [item.imageUrl]);
 
   const handleCardClick = () => {
-    if (isLive) {
+    if (isLive && item.slug) {
       redirect(`/marketplace/${item.slug}`);
     }
   };
 
   const handleMintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    redirect(`/mint/${item.slug}`);
+    if (item.slug) {
+      redirect(`/mint/${item.slug}`);
+    }
   };
 
   return (
@@ -55,7 +62,7 @@ export function CollectionCard({
     >
       <Card className="overflow-hidden border border-border-subtle dark:border-border-subtle bg-background dark:bg-card text-foreground dark:text-foreground text-sm h-full p-0">
         <div className="flex flex-col h-full">
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
+          <div className="relative aspect-4/3 w-full overflow-hidden">
             <Image
               src={imageSrc}
               alt={item.name}
@@ -65,13 +72,11 @@ export function CollectionCard({
               className={`object-cover transition-transform duration-500 ${
                 isHovered ? "scale-110" : "scale-100"
               }`}
-              onError={e => {
-                e.currentTarget.src = fallbackSrc;
-              }}
+              onError={() => setImageSrc(fallbackSrc)}
             />
             {(isLive || isUpcoming) && (
               <div
-                className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2 h-16 flex items-end transform transition-transform duration-300 ${
+                className={`absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 to-transparent p-2 h-16 flex items-end transform transition-transform duration-300 ${
                   isHovered ? "translate-y-0" : "translate-y-full"
                 }`}
               >
@@ -102,7 +107,7 @@ export function CollectionCard({
                   PRICE
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
-                  {item.mintPrice || "N/A"}
+                  {item.mintPricePublic || "N/A"}
                 </p>
               </div>
               <div>
@@ -110,7 +115,7 @@ export function CollectionCard({
                   ITEMS
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
-                  {item.maxSupply}
+                  {item.maxSupply ?? "N/A"}
                 </p>
               </div>
               <div>
@@ -118,7 +123,7 @@ export function CollectionCard({
                   MINTED
                 </p>
                 <p className="font-medium text-sm text-foreground dark:text-foreground truncate">
-                  {item.totalMinted}
+                  {item.totalMinted ?? 0}
                 </p>
               </div>
             </div>

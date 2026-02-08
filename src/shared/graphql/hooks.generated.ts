@@ -114,6 +114,19 @@ export type CollectionMetadata = {
   twitterUrl: Maybe<Scalars["String"]["output"]>;
 };
 
+export type CollectionSortField =
+  | "createdAt"
+  | "floorPrice"
+  | "maxSupply"
+  | "mintStartTime"
+  | "name"
+  | "symbol"
+  | "totalMinted"
+  | "totalSupply"
+  | "updatedAt"
+  | "volume"
+  | "%future added value";
+
 export type CollectionStats = {
   __typename?: "CollectionStats";
   averagePriceWei: Scalars["String"]["output"];
@@ -404,8 +417,8 @@ export type QueryCollectionsArgs = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
   searchQuery?: InputMaybe<Scalars["String"]["input"]>;
-  sortBy?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+  sortBy?: InputMaybe<CollectionSortField>;
+  sortOrder?: InputMaybe<SortOrder>;
 };
 
 /**
@@ -453,6 +466,8 @@ export type RefreshResponse = {
   expiresAt: Scalars["String"]["output"];
   userId: Scalars["String"]["output"];
 };
+
+export type SortOrder = "asc" | "desc" | "%future added value";
 
 export type TokenStandard = "ERC721" | "ERC1155" | "%future added value";
 
@@ -902,8 +917,8 @@ export type GetMyCollectionsQuery = {
 export type GetCollectionsQueryVariables = Exact<{
   page?: InputMaybe<Scalars["Int"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
-  sortBy?: InputMaybe<Scalars["String"]["input"]>;
-  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
+  sortBy?: InputMaybe<CollectionSortField>;
+  sortOrder?: InputMaybe<SortOrder>;
   category?: InputMaybe<Scalars["String"]["input"]>;
   chainId?: InputMaybe<Scalars["String"]["input"]>;
   isVerified?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -1877,8 +1892,8 @@ export const GetCollectionsDocument = gql`
   query GetCollections(
     $page: Int
     $limit: Int
-    $sortBy: String
-    $sortOrder: String
+    $sortBy: CollectionSortField
+    $sortOrder: SortOrder
     $category: String
     $chainId: String
     $isVerified: Boolean

@@ -15,7 +15,7 @@ import {
   setTokenRefreshCallback,
   setGetAccessTokenCallback,
 } from "./apollo-client";
-import { graphqlLogger } from "@/shared/lib/logger";
+import { logger } from "@/shared/lib/logger";
 import { RefreshSessionDocument, type RefreshSessionMutation } from "@/shared/graphql";
 
 class ApolloClientWrapper {
@@ -37,7 +37,7 @@ class ApolloClientWrapper {
       return this.handleTokenRefresh();
     });
 
-    graphqlLogger.debug("Apollo Client wrapper initialized");
+    logger.debug({ prefix: "GraphQL" }, "Apollo Client wrapper initialized");
   }
 
   /**
@@ -46,14 +46,14 @@ class ApolloClientWrapper {
   private async handleTokenRefresh(): Promise<string | null> {
     // Prevent multiple simultaneous refresh requests
     if (this.isRefreshing) {
-      graphqlLogger.debug("Token refresh already in progress, waiting...");
+      logger.debug({ prefix: "GraphQL" }, "Token refresh already in progress, waiting...");
       return this.refreshPromise;
     }
 
     this.isRefreshing = true;
     this.refreshPromise = (async () => {
       try {
-        graphqlLogger.info("Attempting to refresh access token...");
+        logger.info({ prefix: "GraphQL" }, "Attempting to refresh access token...");
 
         // Call refreshSession mutation directly (will use HTTP-only cookie)
         const result = await this.client.mutate<RefreshSessionMutation>({
@@ -68,10 +68,10 @@ class ApolloClientWrapper {
         // Update the access token
         this.setAccessToken(result.data.refreshSession.accessToken);
 
-        graphqlLogger.info("Access token refreshed successfully");
+        logger.info({ prefix: "GraphQL" }, "Access token refreshed successfully");
         return result.data.refreshSession.accessToken;
       } catch (error) {
-        graphqlLogger.error("Token refresh failed", error);
+        logger.error({ prefix: "GraphQL", err: error }, "Token refresh failed");
 
         // Clear the token on refresh failure
         this.setAccessToken(null);
@@ -98,9 +98,9 @@ class ApolloClientWrapper {
     this.accessToken = token;
 
     if (token) {
-      graphqlLogger.debug("Access token set");
+      logger.debug({ prefix: "GraphQL" }, "Access token set");
     } else {
-      graphqlLogger.debug("Access token cleared");
+      logger.debug({ prefix: "GraphQL" }, "Access token cleared");
     }
   }
 
@@ -127,33 +127,26 @@ class ApolloClientWrapper {
     operationName?: string
   ): Promise<TResult> {
     const opName = operationName || "GraphQL Query";
-    graphqlLogger.group(opName);
-    graphqlLogger.debug("Query details", {
-      operationName: opName,
-      hasAuth: !!this.accessToken,
-    });
+    logger.debug({ prefix: "GraphQL", operationName: opName, hasAuth: !!this.accessToken }, `Query: ${opName}`);
 
     try {
-      graphqlLogger.time(opName);
+      const startTime = Date.now();
       const result = await this.client.query<TResult, TVariables>({
         query: document,
         variables,
         fetchPolicy: "network-only",
       });
-      graphqlLogger.timeEnd(opName);
+      const duration = Date.now() - startTime;
 
       if (!result.data) {
         throw new Error("Query returned no data");
       }
 
-      graphqlLogger.debug("Query successful");
-      graphqlLogger.groupEnd();
+      logger.debug({ prefix: "GraphQL", duration }, "Query successful");
 
       return result.data;
     } catch (error) {
-      graphqlLogger.timeEnd(opName);
-      graphqlLogger.error("Query failed", error);
-      graphqlLogger.groupEnd();
+      logger.error({ prefix: "GraphQL", err: error }, "Query failed");
       throw error;
     }
   }
@@ -167,32 +160,25 @@ class ApolloClientWrapper {
     operationName?: string
   ): Promise<TResult> {
     const opName = operationName || "GraphQL Mutation";
-    graphqlLogger.group(opName);
-    graphqlLogger.debug("Mutation details", {
-      operationName: opName,
-      hasAuth: !!this.accessToken,
-    });
+    logger.debug({ prefix: "GraphQL", operationName: opName, hasAuth: !!this.accessToken }, `Mutation: ${opName}`);
 
     try {
-      graphqlLogger.time(opName);
+      const startTime = Date.now();
       const result = await this.client.mutate<TResult, TVariables>({
         mutation: document,
         variables,
       });
-      graphqlLogger.timeEnd(opName);
+      const duration = Date.now() - startTime;
 
       if (!result.data) {
         throw new Error("Mutation returned no data");
       }
 
-      graphqlLogger.debug("Mutation successful");
-      graphqlLogger.groupEnd();
+      logger.debug({ prefix: "GraphQL", duration }, "Mutation successful");
 
       return result.data;
     } catch (error) {
-      graphqlLogger.timeEnd(opName);
-      graphqlLogger.error("Mutation failed", error);
-      graphqlLogger.groupEnd();
+      logger.error({ prefix: "GraphQL", err: error }, "Mutation failed");
       throw error;
     }
   }

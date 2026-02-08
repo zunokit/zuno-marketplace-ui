@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Collection } from "@/shared/types";
-import { makeMockCollection } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 import { randomImage } from "@/shared/utils/mock/randomImage";
 
 export function useMintState() {
@@ -32,7 +32,7 @@ export function useMintState() {
   const RANDOM_ASSIGNMENT = true;
 
   useEffect(() => {
-    setCollection(makeMockCollection());
+    setCollection(collectionFaker.collection());
   }, []);
 
   // Reset selected edition when switching token standards
