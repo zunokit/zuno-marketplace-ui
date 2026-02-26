@@ -19,15 +19,11 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
 
   const filteredAndSortedAuctions = useMemo(() => {
     let filtered = [...initialAuctions];
-
-    if (filter.status) {
-      filtered = filtered.filter(auction => auction.status === filter.status);
-    }
-
+    if (filter.status) filtered = filtered.filter(a => a.status === filter.status);
     if (filter.priceRange) {
-      filtered = filtered.filter(auction => {
-        const currentBid = parseFloat(auction.currentBid);
-        return currentBid >= filter.priceRange![0] && currentBid <= filter.priceRange![1];
+      filtered = filtered.filter(a => {
+        const bid = parseFloat(a.currentBid);
+        return bid >= filter.priceRange![0] && bid <= filter.priceRange![1];
       });
     }
 
@@ -50,17 +46,11 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
         filtered.sort((a, b) => b.bids.length - a.bids.length);
         break;
     }
-
     return filtered;
   }, [initialAuctions, filter]);
 
-  const handleFilterChange = (newFilter: AuctionFilter) => {
-    setFilter(newFilter);
-  };
-
-  const handleBidClick = (auction: Auction) => {
-    console.log("Place bid on:", auction);
-  };
+  const handleFilterChange = (newFilter: AuctionFilter) => setFilter(newFilter);
+  const handleBidClick = (auction: Auction) => console.log("Place bid on:", auction);
 
   const activeCount = initialAuctions.filter(a => a.status === "active").length;
   const upcomingCount = initialAuctions.filter(a => a.status === "upcoming").length;
@@ -76,40 +66,31 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
     <div className="space-y-5">
       <AuctionsFilter filter={filter} onFilterChange={handleFilterChange} />
 
-      {/* Custom tabs matching ME/OS style */}
-      <div className="flex items-center gap-1 border-b border-border">
+      <div className="flex items-center gap-6 border-b border-border/50">
         {tabs.map(tab => (
           <button
             key={tab.value}
-            onClick={() =>
-              handleFilterChange({
-                ...filter,
-                status: tab.value as AuctionFilter["status"],
-              })
-            }
+            onClick={() => handleFilterChange({ ...filter, status: tab.value as AuctionFilter["status"] })}
             className={cn(
-              "px-4 py-2.5 text-sm font-medium transition-colors relative",
-              filter.status === tab.value
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
+              "pb-2.5 text-sm font-medium transition-colors relative",
+              filter.status === tab.value ? "text-foreground" : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tab.label}
             <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
             {filter.status === tab.value && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-t" />
+              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-pink-500 rounded-t" />
             )}
           </button>
         ))}
       </div>
 
-      {/* Grid */}
       {filteredAndSortedAuctions.length === 0 ? (
-        <div className="text-center py-16">
+        <div className="text-center py-20">
           <p className="text-muted-foreground text-sm">No auctions found in this category</p>
         </div>
       ) : (
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredAndSortedAuctions.map(auction => (
             <AuctionCard key={auction.id} auction={auction} onBidClick={handleBidClick} />
           ))}

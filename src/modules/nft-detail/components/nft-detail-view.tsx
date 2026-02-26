@@ -138,7 +138,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Buy / Offer buttons */}
           {nft.status === "available" && (
             <div className="flex gap-3">
-              <Button className="flex-1 h-12 text-base font-semibold" onClick={handleBuyNow}>
+              <Button className="flex-1 h-12 text-base font-semibold bg-pink-600 hover:bg-pink-700 text-white" onClick={handleBuyNow}>
                 Buy now
               </Button>
               <Button
@@ -166,7 +166,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
               >
                 {tab.label}
                 {activeDetailTab === tab.value && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-t" />
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-pink-500 rounded-t" />
                 )}
               </button>
             ))}
