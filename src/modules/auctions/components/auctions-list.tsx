@@ -72,8 +72,8 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
             key={tab.value}
             onClick={() => handleFilterChange({ ...filter, status: tab.value as AuctionFilter["status"] })}
             className={cn(
-              "px-4 pb-2.5 pt-1 text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap",
-              filter.status === tab.value ? "text-foreground border-pink-500" : "text-muted-foreground hover:text-foreground border-transparent"
+              "px-4 pb-2.5 pt-1 text-sm font-medium transition-colors whitespace-nowrap",
+              filter.status === tab.value ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]" : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tab.label}

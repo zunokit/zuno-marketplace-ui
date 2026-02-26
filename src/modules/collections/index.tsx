@@ -209,8 +209,8 @@ export function CollectionsList() {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={cn(
-              "px-4 pb-2.5 pt-1 text-sm font-medium capitalize transition-colors border-b-2 -mb-px whitespace-nowrap",
-              activeTab === tab ? "text-foreground border-pink-500" : "text-muted-foreground hover:text-foreground border-transparent"
+              "px-4 pb-2.5 pt-1 text-sm font-medium capitalize transition-colors whitespace-nowrap",
+              activeTab === tab ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]" : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tab === "top" && <TrendingUp className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />}

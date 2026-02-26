@@ -158,10 +158,10 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
                 key={tab.value}
                 onClick={() => setActiveDetailTab(tab.value)}
                 className={cn(
-                  "px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px",
+                  "px-4 py-2.5 text-sm font-medium transition-colors",
                   activeDetailTab === tab.value
-                    ? "text-foreground border-pink-500"
-                    : "text-muted-foreground hover:text-foreground border-transparent"
+                    ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {tab.label}
