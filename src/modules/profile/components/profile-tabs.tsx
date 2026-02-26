@@ -78,24 +78,21 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
   return (
     <div className="mt-6">
       {/* Tab bar - ME/OS underline style */}
-      <div className="flex items-center gap-0 border-b border-border overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-0 border-b border-border overflow-x-auto scrollbar-hide pb-0">
         {tabs.map(tab => (
           <button
             key={tab.value}
             onClick={() => onTabChange?.(tab.value)}
             className={cn(
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors relative whitespace-nowrap shrink-0",
+              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors whitespace-nowrap shrink-0 border-b-2 -mb-px",
               activeTab === tab.value
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
+                ? "text-foreground border-pink-500"
+                : "text-muted-foreground hover:text-foreground border-transparent"
             )}
           >
             <tab.icon className="h-3.5 w-3.5" />
             <span>{tab.label}</span>
             <span className="text-xs text-muted-foreground">({tab.count})</span>
-            {activeTab === tab.value && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-pink-500 rounded-t" />
-            )}
           </button>
         ))}
       </div>

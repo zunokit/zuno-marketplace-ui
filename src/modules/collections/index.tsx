@@ -203,23 +203,20 @@ export function CollectionsList() {
   return (
     <div className="space-y-3">
       {/* Tab row */}
-      <div className="flex items-center gap-6 border-b border-border/50">
+      <div className="flex items-center gap-0 border-b border-border/50 overflow-x-auto scrollbar-hide">
         {(["top", "trending", "watchlist"] as ActiveTab[]).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={cn(
-              "pb-2.5 text-sm font-medium capitalize transition-colors relative",
-              activeTab === tab ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              "px-4 pb-2.5 pt-1 text-sm font-medium capitalize transition-colors border-b-2 -mb-px whitespace-nowrap",
+              activeTab === tab ? "text-foreground border-pink-500" : "text-muted-foreground hover:text-foreground border-transparent"
             )}
           >
             {tab === "top" && <TrendingUp className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />}
             {tab === "trending" && <Flame className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />}
             {tab === "watchlist" && <Bookmark className="h-3.5 w-3.5 inline mr-1.5 -mt-0.5" />}
             {tab}
-            {activeTab === tab && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-pink-500 rounded-t" />
-            )}
           </button>
         ))}
       </div>

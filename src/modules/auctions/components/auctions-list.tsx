@@ -66,21 +66,18 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
     <div className="space-y-5">
       <AuctionsFilter filter={filter} onFilterChange={handleFilterChange} />
 
-      <div className="flex items-center gap-6 border-b border-border/50">
+      <div className="flex items-center gap-0 border-b border-border/50 overflow-x-auto scrollbar-hide">
         {tabs.map(tab => (
           <button
             key={tab.value}
             onClick={() => handleFilterChange({ ...filter, status: tab.value as AuctionFilter["status"] })}
             className={cn(
-              "pb-2.5 text-sm font-medium transition-colors relative",
-              filter.status === tab.value ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              "px-4 pb-2.5 pt-1 text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap",
+              filter.status === tab.value ? "text-foreground border-pink-500" : "text-muted-foreground hover:text-foreground border-transparent"
             )}
           >
             {tab.label}
             <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
-            {filter.status === tab.value && (
-              <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-pink-500 rounded-t" />
-            )}
           </button>
         ))}
       </div>
