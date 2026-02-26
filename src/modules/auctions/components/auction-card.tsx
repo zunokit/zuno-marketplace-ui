@@ -96,7 +96,7 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
             {auction.status}
           </Badge>
 
-          {auction.status !== "ended" && (
+          {auction.status !== "ended" && timeLeft && timeLeft !== "Ended" && (
             <Badge
               variant="secondary"
               className={cn(
