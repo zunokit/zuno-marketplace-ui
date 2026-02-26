@@ -11,7 +11,8 @@ export const generateNFTDetail = (
   contractAddress: string,
   tokenId: string
 ): NFTDetail => {
-  const baseNFT = marketplaceFaker.nft(contractAddress, parseInt(tokenId), 0);
+  const numericId = parseInt(tokenId) || Math.abs(tokenId.split('').reduce((a, c) => a + c.charCodeAt(0), 0));
+  const baseNFT = marketplaceFaker.nft(contractAddress, numericId, 0);
 
   return {
     ...(baseNFT as unknown as NFTDetail),
