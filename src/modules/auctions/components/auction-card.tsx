@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardFooter } from "@/shared/components/ui/card";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
-import { Clock, Users, Gavel } from "lucide-react";
+import { Clock, Gavel } from "lucide-react";
 import Image from "next/image";
 import { type Auction } from "@/shared/types/auction";
 import { cn } from "@/shared/utils/tailwind-utils";
@@ -34,33 +33,32 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-      if (days > 0) {
-        setTimeLeft(`${days}d ${hours}h`);
-      } else if (hours > 0) {
-        setTimeLeft(`${hours}h ${minutes}m`);
-      } else {
-        setTimeLeft(`${minutes}m`);
-      }
+      if (days > 0) setTimeLeft(`${days}d ${hours}h`);
+      else if (hours > 0) setTimeLeft(`${hours}h ${minutes}m`);
+      else setTimeLeft(`${minutes}m`);
     };
 
     calculateTimeLeft();
     const interval = setInterval(calculateTimeLeft, 60000);
-
     return () => clearInterval(interval);
   }, [auction]);
 
   const getStatusColor = () => {
     switch (auction.status) {
       case "active":
-        return "bg-success";
+        return "bg-green-500";
       case "upcoming":
-        return "bg-info";
+        return "bg-blue-500";
       case "ended":
-        return "bg-muted";
+        return "bg-muted-foreground";
       default:
-        return "bg-muted";
+        return "bg-muted-foreground";
     }
   };
+
+  const isUrgent =
+    auction.status === "active" &&
+    auction.endTime.getTime() - Date.now() < 60 * 60 * 1000;
 
   const handleCardClick = () => {
     window.location.href = `/auctions/${auction.id}`;
@@ -68,91 +66,105 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
 
   const handleBidClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (onBidClick) {
-      onBidClick(auction);
-    }
+    onBidClick?.(auction);
   };
 
   return (
-    <Card
+    <div
       className={cn(
-        "group cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-os-focus dark:hover:shadow-white/10",
+        "group cursor-pointer rounded-xl border border-border bg-card overflow-hidden transition-all duration-200 hover:border-border/80 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20",
         className
       )}
       onClick={handleCardClick}
     >
+      {/* Image */}
       <div className="relative aspect-square overflow-hidden">
         <Image
           src={auction.image}
           alt={auction.name}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
-        <div className="absolute top-2 left-2 right-2 flex items-center justify-between">
-          <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-            <span className={cn("w-2 h-2 rounded-full mr-2", getStatusColor())} />
+        {/* Status overlay */}
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
+          <Badge
+            variant="secondary"
+            className="bg-black/60 text-white backdrop-blur-md border-0 text-xs gap-1.5"
+          >
+            <span className={cn("w-1.5 h-1.5 rounded-full", getStatusColor())} />
             {auction.status}
           </Badge>
 
-          {auction.status === "active" && (
-            <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-              <Clock className="h-3 w-3 mr-1" />
+          {auction.status !== "ended" && (
+            <Badge
+              variant="secondary"
+              className={cn(
+                "backdrop-blur-md border-0 text-xs gap-1",
+                isUrgent
+                  ? "bg-red-500/80 text-white"
+                  : "bg-black/60 text-white"
+              )}
+            >
+              <Clock className="h-3 w-3" />
               {timeLeft}
             </Badge>
           )}
         </div>
       </div>
 
-      <CardContent className="p-4">
-        <h3 className="font-medium font-sans text-lg truncate">{auction.name}</h3>
+      {/* Content */}
+      <div className="p-3.5">
+        <h3 className="font-semibold text-sm truncate">{auction.name}</h3>
 
         <div className="flex items-center gap-2 mt-2">
-          <Avatar className="h-6 w-6">
+          <Avatar className="h-5 w-5">
             <AvatarImage src={auction.seller.avatar} alt={auction.seller.name} />
-            <AvatarFallback>{auction.seller.name?.[0] || "?"}</AvatarFallback>
+            <AvatarFallback className="text-[10px]">
+              {auction.seller.name?.[0] || "?"}
+            </AvatarFallback>
           </Avatar>
-          <span className="text-sm text-os-gray-300 truncate">
+          <span className="text-xs text-muted-foreground truncate">
             {auction.seller.name || auction.seller.address.slice(0, 8)}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
           <div>
-            <p className="text-xs text-os-gray-300">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {auction.bids.length > 0 ? "Current Bid" : "Starting Price"}
             </p>
-            <p className="font-medium font-sans">
+            <p className="font-semibold text-sm mt-0.5">
               {auction.currentBid} {auction.currency}
             </p>
           </div>
-
-          <div>
-            <p className="text-xs text-os-gray-300">Bids</p>
-            <div className="flex items-center gap-1">
-              <Users className="h-4 w-4" />
-              <span className="font-medium font-sans">{auction.bids.length}</span>
-            </div>
+          <div className="text-right">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Bids</p>
+            <p className="font-medium text-sm mt-0.5">{auction.bids.length}</p>
           </div>
         </div>
-      </CardContent>
 
-      <CardFooter className="p-4 pt-0">
-        {auction.status === "active" ? (
-          <Button className="w-full" onClick={handleBidClick}>
-            <Gavel className="h-4 w-4 mr-2" />
+        {/* Action button */}
+        {auction.status === "active" && (
+          <Button
+            className="w-full mt-3 h-9 text-sm"
+            onClick={handleBidClick}
+          >
+            <Gavel className="h-3.5 w-3.5 mr-1.5" />
             Place Bid
           </Button>
-        ) : auction.status === "upcoming" ? (
-          <Button className="w-full" variant="secondary" disabled>
+        )}
+        {auction.status === "upcoming" && (
+          <Button className="w-full mt-3 h-9 text-sm" variant="secondary" disabled>
             Starting Soon
           </Button>
-        ) : (
-          <Button className="w-full" variant="outline" disabled>
+        )}
+        {auction.status === "ended" && (
+          <Button className="w-full mt-3 h-9 text-sm" variant="outline" disabled>
             Auction Ended
           </Button>
         )}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

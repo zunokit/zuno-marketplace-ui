@@ -5,7 +5,7 @@ import { AuctionCard } from "@/modules/auctions/components/auction-card";
 import { AuctionsFilter } from "@/modules/auctions/components/auctions-filter";
 import { type Auction, type AuctionFilter } from "@/shared/types/auction";
 import { mockAuctions } from "@/shared/utils/mock/auction";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 interface AuctionsListProps {
   initialAuctions?: Auction[];
@@ -20,12 +20,10 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
   const filteredAndSortedAuctions = useMemo(() => {
     let filtered = [...initialAuctions];
 
-    // Filter by status
     if (filter.status) {
       filtered = filtered.filter(auction => auction.status === filter.status);
     }
 
-    // Filter by price range
     if (filter.priceRange) {
       filtered = filtered.filter(auction => {
         const currentBid = parseFloat(auction.currentBid);
@@ -33,7 +31,6 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
       });
     }
 
-    // Sort auctions
     switch (filter.sortBy) {
       case "ending_soon":
         filtered.sort((a, b) => {
@@ -62,7 +59,6 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
   };
 
   const handleBidClick = (auction: Auction) => {
-    // Handle bid placement
     console.log("Place bid on:", auction);
   };
 
@@ -70,39 +66,55 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
   const upcomingCount = initialAuctions.filter(a => a.status === "upcoming").length;
   const endedCount = initialAuctions.filter(a => a.status === "ended").length;
 
+  const tabs = [
+    { value: "active", label: "Active", count: activeCount },
+    { value: "upcoming", label: "Upcoming", count: upcomingCount },
+    { value: "ended", label: "Ended", count: endedCount },
+  ] as const;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <AuctionsFilter filter={filter} onFilterChange={handleFilterChange} />
 
-      <Tabs
-        value={filter.status || "active"}
-        onValueChange={value =>
-          handleFilterChange({
-            ...filter,
-            status: value as AuctionFilter["status"],
-          })
-        }
-      >
-        <TabsList className="grid w-full max-w-md grid-cols-3">
-          <TabsTrigger value="active">Active ({activeCount})</TabsTrigger>
-          <TabsTrigger value="upcoming">Upcoming ({upcomingCount})</TabsTrigger>
-          <TabsTrigger value="ended">Ended ({endedCount})</TabsTrigger>
-        </TabsList>
+      {/* Custom tabs matching ME/OS style */}
+      <div className="flex items-center gap-1 border-b border-border">
+        {tabs.map(tab => (
+          <button
+            key={tab.value}
+            onClick={() =>
+              handleFilterChange({
+                ...filter,
+                status: tab.value as AuctionFilter["status"],
+              })
+            }
+            className={cn(
+              "px-4 py-2.5 text-sm font-medium transition-colors relative",
+              filter.status === tab.value
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {tab.label}
+            <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
+            {filter.status === tab.value && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-t" />
+            )}
+          </button>
+        ))}
+      </div>
 
-        <TabsContent value={filter.status || "active"} className="mt-6">
-          {filteredAndSortedAuctions.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-os-gray-300">No auctions found in this category</p>
-            </div>
-          ) : (
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredAndSortedAuctions.map(auction => (
-                <AuctionCard key={auction.id} auction={auction} onBidClick={handleBidClick} />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      {/* Grid */}
+      {filteredAndSortedAuctions.length === 0 ? (
+        <div className="text-center py-16">
+          <p className="text-muted-foreground text-sm">No auctions found in this category</p>
+        </div>
+      ) : (
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {filteredAndSortedAuctions.map(auction => (
+            <AuctionCard key={auction.id} auction={auction} onBidClick={handleBidClick} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

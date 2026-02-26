@@ -45,3 +45,4 @@ test-results
 *.tsbuildinfo
 next-env.d.ts
 .sentryclirc
+.env.local

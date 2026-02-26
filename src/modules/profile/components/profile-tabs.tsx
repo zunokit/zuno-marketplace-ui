@@ -1,12 +1,12 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
 import { ActivityList } from "@/modules/profile/components/activity-list";
 import { type UserProfile, type ProfileTab } from "@/shared/types/profile";
 import { type Nft, NftStatus } from "@/modules/marketplace/types";
 import { mockUserActivities } from "@/shared/utils/mock/profile";
 import { Package, Heart, Activity, Tag, Grid3x3 } from "lucide-react";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 interface ProfileTabsProps {
   profile: UserProfile;
@@ -16,29 +16,13 @@ interface ProfileTabsProps {
 
 export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: ProfileTabsProps) {
   const tabs = [
-    {
-      value: "collected",
-      label: "Collected",
-      icon: Grid3x3,
-      count: profile.stats.nftsOwned,
-    },
-    {
-      value: "created",
-      label: "Created",
-      icon: Package,
-      count: profile.stats.nftsCreated,
-    },
-    { value: "favorites", label: "Favorites", icon: Heart, count: 42 },
-    {
-      value: "activity",
-      label: "Activity",
-      icon: Activity,
-      count: mockUserActivities.length,
-    },
-    { value: "offers", label: "Offers", icon: Tag, count: 5 },
+    { value: "collected" as const, label: "Collected", icon: Grid3x3, count: profile.stats.nftsOwned },
+    { value: "created" as const, label: "Created", icon: Package, count: profile.stats.nftsCreated },
+    { value: "favorites" as const, label: "Favorites", icon: Heart, count: 42 },
+    { value: "activity" as const, label: "Activity", icon: Activity, count: mockUserActivities.length },
+    { value: "offers" as const, label: "Offers", icon: Tag, count: 5 },
   ];
 
-  // Mock data - in real app, these would be fetched based on profile
   const generateMockNft = (index: number): Nft => ({
     id: `nft-${index}`,
     tokenId: `${index}`,
@@ -53,14 +37,8 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
     mintPrice: (0.01 + Math.random() * 0.09).toFixed(3),
     listPrice: index % 3 === 0 ? (0.02 + Math.random() * 0.08).toFixed(3) : undefined,
     attributes: [
-      {
-        trait_type: "Background",
-        value: ["Blue", "Red", "Green", "Purple"][index % 4],
-      },
-      {
-        trait_type: "Rarity",
-        value: ["Common", "Uncommon", "Rare", "Epic"][index % 4],
-      },
+      { trait_type: "Background", value: ["Blue", "Red", "Green", "Purple"][index % 4] },
+      { trait_type: "Rarity", value: ["Common", "Uncommon", "Rare", "Epic"][index % 4] },
     ],
     createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
@@ -70,70 +48,60 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
   const createdNFTs = Array.from({ length: 8 }, (_, i) => generateMockNft(i + 13));
   const favoriteNFTs = Array.from({ length: 8 }, (_, i) => generateMockNft(i + 21));
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "collected":
+        return (
+          <MarketplaceNFTGrid type="seller" nfts={collectedNFTs} view="grid" showFilters={false} isSliding={false} onSelect={() => {}} onCardClick={() => {}} selectedNFTs={[]} />
+        );
+      case "created":
+        return (
+          <MarketplaceNFTGrid type="seller" nfts={createdNFTs} view="grid" showFilters={false} isSliding={false} onSelect={() => {}} onCardClick={() => {}} selectedNFTs={[]} />
+        );
+      case "favorites":
+        return (
+          <MarketplaceNFTGrid type="seller" nfts={favoriteNFTs} view="grid" showFilters={false} isSliding={false} onSelect={() => {}} onCardClick={() => {}} selectedNFTs={[]} />
+        );
+      case "activity":
+        return <ActivityList activities={mockUserActivities} />;
+      case "offers":
+        return (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground text-sm">No active offers</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <Tabs
-      value={activeTab}
-      onValueChange={value => onTabChange?.(value as ProfileTab)}
-      className="mt-8"
-    >
-      <TabsList className="w-full justify-start overflow-x-auto">
+    <div className="mt-6">
+      {/* Tab bar - ME/OS underline style */}
+      <div className="flex items-center gap-0 border-b border-border overflow-x-auto scrollbar-hide">
         {tabs.map(tab => (
-          <TabsTrigger key={tab.value} value={tab.value} className="flex items-center gap-2">
-            <tab.icon className="h-4 w-4" />
+          <button
+            key={tab.value}
+            onClick={() => onTabChange?.(tab.value)}
+            className={cn(
+              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors relative whitespace-nowrap shrink-0",
+              activeTab === tab.value
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <tab.icon className="h-3.5 w-3.5" />
             <span>{tab.label}</span>
-            <span className="ml-1 text-xs text-os-gray-300">({tab.count})</span>
-          </TabsTrigger>
+            <span className="text-xs text-muted-foreground">({tab.count})</span>
+            {activeTab === tab.value && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-t" />
+            )}
+          </button>
         ))}
-      </TabsList>
+      </div>
 
-      <TabsContent value="collected" className="mt-6">
-        <MarketplaceNFTGrid
-          type="seller"
-          nfts={collectedNFTs}
-          view="grid"
-          showFilters={false}
-          isSliding={false}
-          onSelect={() => {}}
-          onCardClick={() => {}}
-          selectedNFTs={[]}
-        />
-      </TabsContent>
-
-      <TabsContent value="created" className="mt-6">
-        <MarketplaceNFTGrid
-          type="seller"
-          nfts={createdNFTs}
-          view="grid"
-          showFilters={false}
-          isSliding={false}
-          onSelect={() => {}}
-          onCardClick={() => {}}
-          selectedNFTs={[]}
-        />
-      </TabsContent>
-
-      <TabsContent value="favorites" className="mt-6">
-        <MarketplaceNFTGrid
-          type="seller"
-          nfts={favoriteNFTs}
-          view="grid"
-          showFilters={false}
-          isSliding={false}
-          onSelect={() => {}}
-          onCardClick={() => {}}
-          selectedNFTs={[]}
-        />
-      </TabsContent>
-
-      <TabsContent value="activity" className="mt-6">
-        <ActivityList activities={mockUserActivities} />
-      </TabsContent>
-
-      <TabsContent value="offers" className="mt-6">
-        <div className="text-center py-12">
-          <p className="text-os-gray-300">No active offers</p>
-        </div>
-      </TabsContent>
-    </Tabs>
+      {/* Content */}
+      <div className="mt-4">{renderContent()}</div>
+    </div>
   );
 }

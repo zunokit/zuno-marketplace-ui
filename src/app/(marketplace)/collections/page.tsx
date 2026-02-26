@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function CollectionsPage() {
   return (
-    <div className="mx-auto py-8">
+    <div className="mx-auto py-4 sm:py-6">
       <CollectionsList />
     </div>
   );
