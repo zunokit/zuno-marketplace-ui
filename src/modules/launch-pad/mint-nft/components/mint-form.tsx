@@ -114,13 +114,13 @@ export default function MintForm() {
   const totalPriceInUsd = "27.42"; // Mocked from HTML
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {/* Price and Amount */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-muted-foreground text-xs md:text-sm font-semibold">Price</p>
           <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
-            <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground break-all">
+            <span className="text-lg sm:text-xl font-bold text-foreground break-all">
               {mintPrice} SOL
             </span>
             <span className="text-xs md:text-sm text-muted-foreground">
@@ -299,7 +299,7 @@ export default function MintForm() {
             type="button"
             onClick={handleButtonClick}
             disabled={buttonState.disabled}
-            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#ff1a75] hover:bg-[#e61766] active:bg-[#cc145a] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-12 shadow-[0_0_20px_rgba(255,26,117,0.3)]"
+            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#E42575] hover:bg-[#d02068] active:bg-[#bd1c5e] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-11 shadow-[0_0_16px_rgba(228,37,117,0.25)]"
           >
             {buttonState.icon}
             {buttonState.text}

@@ -51,7 +51,7 @@ export default function MintNFT({}: MintNFTProps) {
             />
           </>
         )}
-        <div className="relative flex flex-col lg:flex-row items-start justify-center gap-6 lg:gap-10 p-4 lg:p-10">
+        <div className="relative flex flex-col lg:flex-row items-start justify-center gap-4 lg:gap-8 p-4 lg:p-8">
           <CollectionMediaShowcase
             collection={collection}
             overview={overview}

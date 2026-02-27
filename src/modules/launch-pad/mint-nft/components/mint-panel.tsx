@@ -12,8 +12,8 @@ interface MintPanelProps {
 
 export default function MintPanel({ currentGalleryImage }: MintPanelProps) {
   return (
-    <div className="space-y-4 lg:sticky lg:top-20 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-card text-foreground h-full p-4 rounded-xl border border-border-subtle">
-      <div className="space-y-4 mint-panel w-full" data-mint-panel>
+    <div className="space-y-3 lg:sticky lg:top-16 lg:z-10 lg:max-h-[90vh] lg:overflow-y-auto self-start bg-card text-foreground h-full p-3.5 rounded-lg border border-border-subtle/50">
+      <div className="space-y-3 mint-panel w-full" data-mint-panel>
         <MintSocialLinks />
 
         <div className="flex flex-col gap-y-4">
