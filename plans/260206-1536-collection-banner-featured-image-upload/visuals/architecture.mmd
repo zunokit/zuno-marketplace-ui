@@ -1,0 +1,88 @@
+# Architecture: Collection Image Upload Flow
+
+## Current State (Single Image)
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Form
+    participant H as useCreateCollection
+    participant M as ImageKit Upload
+    participant G as GraphQL API
+    participant D as Database
+
+    U->>F: Upload collection image
+    F->>H: submit(formData)
+    H->>M: uploadFile(collectionImage)
+    M-->>H: imageUrl
+    H->>G: createCollection(input: {imageUrl})
+    G->>D: Save collection
+```
+
+## New State (Three Images - Parallel)
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Form
+    participant H as useCreateCollection
+    participant M as ImageKit Upload
+    participant G as GraphQL API
+    participant D as Database
+
+    U->>F: Upload 3 images (collection, banner, featured)
+    F->>H: submit(formData)
+    par Parallel Uploads
+        H->>M: uploadFile(collectionImage)
+        H->>M: uploadFile(bannerImage)
+        H->>M: uploadFile(featuredImage)
+    end
+    M-->>H: {imageUrl, bannerUrl, featuredImageUrl}
+    H->>G: createCollection(input: {imageUrl, bannerUrl, featuredImageUrl})
+    G->>D: Save collection with all 3 URLs
+```
+
+## Data Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  FORM INPUT                                                  │
+│  ────────────                                                │
+│  collectionImage: File │ bannerImage: File │ featuredImage: File│
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  uploadMedia() - Parallel Uploads                           │
+│  ────────────────────────────────                           │
+│  Promise.all([                                               │
+│    uploadFile(collectionImage),                              │
+│    uploadFile(bannerImage),                                  │
+│    uploadFile(featuredImage)                                 │
+│  ])                                                          │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  RESULT                                                      │
+│  ──────                                                      │
+│  {                                                           │
+│    imageUrl: string,                                         │
+│    bannerUrl: string,                                        │
+│    featuredImageUrl: string                                  │
+│  }                                                           │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│  createCollection GraphQL Mutation                          │
+│  ───────────────────────────────────────                    │
+│  input: {                                                    │
+│    name, symbol, description,                               │
+│    imageUrl,        ← collection logo                      │
+│    bannerUrl,       ← wide banner (1500x500)               │
+│    featuredImageUrl ← featured highlight (1200x800)        │
+│    ...                                                      │
+│  }                                                           │
+└─────────────────────────────────────────────────────────────┘
+```

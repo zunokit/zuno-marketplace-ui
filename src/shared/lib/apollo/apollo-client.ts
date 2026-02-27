@@ -12,7 +12,6 @@
 import { ApolloClient, InMemoryCache, createHttpLink, from, Observable } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
-import { CombinedGraphQLErrors } from "@apollo/client/errors";
 import { GRAPHQL_URL } from "@/shared/config/api-endpoints.config";
 
 /**
@@ -59,14 +58,13 @@ export function createApolloClient(accessToken?: string | null) {
   });
 
   // Error handling: Automatic token refresh on authentication errors
-  const errorLink = onError(({ error, operation, forward }) => {
-    // Check if it's a GraphQL error with errors array
-    if (CombinedGraphQLErrors.is(error)) {
-      for (const err of error.errors) {
+  const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+    if (graphQLErrors) {
+      for (const err of graphQLErrors) {
         // Check if error is authentication-related
         if (
           err.message === "authentication required" ||
-          err.extensions?.code === "UNAUTHENTICATED"
+          (err.extensions?.code as string) === "UNAUTHENTICATED"
         ) {
           // Try to refresh token if callback is available
           if (onTokenRefreshCallback) {

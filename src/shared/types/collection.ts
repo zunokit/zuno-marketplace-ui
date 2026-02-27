@@ -1,3 +1,4 @@
+import type { Collection as GeneratedCollection } from "@/shared/graphql";
 import {
   ID,
   ISODate,
@@ -56,6 +57,26 @@ export interface PublicMint {
   startDate?: ISODate;
   endDate?: ISODate;
   mintPrice?: string; // e.g., "0.1 ETH", "2 SOL"
+}
+
+export interface CollectionOverview {
+  description?: string;
+  sections?: OverviewSection[];
+}
+
+export interface OverviewSection {
+  title: string;
+  content: string;
+  listItems?: string[];
+}
+
+export interface CollectionUtility {
+  items?: UtilityItem[];
+}
+
+export interface UtilityItem {
+  title: string;
+  description: string;
 }
 
 export interface ChainBinding {
@@ -211,4 +232,94 @@ export interface TokenSearchParams {
     | { by: "tokenNumber"; dir: "asc" | "desc" };
   limit?: number;
   cursor?: string;
+}
+
+// ============================================================================
+// API Types for Create Collection Flow
+// ============================================================================
+
+export type ApiTokenStandard = 'ERC721' | 'ERC1155';
+export type ApiCollectionStatus = 'PENDING' | 'DEPLOYED' | 'FAILED' | 'ARCHIVED';
+export type ApiIndexStatus = 'NOT_INDEXED' | 'INDEXING' | 'INDEXED' | 'FAILED';
+
+// Use generated Collection type from GraphQL codegen
+export type ApiCollection = GeneratedCollection;
+
+export interface ApiCollectionMetadata {
+  websiteUrl?: string;
+  discordUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  mediumUrl?: string;
+  telegramUrl?: string;
+  ipfsHash?: string;
+  ipfsUrl?: string;
+}
+
+export interface ApiCollectionStats {
+  collectionId?: string;
+  totalItems: number;
+  totalOwners: number;
+  totalSales: number;
+  floorPriceWei: string;
+  totalVolumeWei: string;
+  averagePriceWei?: string;
+  volume24hWei?: string;
+  sales24h?: number;
+  lastSaleAt?: string;
+  lastMintAt?: string;
+  updatedAt?: string;
+}
+
+export interface ApiCollectionConnection {
+  items: ApiCollection[];
+  pageInfo: {
+    totalCount: number;
+    page: number;
+    limit: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+}
+
+export interface CreateCollectionInput {
+  // Required
+  name: string;
+  symbol: string;
+  tokenStandard: ApiTokenStandard;
+  deployerAddress: string;
+  // Optional
+  description?: string;
+  category?: string;
+  chainId?: string;
+  imageUrl?: string;
+  bannerUrl?: string;
+  featuredImageUrl?: string;
+  baseUri?: string;
+  maxSupply?: number;
+  mintPriceAllowlist?: string;
+  mintPricePublic?: string;
+  mintStartTime?: string;
+  allowlistStageEnd?: string;
+  mintLimitPerWallet?: number;
+  royaltyFeeBps?: number;
+  royaltyRecipient?: string;
+  websiteUrl?: string;
+}
+
+export interface UpdateCollectionInput {
+  contractAddress?: string;
+  status?: ApiCollectionStatus;
+  deployedAt?: string;
+  description?: string;
+  bannerImageUrl?: string;
+  websiteUrl?: string;
+  discordUrl?: string;
+  twitterUrl?: string;
+}
+
+export interface AddToAllowlistInput {
+  collectionId: string;
+  walletAddresses: string[];
+  maxMintAmount: number;
 }

@@ -3,7 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
-import { Loader2, Wallet, Sparkles, Package, AlertTriangle } from "lucide-react";
+import { Loader2, Wallet, Sparkles, Package, AlertTriangle, Lock, CircleHelp } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 export default function MintForm() {
@@ -41,10 +41,10 @@ export default function MintForm() {
   const maxQuantity =
     isERC1155 && selectedEditionData
       ? Math.min(
-          selectedEditionData.remaining,
-          selectedEditionData.perWalletLimit,
-          10 // per-transaction limit
-        )
+        selectedEditionData.remaining,
+        selectedEditionData.perWalletLimit,
+        10 // per-transaction limit
+      )
       : SUPPORTS_BATCH
         ? MINT_LIMIT
         : 1;
@@ -116,19 +116,21 @@ export default function MintForm() {
   return (
     <div className="space-y-2">
       {/* Price and Amount */}
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-secondary text-xs md:text-sm font-semibold">Price</p>
-          <span className="md:text-[24px] font-bold text-wrap min-w-0 break-all text-foreground">
-            {mintPrice} SOL
-          </span>
-          <span className="text-xs md:text-sm text-secondary ml-1 md:ml-2">
-            (${totalPriceInUsd})
-          </span>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="text-muted-foreground text-xs md:text-sm font-semibold">Price</p>
+          <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground break-all">
+              {mintPrice} SOL
+            </span>
+            <span className="text-xs md:text-sm text-muted-foreground">
+              (${totalPriceInUsd})
+            </span>
+          </div>
         </div>
 
         {/* Amount Stepper */}
-        <div className="flex items-center justify-between rounded overflow-hidden outline-none bg-input border border-interactive min-w-[150px] h-10 w-32">
+        <div className="flex items-center justify-between rounded overflow-hidden outline-hidden bg-input border border-interactive h-10 w-28 sm:w-32 shrink-0">
           <div className="shrink-0 h-full flex p-1">
             <button
               type="button"
@@ -156,7 +158,7 @@ export default function MintForm() {
           <div className="group flex w-full">
             <div className="w-full">
               <input
-                className="focus:outline-none size-full px-1 py-0 text text-center bg-transparent outline-none text-base text-secondary"
+                className="focus:outline-hidden size-full px-1 py-0 text text-center bg-transparent outline-hidden text-base text-foreground"
                 placeholder="1"
                 type="text"
                 value={amount}
@@ -194,26 +196,24 @@ export default function MintForm() {
 
       {/* Fees */}
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between text-xs text-secondary">
+        <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
             <span>Mint Fee</span>
           </div>
-          <div className="font-fira flex items-center gap-1">
-            <span className="text text-right">{mintFee}</span>{" "}
-            <span className="text-left" style={{ width: "3ch" }}>
-              SOL
-            </span>
+          <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
+            <span className="text-right">{mintFee}</span>{" "}
+            <span className="text-left">SOL</span>
           </div>
         </div>
-        <div className="flex justify-between gap-x-1 md:gap-[unset] text-xs text-secondary">
+        <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
             <span>Protocol fee</span>
-            <div className="cursor-default">
+            <div className="cursor-default shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="none"
-                color="#998CA6"
+                className="text-muted-foreground"
                 width="14"
                 height="14"
               >
@@ -227,17 +227,15 @@ export default function MintForm() {
               </svg>
             </div>
           </div>
-          <div className="font-fira flex items-center gap-1">
-            <span className="text text-right">{protocolFee}</span>{" "}
-            <span className="text-left" style={{ width: "3ch" }}>
-              SOL
-            </span>
+          <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
+            <span className="text-right">{protocolFee}</span>{" "}
+            <span className="text-left">SOL</span>
           </div>
         </div>
       </div>
 
       {/* Priority Fee */}
-      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-secondary [&>div]:!text-xs pt-0">
+      <div className="text-xs md:text-sm flex items-center justify-between gap-x-1 text-muted-foreground [&>div]:text-xs! pt-0">
         <div>
           Priority fee (<span className="underline cursor-pointer">Standard</span>)
         </div>
@@ -245,8 +243,8 @@ export default function MintForm() {
 
       {/* Terms and Button */}
       <div className="flex flex-col pt-2 space-y-2.5">
-        <div className="flex gap-x-3 items-center mb-2">
-          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer">
+        <div className="flex gap-3 items-start">
+          <label className="group inline-flex items-center gap-x-2 text-base cursor-pointer shrink-0 mt-0.5">
             <div className="relative">
               <input
                 type="checkbox"
@@ -258,11 +256,10 @@ export default function MintForm() {
                 aria-hidden="true"
                 className={cn(
                   "transition shrink-0 flex items-center justify-center border size-5 rounded bg-button-secondary border-primary group-hover:border-interactive-hover group-active:bg-button-secondary-active",
-                  !agreedToTerms && "bg-transparent border-input",
-                  agreedToTerms && "bg-button-secondary border-primary"
+                  !agreedToTerms ? "bg-transparent border-input" : "bg-button-secondary border-primary"
                 )}
               >
-                {agreedToTerms && (
+                {agreedToTerms ? (
                   <svg
                     stroke="currentColor"
                     fill="none"
@@ -277,20 +274,19 @@ export default function MintForm() {
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                )}
+                ) : null}
               </span>
             </div>
 
             <div className="empty:hidden"></div>
           </label>
-          <p className="text-xs text-secondary leading-tight">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             By clicking &quot;mint&quot;, you agree to the{" "}
             <a
-              className="font-bold hover:text-secondary text-primary"
+              className="font-bold hover:text-muted-foreground text-foreground"
               href="https://magiceden.io/legal-policies/terms"
               target="_blank"
               rel="noreferrer noopener"
-              style={{ lineHeight: 1 }}
             >
               Magic Eden Terms of Service
             </a>
@@ -303,7 +299,7 @@ export default function MintForm() {
             type="button"
             onClick={handleButtonClick}
             disabled={buttonState.disabled}
-            className="py-0 px-3 inline-flex justify-center items-center rounded text-sm transition bg-button-primary hover:bg-button-primary-hover active:bg-button-primary-active disabled:bg-button-primary-disabled text-on-brand disabled:text-disabled-on-brand w-full min-w-[150px] h-auto min-h-[44px]"
+            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#ff1a75] hover:bg-[#e61766] active:bg-[#cc145a] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-12 shadow-[0_0_20px_rgba(255,26,117,0.3)]"
           >
             {buttonState.icon}
             {buttonState.text}
@@ -313,25 +309,8 @@ export default function MintForm() {
 
       {/* Trading Lock Notice - from HTML */}
       <div className="overflow-hidden" style={{ height: "auto", opacity: 1 }}>
-        <div className="flex bg-layer-01 rounded-md p-2 text-xs gap-2 items-center mt-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="rgb(var(--brand))"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            className="shrink-0"
-            color="rgb(var(--brand))"
-            width="20"
-            height="20"
-          >
-            <path stroke="none" d="M0 0h24v24H0z"></path>
-            <rect width="14" height="10" x="5" y="11" rx="2"></rect>
-            <circle cx="12" cy="16" r="1"></circle>
-            <path d="M8 11V7a4 4 0 018 0v4"></path>
-          </svg>
+        <div className="flex bg-muted rounded-md p-3 text-xs gap-2 items-center mt-3 border border-border-subtle">
+          <Lock className="shrink-0 text-[#ff1a75]" size={20} />
           <span className="text-xs text-foreground">
             Collection is locked from trading until all items have been minted.
           </span>

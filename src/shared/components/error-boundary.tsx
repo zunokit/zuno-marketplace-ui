@@ -29,9 +29,10 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    logger.error("Error Boundary caught an error", error, {
-      componentStack: errorInfo.componentStack,
-    });
+    logger.error(
+      { prefix: "Error", err: error, componentStack: errorInfo.componentStack },
+      "Error Boundary caught an error"
+    );
   }
 
   reset = (): void => {

@@ -16,13 +16,13 @@ import { ScrollArea } from "@/shared/components/ui/scroll-area";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Collection } from "@/shared/types";
-import { makeMockCollections } from "@/shared/utils/mock/mockCollection";
+import { collectionFaker } from "@/shared/utils/mock/fakers";
 
 export default function ExistingCollections() {
   const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
-    setCollections(makeMockCollections(10));
+    setCollections(collectionFaker.collections(10));
   }, []);
 
   return (

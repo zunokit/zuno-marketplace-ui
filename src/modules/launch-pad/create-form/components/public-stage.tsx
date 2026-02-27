@@ -1,7 +1,7 @@
- 
+
 "use client";
 
-import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer/ResponsiveDialogDrawer";
+import { ResponsiveDialogDrawer } from "@/shared/components/responsive-dialog-drawer/responsive-dialog-drawer";
 import { Label } from "@/shared/components/ui/label";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";

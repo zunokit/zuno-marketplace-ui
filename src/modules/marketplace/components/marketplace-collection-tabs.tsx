@@ -17,12 +17,10 @@ interface MarketplaceCollectionTabsProps {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Explore", href: "/explore", id: "explore" },
   { label: "Items", href: "", id: "items" },
   { label: "Offers", href: "/offers", id: "offers" },
   { label: "Holders", href: "/holders", id: "holders" },
   { label: "Traits", href: "/traits", id: "traits" },
-  { label: "Activity", href: "/activity", id: "activity" },
 ];
 
 export default function MarketplaceCollectionTabs({

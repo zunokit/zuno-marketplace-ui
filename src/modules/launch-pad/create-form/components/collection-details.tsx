@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "sonner";
 import { FormField, FormItem, FormControl, FormMessage } from "@/shared/components/ui/form";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
@@ -129,10 +130,12 @@ export function CollectionDetails() {
                     <FormControl>
                       <Input
                         placeholder="POND"
+                        maxLength={10}
                         className="bg-secondary dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground mt-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
                     </FormControl>
+                    <p className="text-xs text-muted-foreground mt-1">Max 10 characters</p>
                     <FormMessage className="text-destructive" />
                   </FormItem>
                 )}
@@ -164,7 +167,25 @@ export function CollectionDetails() {
                         accept="image/jpeg,image/png"
                         onChange={e => {
                           const file = e.target.files?.[0];
-                          onChange(file || null);
+                          if (!file) {
+                            onChange(null);
+                            return;
+                          }
+                          // Validate file size (10MB max)
+                          if (file.size > 10 * 1024 * 1024) {
+                            toast.error("File too large. Maximum 10MB.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          // Validate file type
+                          if (!["image/jpeg", "image/png", "image/gif", "image/webp"].includes(file.type)) {
+                            toast.error("Invalid file type. Use JPG, PNG, GIF, or WebP.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          onChange(file);
                         }}
                         {...field}
                       />
@@ -221,6 +242,230 @@ export function CollectionDetails() {
                             onClick={e => {
                               e.preventDefault();
                               document.getElementById("collection-image")?.click();
+                            }}
+                          >
+                            Choose Image...
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage className="text-destructive" />
+                </FormItem>
+              )}
+            />
+          )}
+        </div>
+
+        {/* Banner Image */}
+        <div>
+          <Label className="text-foreground">Banner Image</Label>
+          <p className="text-sm text-foreground dark:text-os-gray-300 mt-1">
+            Wide banner for collection page header. Recommended: 1500x500px jpg
+          </p>
+          {formState.isSubmitting ? (
+            <Skeleton className="h-40 w-full mt-1" />
+          ) : (
+            <FormField
+              name="bannerImage"
+              render={({ field: { onChange, value, ...field } }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="border border-dashed border-border-subtle dark:border-border-subtle rounded-[6px] p-6 flex flex-col items-center justify-center bg-secondary dark:bg-transparent mt-2">
+                      <input
+                        type="file"
+                        id="banner-image"
+                        className="hidden"
+                        accept="image/jpeg,image/png"
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (!file) {
+                            onChange(null);
+                            return;
+                          }
+                          // Validate file size (10MB max)
+                          if (file.size > 10 * 1024 * 1024) {
+                            toast.error("File too large. Maximum 10MB.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          // Validate file type
+                          if (!["image/jpeg", "image/png", "image/gif", "image/webp"].includes(file.type)) {
+                            toast.error("Invalid file type. Use JPG, PNG, GIF, or WebP.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          onChange(file);
+                        }}
+                        {...field}
+                      />
+
+                      {value ? (
+                        <div className="w-full flex flex-col items-center">
+                          <div className="relative w-full h-32 mb-2">
+                            <Image
+                              src={
+                                value instanceof File
+                                  ? URL.createObjectURL(value)
+                                  : "/placeholder.svg"
+                              }
+                              alt="Banner preview"
+                              fill
+                              style={{ objectFit: "cover" }}
+                              className="rounded-[6px]"
+                            />
+                            <button
+                              type="button"
+                              className="absolute -top-2 -right-2 bg-destructive rounded-full p-1"
+                              onClick={e => {
+                                e.preventDefault();
+                                onChange(null);
+                                const input = document.getElementById(
+                                  "banner-image"
+                                ) as HTMLInputElement;
+                                if (input) input.value = "";
+                              }}
+                            >
+                              <X className="h-4 w-4 text-foreground" />
+                            </button>
+                          </div>
+                          <p className="text-sm text-foreground dark:text-os-gray-300 mt-2">
+                            {value?.name}
+                          </p>
+                          <p className="text-xs text-os-gray-300 dark:text-os-gray-300">
+                            {value && (value.size / 1024 / 1024).toFixed(2)} MB
+                          </p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="h-6 w-6 mb-2 text-os-gray-300" />
+                          <p className="text-sm text-center text-foreground dark:text-os-gray-300">
+                            Drop your banner here
+                            <br />
+                            to upload
+                          </p>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="mt-4 bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground hover:bg-muted dark:hover:bg-hover"
+                            onClick={e => {
+                              e.preventDefault();
+                              document.getElementById("banner-image")?.click();
+                            }}
+                          >
+                            Choose Image...
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage className="text-destructive" />
+                </FormItem>
+              )}
+            />
+          )}
+        </div>
+
+        {/* Featured Image */}
+        <div>
+          <Label className="text-foreground">Featured Image</Label>
+          <p className="text-sm text-foreground dark:text-os-gray-300 mt-1">
+            Highlighted image for featured sections. Recommended: 1200x800px jpg
+          </p>
+          {formState.isSubmitting ? (
+            <Skeleton className="h-40 w-full mt-1" />
+          ) : (
+            <FormField
+              name="featuredImage"
+              render={({ field: { onChange, value, ...field } }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="border border-dashed border-border-subtle dark:border-border-subtle rounded-[6px] p-6 flex flex-col items-center justify-center bg-secondary dark:bg-transparent mt-2">
+                      <input
+                        type="file"
+                        id="featured-image"
+                        className="hidden"
+                        accept="image/jpeg,image/png"
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (!file) {
+                            onChange(null);
+                            return;
+                          }
+                          // Validate file size (10MB max)
+                          if (file.size > 10 * 1024 * 1024) {
+                            toast.error("File too large. Maximum 10MB.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          // Validate file type
+                          if (!["image/jpeg", "image/png", "image/gif", "image/webp"].includes(file.type)) {
+                            toast.error("Invalid file type. Use JPG, PNG, GIF, or WebP.");
+                            const input = e.target as HTMLInputElement;
+                            if (input) input.value = "";
+                            return;
+                          }
+                          onChange(file);
+                        }}
+                        {...field}
+                      />
+
+                      {value ? (
+                        <div className="w-full flex flex-col items-center">
+                          <div className="relative w-48 h-32 mb-2">
+                            <Image
+                              src={
+                                value instanceof File
+                                  ? URL.createObjectURL(value)
+                                  : "/placeholder.svg"
+                              }
+                              alt="Featured preview"
+                              fill
+                              style={{ objectFit: "cover" }}
+                              className="rounded-[6px]"
+                            />
+                            <button
+                              type="button"
+                              className="absolute -top-2 -right-2 bg-destructive rounded-full p-1"
+                              onClick={e => {
+                                e.preventDefault();
+                                onChange(null);
+                                const input = document.getElementById(
+                                  "featured-image"
+                                ) as HTMLInputElement;
+                                if (input) input.value = "";
+                              }}
+                            >
+                              <X className="h-4 w-4 text-foreground" />
+                            </button>
+                          </div>
+                          <p className="text-sm text-foreground dark:text-os-gray-300 mt-2">
+                            {value?.name}
+                          </p>
+                          <p className="text-xs text-os-gray-300 dark:text-os-gray-300">
+                            {value && (value.size / 1024 / 1024).toFixed(2)} MB
+                          </p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="h-6 w-6 mb-2 text-os-gray-300" />
+                          <p className="text-sm text-center text-foreground dark:text-os-gray-300">
+                            Drop your featured image here
+                            <br />
+                            to upload
+                          </p>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="mt-4 bg-background dark:bg-muted border-border-subtle dark:border-border-subtle text-foreground hover:bg-muted dark:hover:bg-hover"
+                            onClick={e => {
+                              e.preventDefault();
+                              document.getElementById("featured-image")?.click();
                             }}
                           >
                             Choose Image...
