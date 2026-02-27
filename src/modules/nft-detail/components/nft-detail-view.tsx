@@ -43,22 +43,22 @@ function CollapsibleSection({
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className="border border-border rounded-xl overflow-hidden">
+    <div className="border border-border/20 rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full p-4 hover:bg-muted/30 transition-colors"
+        className="flex items-center justify-between w-full px-3 py-2.5 hover:bg-muted/10 transition-colors"
       >
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           {icon}
-          <span className="font-medium text-sm">{title}</span>
+          <span className="font-medium text-[13px]">{title}</span>
         </div>
         {isOpen ? (
-          <ChevronUp className="h-4 w-4 text-muted-foreground" />
+          <ChevronUp className="h-3.5 w-3.5 text-muted-foreground/50" />
         ) : (
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          <ChevronDown className="h-3.5 w-3.5 text-muted-foreground/50" />
         )}
       </button>
-      {isOpen && <div className="px-4 pb-4 border-t border-border">{children}</div>}
+      {isOpen && <div className="px-3 pb-3 border-t border-border/20">{children}</div>}
     </div>
   );
 }
@@ -84,12 +84,12 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
   ];
 
   return (
-    <div className="mx-auto py-4 sm:py-6">
+    <div className="mx-auto py-3 sm:py-4">
       {/* Main 50/50 split layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Left Column - Image */}
         <div className="space-y-0">
-          <div className="relative aspect-square rounded-xl overflow-hidden border border-border bg-muted/20">
+          <div className="relative aspect-square rounded-lg overflow-hidden border border-border/20 bg-muted/10">
             <Image src={nft.image} alt={nft.name} fill className="object-cover" priority />
 
             {/* Overlay actions */}
@@ -120,32 +120,26 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
         </div>
 
         {/* Right Column - Details */}
-        <div className="flex flex-col gap-4">
-          {/* Price section - prominent like OS */}
+        <div className="flex flex-col gap-3">
+          {/* Price section */}
           <div>
             {nft.status === "available" && (
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+              <p className="text-[10px] text-muted-foreground/60 uppercase tracking-wider font-medium mb-0.5">
                 Buy for
               </p>
             )}
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold tracking-tight">
-                {nft.price} {nft.currency}
-              </span>
-            </div>
+            <span className="text-2xl font-bold tracking-tight">
+              {nft.price} {nft.currency}
+            </span>
           </div>
 
           {/* Buy / Offer buttons */}
           {nft.status === "available" && (
-            <div className="flex gap-3">
-              <Button className="flex-1 h-12 text-base font-semibold bg-pink-600 hover:bg-pink-700 text-white" onClick={handleBuyNow}>
+            <div className="flex gap-2">
+              <Button className="flex-1 h-10 text-[13px] font-semibold bg-pink-600 hover:bg-pink-700 text-white rounded-lg" onClick={handleBuyNow}>
                 Buy now
               </Button>
-              <Button
-                variant="outline"
-                className="flex-1 h-12 text-base font-semibold"
-                onClick={handleMakeOffer}
-              >
+              <Button variant="outline" className="flex-1 h-10 text-[13px] font-semibold rounded-lg border-border/30" onClick={handleMakeOffer}>
                 Make Offer
               </Button>
             </div>

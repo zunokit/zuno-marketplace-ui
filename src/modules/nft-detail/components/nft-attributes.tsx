@@ -12,36 +12,35 @@ interface NFTAttributesProps {
 
 export function NFTAttributes({ attributes }: NFTAttributesProps) {
   if (attributes.length === 0) {
-    return <p className="text-muted-foreground text-sm">No attributes</p>;
+    return <p className="text-muted-foreground/60 text-xs">No attributes</p>;
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
       {attributes.map((attr, index) => {
-        const rarityPct = Math.floor(Math.random() * 60) + 1;
-        const isRare = rarityPct <= 10;
+        const pct = Math.floor(Math.random() * 60) + 1;
+        const rare = pct <= 10;
 
         return (
           <div
             key={index}
-            className="rounded-lg border border-border bg-muted/30 p-2.5 hover:bg-muted/50 transition-colors"
+            className="rounded-md border border-border/20 bg-muted/10 p-2 hover:bg-muted/20 transition-colors"
           >
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">
+            <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider font-medium">
               {attr.trait_type}
             </p>
-            <p className="font-medium text-sm truncate">
+            <p className="font-semibold text-[13px] truncate mt-0.5 leading-tight">
               {attr.display_type === "number" ? attr.value : String(attr.value)}
             </p>
-            <div className="flex items-center gap-1.5 mt-1">
-              <span
-                className={cn(
-                  "text-[10px] font-medium px-1.5 py-0.5 rounded",
-                  isRare
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "bg-muted text-muted-foreground"
-                )}
-              >
-                {rarityPct}%
+            <div className="flex items-center justify-between mt-1">
+              <span className={cn(
+                "text-[9px] font-semibold px-1 py-0.5 rounded",
+                rare ? "bg-purple-500/20 text-purple-400" : "bg-muted/30 text-muted-foreground/50"
+              )}>
+                {pct}%
+              </span>
+              <span className="text-[10px] text-muted-foreground/40">
+                {attr.display_type === "number" ? "" : `${(parseFloat(attributes[0]?.value?.toString() || "0.1") || 0.123).toFixed(3)} ETH`}
               </span>
             </div>
           </div>
