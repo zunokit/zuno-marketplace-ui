@@ -51,18 +51,20 @@ export default function MintNFT({}: MintNFTProps) {
             />
           </>
         )}
-        <div className="relative flex flex-col lg:flex-row items-start justify-center gap-4 lg:gap-8 p-4 lg:p-8">
-          <CollectionMediaShowcase
-            collection={collection}
-            overview={overview}
-            utility={utility}
-            onImageChange={setCurrentImage}
-          />
-          <div className="w-full lg:w-[380px] shrink-0">
-            <MintPanel currentGalleryImage={currentImage} />
+        <div className="relative max-w-7xl mx-auto w-full p-4 lg:px-6 lg:py-8">
+          <div className="flex flex-col lg:flex-row items-start gap-4 lg:gap-6">
+            <CollectionMediaShowcase
+              collection={collection}
+              overview={overview}
+              utility={utility}
+              onImageChange={setCurrentImage}
+            />
+            <div className="w-full lg:w-[420px] xl:w-[460px] shrink-0">
+              <MintPanel currentGalleryImage={currentImage} />
+            </div>
           </div>
           {/* Mobile: info section below mint panel */}
-          <div className="w-full lg:hidden">
+          <div className="w-full lg:hidden mt-4">
             <CollectionInfoSection overview={overview} utility={utility} />
           </div>
         </div>
