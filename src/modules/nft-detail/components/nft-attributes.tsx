@@ -2,6 +2,14 @@
 
 import { cn } from "@/shared/utils/tailwind-utils";
 
+function stableHash(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash * 31 + str.charCodeAt(i)) & 0xffffffff) >>> 0;
+  }
+  return hash;
+}
+
 interface NFTAttributesProps {
   attributes: Array<{
     trait_type: string;
@@ -18,7 +26,7 @@ export function NFTAttributes({ attributes }: NFTAttributesProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
       {attributes.map((attr, index) => {
-        const pct = Math.floor(Math.random() * 60) + 1;
+        const pct = (stableHash(`${attr.trait_type}:${String(attr.value)}`) % 60) + 1;
         const rare = pct <= 10;
 
         return (
