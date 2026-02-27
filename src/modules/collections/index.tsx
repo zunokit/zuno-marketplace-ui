@@ -4,6 +4,14 @@ import { useState, useMemo, useRef } from "react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/shared/components/ui/table";
+import {
   Search,
   Star,
   ChevronUp,
@@ -13,6 +21,7 @@ import {
   Flame,
   Bookmark,
   SlidersHorizontal,
+  BadgeCheck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -172,41 +181,40 @@ export function CollectionsList() {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border/20">
-              <th className="w-14 px-1.5 py-2"></th>
-              <th className="text-left px-2 py-2 min-w-[160px]">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Name</span>
-              </th>
-              <th className="px-2 py-2 text-right"><SH label="Floor" k="floor" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden lg:table-cell"><SH label="Total Volume" k="totalVol" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Market Cap" k="marketCap" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Top Offer" k="topOffer" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right"><SH label={`Floor ${timeWindow} %`} k="change" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right"><SH label={`Volume ${timeWindow}`} k="volume" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden lg:table-cell"><SH label={`Vol ${timeWindow} %`} k="sales" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden lg:table-cell"><SH label={`Sales ${timeWindow}`} k="sales" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden xl:table-cell">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Listed</span>
-              </th>
-              <th className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Owners" k="owners" className="justify-end" /></th>
-              <th className="px-2 py-2 text-right hidden md:table-cell w-16">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Last {timeWindow}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.length === 0 ? (
-              <tr><td colSpan={13} className="text-center py-12 text-muted-foreground/60 text-xs">
-                {activeTab === "watchlist" ? "No collections in watchlist." : "No collections found."}
-              </td></tr>
-            ) : filtered.map((c, i) => {
+      <Table>
+        <TableHeader>
+          <TableRow className="border-b border-border/20">
+            <TableHead className="w-14 px-1.5 py-2"></TableHead>
+            <TableHead className="text-left px-2 py-2 min-w-[160px]">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Name</span>
+            </TableHead>
+            <TableHead className="px-2 py-2 text-right"><SH label="Floor" k="floor" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden lg:table-cell"><SH label="Total Volume" k="totalVol" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Market Cap" k="marketCap" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Top Offer" k="topOffer" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right"><SH label={`Floor ${timeWindow} %`} k="change" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right"><SH label={`Volume ${timeWindow}`} k="volume" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden lg:table-cell"><SH label={`Vol ${timeWindow} %`} k="sales" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden lg:table-cell"><SH label={`Sales ${timeWindow}`} k="sales" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden xl:table-cell">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Listed</span>
+            </TableHead>
+            <TableHead className="px-2 py-2 text-right hidden xl:table-cell"><SH label="Owners" k="owners" className="justify-end" /></TableHead>
+            <TableHead className="px-2 py-2 text-right hidden md:table-cell w-16">
+              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60">Last {timeWindow}</span>
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filtered.length === 0 ? (
+            <TableRow><TableCell colSpan={13} className="text-center py-12 text-muted-foreground/60 text-xs">
+              {activeTab === "watchlist" ? "No collections in watchlist." : "No collections found."}
+            </TableCell></TableRow>
+          ) : filtered.map((c, i) => {
               const fl = parseFloat(c.floorPrice || "0");
               return (
-                <tr key={c.address} className="border-b border-border/10 hover:bg-muted/5 transition-colors group">
-                  <td className="px-1.5 py-2">
+                <TableRow key={c.address} className="border-b border-border/10 hover:bg-muted/5 transition-colors group">
+                  <TableCell className="px-1.5 py-2">
                     <div className="flex items-center gap-1.5">
                       <button onClick={e => { e.preventDefault(); e.stopPropagation(); toggleStar(c.address); }}
                         className="opacity-20 hover:opacity-100 group-hover:opacity-50 transition-opacity">
@@ -214,8 +222,8 @@ export function CollectionsList() {
                       </button>
                       <span className="text-[11px] text-muted-foreground/50 w-4 text-right font-mono">{i + 1}</span>
                     </div>
-                  </td>
-                  <td className="px-2 py-2">
+                  </TableCell>
+                  <TableCell className="px-2 py-2">
                     <Link href={`/collections/${slug(c)}`} className="flex items-center gap-2 group/link">
                       <div className="relative h-8 w-8 rounded-full overflow-hidden shrink-0 ring-1 ring-white/10">
                         {c.image ? <Image src={c.image} alt={c.name} fill className="object-cover" sizes="32px" /> : <div className="h-full w-full bg-muted" />}
@@ -223,59 +231,58 @@ export function CollectionsList() {
                       <div className="flex items-center gap-1 min-w-0">
                         <span className="font-medium text-[13px] truncate group-hover/link:text-primary transition-colors">{c.name}</span>
                         {c.verified && (
-                          <svg className="h-3.5 w-3.5 fill-blue-500 shrink-0" viewBox="0 -960 960 960"><path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm94-278 226-226-56-58-170 170-86-84-56 56 142 142Z" /><path className="fill-white" d="M438-338 L664-564 L608-622 L438-452 L352-538 L296-482 L438-338 Z" /></svg>
+                          <BadgeCheck className="h-3.5 w-3.5 text-blue-500 shrink-0" />
                         )}
                       </div>
                     </Link>
-                  </td>
-                  <td className="px-2 py-2 text-right">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right">
                     <div className="text-[13px] font-medium">{c.floorPrice} ETH</div>
                     <div className="text-[10px] text-muted-foreground/40">{fmtUsd(fl)}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden lg:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden lg:table-cell">
                     <div className="text-[13px] font-medium">{fmtVol(c.totalVol)} ETH</div>
                     <div className="text-[10px] text-muted-foreground/40">{fmtUsd(c.totalVol)}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden xl:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden xl:table-cell">
                     <div className="text-[13px] font-medium">{fmtVol(c.marketCap)} ETH</div>
                     <div className="text-[10px] text-muted-foreground/40">{fmtUsd(c.marketCap)}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden xl:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden xl:table-cell">
                     <div className="text-[13px] font-medium">{c.topOffer.toFixed(3)} ETH</div>
                     <div className="text-[10px] text-muted-foreground/40">{fmtUsd(c.topOffer)}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right">
                     <span className={cn("text-[13px] font-medium",
                       c.change1d > 0 ? "text-green-500" : c.change1d < 0 ? "text-red-500" : "text-muted-foreground/60"
                     )}>{c.change1d > 0 ? "▲" : c.change1d < 0 ? "▼" : ""} {Math.abs(c.change1d)}%</span>
-                  </td>
-                  <td className="px-2 py-2 text-right">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right">
                     <div className="text-[13px] font-medium">{c.volume24h} ETH</div>
                     <div className="text-[10px] text-muted-foreground/40">{fmtUsd(parseFloat(c.volume24h || "0"))}</div>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden lg:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden lg:table-cell">
                     <span className={cn("text-[13px]",
                       c.volChange1d > 0 ? "text-green-500" : c.volChange1d < 0 ? "text-red-500" : "text-muted-foreground/60"
                     )}>{c.volChange1d > 0 ? "▲" : c.volChange1d < 0 ? "▼" : ""} {Math.abs(c.volChange1d)}%</span>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden lg:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden lg:table-cell">
                     <span className="text-[13px] text-muted-foreground/60">{c.sales1d.toLocaleString()}</span>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden xl:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden xl:table-cell">
                     <span className="text-[13px] text-muted-foreground/60">{c.listed} ({c.listedPct}%)</span>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden xl:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden xl:table-cell">
                     <span className="text-[13px] text-muted-foreground/60">{c.ownerCount.toLocaleString()} ({c.ownerPct}%)</span>
-                  </td>
-                  <td className="px-2 py-2 text-right hidden md:table-cell">
+                  </TableCell>
+                  <TableCell className="px-2 py-2 text-right hidden md:table-cell">
                     <div className="flex justify-end"><SparklineChart data={c.sparkline} positive={c.change1d >= 0} /></div>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               );
             })}
-          </tbody>
-        </table>
-      </div>
+        </TableBody>
+      </Table>
     </div>
   );
 }
