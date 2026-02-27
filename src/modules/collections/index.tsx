@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -65,16 +65,17 @@ export function CollectionsList() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("top");
   const [starredIds, setStarredIds] = useState<Set<string>>(new Set());
 
-  const rows = useMemo(() => {
+  const baseCollections = useRef<Omit<Row, "starred">[] | null>(null);
+  if (baseCollections.current === null) {
     const chains = ["Ethereum", "Polygon", "Solana", "Bitcoin", "Base"];
-    const out: Row[] = [];
+    const data: Omit<Row, "starred">[] = [];
     for (let i = 0; i < 25; i++) {
       const b = mockCollections[i % mockCollections.length];
       const fl = Math.random() * 5 + 0.01;
       const tv = Math.random() * 500000 + 1000;
       const supply = Math.floor(Math.random() * 20000) + 100;
       const owners = Math.floor(Math.random() * 10000) + 50;
-      out.push({
+      data.push({
         ...b, address: `${b.address}-${i}`, name: i < 2 ? b.name : `${b.name} #${i}`,
         floorPrice: fl.toFixed(3), volume24h: (Math.random() * 200 + 1).toFixed(2),
         totalVolume: tv.toFixed(0), itemCount: supply, ownerCount: owners,
@@ -85,11 +86,14 @@ export function CollectionsList() {
         listed: Math.floor(Math.random() * 500) + 1,
         listedPct: parseFloat((Math.random() * 10).toFixed(1)),
         ownerPct: parseFloat(((owners / supply) * 100).toFixed(1)),
-        sparkline: generateSparkline(), starred: starredIds.has(`${b.address}-${i}`),
-        chain: chains[i % chains.length],
+        sparkline: generateSparkline(), chain: chains[i % chains.length],
       });
     }
-    return out;
+    baseCollections.current = data;
+  }
+
+  const rows = useMemo(() => {
+    return (baseCollections.current ?? []).map(c => ({ ...c, starred: starredIds.has(c.address) }));
   }, [starredIds]);
 
   const toggleStar = (addr: string) => {
