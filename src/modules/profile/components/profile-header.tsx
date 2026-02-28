@@ -4,25 +4,11 @@ import { useState } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
 import { Badge } from "@/shared/components/ui/badge";
-import { Globe, Copy, Check, Settings, Share2, UserPlus, UserMinus } from "lucide-react";
+import { Globe, Copy, Check, Settings, Share2, UserPlus, UserMinus, Twitter, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type UserProfile } from "@/shared/types/profile";
 import { cn } from "@/shared/utils/tailwind-utils";
-
-function XIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={cn("fill-current", className)}
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-    >
-      <path d="M9.14163 7.19284L13.6089 2H12.5503L8.67137 6.50887L5.57328 2H2L6.68492 8.81821L2 14.2637H3.05866L7.15491 9.50218L10.4267 14.2637H14L9.14163 7.19284ZM7.69165 8.87828L7.21697 8.19934L3.44011 2.79694H5.06615L8.11412 7.15685L8.5888 7.83579L12.5508 13.503H10.9248L7.69165 8.87828Z" />
-    </svg>
-  );
-}
 
 interface ProfileHeaderProps {
   profile: UserProfile;
@@ -81,17 +67,7 @@ export function ProfileHeader({
                   {profile.displayName || profile.username || truncateAddress(profile.address)}
                 </h1>
                 {profile.verified && (
-                  <svg
-                    className="h-5 w-5 fill-blue-500 shrink-0"
-                    viewBox="0 -960 960 960"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm94-278 226-226-56-58-170 170-86-84-56 56 142 142Z" />
-                    <path
-                      className="fill-white"
-                      d="M438-338 L664-564 L608-622 L438-452 L352-538 L296-482 L438-338 Z"
-                    />
-                  </svg>
+                  <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
                 )}
               </div>
 
@@ -125,7 +101,7 @@ export function ProfileHeader({
                     rel="noopener noreferrer"
                     className="p-1.5 rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
                   >
-                    <XIcon className="h-3.5 w-3.5" />
+                    <Twitter className="h-3.5 w-3.5" />
                   </a>
                 )}
                 <button className="p-1.5 rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground">
