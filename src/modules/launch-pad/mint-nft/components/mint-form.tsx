@@ -402,7 +402,7 @@ export default function MintForm() {
             type="button"
             onClick={handleButtonClick}
             disabled={buttonState.disabled}
-            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#ff1a75] hover:bg-[#e61766] active:bg-[#cc145a] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-12 shadow-[0_0_20px_rgba(255,26,117,0.3)]"
+            className="py-0 px-3 inline-flex justify-center items-center rounded-lg text-sm font-bold transition bg-[#E42575] hover:bg-[#d02068] active:bg-[#bd1c5e] text-white disabled:opacity-50 disabled:cursor-not-allowed w-full min-w-[150px] h-11 shadow-[0_0_16px_rgba(228,37,117,0.25)]"
           >
             {buttonState.icon}
             {buttonState.text}

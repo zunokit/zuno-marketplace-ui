@@ -4,10 +4,11 @@ import { useState } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
 import { Badge } from "@/shared/components/ui/badge";
-import { Globe, Twitter, Copy, Check, Settings, Share2, UserPlus, UserMinus } from "lucide-react";
+import { Globe, Copy, Check, Settings, Share2, UserPlus, UserMinus, Twitter, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type UserProfile } from "@/shared/types/profile";
+import { cn } from "@/shared/utils/tailwind-utils";
 
 interface ProfileHeaderProps {
   profile: UserProfile;
@@ -32,142 +33,131 @@ export function ProfileHeader({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: profile.displayName || profile.username || "User Profile",
-        url: window.location.href,
-      });
-    }
-  };
-
-  const truncateAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
+  const truncateAddress = (address: string) =>
+    `${address.slice(0, 6)}...${address.slice(-4)}`;
 
   return (
     <div className="relative">
       {/* Banner */}
-      <div className="relative h-48 md:h-64 lg:h-80 w-full overflow-hidden rounded-[12px]">
+      <div className="relative h-40 sm:h-52 md:h-64 w-full overflow-hidden">
         {profile.banner ? (
           <Image src={profile.banner} alt="Profile banner" fill className="object-cover" />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-purple-500 to-pink-500" />
+          <div className="h-full w-full bg-gradient-to-br from-purple-600/30 via-blue-600/20 to-pink-600/30" />
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
       </div>
 
       {/* Profile Info */}
-      <div className="relative px-4 md:px-8 -mt-16 md:-mt-20">
-        <div className="flex flex-col md:flex-row items-start md:items-end gap-4">
+      <div className="relative px-4 sm:px-6 -mt-16 sm:-mt-20">
+        <div className="flex flex-col sm:flex-row sm:items-end gap-4">
           {/* Avatar */}
-          <Avatar className="h-32 w-32 md:h-40 md:w-40 border-4 border-background">
+          <Avatar className="h-28 w-28 sm:h-32 sm:w-32 border-4 border-background ring-2 ring-border shrink-0">
             <AvatarImage src={profile.avatar} alt={profile.displayName} />
             <AvatarFallback className="text-2xl">
               {profile.displayName?.[0] || profile.username?.[0] || "?"}
             </AvatarFallback>
           </Avatar>
 
-          {/* User Info */}
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              <h1 className="text-2xl md:text-3xl font-bold">
-                {profile.displayName || profile.username || truncateAddress(profile.address)}
-              </h1>
-              {profile.verified && (
-                <Badge variant="secondary" className="gap-1">
-                  <Check className="h-3 w-3" />
-                  Verified
-                </Badge>
-              )}
-            </div>
+          {/* Name and actions row */}
+          <div className="flex-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 min-w-0 pb-1">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-bold truncate">
+                  {profile.displayName || profile.username || truncateAddress(profile.address)}
+                </h1>
+                {profile.verified && (
+                  <BadgeCheck className="h-5 w-5 text-blue-500 shrink-0" />
+                )}
+              </div>
 
-            {profile.username && <p className="text-os-gray-300 mb-2">@{profile.username}</p>}
+              <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                <button
+                  onClick={handleCopyAddress}
+                  className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-mono bg-muted/50 px-2 py-1 rounded-md"
+                >
+                  {truncateAddress(profile.address)}
+                  {copied ? (
+                    <Check className="h-3 w-3 text-green-500" />
+                  ) : (
+                    <Copy className="h-3 w-3" />
+                  )}
+                </button>
 
-            <div className="flex items-center gap-2 mb-4">
-              <code className="text-sm bg-muted px-2 py-1 rounded">
-                {truncateAddress(profile.address)}
-              </code>
-              <Button variant="ghost" size="sm" onClick={handleCopyAddress} className="h-8 w-8 p-0">
-                {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
-              </Button>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-2">
-              {profile.website && (
-                <Button variant="ghost" size="sm" asChild>
-                  <a href={profile.website} target="_blank" rel="noopener noreferrer">
-                    <Globe className="h-4 w-4" />
+                {profile.website && (
+                  <a
+                    href={profile.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
+                  >
+                    <Globe className="h-3.5 w-3.5" />
                   </a>
-                </Button>
-              )}
-              {profile.twitter && (
-                <Button variant="ghost" size="sm" asChild>
+                )}
+                {profile.twitter && (
                   <a
                     href={`https://twitter.com/${profile.twitter.replace("@", "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="p-1.5 rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
                   >
-                    <Twitter className="h-4 w-4" />
+                    <Twitter className="h-3.5 w-3.5" />
                   </a>
+                )}
+                <button className="p-1.5 rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground">
+                  <Share2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2 shrink-0">
+              {isCurrentUser ? (
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/profile/settings/">
+                    <Settings className="h-3.5 w-3.5 mr-1.5" />
+                    Edit Profile
+                  </Link>
+                </Button>
+              ) : isFollowing ? (
+                <Button variant="outline" size="sm" onClick={onUnfollow}>
+                  <UserMinus className="h-3.5 w-3.5 mr-1.5" />
+                  Unfollow
+                </Button>
+              ) : (
+                <Button size="sm" onClick={onFollow}>
+                  <UserPlus className="h-3.5 w-3.5 mr-1.5" />
+                  Follow
                 </Button>
               )}
-              <Button variant="ghost" size="sm" onClick={handleShare}>
-                <Share2 className="h-4 w-4" />
-              </Button>
             </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex gap-2">
-            {isCurrentUser ? (
-              <Button variant="outline" asChild>
-                <Link href="/profile/settings/">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Edit Profile
-                </Link>
-              </Button>
-            ) : (
-              <>
-                {isFollowing ? (
-                  <Button variant="outline" onClick={onUnfollow}>
-                    <UserMinus className="h-4 w-4 mr-2" />
-                    Unfollow
-                  </Button>
-                ) : (
-                  <Button onClick={onFollow}>
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Follow
-                  </Button>
-                )}
-              </>
-            )}
           </div>
         </div>
 
         {/* Bio */}
-        {profile.bio && <p className="mt-4 text-os-gray-300 max-w-3xl">{profile.bio}</p>}
+        {profile.bio && (
+          <p className="mt-3 text-sm text-muted-foreground max-w-2xl">{profile.bio}</p>
+        )}
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mt-6">
-          <StatsCard label="NFTs Owned" value={profile.stats.nftsOwned} />
-          <StatsCard label="NFTs Created" value={profile.stats.nftsCreated} />
-          <StatsCard label="Collections" value={profile.stats.collections} />
-          <StatsCard label="Volume" value={profile.stats.totalVolume} />
-          <StatsCard label="Floor Price" value={profile.stats.floorPrice} />
-          <StatsCard label="Followers" value={profile.stats.followers.toLocaleString()} />
-          <StatsCard label="Following" value={profile.stats.following.toLocaleString()} />
+        {/* Stats row - inline like ME/OS */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 pt-4 border-t border-border">
+          <StatInline label="Owned" value={profile.stats.nftsOwned} />
+          <StatInline label="Created" value={profile.stats.nftsCreated} />
+          <StatInline label="Collections" value={profile.stats.collections} />
+          <StatInline label="Volume" value={profile.stats.totalVolume} />
+          <StatInline label="Followers" value={profile.stats.followers.toLocaleString()} />
+          <StatInline label="Following" value={profile.stats.following.toLocaleString()} />
         </div>
       </div>
     </div>
   );
 }
 
-function StatsCard({ label, value }: { label: string; value: string | number }) {
+function StatInline({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="bg-card rounded-[8px] p-3 border">
-      <p className="text-xs text-os-gray-300 mb-1">{label}</p>
-      <p className="font-medium font-sans">{value}</p>
+    <div className="flex items-center gap-1.5">
+      <span className="text-sm font-semibold">{value}</span>
+      <span className="text-xs text-muted-foreground">{label}</span>
     </div>
   );
 }

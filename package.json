@@ -83,7 +83,15 @@
   "pnpm": {
     "overrides": {
       "pino": "^9.14.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@sentry/cli",
+      "bufferutil",
+      "keccak",
+      "sharp",
+      "unrs-resolver",
+      "utf-8-validate"
+    ]
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function AuctionsPage() {
   return (
-    <div className="mx-auto py-8">
+    <div className="mx-auto py-4 sm:py-6">
       <AuctionsList />
     </div>
   );
