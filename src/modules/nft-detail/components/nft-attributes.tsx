@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 interface NFTAttributesProps {
@@ -10,7 +11,22 @@ interface NFTAttributesProps {
   }>;
 }
 
+interface AttributeData {
+  pct: number;
+  rare: boolean;
+}
+
+function generateStableAttributeData(attributes: NFTAttributesProps["attributes"]): AttributeData[] {
+  return attributes.map(attr => {
+    const seed = attr.trait_type.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const pct = ((seed * 37) % 60) + 1;
+    return { pct, rare: pct <= 10 };
+  });
+}
+
 export function NFTAttributes({ attributes }: NFTAttributesProps) {
+  const attributeData = useMemo(() => generateStableAttributeData(attributes), [attributes]);
+
   if (attributes.length === 0) {
     return <p className="text-muted-foreground/60 text-xs">No attributes</p>;
   }
@@ -18,8 +34,7 @@ export function NFTAttributes({ attributes }: NFTAttributesProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
       {attributes.map((attr, index) => {
-        const pct = Math.floor(Math.random() * 60) + 1;
-        const rare = pct <= 10;
+        const { pct, rare } = attributeData[index] || { pct: 50, rare: false };
 
         return (
           <div
@@ -35,7 +50,7 @@ export function NFTAttributes({ attributes }: NFTAttributesProps) {
             <div className="flex items-center justify-between mt-1">
               <span className={cn(
                 "text-[9px] font-semibold px-1 py-0.5 rounded",
-                rare ? "bg-purple-500/20 text-purple-400" : "bg-muted/30 text-muted-foreground/50"
+                rare ? "bg-primary/20 text-primary" : "bg-muted/30 text-muted-foreground/50"
               )}>
                 {pct}%
               </span>

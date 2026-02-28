@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { Button } from "@/shared/components/ui/button";
 import { AuctionCard } from "@/modules/auctions/components/auction-card";
 import { AuctionsFilter } from "@/modules/auctions/components/auctions-filter";
 import { type Auction, type AuctionFilter } from "@/shared/types/auction";
@@ -56,11 +57,11 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
   const upcomingCount = initialAuctions.filter(a => a.status === "upcoming").length;
   const endedCount = initialAuctions.filter(a => a.status === "ended").length;
 
-  const tabs = [
+  const tabs: Array<{ value: "active" | "upcoming" | "ended"; label: string; count: number }> = [
     { value: "active", label: "Active", count: activeCount },
     { value: "upcoming", label: "Upcoming", count: upcomingCount },
     { value: "ended", label: "Ended", count: endedCount },
-  ] as const;
+  ];
 
   return (
     <div className="space-y-5">
@@ -68,17 +69,19 @@ export function AuctionsList({ initialAuctions = mockAuctions }: AuctionsListPro
 
       <div className="flex items-center gap-0 border-b border-border/50 overflow-x-auto scrollbar-hide">
         {tabs.map(tab => (
-          <button
+          <Button
             key={tab.value}
-            onClick={() => handleFilterChange({ ...filter, status: tab.value as AuctionFilter["status"] })}
+            variant="ghost"
+            size="sm"
+            onClick={() => handleFilterChange({ ...filter, status: tab.value })}
             className={cn(
-              "px-4 pb-2.5 pt-1 text-sm font-medium transition-colors whitespace-nowrap",
-              filter.status === tab.value ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]" : "text-muted-foreground hover:text-foreground"
+              "px-4 pb-2.5 pt-1 text-sm font-medium transition-colors whitespace-nowrap h-auto rounded-none",
+              filter.status === tab.value ? "text-foreground shadow-[inset_0_-2px_0_0_hsl(var(--primary))]" : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tab.label}
             <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
-          </button>
+          </Button>
         ))}
       </div>
 

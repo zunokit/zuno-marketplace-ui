@@ -18,6 +18,7 @@ import {
   ChevronDown,
   ArrowUpDown,
   TrendingUp,
+  TrendingDown,
   Flame,
   Bookmark,
   SlidersHorizontal,
@@ -41,14 +42,11 @@ function generateSparkline(): number[] {
   return pts;
 }
 
-function SparklineChart({ data, positive }: { data: number[]; positive: boolean }) {
-  const min = Math.min(...data), max = Math.max(...data), range = max - min || 1;
-  const h = 28, w = 56;
-  const points = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`).join(" ");
-  return (
-    <svg width={w} height={h} className="shrink-0">
-      <polyline fill="none" stroke={positive ? "#22c55e" : "#ef4444"} strokeWidth="1.5" points={points} />
-    </svg>
+function SparklineChart({ positive }: { data: number[]; positive: boolean }) {
+  return positive ? (
+    <TrendingUp className="h-4 w-4 text-success" />
+  ) : (
+    <TrendingDown className="h-4 w-4 text-destructive" />
   );
 }
 
@@ -131,13 +129,13 @@ export function CollectionsList() {
   const SH = ({ label, k, className }: { label: string; k: SortKey; className?: string }) => {
     const on = sortKey === k;
     return (
-      <button onClick={() => handleSort(k)} className={cn(
-        "flex items-center gap-0.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60 hover:text-foreground/80 transition-colors whitespace-nowrap",
+      <Button variant="ghost" size="sm" onClick={() => handleSort(k)} className={cn(
+        "flex items-center gap-0.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/60 hover:text-foreground/80 transition-colors whitespace-nowrap h-auto py-0 px-0",
         on && "text-foreground/80", className
       )}>
         {label}
         {on ? (sortDir === "desc" ? <ChevronDown className="h-2.5 w-2.5" /> : <ChevronUp className="h-2.5 w-2.5" />) : <ArrowUpDown className="h-2.5 w-2.5 opacity-0 group-hover:opacity-30" />}
-      </button>
+      </Button>
     );
   };
 
@@ -145,16 +143,22 @@ export function CollectionsList() {
     <div className="space-y-2">
       {/* Tabs */}
       <div className="flex items-center gap-0 border-b border-border/30 overflow-x-auto scrollbar-hide">
-        {(["top", "trending", "watchlist"] as ActiveTab[]).map(t => (
-          <button key={t} onClick={() => setActiveTab(t)} className={cn(
-            "px-3 pb-2 pt-0.5 text-[13px] font-medium capitalize transition-colors whitespace-nowrap",
-            activeTab === t ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]" : "text-muted-foreground/60 hover:text-foreground/80"
-          )}>
+        {(["top", "trending", "watchlist"] satisfies ActiveTab[]).map(t => (
+          <Button
+            key={t}
+            variant="ghost"
+            size="sm"
+            onClick={() => setActiveTab(t)}
+            className={cn(
+              "px-3 pb-2 pt-0.5 text-[13px] font-medium capitalize transition-colors whitespace-nowrap h-auto rounded-none",
+              activeTab === t ? "text-foreground shadow-[inset_0_-2px_0_0_hsl(var(--primary))]" : "text-muted-foreground/60 hover:text-foreground/80"
+            )}
+          >
             {t === "top" && <TrendingUp className="h-3 w-3 inline mr-1 -mt-0.5" />}
             {t === "trending" && <Flame className="h-3 w-3 inline mr-1 -mt-0.5" />}
             {t === "watchlist" && <Bookmark className="h-3 w-3 inline mr-1 -mt-0.5" />}
             {t}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -171,11 +175,14 @@ export function CollectionsList() {
           </div>
         </div>
         <div className="flex items-center gap-0.5 bg-muted/20 rounded p-0.5">
-          {(["10m","1h","6h","1d","7d","30d"] as TimeWindow[]).map(tw => (
-            <button key={tw} onClick={() => setTimeWindow(tw)} className={cn(
-              "px-1.5 py-0.5 rounded text-[10px] font-medium transition-colors uppercase",
-              timeWindow === tw ? "bg-background text-foreground shadow-sm" : "text-muted-foreground/50 hover:text-foreground/70"
-            )}>{tw}</button>
+          {(["10m","1h","6h","1d","7d","30d"] satisfies TimeWindow[]).map(tw => (
+            <Button
+              key={tw}
+              variant={timeWindow === tw ? "secondary" : "ghost"}
+              size="sm"
+              onClick={() => setTimeWindow(tw)}
+              className="px-1.5 py-0.5 h-auto text-[10px] font-medium transition-colors uppercase rounded"
+            >{tw}</Button>
           ))}
         </div>
       </div>
@@ -216,10 +223,10 @@ export function CollectionsList() {
                 <TableRow key={c.address} className="border-b border-border/10 hover:bg-muted/5 transition-colors group">
                   <TableCell className="px-1.5 py-2">
                     <div className="flex items-center gap-1.5">
-                      <button onClick={e => { e.preventDefault(); e.stopPropagation(); toggleStar(c.address); }}
-                        className="opacity-20 hover:opacity-100 group-hover:opacity-50 transition-opacity">
-                        <Star className={cn("h-3 w-3", c.starred ? "fill-yellow-400 text-yellow-400 !opacity-100" : "text-muted-foreground")} />
-                      </button>
+                      <Button variant="ghost" size="icon" onClick={e => { e.preventDefault(); e.stopPropagation(); toggleStar(c.address); }}
+                        className="opacity-20 hover:opacity-100 group-hover:opacity-50 transition-opacity h-auto w-auto p-0.5">
+                        <Star className={cn("h-3 w-3", c.starred ? "fill-warning text-warning" : "text-muted-foreground")} />
+                      </Button>
                       <span className="text-[11px] text-muted-foreground/50 w-4 text-right font-mono">{i + 1}</span>
                     </div>
                   </TableCell>
@@ -231,7 +238,7 @@ export function CollectionsList() {
                       <div className="flex items-center gap-1 min-w-0">
                         <span className="font-medium text-[13px] truncate group-hover/link:text-primary transition-colors">{c.name}</span>
                         {c.verified && (
-                          <BadgeCheck className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+                          <BadgeCheck className="h-3.5 w-3.5 text-info shrink-0" />
                         )}
                       </div>
                     </Link>
@@ -254,7 +261,7 @@ export function CollectionsList() {
                   </TableCell>
                   <TableCell className="px-2 py-2 text-right">
                     <span className={cn("text-[13px] font-medium",
-                      c.change1d > 0 ? "text-green-500" : c.change1d < 0 ? "text-red-500" : "text-muted-foreground/60"
+                      c.change1d > 0 ? "text-success" : c.change1d < 0 ? "text-destructive" : "text-muted-foreground/60"
                     )}>{c.change1d > 0 ? "▲" : c.change1d < 0 ? "▼" : ""} {Math.abs(c.change1d)}%</span>
                   </TableCell>
                   <TableCell className="px-2 py-2 text-right">
@@ -263,7 +270,7 @@ export function CollectionsList() {
                   </TableCell>
                   <TableCell className="px-2 py-2 text-right hidden lg:table-cell">
                     <span className={cn("text-[13px]",
-                      c.volChange1d > 0 ? "text-green-500" : c.volChange1d < 0 ? "text-red-500" : "text-muted-foreground/60"
+                      c.volChange1d > 0 ? "text-success" : c.volChange1d < 0 ? "text-destructive" : "text-muted-foreground/60"
                     )}>{c.volChange1d > 0 ? "▲" : c.volChange1d < 0 ? "▼" : ""} {Math.abs(c.volChange1d)}%</span>
                   </TableCell>
                   <TableCell className="px-2 py-2 text-right hidden lg:table-cell">

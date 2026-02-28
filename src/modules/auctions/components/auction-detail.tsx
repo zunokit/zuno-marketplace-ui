@@ -40,9 +40,10 @@ function CollapsibleSection({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <div className="border border-border rounded-xl overflow-hidden">
-      <button
+      <Button
+        variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full p-4 hover:bg-muted/30 transition-colors"
+        className="flex items-center justify-between w-full p-4 hover:bg-muted/30 transition-colors h-auto font-normal"
       >
         <div className="flex items-center gap-2.5">
           {icon}
@@ -53,7 +54,7 @@ function CollapsibleSection({
         ) : (
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         )}
-      </button>
+      </Button>
       {isOpen && <div className="px-4 pb-4 border-t border-border">{children}</div>}
     </div>
   );
@@ -158,7 +159,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
                 {auction.status}
               </Badge>
               {!isReserveMet && (
-                <Badge variant="outline" className="text-yellow-500 border-yellow-500/30">
+                <Badge variant="outline" className="text-warning border-warning/30">
                   <AlertCircle className="h-3 w-3 mr-1" />
                   Reserve not met
                 </Badge>
@@ -202,7 +203,7 @@ export function AuctionDetail({ auction }: AuctionDetailProps) {
               </p>
               {leadingBidder && (
                 <div className="flex items-center gap-2 mt-2">
-                  <Trophy className="h-4 w-4 text-yellow-500" />
+                  <Trophy className="h-4 w-4 text-warning" />
                   <span className="text-sm text-muted-foreground">
                     Leading: {leadingBidder.name || leadingBidder.address.slice(0, 8)}
                   </span>

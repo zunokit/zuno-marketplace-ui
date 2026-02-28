@@ -42,9 +42,10 @@ function CollapsibleSection({
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
     <div className="border border-border/20 rounded-lg overflow-hidden">
-      <button
+      <Button
+        variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-3 py-2.5 hover:bg-muted/10 transition-colors"
+        className="flex items-center justify-between w-full px-3 py-2.5 hover:bg-muted/10 transition-colors h-auto font-normal"
       >
         <div className="flex items-center gap-2">
           {icon}
@@ -55,7 +56,7 @@ function CollapsibleSection({
         ) : (
           <ChevronDown className="h-3.5 w-3.5 text-muted-foreground/50" />
         )}
-      </button>
+      </Button>
       {isOpen && <div className="px-3 pb-3 border-t border-border/20">{children}</div>}
     </div>
   );
@@ -75,10 +76,10 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
     console.log("Make offer for:", nft.id);
   };
 
-  const detailTabs = [
-    { value: "details" as const, label: "Details" },
-    { value: "orders" as const, label: "Orders" },
-    { value: "activity" as const, label: "Activity" },
+  const detailTabs: Array<{ value: "details" | "orders" | "activity"; label: string }> = [
+    { value: "details", label: "Details" },
+    { value: "orders", label: "Orders" },
+    { value: "activity", label: "Activity" },
   ];
 
   return (
@@ -92,17 +93,19 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
 
             {/* Overlay actions */}
             <div className="absolute top-3 right-3 flex gap-2">
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={() => setIsLiked(!isLiked)}
-                className="p-2 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors"
+                className="p-2 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors h-auto w-auto"
               >
                 <Heart
-                  className={cn("h-4 w-4", isLiked && "fill-red-500 text-red-500")}
+                  className={cn("h-4 w-4", isLiked && "fill-destructive text-destructive")}
                 />
-              </button>
-              <button className="p-2 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors">
+              </Button>
+              <Button variant="ghost" size="icon" className="p-2 rounded-lg bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors h-auto w-auto">
                 <Share2 className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
 
             <div className="absolute bottom-3 left-3">
@@ -134,7 +137,7 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Buy / Offer buttons */}
           {nft.status === "available" && (
             <div className="flex gap-2">
-              <Button className="flex-1 h-10 text-[13px] font-semibold bg-pink-600 hover:bg-pink-700 text-white rounded-lg" onClick={handleBuyNow}>
+              <Button className="flex-1 h-10 text-[13px] font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg" onClick={handleBuyNow}>
                 Buy now
               </Button>
               <Button variant="outline" className="flex-1 h-10 text-[13px] font-semibold rounded-lg border-border/30" onClick={handleMakeOffer}>
@@ -146,18 +149,20 @@ export function NFTDetailView({ nft }: NFTDetailViewProps) {
           {/* Detail tabs - like OS */}
           <div className="flex items-center gap-0 border-b border-border mt-2">
             {detailTabs.map(tab => (
-              <button
+              <Button
                 key={tab.value}
+                variant="ghost"
+                size="sm"
                 onClick={() => setActiveDetailTab(tab.value)}
                 className={cn(
-                  "px-4 py-2.5 text-sm font-medium transition-colors",
+                  "px-4 py-2.5 text-sm font-medium transition-colors h-auto rounded-none",
                   activeDetailTab === tab.value
-                    ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]"
+                    ? "text-foreground shadow-[inset_0_-2px_0_0_hsl(var(--primary))]"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {tab.label}
-              </button>
+              </Button>
             ))}
           </div>
 

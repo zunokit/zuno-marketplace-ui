@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/shared/components/ui/button";
 import MarketplaceNFTGrid from "@/modules/marketplace/components/marketplace-nft-grid";
 import { ActivityList } from "@/modules/profile/components/activity-list";
 import { type UserProfile, type ProfileTab } from "@/shared/types/profile";
@@ -15,12 +16,12 @@ interface ProfileTabsProps {
 }
 
 export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: ProfileTabsProps) {
-  const tabs = [
-    { value: "collected" as const, label: "Collected", icon: Grid3x3, count: profile.stats.nftsOwned },
-    { value: "created" as const, label: "Created", icon: Package, count: profile.stats.nftsCreated },
-    { value: "favorites" as const, label: "Favorites", icon: Heart, count: 42 },
-    { value: "activity" as const, label: "Activity", icon: Activity, count: mockUserActivities.length },
-    { value: "offers" as const, label: "Offers", icon: Tag, count: 5 },
+  const tabs: Array<{ value: ProfileTab; label: string; icon: typeof Grid3x3; count: number }> = [
+    { value: "collected", label: "Collected", icon: Grid3x3, count: profile.stats.nftsOwned },
+    { value: "created", label: "Created", icon: Package, count: profile.stats.nftsCreated },
+    { value: "favorites", label: "Favorites", icon: Heart, count: 42 },
+    { value: "activity", label: "Activity", icon: Activity, count: mockUserActivities.length },
+    { value: "offers", label: "Offers", icon: Tag, count: 5 },
   ];
 
   const generateMockNft = (index: number): Nft => ({
@@ -80,20 +81,22 @@ export function ProfileTabs({ profile, activeTab = "collected", onTabChange }: P
       {/* Tab bar - ME/OS underline style */}
       <div className="flex items-center gap-0 border-b border-border overflow-x-auto scrollbar-hide">
         {tabs.map(tab => (
-          <button
+          <Button
             key={tab.value}
+            variant="ghost"
+            size="sm"
             onClick={() => onTabChange?.(tab.value)}
             className={cn(
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors whitespace-nowrap shrink-0",
+              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors whitespace-nowrap shrink-0 h-auto rounded-none",
               activeTab === tab.value
-                ? "text-foreground shadow-[inset_0_-2px_0_0_#ec4899]"
+                ? "text-foreground shadow-[inset_0_-2px_0_0_hsl(var(--primary))]"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
             <tab.icon className="h-3.5 w-3.5" />
             <span>{tab.label}</span>
             <span className="text-xs text-muted-foreground">({tab.count})</span>
-          </button>
+          </Button>
         ))}
       </div>
 

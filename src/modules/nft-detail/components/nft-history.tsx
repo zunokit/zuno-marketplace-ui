@@ -37,11 +37,11 @@ export function NFTHistory({ activities }: NFTHistoryProps) {
 
   const getActivityColor = (type: NFTActivity["type"]) => {
     switch (type) {
-      case "mint": return "bg-green-500/10 text-green-500";
-      case "transfer": return "bg-blue-500/10 text-blue-500";
-      case "sale": return "bg-purple-500/10 text-purple-400";
-      case "listing": return "bg-yellow-500/10 text-yellow-500";
-      case "offer": return "bg-yellow-500/10 text-yellow-500";
+      case "mint": return "bg-success/10 text-success";
+      case "transfer": return "bg-info/10 text-info";
+      case "sale": return "bg-secondary/10 text-secondary";
+      case "listing": return "bg-warning/10 text-warning";
+      case "offer": return "bg-warning/10 text-warning";
       case "bid": return "bg-primary/10 text-primary";
       default: return "bg-muted text-muted-foreground";
     }

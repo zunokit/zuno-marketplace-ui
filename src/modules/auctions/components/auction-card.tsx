@@ -90,7 +90,7 @@ export function AuctionCard({ auction, onBidClick, className }: AuctionCardProps
         </div>
 
         {auction.status === "active" && (
-          <Button className="w-full mt-3 h-9 text-[12px] font-semibold bg-pink-600 hover:bg-pink-700 text-white rounded-md"
+          <Button className="w-full mt-3 h-9 text-[12px] font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-md"
             onClick={e => { e.stopPropagation(); onBidClick?.(auction); }}>
             <Gavel className="h-3 w-3 mr-1" /> Place Bid
           </Button>
