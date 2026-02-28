@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+package-lock.json
 /.pnp
 .pnp.*
 .yarn/*
@@ -45,3 +46,4 @@ test-results
 *.tsbuildinfo
 next-env.d.ts
 .sentryclirc
+.env.local

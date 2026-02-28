@@ -203,16 +203,16 @@ export default function LeftSidebar() {
             isActive={isActive(ROUTES.AUCTIONS)}
           />
           <NavItem
-            href={ROUTES.LAUNCHPAD}
+            href={ROUTES.MINT_CREATE_OR_MANAGE}
             icon={<LaunchpadIcon />}
             label="Launchpad"
-            isActive={isActive(ROUTES.LAUNCHPAD)}
+            isActive={isActive(ROUTES.MINT_CREATE_OR_MANAGE)}
           />
           <NavItem
-            href={ROUTES.MINT}
+            href={ROUTES.MINT_CREATE_OR_MANAGE}
             icon={<StudioIcon />}
             label="Mint"
-            isActive={isActive(ROUTES.MINT)}
+            isActive={isActive(ROUTES.MINT_CREATE_OR_MANAGE)}
           />
 
           {/* User */}

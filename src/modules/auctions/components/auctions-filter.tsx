@@ -20,14 +20,16 @@ export function AuctionsFilter({ filter, onFilterChange }: AuctionsFilterProps) 
   };
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+    <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
       <div>
-        <h2 className="text-2xl font-bold">Live Auctions</h2>
-        <p className="text-os-gray-300">Bid on exclusive NFTs in real-time auctions</p>
+        <h1 className="text-2xl font-bold tracking-tight">Live Auctions</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
+          Bid on exclusive NFTs in real-time auctions
+        </p>
       </div>
 
       <Select value={filter.sortBy} onValueChange={handleSortChange}>
-        <SelectTrigger className="w-[200px]">
+        <SelectTrigger className="w-[180px] h-9 text-sm">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
