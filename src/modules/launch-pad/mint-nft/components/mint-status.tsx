@@ -14,7 +14,7 @@ export default function MintStatus() {
   const stageName = activeStageData?.getActiveStage?.isPublicMint ? "Public" : "Allowlist";
 
   return (
-    <div className="bg-secondary p-4 rounded-lg border border-border-subtle space-y-3">
+    <div className="bg-secondary p-3 rounded-lg border border-border-subtle/50 space-y-2.5">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex items-center gap-2 flex-wrap">
           {/* Not Eligible Badge */}

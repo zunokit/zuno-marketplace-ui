@@ -102,7 +102,7 @@ function MintStageCard({ stage }: MintStageCardProps) {
 
 export default function MintStagesList() {
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {STAGES.map((stage) => (
         <MintStageCard key={stage.id} stage={stage} />
       ))}
