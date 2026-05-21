@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Compass, Gavel, LayoutGrid, Sparkles } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 
 export const metadata = {
@@ -6,22 +7,94 @@ export const metadata = {
   description: "The page you're looking for doesn't exist or has been moved.",
 };
 
+const popularDestinations = [
+  {
+    href: "/marketplace",
+    label: "Marketplace",
+    description: "Browse listed NFTs across collections.",
+    icon: LayoutGrid,
+  },
+  {
+    href: "/collections",
+    label: "Collections",
+    description: "Explore curated and trending collections.",
+    icon: Compass,
+  },
+  {
+    href: "/auctions",
+    label: "Auctions",
+    description: "Bid on live and upcoming drops.",
+    icon: Gavel,
+  },
+  {
+    href: "/launch-pad",
+    label: "Launchpad",
+    description: "Discover and launch new collections.",
+    icon: Sparkles,
+  },
+];
+
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 md:p-8">
-      <div className="w-full max-w-md space-y-6 text-center">
+    <main
+      className="flex items-center justify-center min-h-screen p-4 md:p-8"
+      data-testid="not-found-page"
+    >
+      <div className="w-full max-w-2xl space-y-8 text-center">
         <div className="space-y-3">
-          <h1 className="text-4xl font-bold tracking-tighter text-foreground sm:text-5xl animate-bounce">
-            404
+          <p className="text-sm font-mono uppercase tracking-wide text-primary">
+            Error 404
+          </p>
+          <h1 className="text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
+            Page not found
           </h1>
           <p className="text-os-gray-300">
-            The page youre looking for doesnt exist or has been moved.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/">Back to Home</Link>
-        </Button>
+
+        <div className="flex flex-col sm:flex-row justify-center gap-3">
+          <Button asChild data-testid="not-found-home">
+            <Link href="/">Back to home</Link>
+          </Button>
+          <Button asChild variant="outline" data-testid="not-found-marketplace">
+            <Link href="/marketplace">Go to marketplace</Link>
+          </Button>
+        </div>
+
+        <section
+          aria-labelledby="popular-destinations-heading"
+          className="text-left"
+          data-testid="not-found-popular"
+        >
+          <h2
+            id="popular-destinations-heading"
+            className="text-xs font-semibold uppercase tracking-wide text-os-gray-300 text-center sm:text-left"
+          >
+            Popular destinations
+          </h2>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+            {popularDestinations.map(({ href, label, description, icon: Icon }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="group flex items-start gap-3 rounded-md border border-border p-3 hover:bg-accent/40 transition-colors"
+                >
+                  <Icon className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-sm font-medium text-foreground">
+                      {label}
+                    </div>
+                    <div className="text-xs text-os-gray-300">
+                      {description}
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
