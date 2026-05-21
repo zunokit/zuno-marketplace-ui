@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
 import { Badge } from "@/shared/components/ui/badge";
-import { Globe, Copy, Check, Settings, Share2, UserPlus, UserMinus, Twitter, BadgeCheck } from "lucide-react";
+import { CopyButton } from "@/shared/components/copy-button";
+import { Globe, Settings, Share2, UserPlus, UserMinus, Twitter, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type UserProfile } from "@/shared/types/profile";
@@ -25,14 +25,6 @@ export function ProfileHeader({
   onUnfollow,
   isFollowing = false,
 }: ProfileHeaderProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyAddress = () => {
-    navigator.clipboard.writeText(profile.address);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const truncateAddress = (address: string) =>
     `${address.slice(0, 6)}...${address.slice(-4)}`;
 
@@ -72,17 +64,13 @@ export function ProfileHeader({
               </div>
 
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                <button
-                  onClick={handleCopyAddress}
-                  className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-mono bg-muted/50 px-2 py-1 rounded-md"
-                >
-                  {truncateAddress(profile.address)}
-                  {copied ? (
-                    <Check className="h-3 w-3 text-green-500" />
-                  ) : (
-                    <Copy className="h-3 w-3" />
-                  )}
-                </button>
+                <CopyButton
+                  value={profile.address}
+                  label={truncateAddress(profile.address)}
+                  tooltipLabel="Copy wallet address"
+                  toastMessage="Address copied"
+                  className="h-auto text-xs font-mono bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted px-2 py-1 rounded-md gap-1.5"
+                />
 
                 {profile.website && (
                   <a
