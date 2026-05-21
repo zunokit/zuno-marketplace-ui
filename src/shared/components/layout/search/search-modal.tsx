@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { useDebounce } from "@/shared/hooks/use-debounce";
 import { Dialog, DialogContent, DialogTitle } from "@/shared/components/ui/dialog";
 import { Input } from "@/shared/components/ui/input";
 import { ScrollArea } from "@/shared/components/ui/scroll-area";
@@ -82,6 +83,24 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isSearching, setIsSearching] = useState(false);
+  // Avoid firing a "search request" on every keystroke; the debounced
+  // value updates 300ms after the user stops typing.
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  // Flip the searching indicator while the user is mid-keystroke and
+  // clear it once the debounce settles. When the field is empty there
+  // is no search in flight.
+  useEffect(() => {
+    if (searchTerm.length === 0) {
+      setIsSearching(false);
+      return;
+    }
+    if (searchTerm !== debouncedSearchTerm) {
+      setIsSearching(true);
+    } else {
+      setIsSearching(false);
+    }
+  }, [searchTerm, debouncedSearchTerm]);
 
   // Keyboard shortcut
   useEffect(() => {
@@ -104,14 +123,20 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     };
   }, [isOpen, onClose]);
 
-  const handleSearch = useCallback((term: string) => {
+  // Once we wire the modal to a real search API, this effect is where
+  // we'd dispatch the fetch (using debouncedSearchTerm). For now we
+  // simply log when the debounced term changes.
+  useEffect(() => {
+    if (!debouncedSearchTerm) return;
+    // Intentionally left empty — search hook to be added when the
+    // collection search endpoint lands.
+  }, [debouncedSearchTerm, selectedCategory]);
+
+  // Click handler for trending / recent search chips. They populate
+  // the input, which then drives the debounced search effect above.
+  const handleSearch = (term: string) => {
     setSearchTerm(term);
-    setIsSearching(true);
-    // Simulate search delay
-    setTimeout(() => {
-      setIsSearching(false);
-    }, 500);
-  }, []);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -129,7 +154,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             <Input
               autoFocus
               value={searchTerm}
-              onChange={e => handleSearch(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search NFTs, collections and creators..."
               className="pl-12 pr-12 h-12 text-base border border-border-subtle dark:border-border-subtle focus:border-accent focus-visible:ring-0 bg-secondary dark:bg-card rounded-[8px]"
             />
