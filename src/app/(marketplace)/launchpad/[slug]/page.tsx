@@ -1,4 +1,5 @@
 import MintNFT from "@/modules/launch-pad/mint-nft/components/mint-nft";
+import { ErrorBoundary } from "@/shared/components/error-boundary";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -127,9 +128,14 @@ export default async function MintPage({ params }: { params: Promise<{ slug: str
   // Fetch collection data for structured data
   const collection = await fetchCollectionBySlug(slug);
 
+  // Handle 404 for invalid slugs
+  if (!collection) {
+    notFound();
+  }
+
   return (
-    <>
-      <MintNFT slug={slug} />
-    </>
+    <ErrorBoundary>
+      <MintNFT slug={slug} collection={collection} />
+    </ErrorBoundary>
   );
 }

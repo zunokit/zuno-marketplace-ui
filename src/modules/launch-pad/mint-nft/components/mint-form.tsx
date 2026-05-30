@@ -1,9 +1,9 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useMintState } from "@/modules/launch-pad/mint-nft/hooks/use-mint-state";
-import { Loader2, Wallet, Sparkles, Package, AlertTriangle, Lock, CircleHelp } from "lucide-react";
+import { Loader2, Wallet, Sparkles, AlertTriangle, Lock, CheckCircle, XCircle, Crown, RefreshCw } from "lucide-react";
 import { cn } from "@/shared/utils/tailwind-utils";
 
 export default function MintForm() {
@@ -28,6 +28,21 @@ export default function MintForm() {
     setAmount,
     signature,
     nonce,
+    // Allowlist / SDK integration
+    isInAllowlist,
+    isAllowlistOnly,
+    isOwner,
+    canMint,
+    remainingSupply,
+    maxMintable,
+    mintPrice,
+    currencySymbol,
+    priceCalculation,
+    // Error handling
+    error,
+    clearError,
+    handleRetry,
+    isRetrying,
   } = useMintState();
 
   const MINT_LIMIT = 100;
@@ -46,7 +61,7 @@ export default function MintForm() {
         10 // per-transaction limit
       )
       : SUPPORTS_BATCH
-        ? MINT_LIMIT
+        ? Math.min(MINT_LIMIT, maxMintable)
         : 1;
 
   // Logic for button text and state (adapted from MintButton)
@@ -59,7 +74,7 @@ export default function MintForm() {
       };
     }
     if (!isConnected) {
-      return { text: "Connect Wallet to mint", disabled: false, icon: null }; // HTML says "Connect Wallet to mint"
+      return { text: "Connect Wallet to mint", disabled: false, icon: <Wallet className="mr-2 h-4 w-4" /> };
     }
     if (isERC1155) {
       if (!selectedEdition) return { text: "Select an edition to continue", disabled: true };
@@ -73,26 +88,29 @@ export default function MintForm() {
       if (amount > selectedEditionData.remaining)
         return { text: `Only ${selectedEditionData.remaining} remaining`, disabled: true };
     }
-    if (Number(collection.totalMinted) >= Number(collection.maxSupply)) {
+    if (remainingSupply <= 0) {
       return { text: "Sold out", disabled: true, icon: <AlertTriangle className="mr-2 h-4 w-4" /> };
+    }
+    // Allowlist check (owner exempt)
+    if (isAllowlistOnly && !isInAllowlist && !isOwner) {
+      return {
+        text: "Not in Allowlist",
+        disabled: true,
+        icon: <XCircle className="mr-2 h-4 w-4" />,
+      };
     }
     if (isAllowlistMint && (!signature || !nonce)) {
       return { text: "Provide valid signature and nonce", disabled: true };
     }
     if (!agreedToTerms) {
-      return { text: "Accept terms of service", disabled: true }; // Enforce terms agreement via button disable or just check on click
+      return { text: "Accept terms of service", disabled: true };
     }
-
-    const unitPrice =
-      isERC1155 && selectedEditionData
-        ? selectedEditionData.price
-        : mintCostData?.getMintCost?.mintPrice || lastMintCost.mintPrice;
 
     // Simplification for button text to match design style mostly, but keeping info
     return {
-      text: "Mint Now", // Design says "Connect Wallet to mint", so when connected maybe "Mint Now"?
-      disabled: isLoading,
-      icon: isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null,
+      text: "Mint Now",
+      disabled: isLoading || !canMint,
+      icon: isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />,
     };
   };
 
@@ -101,27 +119,112 @@ export default function MintForm() {
   const handleButtonClick = () => {
     // If not connected, we should trigger connect wallet (mocked here or handled by wallet adapter)
     if (!isConnected) {
-      // Trigger connect wallet logic
+      // Trigger connect wallet logic - this would typically open a wallet modal
       console.log("Connect wallet clicked");
       return;
     }
     handleMintConfirm();
   };
 
-  const mintPrice = mintCostData?.getMintCost?.mintPrice || lastMintCost.mintPrice || "0";
-  const mintFee = "0.009"; // Mocked from HTML
-  const protocolFee = "0.0042"; // Mocked from HTML
-  const totalPriceInUsd = "27.42"; // Mocked from HTML
+  const totalPriceInUsd = "--"; // Will be fetched from price oracle in future
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
+      {/* Error Display */}
+      {error && (
+        <div className="p-4 rounded-lg border bg-destructive/10 border-destructive/30">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-destructive text-sm">{error.message}</p>
+              {error.retryable && (
+                <button
+                  onClick={handleRetry}
+                  disabled={isRetrying}
+                  className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-destructive hover:text-destructive/80 disabled:opacity-50"
+                >
+                  <RefreshCw className={cn("h-3.5 w-3.5", isRetrying && "animate-spin")} />
+                  {isRetrying ? "Retrying..." : "Try again"}
+                </button>
+              )}
+            </div>
+            <button
+              onClick={clearError}
+              className="text-muted-foreground hover:text-foreground shrink-0"
+              aria-label="Dismiss error"
+            >
+              <XCircle className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Sold Out Banner */}
+      {remainingSupply <= 0 && (
+        <div className="p-4 rounded-lg border bg-amber-500/10 border-amber-500/30">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <span className="font-medium text-amber-700 dark:text-amber-300">
+              Collection Sold Out
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            All NFTs in this collection have been minted.
+          </p>
+        </div>
+      )}
+
+      {/* Allowlist Status Badge */}
+      {isConnected && isAllowlistOnly && !isOwner && (
+        <div
+          className={cn(
+            "p-3 rounded-lg border text-sm",
+            isInAllowlist
+              ? "bg-green-500/10 border-green-500/30 text-green-600 dark:text-green-400"
+              : "bg-destructive/10 border-destructive/30 text-destructive"
+          )}
+        >
+          <div className="flex items-center gap-2 font-medium">
+            {isInAllowlist ? (
+              <>
+                <CheckCircle className="h-4 w-4" />
+                You are in the allowlist
+              </>
+            ) : (
+              <>
+                <XCircle className="h-4 w-4" />
+                You are not in the allowlist
+              </>
+            )}
+          </div>
+          {!isInAllowlist && (
+            <p className="text-xs text-muted-foreground mt-1">
+              This collection only allows allowlisted addresses to mint.
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Owner Badge */}
+      {isConnected && isOwner && (
+        <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/30">
+          <div className="flex items-center gap-2 font-medium text-blue-600 dark:text-blue-400">
+            <Crown className="h-4 w-4" />
+            You are the collection owner
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            You can mint regardless of allowlist status.
+          </p>
+        </div>
+      )}
+
       {/* Price and Amount */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-muted-foreground text-xs md:text-sm font-semibold">Price</p>
           <div className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
-            <span className="text-lg sm:text-xl font-bold text-foreground break-all">
-              {mintPrice} SOL
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-foreground break-all">
+              {mintPrice} {currencySymbol}
             </span>
             <span className="text-xs md:text-sm text-muted-foreground">
               (${totalPriceInUsd})
@@ -201,13 +304,13 @@ export default function MintForm() {
             <span>Mint Fee</span>
           </div>
           <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
-            <span className="text-right">{mintFee}</span>{" "}
-            <span className="text-left">SOL</span>
+            <span className="text-right">{priceCalculation.totalPrice}</span>{" "}
+            <span className="text-left">{currencySymbol}</span>
           </div>
         </div>
         <div className="flex justify-between text-xs text-muted-foreground gap-2">
           <div className="flex items-center gap-x-1">
-            <span>Protocol fee</span>
+            <span>Total (incl. fees)</span>
             <div className="cursor-default shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -228,8 +331,8 @@ export default function MintForm() {
             </div>
           </div>
           <div className="font-fira flex items-center gap-1 text-foreground shrink-0">
-            <span className="text-right">{protocolFee}</span>{" "}
-            <span className="text-left">SOL</span>
+            <span className="text-right">{priceCalculation.totalPrice}</span>{" "}
+            <span className="text-left">{currencySymbol}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
 import type { ApiCollectionStatus } from "@/shared/types/collection";
+import { createApolloClient } from "@/shared/lib/apollo/apollo-client";
+import { GetCollectionDocument, GetCollectionQuery } from "@/shared/graphql/hooks.generated";
 
 /** UI display status for collection (used in cards, filters, etc.) */
 export type CollectionUIStatus = "upcoming" | "live" | "ended" | "paused";
@@ -129,11 +131,16 @@ export function getCollectionStatus({
 }
 
 export async function fetchCollectionBySlug(slug: string) {
-  return {
-    slug,
-    name: "Test Collection",
-    description: "Test Description",
-    imageUrl: "https://via.placeholder.com/150",
-    bannerUrl: "https://via.placeholder.com/150",
-  };
+  const client = createApolloClient();
+  try {
+    const { data } = await client.query<GetCollectionQuery>({
+      query: GetCollectionDocument,
+      variables: { slug },
+    });
+    if (!data.collection) return null;
+    return data.collection;
+  } catch (error) {
+    console.error("Failed to fetch collection:", error);
+    return null;
+  }
 }
