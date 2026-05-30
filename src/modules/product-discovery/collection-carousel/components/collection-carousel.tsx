@@ -71,6 +71,7 @@ export function CollectionCarousel() {
     return (
       <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
         <p className="text-lg text-muted-foreground mb-2">Failed to load collections</p>
+        <p className="text-sm text-muted-foreground mb-4">{error.message}</p>
         <p className="text-sm text-muted-foreground mb-4">Please try again later</p>
         <button
           onClick={() => refetch()}
